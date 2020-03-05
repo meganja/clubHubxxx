@@ -32,7 +32,7 @@ class ViewControllerClubDescription: UIViewController {
         super.viewDidLoad()
         //        print()
         //        print()
-        print()
+        print("")
         print()
         print()
         print("in new view controller")
