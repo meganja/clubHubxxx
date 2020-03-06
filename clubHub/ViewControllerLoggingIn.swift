@@ -21,7 +21,7 @@ class ViewControllerLoggingIn: UIViewController {
             username.isHidden = true
             password.isHidden = true
         }
-        // test3
+        // test3;
     }
     
     let db = Firestore.firestore()
