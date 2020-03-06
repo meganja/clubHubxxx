@@ -4,7 +4,8 @@
 //
 //  Created by c1843 on 2/26/20.
 //  Copyright © 2020 c1843. All rights reserved.
-//
+// test9
+// test0
 
 import UIKit
 import Firebase
@@ -35,6 +36,7 @@ class ViewControllerLoggingIn: UIViewController {
         }
         
          NotificationCenter.default.addObserver(self, selector: #selector(reactToNotification(_:)), name: sNotification, object: nil)
+
     }
     
     let db = Firestore.firestore()
