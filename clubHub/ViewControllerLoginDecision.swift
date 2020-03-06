@@ -16,7 +16,7 @@ class ViewControllerLoginDecision: UIViewController {
     @IBAction func student(_ sender: Any) {
         type = "student"
         performSegue(withIdentifier: "decisionMade", sender: self)
-        
+    // test
     }
     
     @IBAction func sponsor(_ sender: Any) {
