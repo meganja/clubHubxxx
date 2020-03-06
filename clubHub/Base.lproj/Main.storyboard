@@ -171,12 +171,19 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2IN-T1-vxZ" customClass="GIDSignInButton">
+                                <rect key="frame" x="264" y="448" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.078431372550000003" green="0.1529411765" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                         <viewLayoutGuide key="safeArea" id="D6F-TN-lRo"/>
                     </view>
                     <connections>
+                        <outlet property="googleLogin" destination="2IN-T1-vxZ" id="qBS-mz-Ulp"/>
                         <outlet property="password" destination="qhS-Uu-yuh" id="4gB-ZG-1h1"/>
+                        <outlet property="startBrowsingBtn" destination="Xk8-EV-cEV" id="Edb-yh-EbU"/>
                         <outlet property="username" destination="FBG-wI-exj" id="E40-oR-dUI"/>
                     </connections>
                 </viewController>
@@ -780,8 +787,7 @@
         <image name="unnamed" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="HBN-lN-BdC"/>
-        <segue reference="5qk-sI-xV7"/>
+        <segue reference="Izt-vr-B8h"/>
         <segue reference="GGO-DH-1TB"/>
     </inferredMetricsTieBreakers>
 </document>
