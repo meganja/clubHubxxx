@@ -22,7 +22,7 @@ class ViewControllerLoginDecision: UIViewController {
     @IBAction func sponsor(_ sender: Any) {
         type = "sponsor"
         performSegue(withIdentifier: "decisionMade", sender: self)
-        
+    // test2
     }
     
     @IBAction func admin(_ sender: Any) {
