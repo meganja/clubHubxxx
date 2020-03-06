@@ -11,11 +11,11 @@
 		2553E6E79A34D783847E04E0 /* libPods-clubHubTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B33F02944F8DF4EDD00CF6 /* libPods-clubHubTests.a */; };
 		44DA6E1F354B1564444353C3 /* libPods-clubHub.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2812A1D1DE290C7FE7CEDC4 /* libPods-clubHub.a */; };
 		6641615D2408586300382948 /* CollectionViewCellAllClubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6641615C2408586300382948 /* CollectionViewCellAllClubs.swift */; };
+		BB25FC0D2411D9D500B8F690 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB25FC0C2411D9D500B8F690 /* GoogleService-Info.plist */; };
 		CB5469FE24077360001DFA77 /* ViewControllerLoginDecision.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5469FD24077360001DFA77 /* ViewControllerLoginDecision.swift */; };
 		CB546A0024077851001DFA77 /* ViewControllerLoggingIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5469FF24077851001DFA77 /* ViewControllerLoggingIn.swift */; };
 		CB546A02240779DD001DFA77 /* ViewControllerDispClubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB546A01240779DD001DFA77 /* ViewControllerDispClubs.swift */; };
 		CB55E0DB240C296C006C1F41 /* ViewControllerClubDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB55E0DA240C296C006C1F41 /* ViewControllerClubDescription.swift */; };
-		CB55E0DF240C8BBF006C1F41 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB55E0DE240C8BBF006C1F41 /* GoogleService-Info.plist */; };
 		CB55E0E1240C96F9006C1F41 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB55E0E0240C96F9006C1F41 /* Main.storyboard */; };
 		CB5BD4E6240C16AA008ABA2D /* ViewControllerAddClub.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5BD4E5240C16AA008ABA2D /* ViewControllerAddClub.swift */; };
 		CB5D9061240314A4009184BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5D9060240314A4009184BA /* AppDelegate.swift */; };
@@ -53,12 +53,12 @@
 		6641615C2408586300382948 /* CollectionViewCellAllClubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellAllClubs.swift; sourceTree = "<group>"; };
 		848C83FB99F4646AB6991718 /* Pods-clubHub-clubHubUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-clubHub-clubHubUITests.release.xcconfig"; path = "Target Support Files/Pods-clubHub-clubHubUITests/Pods-clubHub-clubHubUITests.release.xcconfig"; sourceTree = "<group>"; };
 		B8B33F02944F8DF4EDD00CF6 /* libPods-clubHubTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-clubHubTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB25FC0C2411D9D500B8F690 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C2812A1D1DE290C7FE7CEDC4 /* libPods-clubHub.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-clubHub.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB5469FD24077360001DFA77 /* ViewControllerLoginDecision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerLoginDecision.swift; sourceTree = "<group>"; };
 		CB5469FF24077851001DFA77 /* ViewControllerLoggingIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerLoggingIn.swift; sourceTree = "<group>"; };
 		CB546A01240779DD001DFA77 /* ViewControllerDispClubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerDispClubs.swift; sourceTree = "<group>"; };
 		CB55E0DA240C296C006C1F41 /* ViewControllerClubDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerClubDescription.swift; sourceTree = "<group>"; };
-		CB55E0DE240C8BBF006C1F41 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CB55E0E0240C96F9006C1F41 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CB5BD4E5240C16AA008ABA2D /* ViewControllerAddClub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerAddClub.swift; sourceTree = "<group>"; };
 		CB5D905D240314A4009184BA /* clubHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = clubHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -153,6 +153,7 @@
 		CB5D905F240314A4009184BA /* clubHub */ = {
 			isa = PBXGroup;
 			children = (
+				BB25FC0C2411D9D500B8F690 /* GoogleService-Info.plist */,
 				CB5D9060240314A4009184BA /* AppDelegate.swift */,
 				CB5D9062240314A4009184BA /* SceneDelegate.swift */,
 				CB5D9064240314A4009184BA /* ViewController.swift */,
@@ -165,7 +166,6 @@
 				CB5469FD24077360001DFA77 /* ViewControllerLoginDecision.swift */,
 				CB5D9069240314C2009184BA /* Assets.xcassets */,
 				CB5D906B240314C2009184BA /* LaunchScreen.storyboard */,
-				CB55E0DE240C8BBF006C1F41 /* GoogleService-Info.plist */,
 				CB5D906E240314C2009184BA /* Info.plist */,
 			);
 			path = clubHub;
@@ -299,7 +299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB5D906D240314C2009184BA /* LaunchScreen.storyboard in Resources */,
-				CB55E0DF240C8BBF006C1F41 /* GoogleService-Info.plist in Resources */,
+				BB25FC0D2411D9D500B8F690 /* GoogleService-Info.plist in Resources */,
 				CB5D906A240314C2009184BA /* Assets.xcassets in Resources */,
 				CB55E0E1240C96F9006C1F41 /* Main.storyboard in Resources */,
 			);

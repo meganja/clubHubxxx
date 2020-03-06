@@ -8,19 +8,33 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
+
+public let sNotification = Notification.Name("sNotification") //appdelegate notifies viewcontroller of sign in so that start browsing button can be enabled
+
 
 class ViewControllerLoggingIn: UIViewController {
-
-    //@IBOutlet weak var googleLogin: UIButton!
+    
+    @IBOutlet weak var googleLogin: GIDSignInButton!
+    
+    @IBOutlet weak var startBrowsingBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        startBrowsingBtn.isEnabled = false
+
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        
         if (decision == "admin"){
-            //googleLogin.isHidden = true
+            googleLogin.isHidden = true
         }
         if (decision == "student"){
             username.isHidden = true
             password.isHidden = true
         }
+        
+         NotificationCenter.default.addObserver(self, selector: #selector(reactToNotification(_:)), name: sNotification, object: nil)
     }
     
     let db = Firestore.firestore()
@@ -64,5 +78,43 @@ class ViewControllerLoggingIn: UIViewController {
         vc.viewer = self.decision
     }
     
-
+    @objc func reactToNotification(_ sender: Notification){
+        startBrowsingBtn.isEnabled = true
+    }
+    
 }
+
+
+
+
+//here's the code for logging out in case needed in future
+//     let firebaseAuth = Auth.auth()
+//    do {
+//      try firebaseAuth.signOut()
+//    } catch let signOutError as NSError {
+//      print ("Error signing out: %@", signOutError)
+//    }
+
+
+//for profile:
+
+//to check user is signed in and get uid, which will be the doc name
+//    if Auth.auth().currentUser != nil {
+//      // User is signed in.
+//      let user = Auth.auth().currentUser
+//      if let user = user {
+//        // The user's ID, unique to the Firebase project.
+//        // Do NOT use this value to authenticate with your backend server,
+//        // if you have one. Use getTokenWithCompletion:completion: instead.
+//        let uid = user.uid
+//        let email = user.email
+//        let photoURL = user.photoURL
+//        // ...
+//      }
+//    } else {
+//      // No user is signed in.
+//      // ...
+//    }
+
+
+
