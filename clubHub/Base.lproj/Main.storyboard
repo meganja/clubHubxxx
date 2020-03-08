@@ -1301,20 +1301,8 @@
         <image name="unnamed" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-
-
-        <segue reference="y8n-0E-zGg"/>
-
-        <segue reference="K8l-HC-DoF"/>
-        <segue reference="5qk-sI-xV7"/>
-        
-        <segue reference="GGO-DH-1TB"/>
-
-        <segue reference="HBN-lN-BdC"/>
-
         <segue reference="MTe-yV-0cE"/>
-
-        <segue reference="5qk-sI-xV7"/>
+        <segue reference="13Z-ma-H7i"/>
         <segue reference="1Nf-Tr-OE0"/>
     </inferredMetricsTieBreakers>
 </document>
