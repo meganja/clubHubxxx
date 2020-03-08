@@ -13,6 +13,7 @@
 		6641615D2408586300382948 /* CollectionViewCellAllClubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6641615C2408586300382948 /* CollectionViewCellAllClubs.swift */; };
 		BB25FC0D2411D9D500B8F690 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB25FC0C2411D9D500B8F690 /* GoogleService-Info.plist */; };
 		BB45A27F24144D7C0063AC50 /* ViewControllerAdminEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45A27E24144D7C0063AC50 /* ViewControllerAdminEdit.swift */; };
+		BB4A6207241576A5003A887B /* ViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A6206241576A5003A887B /* ViewControllerTest.swift */; };
 		CB5469FE24077360001DFA77 /* ViewControllerLoginDecision.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5469FD24077360001DFA77 /* ViewControllerLoginDecision.swift */; };
 		CB546A0024077851001DFA77 /* ViewControllerLoggingIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5469FF24077851001DFA77 /* ViewControllerLoggingIn.swift */; };
 		CB546A02240779DD001DFA77 /* ViewControllerDispClubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB546A01240779DD001DFA77 /* ViewControllerDispClubs.swift */; };
@@ -56,6 +57,7 @@
 		B8B33F02944F8DF4EDD00CF6 /* libPods-clubHubTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-clubHubTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB25FC0C2411D9D500B8F690 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BB45A27E24144D7C0063AC50 /* ViewControllerAdminEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerAdminEdit.swift; sourceTree = "<group>"; };
+		BB4A6206241576A5003A887B /* ViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTest.swift; sourceTree = "<group>"; };
 		C2812A1D1DE290C7FE7CEDC4 /* libPods-clubHub.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-clubHub.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB5469FD24077360001DFA77 /* ViewControllerLoginDecision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerLoginDecision.swift; sourceTree = "<group>"; };
 		CB5469FF24077851001DFA77 /* ViewControllerLoggingIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerLoggingIn.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				CB5D9069240314C2009184BA /* Assets.xcassets */,
 				CB5D906B240314C2009184BA /* LaunchScreen.storyboard */,
 				CB5D906E240314C2009184BA /* Info.plist */,
+				BB4A6206241576A5003A887B /* ViewControllerTest.swift */,
 			);
 			path = clubHub;
 			sourceTree = "<group>";
@@ -442,6 +445,7 @@
 				CB546A0024077851001DFA77 /* ViewControllerLoggingIn.swift in Sources */,
 				BB45A27F24144D7C0063AC50 /* ViewControllerAdminEdit.swift in Sources */,
 				6641615D2408586300382948 /* CollectionViewCellAllClubs.swift in Sources */,
+				BB4A6207241576A5003A887B /* ViewControllerTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
