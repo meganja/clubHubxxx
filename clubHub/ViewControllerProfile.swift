@@ -80,7 +80,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print("PREPARE FOR TAKEOFF")
         //if navBrowseClicked{
-            var vc = segue.destination as! ViewControllerDispClubs
+        var vc = segue.destination as! ViewControllerDispClubs
         vc.viewer = viewer
         //}
 //        else{
