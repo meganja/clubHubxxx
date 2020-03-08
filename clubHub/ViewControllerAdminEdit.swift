@@ -15,6 +15,8 @@ class ViewControllerAdminEdit: UIViewController {
     var ClubName = ""
     var days = [String]()
     var commit = ""
+    var viewer = ""
+    var docID = ""
     
     @IBOutlet weak var nameTxtFld: UITextField!
     
@@ -55,6 +57,9 @@ class ViewControllerAdminEdit: UIViewController {
             
             for document in querySnapshot!.documents{
                 
+                self.docID = document.documentID
+                print(self.docID)
+                
                 self.genDescriptTxtFld.text = String(describing: document.get("description")!)
                 
                  if String(describing: document.get("commit")!) == "Low"{
@@ -72,21 +77,36 @@ class ViewControllerAdminEdit: UIViewController {
                 if(daysInfo.contains("Monday")){
                     self.mondaySwitch.setOn(true, animated: false)
                 }
+                else{
+                    self.mondaySwitch.setOn(false, animated: false)
+                }
                 
                 if(daysInfo.contains("Tuesday")){
                     self.tuesdaySwitch.setOn(true, animated: false)
+                }
+                else{
+                    self.tuesdaySwitch.setOn(false, animated: false)
                 }
                 
                 if(daysInfo.contains("Wednesday")){
                     self.wednesdaySwitch.setOn(true, animated: false)
                 }
+                else{
+                    self.wednesdaySwitch.setOn(false, animated: false)
+                }
                 
                 if(daysInfo.contains("Thursday")){
                     self.thursdaySwitch.setOn(true, animated: false)
                 }
+                else{
+                    self.thursdaySwitch.setOn(false, animated: false)
+                }
                 
                 if(daysInfo.contains("Friday")){
                     self.fridaySwitch.setOn(true, animated: false)
+                }
+                else{
+                    self.fridaySwitch.setOn(false, animated: false)
                 }
 
                 
@@ -114,6 +134,8 @@ class ViewControllerAdminEdit: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //         Get the new view controller using segue.destination.
 //         Pass the selected object to the new view controller.
+        var vc = segue.destination as! ViewControllerDispClubs
+        vc.viewer = "admin"
     }
 
 
@@ -151,6 +173,7 @@ class ViewControllerAdminEdit: UIViewController {
     }
     
     @IBAction func doneClicked(_ sender: Any) {
+        print(docID)
         checkSwitches()
         if commitSegControl.selectedSegmentIndex == 0{
             commit = "Low"
@@ -175,7 +198,7 @@ class ViewControllerAdminEdit: UIViewController {
             print("\(roomNumTxtFld.text!)")
             print("\(sponsorNameTxtFld.text!)")
             print("\(sponsorEmailTxtFld.text!)")
-            clubsRef.document().setData(
+            clubsRef.document(docID).setData(
                 ["name":"\(nameTxtFld.text!)",
                     "days":days,
                     "volunteer":volunteerOppSwitch.isOn,
@@ -184,6 +207,8 @@ class ViewControllerAdminEdit: UIViewController {
                     "room":"\(roomNumTxtFld.text!)",
                     "sponsor":["\(sponsorNameTxtFld.text!)", "\(sponsorEmailTxtFld.text!)"]])
         }
+        
+        performSegue(withIdentifier: "backToBrowsing", sender: self)
     }
     
 }

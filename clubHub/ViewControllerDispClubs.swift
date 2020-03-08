@@ -257,7 +257,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! CollectionViewCellAllClubs
         
         cell.editClubBtn.tag = indexPath.item
-        cell.editClubBtn.addTarget(self, action: #selector(editClub), for: .touchUpInside)
+        cell.editClubBtn.addTarget(self, action: #selector(editClub(_:)), for: .touchUpInside)
         
         if (self.searchBarActive) {
             cell.clubName.text = self.dataSourceForSearchResult[indexPath.row]
@@ -286,14 +286,13 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         print("You selected cell #\(indexPath.item)!")
         statement = "You selected cell #\(indexPath.item)!"
         performSegue(withIdentifier: "goToDescription", sender: self)
-        
-        
     }
     
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print(segue.identifier)
+        print(sender!)
         if(segue.identifier == "goToDescription"){
             print("IN DESCRIPT PREPARE")
             print("Clicked on #\(self.clickedOn)!")
@@ -303,6 +302,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             vc.statement = self.statement
             print("Num #\(self.clickedOn)!")
             vc.num = self.clickedOn
+            vc.viewer = viewer
             if (self.statement != "Statement #!"){
                 print("Clicked Name #\(self.items[self.clickedOn])!")
                 vc.ClubName = self.items[self.clickedOn]
@@ -408,9 +408,11 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         
     
     @objc func editClub(_ sender: UIButton) {
+        print("EDIT CLUB HAS BEEN CALLED, ONTO SEGUE")
         self.clickedOn = sender.tag
         print("You selected cell #\(sender.tag)!")
         statement = "You selected cell #\(sender.tag)!"
-        performSegue(withIdentifier: "editClubSegue", sender: self)    }
+        performSegue(withIdentifier: "editClubSegue", sender: self)
+    }
     
 }

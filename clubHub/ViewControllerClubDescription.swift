@@ -23,6 +23,7 @@ class ViewControllerClubDescription: UIViewController {
     var ClubName = ""
     var meetings = ""
     var volunteerOp = ""
+    var viewer = ""
     let db = Firestore.firestore()
     
     var statement = ""
@@ -107,11 +108,16 @@ class ViewControllerClubDescription: UIViewController {
         print()
         print()
         
-        
+        performSegue(withIdentifier: "descriptionToBrowsing", sender: self)
         
     }
     
 
-    
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //         Get the new view controller using segue.destination.
+    //         Pass the selected object to the new view controller.
+            var vc = segue.destination as! ViewControllerDispClubs
+            vc.viewer = "admin"
+        }
 
 }

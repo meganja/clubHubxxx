@@ -255,9 +255,6 @@
                                                     <rect key="frame" x="204" y="5" width="40" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" backgroundImage="ellipsis.circle" catalog="system"/>
-                                                    <connections>
-                                                        <segue destination="pUj-lt-Noy" kind="presentation" identifier="editClubSegue" modalPresentationStyle="fullScreen" id="u7h-3G-Ws8"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </collectionViewCellContentView>
@@ -433,11 +430,12 @@
                         <outlet property="volunteerSwitch" destination="dM8-bo-0KA" id="whg-sO-1Jz"/>
                         <outlet property="wednesdaySwitch" destination="WgK-hF-2Ar" id="TAj-H6-DS7"/>
                         <segue destination="fl7-by-9zP" kind="presentation" identifier="goToDescription" modalPresentationStyle="fullScreen" id="HBN-lN-BdC"/>
+                        <segue destination="pUj-lt-Noy" kind="presentation" identifier="editClubSegue" modalPresentationStyle="fullScreen" id="nUa-P3-Ifl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1tn-r4-3s4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2394.53125" y="131.8359375"/>
+            <point key="canvasLocation" x="2486.71875" y="127.73437499999999"/>
         </scene>
         <!--View Controller Add Club-->
         <scene sceneID="6gm-cQ-neb">
@@ -759,7 +757,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button" image="155-1554499_kudos-back-white-icon-png"/>
                                 <connections>
-                                    <segue destination="SSq-PF-znA" kind="presentation" modalPresentationStyle="fullScreen" id="5qk-sI-xV7"/>
+                                    <segue destination="SSq-PF-znA" kind="presentation" identifier="descriptionToBrowsing" modalPresentationStyle="fullScreen" id="5qk-sI-xV7"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Club matchmaker" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O52-9U-wgZ">
@@ -965,6 +963,9 @@
                                 <rect key="frame" x="20" y="20" width="26" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="155-1554499_kudos-back-white-icon-png"/>
+                                <connections>
+                                    <segue destination="SSq-PF-znA" kind="presentation" modalPresentationStyle="fullScreen" id="gJ8-zr-gjY"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MHT-Vg-q44">
                                 <rect key="frame" x="707" y="157" width="54" height="55"/>
@@ -992,6 +993,7 @@
                         <outlet property="tuesdaySwitch" destination="IUh-Sh-0Qw" id="x8C-SW-Vyn"/>
                         <outlet property="volunteerOppSwitch" destination="viz-wq-1Eo" id="GnW-fk-Yy5"/>
                         <outlet property="wednesdaySwitch" destination="7NB-zn-Lu0" id="2QD-1e-w5x"/>
+                        <segue destination="SSq-PF-znA" kind="presentation" identifier="backToBrowsing" modalPresentationStyle="fullScreen" id="ggq-gQ-nsC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GY3-V2-fpf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1007,8 +1009,7 @@
         <image name="unnamed" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hTa-Yq-crR"/>
-        <segue reference="vzz-9E-Rsf"/>
+        <segue reference="ggq-gQ-nsC"/>
         <segue reference="GGO-DH-1TB"/>
     </inferredMetricsTieBreakers>
 </document>
