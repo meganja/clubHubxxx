@@ -157,7 +157,7 @@
                                 <rect key="frame" x="187" y="514" width="395" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2IN-T1-vxZ" customClass="GIDSignInButton">
                                 <rect key="frame" x="264" y="448" width="240" height="128"/>
