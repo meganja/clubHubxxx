@@ -22,7 +22,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
 
 
     // MARK: - UICollectionViewDataSource protocol
-
+//
     // tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.collectionClubsIn{
