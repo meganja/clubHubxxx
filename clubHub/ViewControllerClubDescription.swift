@@ -17,12 +17,13 @@ class ViewControllerClubDescription: UIViewController {
     @IBOutlet weak var meetingDays: UILabel!
     @IBOutlet weak var volunteer: UILabel!
     @IBOutlet weak var room: UILabel!
-    @IBOutlet weak var adminName: UILabel!
-    @IBOutlet weak var adminEmail: UILabel!
+    @IBOutlet weak var sponsorName: UILabel!
+    @IBOutlet weak var sponsorEmail: UILabel!
     
     var ClubName = ""
     var meetings = ""
     var volunteerOp = ""
+    var viewer = ""
     let db = Firestore.firestore()
     
     var statement = ""
@@ -61,6 +62,31 @@ class ViewControllerClubDescription: UIViewController {
                 let daysInfo = document.data()["days"]! as! [Any]
                 print(daysInfo)
                 print(daysInfo.count)
+                var dayString = ""
+                for i in 0..<daysInfo.count{
+                    if(daysInfo.count >= 3){
+                        if(i == daysInfo.count - 1){
+                            dayString += "\(daysInfo[i])"
+                        }
+                        else if(i == daysInfo.count - 2){
+                            dayString += "\(daysInfo[i]), and "
+                        }
+                        else{
+                            dayString += "\(daysInfo[i]), "
+                        }
+                    }
+                    else{
+                        if(i == daysInfo.count - 1){
+                            dayString += "\(daysInfo[i])"
+                        }
+                        else{
+                            dayString += "\(daysInfo[i]) and "
+                        }
+                    }
+                    
+                    
+                }
+                self.meetingDays.text = dayString
                 
                 
                 if (String(describing: document.get("volunteer")!)) == "0"{
@@ -72,9 +98,9 @@ class ViewControllerClubDescription: UIViewController {
                 self.room.text = String(describing: document.get("room")!)
                 
                 
-                let adminInfo = document.data()["admin"]! as! [Any]
-                self.adminName.text = "\(adminInfo[0])"
-                self.adminEmail.text = "\(adminInfo[1])"
+                let sponsorInfo = document.data()["sponsor"]! as! [Any]
+                self.sponsorName.text = "\(sponsorInfo[0])"
+                self.sponsorEmail.text = "\(sponsorInfo[1])"
                 
             }
             
@@ -82,11 +108,16 @@ class ViewControllerClubDescription: UIViewController {
         print()
         print()
         
-        
+        performSegue(withIdentifier: "descriptionToBrowsing", sender: self)
         
     }
     
 
-    
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //         Get the new view controller using segue.destination.
+    //         Pass the selected object to the new view controller.
+            var vc = segue.destination as! ViewControllerDispClubs
+            vc.viewer = "admin"
+        }
 
 }

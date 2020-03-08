@@ -24,9 +24,7 @@ class ViewControllerLoggingIn: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("logging in")
-        
-        startBrowsingBtn.isEnabled = true
+
         
         GIDSignIn.sharedInstance()?.presentingViewController = self
         alertLabel.text = ""
@@ -36,6 +34,7 @@ class ViewControllerLoggingIn: UIViewController {
         if (decision == "student"){
             username.isHidden = true
             password.isHidden = true
+            startBrowsingBtn.isEnabled = false
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(reactToNotification(_:)), name: sNotification, object: nil)
@@ -75,12 +74,12 @@ class ViewControllerLoggingIn: UIViewController {
                             print("Document does not exist")
                         }
                     }
-        
-        
+
                 }
-                if (decision == "student"){
+                else if (decision == "student"){
                     print("STUDENT++++++++++++++++")
                     performSegue(withIdentifier: "startBrowsing", sender: self)
+
                 }
     }
     
