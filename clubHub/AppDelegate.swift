@@ -89,33 +89,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 let name = user.displayName
                 var firstLogin = true
                 print(email)
+                let tempEmail = "\(email)"
+                print(tempEmail)
                 
-                //checks if user has already logged in or if this is the first time
-                self.db?.collection("users").getDocuments() { (querySnapshot, err) in
-                    if let err = err {
-                        print("Error getting documents: \(err)")
-                    } else {
-                        for document in querySnapshot!.documents {
-                            if(document.documentID == uid){
-                                firstLogin = false
+                if tempEmail.contains("students.d211.org"){
+                    //checks if user has already logged in or if this is the first time
+                    self.db?.collection("users").getDocuments() { (querySnapshot, err) in
+                        if let err = err {
+                            print("Error getting documents: \(err)")
+                        } else {
+                            for document in querySnapshot!.documents {
+                                if(document.documentID == uid){
+                                    firstLogin = false
+                                }
                             }
-                        }
-                        
-                        
-                        // creates user doc in "users" collection if there is not already one created
-                        if(firstLogin){ self.db?.collection("users").document(uid).setData([
-                            "name": name,
-                            "email": email,
-                            "accountType": "student",
-                            "myClubs": [],
-                            "wishlist": []
-                        ]) { err in
-                            if let err = err {
-                                print("Error writing document: \(err)")
-                            } else {
-                                print(uid)
-                                print("Document successfully written!")
-                            }
+                            
+                            
+                            // creates user doc in "users" collection if there is not already one created
+                            if(firstLogin){ self.db?.collection("users").document(uid).setData([
+                                "name": name,
+                                "email": email,
+                                "accountType": "student",
+                                "myClubs": [],
+                                "wishlist": []
+                            ]) { err in
+                                if let err = err {
+                                    print("Error writing document: \(err)")
+                                } else {
+                                    print(uid)
+                                    print("Document successfully written!")
+                                }
+                                }
                             }
                         }
                     }
