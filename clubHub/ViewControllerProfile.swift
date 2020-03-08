@@ -12,6 +12,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
     
     @IBOutlet weak var collectionClubsIn: UICollectionView!
     @IBOutlet weak var collectionWishlist: UICollectionView!
+    var viewer = ""
     
    let reuseIdentifier = "cell"
     let reuseIdentifier2 = "cellWish"
@@ -67,6 +68,27 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             print("You selected cell #\(indexPath.item)! in wishlist")
         }
     }
+    
+    // MARK: - Nav Bar
+    
+    @IBOutlet weak var navBrowseState: UIButton!
+    var navBrowseClicked = false
+    @IBAction func navBrowse(_ sender: Any) {
+        navBrowseClicked = true
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("PREPARE FOR TAKEOFF")
+        //if navBrowseClicked{
+            var vc = segue.destination as! ViewControllerDispClubs
+        //}
+//        else{
+//            var vc = segue.destination as! ViewControllerDispClubs
+//            vc.viewer = self.decision
+//        }
+        
+    }
+    
 }
 
 

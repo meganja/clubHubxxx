@@ -431,6 +431,36 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z0X-Q7-chJ">
+                                <rect key="frame" x="0.0" y="949" width="768" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.078431372550000003" green="0.1529411765" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.078431372550000003" green="0.1529411765" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EZF-FY-nxS">
+                                <rect key="frame" x="117" y="949" width="98" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="personIconNotClicked-2">
+                                    <color key="titleColor" red="0.83137254900000002" green="0.1215686275" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="navProfile:" destination="SSq-PF-znA" eventType="touchUpInside" id="1XP-4c-MrY"/>
+                                    <segue destination="psG-IV-fUG" kind="presentation" modalPresentationStyle="fullScreen" id="Yco-nf-Dsp"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DLM-FC-tGK">
+                                <rect key="frame" x="335" y="949" width="98" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="browseIconClicked">
+                                    <color key="titleColor" red="0.83137254900000002" green="0.1215686275" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="i6M-aG-ryn"/>
@@ -443,6 +473,7 @@
                         <outlet property="lowCommitmentSwitch" destination="p02-Jm-acc" id="4ct-KM-lSH"/>
                         <outlet property="medCommitmentSwitch" destination="Xfb-us-gcF" id="8vz-ed-31k"/>
                         <outlet property="mondaySwitch" destination="nHl-Uy-JiK" id="WZ2-sG-TSh"/>
+                        <outlet property="navBarState" destination="EZF-FY-nxS" id="RDo-a4-dX4"/>
                         <outlet property="thursdaySwitch" destination="nxO-QV-eFn" id="YmV-nG-CeK"/>
                         <outlet property="tuesdaySwitch" destination="RGB-Yo-c9r" id="8HN-fz-LYR"/>
                         <outlet property="volunteerSwitch" destination="dM8-bo-0KA" id="whg-sO-1Jz"/>
@@ -776,17 +807,60 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button" image="155-1554499_kudos-back-white-icon-png"/>
                                 <connections>
+                                    <action selector="backButton:" destination="fl7-by-9zP" eventType="touchUpInside" id="U1C-lQ-Ppu"/>
                                     <segue destination="SSq-PF-znA" kind="presentation" identifier="descriptionToBrowsing" modalPresentationStyle="fullScreen" id="5qk-sI-xV7"/>
                                 </connections>
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Club matchmaker" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O52-9U-wgZ">
-                                <rect key="frame" x="37" y="786" width="692" height="203"/>
+                                <rect key="frame" x="37" y="711" width="692" height="203"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BpC-yT-hFk">
+                                <rect key="frame" x="10" y="970" width="329" height="0.0"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.078431372550000003" green="0.1529411765" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.078431372550000003" green="0.1529411765" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tZf-sN-7pe">
+                                <rect key="frame" x="0.0" y="949" width="768" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.078431372550000003" green="0.1529411765" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.078431372550000003" green="0.1529411765" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OUF-eJ-ieZ">
+                                <rect key="frame" x="117" y="949" width="98" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="personIconNotClicked-2">
+                                    <color key="titleColor" red="0.83137254900000002" green="0.1215686275" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="profileButton:" destination="fl7-by-9zP" eventType="touchUpInside" id="Jru-da-F0m"/>
+                                    <segue destination="psG-IV-fUG" kind="presentation" modalPresentationStyle="fullScreen" id="MTe-yV-0cE"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GKY-p3-Azi">
+                                <rect key="frame" x="334" y="949" width="98" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="browseIconNotClicked">
+                                    <color key="titleColor" red="0.83137254900000002" green="0.1215686275" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="browseButton:" destination="fl7-by-9zP" eventType="touchUpInside" id="WDm-jX-N7I"/>
+                                    <segue destination="SSq-PF-znA" kind="presentation" modalPresentationStyle="fullScreen" id="N5M-Oh-4Mb"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="ERl-ky-6aM"/>
@@ -796,6 +870,7 @@
                         <outlet property="clubName" destination="Exz-f4-Cv6" id="Yiw-Wd-vVT"/>
                         <outlet property="commitmentLevel" destination="Jmf-SW-mna" id="bX2-bj-hZ3"/>
                         <outlet property="meetingDays" destination="bnN-ob-zCi" id="ZWq-dK-Ngg"/>
+                        <outlet property="profileState" destination="OUF-eJ-ieZ" id="FIV-rz-755"/>
                         <outlet property="room" destination="NvM-dJ-O8x" id="Pin-o5-Qzo"/>
                         <outlet property="sponsorEmail" destination="bD2-d7-vzw" id="mJz-si-p2E"/>
                         <outlet property="sponsorName" destination="lsE-Bk-iRQ" id="Z7t-bY-w9m"/>
@@ -804,7 +879,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J3b-sy-nSM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3091.40625" y="798.33984375"/>
+            <point key="canvasLocation" x="3091.40625" y="798.046875"/>
         </scene>
         <!--View Controller Profile-->
         <scene sceneID="USB-5N-IVv">
@@ -948,6 +1023,44 @@
                                     <outlet property="delegate" destination="psG-IV-fUG" id="P8y-FP-hrG"/>
                                 </connections>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ocy-MU-CX2">
+                                <rect key="frame" x="10" y="970" width="0.0" height="0.0"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.078431372550000003" green="0.1529411765" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.078431372550000003" green="0.1529411765" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JKQ-YB-Wm6">
+                                <rect key="frame" x="0.0" y="949" width="768" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.078431372550000003" green="0.1529411765" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.078431372550000003" green="0.1529411765" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FGZ-xz-Fog">
+                                <rect key="frame" x="335" y="949" width="98" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="browseIconNotClicked">
+                                    <color key="titleColor" red="0.83137254900000002" green="0.1215686275" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="navBrowse:" destination="psG-IV-fUG" eventType="touchUpInside" id="KMx-tv-Kg6"/>
+                                    <segue destination="SSq-PF-znA" kind="presentation" modalPresentationStyle="fullScreen" id="13Z-ma-H7i"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vcm-4V-RAS">
+                                <rect key="frame" x="117" y="949" width="98" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="personIconClicked">
+                                    <color key="titleColor" red="0.83137254900000002" green="0.1215686275" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Pwp-f6-0X0"/>
@@ -955,6 +1068,7 @@
                     <connections>
                         <outlet property="collectionClubsIn" destination="ZNc-8k-vXW" id="X3t-d0-D2A"/>
                         <outlet property="collectionWishlist" destination="4Re-qp-VYW" id="1as-Ys-6Wf"/>
+                        <outlet property="navBrowseState" destination="FGZ-xz-Fog" id="MSz-tY-CpU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3E8-Va-tlM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1177,12 +1291,17 @@
     </scenes>
     <resources>
         <image name="155-1554499_kudos-back-white-icon-png" width="600" height="1059"/>
+        <image name="browseIconClicked" width="960" height="720"/>
+        <image name="browseIconNotClicked" width="960" height="720"/>
         <image name="chs-cougar-mascot" width="600" height="319"/>
         <image name="ellipsis.circle" catalog="system" width="64" height="60"/>
+        <image name="personIconClicked" width="960" height="720"/>
+        <image name="personIconNotClicked-2" width="960" height="720"/>
         <image name="trash" catalog="system" width="60" height="64"/>
         <image name="unnamed" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
+
 
         <segue reference="y8n-0E-zGg"/>
 
@@ -1192,6 +1311,9 @@
         <segue reference="GGO-DH-1TB"/>
 
         <segue reference="HBN-lN-BdC"/>
+
+        <segue reference="MTe-yV-0cE"/>
+
         <segue reference="5qk-sI-xV7"/>
         <segue reference="1Nf-Tr-OE0"/>
     </inferredMetricsTieBreakers>

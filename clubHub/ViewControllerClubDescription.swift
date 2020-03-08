@@ -31,8 +31,10 @@ class ViewControllerClubDescription: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        print()
-        //        print()
+        if viewer == "admin"{
+            profileState.isHidden = true
+            //also have to hide wishlist
+        }
         print("")
         print()
         print()
@@ -54,7 +56,7 @@ class ViewControllerClubDescription: UIViewController {
         self.db.collection("clubs").whereField("name", isEqualTo: self.ClubName).getDocuments(){ (querySnapshot, err) in
             
             for document in querySnapshot!.documents{
-
+                
                 
                 self.clubDescription.text = String(describing: document.get("description")!)
                 self.commitmentLevel.text = String(describing: document.get("commit")!)
@@ -108,16 +110,40 @@ class ViewControllerClubDescription: UIViewController {
         print()
         print()
         
-        performSegue(withIdentifier: "descriptionToBrowsing", sender: self)
         
     }
     
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if profileClicked{
+            var vc = segue.destination as! ViewControllerProfile
+            vc.viewer = viewer
 
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //         Get the new view controller using segue.destination.
-    //         Pass the selected object to the new view controller.
+        }else if browseClicked{
+            var vc = segue.destination as! ViewControllerDispClubs
+            vc.viewer = viewer
+        }
+        else if backButton{
             var vc = segue.destination as! ViewControllerDispClubs
             vc.viewer = "admin"
         }
+    }
+    var backButton = false
+    @IBAction func backButton(_ sender: Any) {
+        backButton = true
+        performSegue(withIdentifier: "descriptionToBrowsing", sender: self)
 
+    }
+    
+    //MARK: -Nav Bar
+    @IBOutlet weak var profileState: UIButton!
+    var profileClicked = false
+    var browseClicked = false
+    @IBAction func profileButton(_ sender: Any) {
+        profileClicked = true
+    }
+    @IBAction func browseButton(_ sender: Any) {
+        browseClicked = true
+    }
+    
 }
