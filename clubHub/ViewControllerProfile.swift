@@ -11,6 +11,7 @@ import GoogleSignIn
 
 class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate{
     
+    @IBOutlet weak var name: UILabel!
     @IBOutlet weak var collectionClubsIn: UICollectionView!
     @IBOutlet weak var collectionWishlist: UICollectionView!
     var viewer = ""
@@ -27,6 +28,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
     let fullName = user.profile.name
     print("got hereee" )
     print(fullName)
+    name.text = fullName ?? ""
  }
     
     // MARK: - UICollectionViewDataSource protocol
