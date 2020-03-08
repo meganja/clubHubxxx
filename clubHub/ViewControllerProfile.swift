@@ -5,7 +5,6 @@
 //  Created by c1843 on 3/8/20.
 //  Copyright © 2020 c1843. All rights reserved.
 //
-
 import UIKit
 
 class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
@@ -42,23 +41,20 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             // Use the outlet in our custom class to get a reference to the UILabel in the cell
             cell.clubName.text = self.items[indexPath.item]
             cell.backgroundColor = UIColor.cyan // make cell more visible in our example project
-
             return cell
         }
         else{
             print("went in else 2")
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier2, for: indexPath as IndexPath) as! CollectionViewCellWishlist
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier2, for: indexPath as IndexPath) as! CollectionViewCellWishlist 
 
             // Use the outlet in our custom class to get a reference to the UILabel in the cell
             cell.clubName.text = self.items[indexPath.item]
             cell.backgroundColor = UIColor.cyan // make cell more visible in our example project
-
             return cell
         }
     }
 
     // MARK: - UICollectionViewDelegate protocol
-
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // handle tap events
         if collectionView == self.collectionClubsIn{
@@ -91,5 +87,3 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
     }
     
 }
-
-
