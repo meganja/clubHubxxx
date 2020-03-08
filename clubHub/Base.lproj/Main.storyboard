@@ -46,14 +46,6 @@
                                     <segue destination="5yk-Vy-3fD" kind="presentation" modalPresentationStyle="fullScreen" id="1Nf-Tr-OE0"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d1z-3N-AOX">
-                                <rect key="frame" x="265" y="889" width="219" height="83"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <segue destination="psG-IV-fUG" kind="presentation" modalPresentationStyle="fullScreen" id="hu7-lt-Sm6"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.078431372550000003" green="0.1529411765" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -861,6 +853,14 @@
                                     <segue destination="SSq-PF-znA" kind="presentation" modalPresentationStyle="fullScreen" id="N5M-Oh-4Mb"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rKz-Sa-kNQ">
+                                <rect key="frame" x="355" y="98" width="58" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="starIconNotClicked"/>
+                                <connections>
+                                    <action selector="starButton:" destination="fl7-by-9zP" eventType="touchUpInside" id="WfE-Li-H8k"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="ERl-ky-6aM"/>
@@ -875,6 +875,7 @@
                         <outlet property="sponsorEmail" destination="bD2-d7-vzw" id="mJz-si-p2E"/>
                         <outlet property="sponsorName" destination="lsE-Bk-iRQ" id="Z7t-bY-w9m"/>
                         <outlet property="volunteer" destination="FKb-yk-X42" id="erl-iX-2Ha"/>
+                        <outlet property="wishlistState" destination="rKz-Sa-kNQ" id="w7k-N7-aSv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J3b-sy-nSM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -925,8 +926,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Clubs Involved In:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gb0-XY-YqF">
-                                <rect key="frame" x="20" y="675" width="168" height="27"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Clubs Wishlist:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gb0-XY-YqF">
+                                <rect key="frame" x="20" y="675" width="142" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <nil key="textColor"/>
@@ -1298,12 +1299,13 @@
         <image name="ellipsis.circle" catalog="system" width="64" height="60"/>
         <image name="personIconClicked" width="960" height="720"/>
         <image name="personIconNotClicked-2" width="960" height="720"/>
+        <image name="starIconNotClicked" width="960" height="720"/>
         <image name="trash" catalog="system" width="60" height="64"/>
         <image name="unnamed" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Yco-nf-Dsp"/>
-        <segue reference="13Z-ma-H7i"/>
-        <segue reference="GGO-DH-1TB"/>
+        <segue reference="MTe-yV-0cE"/>
+        <segue reference="5qk-sI-xV7"/>
+        <segue reference="1Nf-Tr-OE0"/>
     </inferredMetricsTieBreakers>
 </document>

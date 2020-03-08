@@ -28,12 +28,14 @@ class ViewControllerClubDescription: UIViewController {
     
     var statement = ""
     var num = 0
+    let email = ""
+    let name = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if viewer == "admin"{
             profileState.isHidden = true
-            //also have to hide wishlist
+            wishlistState.isHidden = true
         }
         print("")
         print()
@@ -125,7 +127,7 @@ class ViewControllerClubDescription: UIViewController {
         }
         else if backButton{
             var vc = segue.destination as! ViewControllerDispClubs
-            vc.viewer = "admin"
+            vc.viewer = viewer
         }
     }
     var backButton = false
@@ -145,5 +147,23 @@ class ViewControllerClubDescription: UIViewController {
     @IBAction func browseButton(_ sender: Any) {
         browseClicked = true
     }
+    
+    //MARK: -Wishlisting Clubs
+    
+    @IBOutlet weak var wishlistState: UIButton!
+    var clicks = 0
+    @IBAction func starButton(_ sender: Any) {
+        clicks+=1
+        if clicks%2 == 1{
+            let image = UIImage(named: "starIconClicked-2")
+            wishlistState.setImage(image, for: .normal)
+        }else{
+            let image = UIImage(named: "starIconNotClicked")
+            wishlistState.setImage(image, for: .normal)
+        }
+        //let userRef = db.collection("users")
+        //
+    }
+    
     
 }

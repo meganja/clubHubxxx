@@ -51,7 +51,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
 
             // Use the outlet in our custom class to get a reference to the UILabel in the cell
             cell.clubName.text = self.items[indexPath.item]
-            cell.backgroundColor = UIColor.cyan // make cell more visible in our example project
+            cell.backgroundColor = UIColor.white // make cell more visible in our example project
             return cell
         }
         else{
@@ -60,7 +60,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
 
             // Use the outlet in our custom class to get a reference to the UILabel in the cell
             cell.clubName.text = self.items[indexPath.item]
-            cell.backgroundColor = UIColor.cyan // make cell more visible in our example project
+            cell.backgroundColor = UIColor.white // make cell more visible in our example project
             return cell
         }
     }
