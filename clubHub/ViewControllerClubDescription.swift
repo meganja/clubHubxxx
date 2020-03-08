@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
 
 class ViewControllerClubDescription: UIViewController {
     
@@ -37,6 +38,7 @@ class ViewControllerClubDescription: UIViewController {
             profileState.isHidden = true
             wishlistState.isHidden = true
         }
+        print(uid)
         print("")
         print()
         print()
@@ -120,7 +122,7 @@ class ViewControllerClubDescription: UIViewController {
         if profileClicked{
             var vc = segue.destination as! ViewControllerProfile
             vc.viewer = viewer
-
+            
         }else if browseClicked{
             var vc = segue.destination as! ViewControllerDispClubs
             vc.viewer = viewer
@@ -134,7 +136,7 @@ class ViewControllerClubDescription: UIViewController {
     @IBAction func backButton(_ sender: Any) {
         backButton = true
         performSegue(withIdentifier: "descriptionToBrowsing", sender: self)
-
+        
     }
     
     //MARK: -Nav Bar
@@ -154,15 +156,28 @@ class ViewControllerClubDescription: UIViewController {
     var clicks = 0
     @IBAction func starButton(_ sender: Any) {
         clicks+=1
+        let userRef = db.collection("users").document(uid)
         if clicks%2 == 1{
             let image = UIImage(named: "starIconClicked-2")
             wishlistState.setImage(image, for: .normal)
+            
+            userRef.updateData([
+                "wishlist": FieldValue.arrayUnion([ClubName])
+            ])
+            
         }else{
             let image = UIImage(named: "starIconNotClicked")
             wishlistState.setImage(image, for: .normal)
+            
+            userRef.updateData([
+                "wishlist": FieldValue.arrayRemove([ClubName])
+            ])
         }
-        //let userRef = db.collection("users")
-        //
+        
+        //let user: GIDGoogleUser = GIDSignIn.sharedInstance()!.currentUser
+        //let emailAddress = user.profile.email ?? ""
+        
+        
     }
     
     

@@ -10,6 +10,8 @@ import UIKit
 import Firebase
 import GoogleSignIn
 
+var uid = ""
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
@@ -84,10 +86,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             let user = Auth.auth().currentUser
             if let user = user {
                 
-                let uid = user.uid
+                uid = user.uid
                 let email = user.email
                 let name = user.displayName
                 var firstLogin = true
+                print(uid)
                 print(email)
                 let tempEmail = "\(email)"
                 print(tempEmail)
