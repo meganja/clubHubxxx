@@ -35,6 +35,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     @IBOutlet weak var highCommitmentSwitch: UISwitch!
     @IBOutlet weak var volunteerSwitch: UISwitch!
     
+    
     var levels = [String]()
     var viewer = ""
     
@@ -255,10 +256,17 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         // get a reference to our storyboard cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! CollectionViewCellAllClubs
         
+        cell.editClubBtn.tag = indexPath.item
+        cell.editClubBtn.addTarget(self, action: #selector(editClub), for: .touchUpInside)
+        
         if (self.searchBarActive) {
             cell.clubName.text = self.dataSourceForSearchResult[indexPath.row]
         }else{ // Use the outlet in our custom class to get a reference to the UILabel in the cell
             cell.clubName.text = self.items[indexPath.row]
+        }
+        
+        if (viewer != "admin"){
+            cell.editClubBtn.isHidden = true
         }
         
         cell.backgroundColor = UIColor.white // make cell more visible in our example project
@@ -285,22 +293,31 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        print("Clicked on #\(self.clickedOn)!")
-        var vc = segue.destination as! ViewControllerClubDescription
-        
-        print("Statement #\(self.statement)!")
-        vc.statement = self.statement
-        print("Num #\(self.clickedOn)!")
-        vc.num = self.clickedOn
-        if (self.statement != "Statement #!"){
-            print("Clicked Name #\(self.items[self.clickedOn])!")
-            vc.ClubName = self.items[self.clickedOn]
-            //        }
+        print(segue.identifier)
+        if(segue.identifier == "goToDescription"){
+            print("IN DESCRIPT PREPARE")
+            print("Clicked on #\(self.clickedOn)!")
+            var vc = segue.destination as! ViewControllerClubDescription
             
-            
+            print("Statement #\(self.statement)!")
+            vc.statement = self.statement
+            print("Num #\(self.clickedOn)!")
+            vc.num = self.clickedOn
+            if (self.statement != "Statement #!"){
+                print("Clicked Name #\(self.items[self.clickedOn])!")
+                vc.ClubName = self.items[self.clickedOn]
+            }
         }
-        
+        else if(segue.identifier == "editClubSegue"){
+            print("IN EDIT PREPARE")
+            var vc = segue.destination as! ViewControllerAdminEdit
+            print("Statement #\(self.statement)!")
+            print("Num #\(self.clickedOn)!")
+            if (self.statement != "Statement #!"){
+                print("Clicked Name #\(self.items[self.clickedOn])!")
+                vc.ClubName = self.items[self.clickedOn]
+            }
+        }
     }
     
     //MARK: Search Bar
@@ -389,4 +406,11 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             }
         }
         
+    
+    @objc func editClub(_ sender: UIButton) {
+        self.clickedOn = sender.tag
+        print("You selected cell #\(sender.tag)!")
+        statement = "You selected cell #\(sender.tag)!"
+        performSegue(withIdentifier: "editClubSegue", sender: self)    }
+    
 }

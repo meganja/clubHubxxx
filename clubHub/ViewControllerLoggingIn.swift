@@ -22,8 +22,6 @@ class ViewControllerLoggingIn: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        startBrowsingBtn.isEnabled = false
 
         GIDSignIn.sharedInstance()?.presentingViewController = self
         
@@ -33,6 +31,7 @@ class ViewControllerLoggingIn: UIViewController {
         if (decision == "student"){
             username.isHidden = true
             password.isHidden = true
+            startBrowsingBtn.isEnabled = false
         }
         
          NotificationCenter.default.addObserver(self, selector: #selector(reactToNotification(_:)), name: sNotification, object: nil)
@@ -60,6 +59,9 @@ class ViewControllerLoggingIn: UIViewController {
                     if ("\(String(describing: document.get("username")!))" == "\(self.username.text!)" && "\(String(describing: document.get("password")!))" == "\(self.password.text!)"){
                         print("got it right")
                         self.performSegue(withIdentifier: "startBrowsing", sender: self)
+                    }
+                    else{
+                        print("Wrong login info!")
                     }
                 } else {
                     print("Document does not exist")

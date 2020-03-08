@@ -22,8 +22,8 @@ class ViewControllerAddClub: UIViewController {
     @IBOutlet weak var volunteerSwitch: UISwitch!
     @IBOutlet weak var commitmentLevel: UISegmentedControl!
     @IBOutlet weak var roomNumber: UITextField!
-    @IBOutlet weak var adminName: UITextField!
-    @IBOutlet weak var adminEmail: UITextField!
+    @IBOutlet weak var sponsorName: UITextField!
+    @IBOutlet weak var sponsorEmail: UITextField!
     @IBOutlet weak var doneButton: UIButton!
     
     var club = ""
@@ -80,15 +80,15 @@ class ViewControllerAddClub: UIViewController {
         if (!nameLabel.text!.isEmpty ||
             !generalDescription.text.isEmpty ||
             !roomNumber.text!.isEmpty ||
-            !adminName.text!.isEmpty ||
-            !adminEmail.text!.isEmpty){
+            !sponsorName.text!.isEmpty ||
+            !sponsorEmail.text!.isEmpty){
             print("none empty")
             print("\(nameLabel.text!)")
             print(commit)
             print("\(generalDescription.text!)")
             print("\(roomNumber.text!)")
-            print("\(adminName.text!)")
-            print("\(adminEmail.text!)")
+            print("\(sponsorName.text!)")
+            print("\(sponsorEmail.text!)")
             clubsRef.document().setData(
                 ["name":"\(nameLabel.text!)",
                     "days":days,
@@ -96,7 +96,7 @@ class ViewControllerAddClub: UIViewController {
                     "commit":commit,
                     "description":"\(generalDescription.text!)",
                     "room":"\(roomNumber.text!)",
-                    "admin":["\(adminName.text!)", "\(adminEmail.text!)"]])
+                    "sponsor":["\(sponsorName.text!)", "\(sponsorEmail.text!)"]])
         }
         
     }

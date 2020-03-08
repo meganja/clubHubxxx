@@ -11,5 +11,5 @@ import UIKit
 class CollectionViewCellAllClubs: UICollectionViewCell {
     @IBOutlet weak var clubName: UILabel!
     @IBOutlet weak var clubImage: UIImageView!
-    
+    @IBOutlet weak var editClubBtn: UIButton!
 }
