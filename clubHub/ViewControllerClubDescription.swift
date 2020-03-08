@@ -38,6 +38,19 @@ class ViewControllerClubDescription: UIViewController {
             profileState.isHidden = true
             wishlistState.isHidden = true
         }
+        else if viewer == "student"{
+            let userRef = db.collection("users").document(uid)
+            userRef.getDocument { (document, error) in
+                let tempWish = document?.data()!["wishlist"]! as![Any]
+                print(tempWish)
+                for i in 0..<tempWish.count{
+                    if (tempWish[i] as! String == self.ClubName){
+                        let image = UIImage(named: "starIconClicked-2")
+                        self.wishlistState.setImage(image, for: .normal)
+                    }
+                }
+            }
+        }
         print(uid)
         print("")
         print()
@@ -174,8 +187,6 @@ class ViewControllerClubDescription: UIViewController {
             ])
         }
         
-        //let user: GIDGoogleUser = GIDSignIn.sharedInstance()!.currentUser
-        //let emailAddress = user.profile.email ?? ""
         
         
     }
