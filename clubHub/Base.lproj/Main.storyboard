@@ -642,6 +642,7 @@
                         <outlet property="tuesdaySwitch" destination="g7r-b8-LGV" id="fVu-uk-TLQ"/>
                         <outlet property="volunteerSwitch" destination="JdU-Wp-goB" id="o7V-jR-KTD"/>
                         <outlet property="wednesdaySwitch" destination="JX6-no-MEU" id="yz8-Aw-Jia"/>
+                        <segue destination="SSq-PF-znA" kind="presentation" identifier="addToBrowsing" modalPresentationStyle="fullScreen" id="y8n-0E-zGg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zkh-SK-Ny4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -982,7 +983,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="trash" catalog="system"/>
                                 <connections>
-                                    <action selector="deleteClub:" destination="pUj-lt-Noy" eventType="touchUpInside" id="q6o-JA-MZo"/>
+                                    <action selector="presentDeleteAlertAction:" destination="pUj-lt-Noy" eventType="touchUpInside" id="qv8-an-njU"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1019,7 +1020,7 @@
         <image name="unnamed" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vzz-9E-Rsf"/>
+        <segue reference="y8n-0E-zGg"/>
         <segue reference="GGO-DH-1TB"/>
     </inferredMetricsTieBreakers>
 </document>
