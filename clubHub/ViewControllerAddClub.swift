@@ -118,15 +118,4 @@ class ViewControllerAddClub: UIViewController {
         self.generalDescription.layer.borderWidth = 1
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            print("PREPARE FOR TAKEOFF")
-            
-                var vc = segue.destination as! ViewControllerDispClubs
-        vc.viewer = "admin"
-            
-        }
-    
-    
-    
-    
 }
