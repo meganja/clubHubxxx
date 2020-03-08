@@ -46,6 +46,9 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         if (viewer != "admin"){
             addClubButton.isHidden = true
         }
+        else{
+            navBarState.isHidden = true
+        }
         db.collection("clubs").getDocuments(){ (querySnapshot, err) in
             for document in querySnapshot!.documents{
                 let temp = "\(String(describing: document.get("name")!))"
@@ -293,7 +296,11 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print(segue.identifier)
         print(sender!)
-        if(segue.identifier == "goToDescription"){
+        if navBarProfileClicked{
+            var vc = segue.destination as! ViewControllerProfile
+            vc.viewer = viewer
+        }
+        else if(segue.identifier == "goToDescription"){
             print("IN DESCRIPT PREPARE")
             print("Clicked on #\(self.clickedOn)!")
             var vc = segue.destination as! ViewControllerClubDescription
@@ -320,7 +327,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         }
     }
     
-    //MARK: Search Bar
+    //MARK: -Search Bar
     func filterContentForSearchText(searchText:String){
             self.dataSourceForSearchResult = self.items.filter({ (text:String) -> Bool in
                 print("CONTAINS: \(text.contains(searchText))")
@@ -406,7 +413,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             }
         }
         
-    
+    //MARK: -Edit
     @objc func editClub(_ sender: UIButton) {
         print("EDIT CLUB HAS BEEN CALLED, ONTO SEGUE")
         self.clickedOn = sender.tag
@@ -414,5 +421,14 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         statement = "You selected cell #\(sender.tag)!"
         performSegue(withIdentifier: "editClubSegue", sender: self)
     }
+    
+    //MARK: -NavBar
+
+    @IBOutlet weak var navBarState: UIButton!
+    var navBarProfileClicked = false
+    @IBAction func navProfile(_ sender: Any) {
+        navBarProfileClicked = true
+    }
+    
     
 }

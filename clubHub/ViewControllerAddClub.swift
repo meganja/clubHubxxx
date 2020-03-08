@@ -30,6 +30,7 @@ class ViewControllerAddClub: UIViewController {
     var days = [String]()
     var commit = ""
     var db = Firestore.firestore()
+    var viewer = "admin"
     
     
     @IBAction func readCommitment(_ sender: Any) {
@@ -116,6 +117,14 @@ class ViewControllerAddClub: UIViewController {
         self.generalDescription.layer.borderColor = UIColor.lightGray.cgColor
         self.generalDescription.layer.borderWidth = 1
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            print("PREPARE FOR TAKEOFF")
+            
+                var vc = segue.destination as! ViewControllerDispClubs
+        vc.viewer = "admin"
+            
+        }
     
     
     
