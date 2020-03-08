@@ -81,6 +81,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
         print("PREPARE FOR TAKEOFF")
         //if navBrowseClicked{
             var vc = segue.destination as! ViewControllerDispClubs
+        vc.viewer = viewer
         //}
 //        else{
 //            var vc = segue.destination as! ViewControllerDispClubs
