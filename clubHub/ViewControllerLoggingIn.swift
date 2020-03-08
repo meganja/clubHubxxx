@@ -18,13 +18,16 @@ class ViewControllerLoggingIn: UIViewController {
     
     @IBOutlet weak var googleLogin: GIDSignInButton!
     
+    @IBOutlet weak var alertLabel: UILabel!
     @IBOutlet weak var startBrowsingBtn: UIButton!
+    @IBOutlet weak var backButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        GIDSignIn.sharedInstance()?.presentingViewController = self
         
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        alertLabel.text = ""
         if (decision == "admin"){
             googleLogin.isHidden = true
         }
@@ -34,8 +37,8 @@ class ViewControllerLoggingIn: UIViewController {
             startBrowsingBtn.isEnabled = false
         }
         
-         NotificationCenter.default.addObserver(self, selector: #selector(reactToNotification(_:)), name: sNotification, object: nil)
-
+        NotificationCenter.default.addObserver(self, selector: #selector(reactToNotification(_:)), name: sNotification, object: nil)
+        
     }
     
     let db = Firestore.firestore()
@@ -45,41 +48,56 @@ class ViewControllerLoggingIn: UIViewController {
     @IBOutlet weak var password: UITextField!
     
     @IBAction func startBrowsing(_ sender: Any) {
-        if (decision == "admin"){
-            print("in admin")
-            
-            let docRef = db.collection("users").document("admin")
-            docRef.getDocument { (document, error) in
-                if let document = document, document.exists {
-                    print("checking")
-                    print("\(String(describing: document.get("username")!))")
-                    print("\(self.username.text!)")
-                    print("\(String(describing: document.get("password")!))")
-                    print("\(self.password.text!)")
-                    if ("\(String(describing: document.get("username")!))" == "\(self.username.text!)" && "\(String(describing: document.get("password")!))" == "\(self.password.text!)"){
-                        print("got it right")
-                        self.performSegue(withIdentifier: "startBrowsing", sender: self)
+        print("clicked meeeee")
+        print(decision)
+                if (decision == "admin"){
+                    print("in admin")
+        
+                    let docRef = db.collection("users").document("admin")
+                    docRef.getDocument { (document, error) in
+                        if let document = document, document.exists {
+                            print("checking")
+                            print("\(String(describing: document.get("username")!))")
+                            print("\(self.username.text!)")
+                            print("\(String(describing: document.get("password")!))")
+                            print("\(self.password.text!)")
+                            print("\(String(describing: document.get("username")!))" == "\(self.username.text!)")
+                            print("\(String(describing: document.get("password")!))" == "\(self.password.text!)")
+                            if ("\(String(describing: document.get("username")!))" == "\(self.username.text!)" && "\(String(describing: document.get("password")!))" == "\(self.password.text!)"){
+                                print("got it right")
+                                self.performSegue(withIdentifier: "startBrowsing", sender: self)
+                            }
+                            else{
+                                self.alertLabel.text = "Wrong Password"
+                            }
+                        } else {
+                            print("Document does not exist")
+                        }
                     }
-                    else{
-                        print("Wrong login info!")
-                    }
-                } else {
-                    print("Document does not exist")
+
                 }
-            }
-            
-            
-        }
-        if (decision == "student"){
-            print("STUDENT++++++++++++++++")
-            performSegue(withIdentifier: "startBrowsing", sender: self)
-        }
+                else if (decision == "student"){
+                    print("STUDENT++++++++++++++++")
+                    performSegue(withIdentifier: "startBrowsing", sender: self)
+
+                }
     }
     
+    
+    var backButtonClick = false
+    @IBAction func backButtonClicked(_ sender: Any) {
+        backButtonClick = true
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print("PREPARE FOR TAKEOFF")
-        var vc = segue.destination as! ViewControllerDispClubs
-        vc.viewer = self.decision
+        if backButtonClick{
+            var vc = segue.destination as! ViewControllerLoginDecision
+        }
+        else{
+            var vc = segue.destination as! ViewControllerDispClubs
+            vc.viewer = self.decision
+        }
+        
     }
     
     @objc func reactToNotification(_ sender: Notification){

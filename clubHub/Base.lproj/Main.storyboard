@@ -128,6 +128,7 @@
                                     <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
+                                    <action selector="backButtonClicked:" destination="KYQ-5h-xz7" eventType="touchUpInside" id="0kz-JD-MhO"/>
                                     <segue destination="5yk-Vy-3fD" kind="presentation" modalPresentationStyle="fullScreen" id="GGO-DH-1TB"/>
                                 </connections>
                             </button>
@@ -152,8 +153,26 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xk8-EV-cEV">
-                                <rect key="frame" x="209" y="716" width="350" height="100"/>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qhS-Uu-yuh">
+                                <rect key="frame" x="187" y="514" width="395" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2IN-T1-vxZ" customClass="GIDSignInButton">
+                                <rect key="frame" x="264" y="448" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hiR-XW-Yxt">
+                                <rect key="frame" x="187" y="601" width="395" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aEQ-Xg-zkz">
+                                <rect key="frame" x="249" y="727" width="270" height="77"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.83137254900000002" green="0.1215686275" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
@@ -161,30 +180,21 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="startBrowsing:" destination="KYQ-5h-xz7" eventType="touchUpInside" id="RLr-eo-bmg"/>
-                                    <segue destination="SSq-PF-znA" kind="presentation" identifier="startBrowsing" modalPresentationStyle="fullScreen" id="Izt-vr-B8h"/>
+                                    <action selector="startBrowsing:" destination="KYQ-5h-xz7" eventType="touchUpInside" id="cfO-vD-7hf"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qhS-Uu-yuh">
-                                <rect key="frame" x="187" y="514" width="395" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2IN-T1-vxZ" customClass="GIDSignInButton">
-                                <rect key="frame" x="264" y="448" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.078431372550000003" green="0.1529411765" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                         <viewLayoutGuide key="safeArea" id="D6F-TN-lRo"/>
                     </view>
                     <connections>
+                        <outlet property="alertLabel" destination="hiR-XW-Yxt" id="xNE-bo-T26"/>
+                        <outlet property="backButton" destination="eN0-NK-dwZ" id="rqw-2y-wDi"/>
                         <outlet property="googleLogin" destination="2IN-T1-vxZ" id="qBS-mz-Ulp"/>
                         <outlet property="password" destination="qhS-Uu-yuh" id="4gB-ZG-1h1"/>
-                        <outlet property="startBrowsingBtn" destination="Xk8-EV-cEV" id="Edb-yh-EbU"/>
+                        <outlet property="startBrowsingBtn" destination="aEQ-Xg-zkz" id="mYO-SW-EJe"/>
                         <outlet property="username" destination="FBG-wI-exj" id="E40-oR-dUI"/>
+                        <segue destination="SSq-PF-znA" kind="presentation" identifier="startBrowsing" modalPresentationStyle="fullScreen" id="QSC-xB-fEY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="at2-ZZ-Q1n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1009,7 +1019,7 @@
         <image name="unnamed" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gJ8-zr-gjY"/>
+        <segue reference="vzz-9E-Rsf"/>
         <segue reference="GGO-DH-1TB"/>
     </inferredMetricsTieBreakers>
 </document>
