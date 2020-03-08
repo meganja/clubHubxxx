@@ -99,6 +99,16 @@ class ViewControllerAddClub: UIViewController {
                     "sponsor":["\(sponsorName.text!)", "\(sponsorEmail.text!)"]])
         }
         
+        performSegue(withIdentifier: "addToBrowsing", sender: "done")
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //         Get the new view controller using segue.destination.
+        //         Pass the selected object to the new view controller.
+        var vc = segue.destination as! ViewControllerDispClubs
+        vc.viewer = "admin"
+        
     }
     
     override func viewDidLoad() {

@@ -136,11 +136,52 @@ class ViewControllerAdminEdit: UIViewController {
 //         Pass the selected object to the new view controller.
         var vc = segue.destination as! ViewControllerDispClubs
         vc.viewer = "admin"
+
     }
 
 
-    @IBAction func deleteClub(_ sender: Any) {
+    @IBAction func presentDeleteAlertAction(_ sender: Any) {
+        //first, use UIAlertController to check that admin really wants to delete the club
+        
+        // Declare Alert message
+        let dialogMessage = UIAlertController(title: "Confirm", message: "Are you sure you want to delete this club? This change cannot be undone.", preferredStyle: .alert)
+        
+        // Create OK button with action handler
+        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+             print("Ok button tapped")
+             self.deleteClub()
+        })
+        
+        // Create Cancel button with action handlder
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+            print("Cancel button tapped")
+        }
+        
+        //Add OK and Cancel button to dialog message
+        dialogMessage.addAction(ok)
+        dialogMessage.addAction(cancel)
+        
+        // Present dialog message to user
+        self.present(dialogMessage, animated: true, completion: nil)
+
     }
+    
+    
+    func deleteClub(){
+        //then, delete doc from firestore and perform segue back to browsing page if admin clicks "ok" on alert controller
+        let clubsRef = db.collection("clubs")
+        clubsRef.document(docID).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
+                
+        
+        performSegue(withIdentifier: "backToBrowsing", sender: "done")
+    }
+    
     
     @IBAction func commitmentChanged(_ sender: Any) {
         if commitSegControl.selectedSegmentIndex == 0{
@@ -208,7 +249,7 @@ class ViewControllerAdminEdit: UIViewController {
                     "sponsor":["\(sponsorNameTxtFld.text!)", "\(sponsorEmailTxtFld.text!)"]])
         }
         
-        performSegue(withIdentifier: "backToBrowsing", sender: self)
+        performSegue(withIdentifier: "backToBrowsing", sender: "done")
     }
     
 }
