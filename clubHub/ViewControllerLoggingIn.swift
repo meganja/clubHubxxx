@@ -101,7 +101,11 @@ class ViewControllerLoggingIn: UIViewController {
     }
     
     @objc func reactToNotification(_ sender: Notification){
+        let user: GIDGoogleUser = GIDSignIn.sharedInstance()!.currentUser
+        let fullName = user.profile.name!
         startBrowsingBtn.isEnabled = true
+        
+        alertLabel.text = "\(fullName), you are ready to start browsing!"
     }
     
 }

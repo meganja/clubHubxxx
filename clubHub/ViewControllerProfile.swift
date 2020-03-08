@@ -6,8 +6,10 @@
 //  Copyright © 2020 c1843. All rights reserved.
 //
 import UIKit
+import GoogleSignIn
+//import FirebaseAuth
 
-class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate{
     
     @IBOutlet weak var collectionClubsIn: UICollectionView!
     @IBOutlet weak var collectionWishlist: UICollectionView!
@@ -19,7 +21,13 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
     
     var items2 = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48"]
 
-
+ override func viewDidLoad() {
+    super.viewDidLoad()
+    let user: GIDGoogleUser = GIDSignIn.sharedInstance()!.currentUser
+    let fullName = user.profile.name
+    print("got hereee" )
+    print(fullName)
+ }
     
     // MARK: - UICollectionViewDataSource protocol
 //

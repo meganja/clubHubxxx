@@ -85,8 +85,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             if let user = user {
                 
                 let uid = user.uid
+                let email = user.email
                 let name = user.displayName
                 var firstLogin = true
+                print(email)
                 
                 //checks if user has already logged in or if this is the first time
                 self.db?.collection("users").getDocuments() { (querySnapshot, err) in
@@ -103,6 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                         // creates user doc in "users" collection if there is not already one created
                         if(firstLogin){ self.db?.collection("users").document(uid).setData([
                             "name": name,
+                            "email": email,
                             "accountType": "student",
                             "myClubs": [],
                             "wishlist": []
@@ -110,6 +113,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                             if let err = err {
                                 print("Error writing document: \(err)")
                             } else {
+                                print(uid)
                                 print("Document successfully written!")
                             }
                             }
