@@ -118,9 +118,5 @@ class ViewControllerAddClub: UIViewController {
         self.generalDescription.layer.borderWidth = 1
     }
     
-    
-    
-    
-    
-    
+
 }
