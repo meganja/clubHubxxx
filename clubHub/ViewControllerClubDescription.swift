@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
 
 class ViewControllerClubDescription: UIViewController {
     
@@ -28,13 +29,29 @@ class ViewControllerClubDescription: UIViewController {
     
     var statement = ""
     var num = 0
+    let email = ""
+    let name = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if viewer == "admin"{
             profileState.isHidden = true
-            //also have to hide wishlist
+            wishlistState.isHidden = true
         }
+        else if viewer == "student"{
+            let userRef = db.collection("users").document(uid)
+            userRef.getDocument { (document, error) in
+                let tempWish = document?.data()!["wishlist"]! as![Any]
+                print(tempWish)
+                for i in 0..<tempWish.count{
+                    if (tempWish[i] as! String == self.ClubName){
+                        let image = UIImage(named: "starIconClicked-2")
+                        self.wishlistState.setImage(image, for: .normal)
+                    }
+                }
+            }
+        }
+        print(uid)
         print("")
         print()
         print()
@@ -118,22 +135,14 @@ class ViewControllerClubDescription: UIViewController {
         if profileClicked{
             var vc = segue.destination as! ViewControllerProfile
             vc.viewer = viewer
-
+            
         }else if browseClicked{
             var vc = segue.destination as! ViewControllerDispClubs
             vc.viewer = viewer
         }
-        else if backButton{
-            var vc = segue.destination as! ViewControllerDispClubs
-            vc.viewer = "admin"
-        }
+        
     }
-    var backButton = false
-    @IBAction func backButton(_ sender: Any) {
-        backButton = true
-        performSegue(withIdentifier: "descriptionToBrowsing", sender: self)
-
-    }
+    
     
     //MARK: -Nav Bar
     @IBOutlet weak var profileState: UIButton!
@@ -145,5 +154,34 @@ class ViewControllerClubDescription: UIViewController {
     @IBAction func browseButton(_ sender: Any) {
         browseClicked = true
     }
+    
+    //MARK: -Wishlisting Clubs
+    
+    @IBOutlet weak var wishlistState: UIButton!
+    var clicks = 0
+    @IBAction func starButton(_ sender: Any) {
+        clicks+=1
+        let userRef = db.collection("users").document(uid)
+        if clicks%2 == 1{
+            let image = UIImage(named: "starIconClicked-2")
+            wishlistState.setImage(image, for: .normal)
+            
+            userRef.updateData([
+                "wishlist": FieldValue.arrayUnion([ClubName])
+            ])
+            
+        }else{
+            let image = UIImage(named: "starIconNotClicked")
+            wishlistState.setImage(image, for: .normal)
+            
+            userRef.updateData([
+                "wishlist": FieldValue.arrayRemove([ClubName])
+            ])
+        }
+        
+        
+        
+    }
+    
     
 }
