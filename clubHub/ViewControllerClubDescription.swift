@@ -140,17 +140,9 @@ class ViewControllerClubDescription: UIViewController {
             var vc = segue.destination as! ViewControllerDispClubs
             vc.viewer = viewer
         }
-        else if backButton{
-            var vc = segue.destination as! ViewControllerDispClubs
-            vc.viewer = viewer
-        }
-    }
-    var backButton = false
-    @IBAction func backButton(_ sender: Any) {
-        backButton = true
-        performSegue(withIdentifier: "descriptionToBrowsing", sender: self)
         
     }
+    
     
     //MARK: -Nav Bar
     @IBOutlet weak var profileState: UIButton!
