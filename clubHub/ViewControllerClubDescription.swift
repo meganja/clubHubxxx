@@ -34,6 +34,8 @@ class ViewControllerClubDescription: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("viewer")
+        print(viewer)
         if viewer == "admin"{
             profileState.isHidden = true
             wishlistState.isHidden = true
@@ -42,9 +44,12 @@ class ViewControllerClubDescription: UIViewController {
             let userRef = db.collection("users").document(uid)
             userRef.getDocument { (document, error) in
                 let tempWish = document?.data()!["wishlist"]! as![Any]
+                print("temp wish")
                 print(tempWish)
                 for i in 0..<tempWish.count{
                     if (tempWish[i] as! String == self.ClubName){
+                        print("should be clicked")
+                        self.clicks = 1
                         let image = UIImage(named: "starIconClicked-2")
                         self.wishlistState.setImage(image, for: .normal)
                     }

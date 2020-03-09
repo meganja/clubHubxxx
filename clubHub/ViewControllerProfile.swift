@@ -142,7 +142,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             vc.statement = self.statement
             print("Num #\(self.clickedOn)!")
             vc.num = self.clickedOn
-            vc.viewer = viewer
+            vc.viewer = "student"
             if (self.statement != "Statement #!"){
                 vc.ClubName = self.clubNameTemp
             }
