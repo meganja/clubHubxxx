@@ -99,15 +99,13 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
         if collectionView == self.collectionClubsIn{
             print("You selected cell #\(indexPath.item)! in clubs in")
             self.clickedOn = indexPath.item
-            print("You selected cell #\(indexPath.item)!")
             statement = "You selected cell #\(indexPath.item)!"
             clubNameTemp = self.enrolledItems[self.clickedOn]
-            performSegue(withIdentifier: "goToDescription", sender: self)
+            performSegue(withIdentifier: "goToDescription2", sender: self)
         }
-        else{
+        else if collectionView == self.collectionWishlist{
             print("You selected cell #\(indexPath.item)! in wishlist")
             self.clickedOn = indexPath.item
-            print("You selected cell #\(indexPath.item)!")
             statement = "You selected cell #\(indexPath.item)!"
             clubNameTemp = self.wishItems[self.clickedOn]
             performSegue(withIdentifier: "goToDescription2", sender: self)
@@ -143,7 +141,6 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             vc.num = self.clickedOn
             vc.viewer = viewer
             if (self.statement != "Statement #!"){
-                //print("Clicked Name #\(self.items[self.clickedOn])!")
                 vc.ClubName = self.clubNameTemp
             }
         }
