@@ -7,19 +7,31 @@
 //
 
 import UIKit
+import Firebase
 
 class ViewControllerAddUserClubs: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     var viewer = ""
+    let db = Firestore.firestore()
     @IBOutlet weak var allClubsCollection: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        db.collection("clubs").getDocuments(){ (querySnapshot, err) in
+            for document in querySnapshot!.documents{
+                let temp = "\(String(describing: document.get("name")!))"
+                print(temp)
+                self.items.append(temp)
+            }
+            DispatchQueue.main.async {
+                self.allClubsCollection.reloadData()
+            }
+        }
     }
     
     
     let reuseIdentifier = "cell" // also enter this string as the cell identifier in the storyboard
-    var items = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48"]
+    var items = [String]()
     
     
     // MARK: - UICollectionViewDataSource protocol
@@ -74,11 +86,7 @@ class ViewControllerAddUserClubs: UIViewController, UICollectionViewDataSource, 
             var vc = segue.destination as! ViewControllerProfile
             vc.viewer = viewer
         }
-        else{
-            //go to the club description
-//            var vc = segue.destination as! ViewControllerProfile
-//            vc.viewer = viewer
-        }
+       
         
     }
     var done = false
