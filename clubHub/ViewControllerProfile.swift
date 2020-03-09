@@ -91,13 +91,26 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
     }
     
     // MARK: - UICollectionViewDelegate protocol
+    var clickedOn = 0
+    var statement = ""
+    var clubNameTemp = ""
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // handle tap events
         if collectionView == self.collectionClubsIn{
             print("You selected cell #\(indexPath.item)! in clubs in")
+            self.clickedOn = indexPath.item
+            print("You selected cell #\(indexPath.item)!")
+            statement = "You selected cell #\(indexPath.item)!"
+            clubNameTemp = self.enrolledItems[self.clickedOn]
+            performSegue(withIdentifier: "goToDescription", sender: self)
         }
         else{
             print("You selected cell #\(indexPath.item)! in wishlist")
+            self.clickedOn = indexPath.item
+            print("You selected cell #\(indexPath.item)!")
+            statement = "You selected cell #\(indexPath.item)!"
+            clubNameTemp = self.wishItems[self.clickedOn]
+            performSegue(withIdentifier: "goToDescription2", sender: self)
         }
     }
     
@@ -115,9 +128,24 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             var vc = segue.destination as! ViewControllerDispClubs
             vc.viewer = viewer
         }
-        if goAddYourClubs{
+        else if goAddYourClubs{
             var vc = segue.destination as! ViewControllerAddUserClubs
             vc.viewer = viewer
+        }
+        else if(segue.identifier == "goToDescription2"){
+            print("IN DESCRIPT PREPARE")
+            print("Clicked on #\(self.clickedOn)!")
+            var vc = segue.destination as! ViewControllerClubDescription
+            
+            print("Statement #\(self.statement)!")
+            vc.statement = self.statement
+            print("Num #\(self.clickedOn)!")
+            vc.num = self.clickedOn
+            vc.viewer = viewer
+            if (self.statement != "Statement #!"){
+                //print("Clicked Name #\(self.items[self.clickedOn])!")
+                vc.ClubName = self.clubNameTemp
+            }
         }
     }
     

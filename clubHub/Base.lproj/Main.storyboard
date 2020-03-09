@@ -1075,6 +1075,7 @@
                         <outlet property="collectionWishlist" destination="4Re-qp-VYW" id="1as-Ys-6Wf"/>
                         <outlet property="name" destination="9kv-lp-01X" id="hqe-HW-Mn0"/>
                         <outlet property="navBrowseState" destination="FGZ-xz-Fog" id="MSz-tY-CpU"/>
+                        <segue destination="fl7-by-9zP" kind="presentation" identifier="goToDescription2" modalPresentationStyle="fullScreen" id="KuB-2b-Pgb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3E8-Va-tlM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1400,8 +1401,9 @@
         <image name="unnamed" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="XVu-Ee-6cz"/>
-        <segue reference="13Z-ma-H7i"/>
+        <segue reference="MTe-yV-0cE"/>
+        <segue reference="KuB-2b-Pgb"/>
+        <segue reference="5qk-sI-xV7"/>
         <segue reference="GGO-DH-1TB"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -46,8 +46,6 @@ class ViewControllerAddUserClubs: UIViewController, UICollectionViewDataSource, 
                         print()
                         if self.items[j] == (tempList[i] as! String){
                             self.selectedItems[j] = ("1")
-                        }else{
-                            self.selectedItems[j] = ("0")
                         }
                         print("selectedItems2")
                         print(self.selectedItems)
