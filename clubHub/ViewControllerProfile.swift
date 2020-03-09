@@ -130,6 +130,9 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             var vc = segue.destination as! ViewControllerAddUserClubs
             vc.viewer = viewer
         }
+        else if wantSignOut{
+            var vc = segue.destination as! ViewController
+        }
         else if(segue.identifier == "goToDescription2"){
             print("IN DESCRIPT PREPARE")
             print("Clicked on #\(self.clickedOn)!")
@@ -151,4 +154,12 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
     @IBAction func addYourClubsBtn(_ sender: Any) {
         goAddYourClubs = true
     }
+    
+    //MARK: -sign out
+    var wantSignOut = false
+    @IBAction func signOut(_ sender: Any) {
+        GIDSignIn.sharedInstance()?.signOut()
+        wantSignOut = true
+    }
+    
 }
