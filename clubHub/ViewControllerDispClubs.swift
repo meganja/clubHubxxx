@@ -163,9 +163,8 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         if(self.searchBar!.text!.count > 0){ //can't use searchBarActive because searchBarActive becomes false after user hits enter on their search, even if the content being displayed is still filtered based on search text
             filterAndSearchResult.removeAll()
         }
-//        else{
-            items.removeAll()
-//        }
+        items.removeAll()
+
         
         print("items")
         print(items)
@@ -268,17 +267,9 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                 for document in querySnapshot!.documents{
                     let temp = "\(String(describing: document.get("name")!))"
                     print(temp)
-                    if(self.searchBar!.text!.count > 0){
-                        self.filterAndSearchResult.append(temp)
-                    }
-                    else{
-                        self.items.append(temp)
-                    }
+                    self.items.append(temp)
                 }
                 DispatchQueue.main.async {
-                    if(self.searchBar!.text!.count > 0){
-                        self.applyFiltersToSearch(searchText: self.searchBar!.text!)
-                    }
                     self.collectionViewClubs.reloadData()
                 }
             }
@@ -291,7 +282,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if self.searchBar!.text!.count > 0{
-            if(filterAndSearchResult.count < dataSourceForSearchResult.count && filterAndSearchResult.count > 0){
+            if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn){
                 return filterAndSearchResult.count
             }
             else{
@@ -314,7 +305,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         cell.editClubBtn.addTarget(self, action: #selector(editClub(_:)), for: .touchUpInside)
         
         if (self.searchBar!.text!.count > 0) {
-            if(filterAndSearchResult.count < dataSourceForSearchResult.count && filterAndSearchResult.count > 0){
+              if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn){
                 cell.clubName.text = self.filterAndSearchResult[indexPath.row]
             }
             else{
@@ -368,7 +359,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             vc.viewer = viewer
             if (self.statement != "Statement #!"){
                 if(self.searchBar!.text!.count > 0){
-                    if(filterAndSearchResult.count < dataSourceForSearchResult.count && filterAndSearchResult.count > 0){
+                     if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn){
                         vc.ClubName = self.filterAndSearchResult[self.clickedOn]
                     }
                     else{
@@ -387,7 +378,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             print("Num #\(self.clickedOn)!")
             if (self.statement != "Statement #!"){
                 if(self.searchBar!.text!.count > 0){
-                    if(filterAndSearchResult.count < dataSourceForSearchResult.count && filterAndSearchResult.count > 0){
+                      if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn){
                         vc.ClubName = self.filterAndSearchResult[self.clickedOn]
                     }
                     else{
