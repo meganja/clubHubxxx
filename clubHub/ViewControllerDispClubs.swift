@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
 
 class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
     
@@ -510,5 +511,11 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         navBarProfileClicked = true
     }
     
+    
+    //MARK: -SignOut
+    @IBAction func signOut(_ sender: Any) {
+        GIDSignIn.sharedInstance()?.signOut()
+        performSegue(withIdentifier: "browsingSignOut", sender: self)
+    }
     
 }
