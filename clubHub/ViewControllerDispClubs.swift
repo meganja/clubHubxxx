@@ -180,11 +180,13 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                         for document in querySnapshot!.documents{
                             let temp = "\(String(describing: document.get("name")!))"
                             print(temp)
-                            if !self.items.contains(temp){
-                                if(self.searchBar!.text!.count > 0){
+                            if(self.searchBar!.text!.count > 0){
+                                if !self.filterAndSearchResult.contains(temp){
                                     self.filterAndSearchResult.append(temp)
                                 }
-                                else{
+                            }
+                            else{
+                                if !self.items.contains(temp){
                                     self.items.append(temp)
                                 }
                             }
@@ -209,11 +211,13 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                         for document in querySnapshot!.documents{
                             let temp = "\(String(describing: document.get("name")!))"
                             print(temp)
-                            if !self.items.contains(temp){
-                                if(self.searchBar!.text!.count > 0){
+                            if(self.searchBar!.text!.count > 0){
+                                if !self.filterAndSearchResult.contains(temp){
                                     self.filterAndSearchResult.append(temp)
                                 }
-                                else{
+                            }
+                            else{
+                                if !self.items.contains(temp){
                                     self.items.append(temp)
                                 }
                             }
@@ -236,11 +240,13 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                     for document in querySnapshot!.documents{
                         let temp = "\(String(describing: document.get("name")!))"
                         print(temp)
-                        if !self.items.contains(temp){
-                            if(self.searchBar!.text!.count > 0){
+                        if(self.searchBar!.text!.count > 0){
+                            if !self.filterAndSearchResult.contains(temp){
                                 self.filterAndSearchResult.append(temp)
                             }
-                            else{
+                        }
+                        else{
+                            if !self.items.contains(temp){
                                 self.items.append(temp)
                             }
                         }
