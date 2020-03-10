@@ -172,7 +172,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aEQ-Xg-zkz">
-                                <rect key="frame" x="249" y="727" width="270" height="77"/>
+                                <rect key="frame" x="249" y="645" width="270" height="77"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.83137254900000002" green="0.1215686275" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
@@ -920,13 +920,6 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Clubs Involved In:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aEy-nW-aOb">
-                                <rect key="frame" x="20" y="419" width="168" height="27"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Clubs Wishlist:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gb0-XY-YqF">
                                 <rect key="frame" x="20" y="675" width="142" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -977,15 +970,6 @@
                                     <outlet property="delegate" destination="psG-IV-fUG" id="afZ-Dk-Diz"/>
                                 </connections>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ooz-oq-CGN">
-                                <rect key="frame" x="20" y="381" width="111" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Add Your Clubs"/>
-                                <connections>
-                                    <action selector="addYourClubsBtn:" destination="psG-IV-fUG" eventType="touchUpInside" id="RCe-xa-38Z"/>
-                                    <segue destination="Ntu-Pz-j5H" kind="presentation" modalPresentationStyle="fullScreen" id="GdG-xW-vhM"/>
-                                </connections>
-                            </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4Re-qp-VYW">
                                 <rect key="frame" x="20" y="710" width="728" height="173"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1074,6 +1058,22 @@
                                 <connections>
                                     <action selector="signOut:" destination="psG-IV-fUG" eventType="touchUpInside" id="ZVi-rd-MY4"/>
                                     <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" id="voT-Mt-29V"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Clubs Involved In:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aEy-nW-aOb">
+                                <rect key="frame" x="20" y="394" width="168" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ooz-oq-CGN">
+                                <rect key="frame" x="20" y="416" width="111" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Add Your Clubs"/>
+                                <connections>
+                                    <action selector="addYourClubsBtn:" destination="psG-IV-fUG" eventType="touchUpInside" id="RCe-xa-38Z"/>
+                                    <segue destination="Ntu-Pz-j5H" kind="presentation" modalPresentationStyle="fullScreen" id="GdG-xW-vhM"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1412,9 +1412,9 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Yco-nf-Dsp"/>
-        <segue reference="HBN-lN-BdC"/>
+        <segue reference="KuB-2b-Pgb"/>
         <segue reference="13Z-ma-H7i"/>
-        <segue reference="1Nf-Tr-OE0"/>
-        <segue reference="sDv-vH-fYY"/>
+        <segue reference="GGO-DH-1TB"/>
+        <segue reference="voT-Mt-29V"/>
     </inferredMetricsTieBreakers>
 </document>
