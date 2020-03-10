@@ -18,10 +18,11 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     let reuseIdentifier = "cell" // also enter this string as the cell identifier in the storyboard
     var items = [String]()
     var dataSourceForSearchResult = [String]()
+    var filterAndSearchResult = [String]()
     var switches = [String]()
     var volunteerSwitchState = false
     
-
+    
     @IBOutlet weak var collectionViewClubs: UICollectionView!
     
     @IBOutlet weak var addClubButton: UIButton!
@@ -158,7 +159,13 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         print(switches)
         print("items")
         print(items)
-        items.removeAll()
+        if(self.searchBar!.text!.count > 0){ //can't use searchBarActive because searchBarActive becomes false after user hits enter on their search, even if the content being displayed is still filtered based on search text
+            filterAndSearchResult.removeAll()
+        }
+//        else{
+            items.removeAll()
+//        }
+        
         print("items")
         print(items)
         print("levels")
@@ -174,10 +181,18 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                             let temp = "\(String(describing: document.get("name")!))"
                             print(temp)
                             if !self.items.contains(temp){
-                                self.items.append(temp)
+                                if(self.searchBar!.text!.count > 0){
+                                    self.filterAndSearchResult.append(temp)
+                                }
+                                else{
+                                    self.items.append(temp)
+                                }
                             }
                         }
                         DispatchQueue.main.async {
+                            if(self.searchBar!.text!.count > 0){
+                                self.applyFiltersToSearch(searchText: self.searchBar!.text!)
+                            }
                             self.collectionViewClubs.reloadData()
                             self.switches.removeAll()
                         }
@@ -195,10 +210,18 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                             let temp = "\(String(describing: document.get("name")!))"
                             print(temp)
                             if !self.items.contains(temp){
-                                self.items.append(temp)
+                                if(self.searchBar!.text!.count > 0){
+                                    self.filterAndSearchResult.append(temp)
+                                }
+                                else{
+                                    self.items.append(temp)
+                                }
                             }
                         }
                         DispatchQueue.main.async {
+                            if(self.searchBar!.text!.count > 0){
+                                self.applyFiltersToSearch(searchText: self.searchBar!.text!)
+                            }
                             self.collectionViewClubs.reloadData()
                             self.levels.removeAll()
                         }
@@ -214,10 +237,18 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                         let temp = "\(String(describing: document.get("name")!))"
                         print(temp)
                         if !self.items.contains(temp){
-                            self.items.append(temp)
+                            if(self.searchBar!.text!.count > 0){
+                                self.filterAndSearchResult.append(temp)
+                            }
+                            else{
+                                self.items.append(temp)
+                            }
                         }
                     }
                     DispatchQueue.main.async {
+                       if(self.searchBar!.text!.count > 0){
+                            self.applyFiltersToSearch(searchText: self.searchBar!.text!)
+                        }
                         self.collectionViewClubs.reloadData()
                         //self.switches.removeAll()
                     }
@@ -230,9 +261,17 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                 for document in querySnapshot!.documents{
                     let temp = "\(String(describing: document.get("name")!))"
                     print(temp)
-                    self.items.append(temp)
+                    if(self.searchBar!.text!.count > 0){
+                        self.filterAndSearchResult.append(temp)
+                    }
+                    else{
+                        self.items.append(temp)
+                    }
                 }
                 DispatchQueue.main.async {
+                    if(self.searchBar!.text!.count > 0){
+                        self.applyFiltersToSearch(searchText: self.searchBar!.text!)
+                    }
                     self.collectionViewClubs.reloadData()
                 }
             }
@@ -244,8 +283,13 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     // tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        if self.searchBarActive {
-            return self.dataSourceForSearchResult.count;
+        if self.searchBar!.text!.count > 0{
+            if(filterAndSearchResult.count < dataSourceForSearchResult.count && filterAndSearchResult.count > 0){
+                return filterAndSearchResult.count
+            }
+            else{
+                 return self.dataSourceForSearchResult.count
+            }
         }
         
         return self.items.count
@@ -262,8 +306,13 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         cell.editClubBtn.tag = indexPath.item
         cell.editClubBtn.addTarget(self, action: #selector(editClub(_:)), for: .touchUpInside)
         
-        if (self.searchBarActive) {
-            cell.clubName.text = self.dataSourceForSearchResult[indexPath.row]
+        if (self.searchBar!.text!.count > 0) {
+            if(filterAndSearchResult.count < dataSourceForSearchResult.count && filterAndSearchResult.count > 0){
+                cell.clubName.text = self.filterAndSearchResult[indexPath.row]
+            }
+            else{
+                cell.clubName.text = self.dataSourceForSearchResult[indexPath.row]
+            }
         }else{ // Use the outlet in our custom class to get a reference to the UILabel in the cell
             cell.clubName.text = self.items[indexPath.row]
         }
@@ -311,8 +360,17 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             vc.num = self.clickedOn
             vc.viewer = viewer
             if (self.statement != "Statement #!"){
-                print("Clicked Name #\(self.items[self.clickedOn])!")
-                vc.ClubName = self.items[self.clickedOn]
+                if(self.searchBar!.text!.count > 0){
+                    if(filterAndSearchResult.count < dataSourceForSearchResult.count && filterAndSearchResult.count > 0){
+                        vc.ClubName = self.filterAndSearchResult[self.clickedOn]
+                    }
+                    else{
+                        vc.ClubName = self.dataSourceForSearchResult[self.clickedOn]
+                    }
+                }
+                else{
+                    vc.ClubName = self.items[self.clickedOn]
+                }
             }
         }
         else if(segue.identifier == "editClubSegue"){
@@ -321,98 +379,114 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             print("Statement #\(self.statement)!")
             print("Num #\(self.clickedOn)!")
             if (self.statement != "Statement #!"){
-                print("Clicked Name #\(self.items[self.clickedOn])!")
-                vc.ClubName = self.items[self.clickedOn]
+                if(self.searchBar!.text!.count > 0){
+                    if(filterAndSearchResult.count < dataSourceForSearchResult.count && filterAndSearchResult.count > 0){
+                        vc.ClubName = self.filterAndSearchResult[self.clickedOn]
+                    }
+                    else{
+                        vc.ClubName = self.dataSourceForSearchResult[self.clickedOn]
+                    }
+                }
+                else{
+                    vc.ClubName = self.items[self.clickedOn]
+                }
             }
         }
     }
     
     //MARK: -Search Bar
     func filterContentForSearchText(searchText:String){
-            self.dataSourceForSearchResult = self.items.filter({ (text:String) -> Bool in
-                print("CONTAINS: \(text.contains(searchText))")
-                return text.contains(searchText)
-            })
-        }
-        
-        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            // user did type something, check our datasource for text that looks the same
-            if searchText.count > 0 {
-                // search and reload data source
-                self.searchBarActive    = true
-                self.filterContentForSearchText(searchText: searchText)
-                self.collectionViewClubs.reloadData()
-            }else{
-                // if text length == 0
-                // we will consider the searchbar is not active
-                self.searchBarActive = false
-                self.collectionViewClubs.reloadData()
-            }
-
-        }
-        
-        func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-            self.cancelSearching()
+        self.dataSourceForSearchResult = self.items.filter({ (text:String) -> Bool in
+            print("CONTAINS: \(text.contains(searchText))")
+            return text.contains(searchText)
+        })
+    }
+    
+    func applyFiltersToSearch(searchText:String){
+        self.filterAndSearchResult = self.filterAndSearchResult.filter({ (text:String) -> Bool in
+            print("CONTAINS: \(text.contains(searchText))")
+            return text.contains(searchText)
+        })
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        // user did type something, check our datasource for text that looks the same
+        if searchText.count > 0 {
+            // search and reload data source
+            self.searchBarActive    = true
+            self.filterContentForSearchText(searchText: searchText)
+            self.collectionViewClubs.reloadData()
+        }else{
+            // if text length == 0
+            // we will consider the searchbar is not active
+            self.searchBarActive = false
             self.collectionViewClubs.reloadData()
         }
         
-        func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-            self.searchBarActive = true
-            self.view.endEditing(true)
-        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.cancelSearching()
+        self.collectionViewClubs.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBarActive = true
+        self.view.endEditing(true)
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        // we used here to set self.searchBarActive = YES
+        // but we'll not do that any more... it made problems
+        // it's better to set self.searchBarActive = YES when user typed something
+        self.searchBar!.setShowsCancelButton(true, animated: true)
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        //traced to here! this works when i hit enter after typing in search bar, just need to actually have it filter now... something seems to be going wrong there.
         
-        func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-            // we used here to set self.searchBarActive = YES
-            // but we'll not do that any more... it made problems
-            // it's better to set self.searchBarActive = YES when user typed something
-            self.searchBar!.setShowsCancelButton(true, animated: true)
-        }
         
-        func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-            //traced to here! this works when i hit enter after typing in search bar, just need to actually have it filter now... something seems to be going wrong there.
-      
+        // this method is being called when search btn in the keyboard tapped
+        // we set searchBarActive = NO
+        // but no need to reloadCollectionView
+        self.searchBarActive = false
+        self.searchBar!.setShowsCancelButton(false, animated: false)
+    }
+    func cancelSearching(){
+        self.searchBarActive = false
+        self.searchBar!.resignFirstResponder()
+        self.searchBar!.text = ""
+    }
+    
+    // MARK: prepareVC
+    func prepareUI(){
+        self.addSearchBar()
+    }
+    
+    func CGRectMake(_ x: CGFloat, _ y: CGFloat, _ width: CGFloat, _ height: CGFloat) -> CGRect {
+        return CGRect(x: x, y: y, width: width, height: height)
+    }
+    
+    let screenSize: CGRect = UIScreen.main.bounds
+    
+    func addSearchBar(){
+        print("ADDING SEARCH BAR")
+        if self.searchBar == nil{
             
-            // this method is being called when search btn in the keyboard tapped
-            // we set searchBarActive = NO
-            // but no need to reloadCollectionView
-            self.searchBarActive = false
-            self.searchBar!.setShowsCancelButton(false, animated: false)
-        }
-        func cancelSearching(){
-            self.searchBarActive = false
-            self.searchBar!.resignFirstResponder()
-            self.searchBar!.text = ""
-        }
-        
-        // MARK: prepareVC
-        func prepareUI(){
-            self.addSearchBar()
-        }
-        
-        func CGRectMake(_ x: CGFloat, _ y: CGFloat, _ width: CGFloat, _ height: CGFloat) -> CGRect {
-            return CGRect(x: x, y: y, width: width, height: height)
-        }
-        
-        let screenSize: CGRect = UIScreen.main.bounds
-        
-        func addSearchBar(){
-            print("ADDING SEARCH BAR")
-            if self.searchBar == nil{
-                
-                self.searchBar = UISearchBar(frame: CGRectMake(0, 150, 768, 44))
-                self.searchBar!.searchBarStyle       = UISearchBar.Style.minimal
-                self.searchBar!.tintColor            = UIColor.white
-                self.searchBar!.barTintColor         = UIColor.white
-                self.searchBar!.delegate             = self as? UISearchBarDelegate;
-                self.searchBar!.placeholder          = "search here";
-
-            }
+            self.searchBar = UISearchBar(frame: CGRectMake(0, 150, 768, 44))
+            self.searchBar!.searchBarStyle       = UISearchBar.Style.minimal
+            self.searchBar!.tintColor            = UIColor.white
+            self.searchBar!.barTintColor         = UIColor.white
+            self.searchBar!.delegate             = self as? UISearchBarDelegate;
+            self.searchBar!.placeholder          = "search here";
             
-            if !self.searchBar!.isDescendant(of: self.view){
-                self.view.addSubview(self.searchBar!)
-            }
         }
         
+        if !self.searchBar!.isDescendant(of: self.view){
+            self.view.addSubview(self.searchBar!)
+        }
+    }
+    
     //MARK: -Edit
     @objc func editClub(_ sender: UIButton) {
         print("EDIT CLUB HAS BEEN CALLED, ONTO SEGUE")
@@ -423,7 +497,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     }
     
     //MARK: -NavBar
-
+    
     @IBOutlet weak var navBarState: UIButton!
     var navBarProfileClicked = false
     @IBAction func navProfile(_ sender: Any) {
