@@ -25,6 +25,7 @@ class ViewControllerClubDescription: UIViewController {
     var meetings = ""
     var volunteerOp = ""
     var viewer = ""
+    var senderPage = ""
     let db = Firestore.firestore()
     
     var statement = ""
@@ -188,5 +189,16 @@ class ViewControllerClubDescription: UIViewController {
         
     }
     
+    @IBAction func backButtonClicked(_ sender: Any) {
+        print("BACK CLICKED THIS IS THE SENDER: (SHOULD BE PROFILE OR BROWSE)-- \(senderPage)")
+        if("\(senderPage)" == "profile"){
+            performSegue(withIdentifier: "descriptToProfile", sender: self)
+            profileClicked = true
+        }
+        else if("\(senderPage)" == "browse"){
+            performSegue(withIdentifier: "descriptToBrowse", sender: self)
+            browseClicked = true
+        }
+    }
     
 }

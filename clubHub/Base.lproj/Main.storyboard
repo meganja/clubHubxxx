@@ -453,10 +453,10 @@
                                     <color key="titleColor" red="0.83137254900000002" green="0.1215686275" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OaZ-jV-XRf">
-                                <rect key="frame" x="688" y="20" width="60" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OaZ-jV-XRf">
+                                <rect key="frame" x="698" y="20" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Sign Out"/>
+                                <state key="normal" title="Sign Out" image="signOut"/>
                                 <connections>
                                     <action selector="signOut:" destination="psG-IV-fUG" eventType="touchUpInside" id="NXZ-wU-Stg"/>
                                     <action selector="signOut:" destination="SSq-PF-znA" eventType="touchUpInside" id="QzE-x4-tNz"/>
@@ -862,6 +862,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S6F-ym-iIn">
+                                <rect key="frame" x="20" y="20" width="26" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="155-1554499_kudos-back-white-icon-png"/>
+                                <connections>
+                                    <action selector="backButtonClicked:" destination="fl7-by-9zP" eventType="touchUpInside" id="sdv-Rv-EUV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="ERl-ky-6aM"/>
@@ -877,6 +885,8 @@
                         <outlet property="sponsorName" destination="lsE-Bk-iRQ" id="Z7t-bY-w9m"/>
                         <outlet property="volunteer" destination="FKb-yk-X42" id="erl-iX-2Ha"/>
                         <outlet property="wishlistState" destination="rKz-Sa-kNQ" id="w7k-N7-aSv"/>
+                        <segue destination="SSq-PF-znA" kind="presentation" identifier="descriptToBrowse" modalPresentationStyle="fullScreen" id="dSB-4A-GFN"/>
+                        <segue destination="psG-IV-fUG" kind="presentation" identifier="descriptToProfile" modalPresentationStyle="fullScreen" id="jyz-EB-t97"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J3b-sy-nSM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1051,15 +1061,6 @@
                                     <color key="titleColor" red="0.83137254900000002" green="0.1215686275" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R2K-FS-XuS">
-                                <rect key="frame" x="688" y="20" width="60" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Sign Out"/>
-                                <connections>
-                                    <action selector="signOut:" destination="psG-IV-fUG" eventType="touchUpInside" id="ZVi-rd-MY4"/>
-                                    <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" id="voT-Mt-29V"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Clubs Involved In:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aEy-nW-aOb">
                                 <rect key="frame" x="20" y="394" width="168" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1076,6 +1077,15 @@
                                     <segue destination="Ntu-Pz-j5H" kind="presentation" modalPresentationStyle="fullScreen" id="GdG-xW-vhM"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R2K-FS-XuS">
+                                <rect key="frame" x="698" y="20" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Sign Out" image="signOut"/>
+                                <connections>
+                                    <action selector="signOut:" destination="psG-IV-fUG" eventType="touchUpInside" id="ZVi-rd-MY4"/>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" id="voT-Mt-29V"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Pwp-f6-0X0"/>
@@ -1090,7 +1100,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3E8-Va-tlM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2173" y="958"/>
+            <point key="canvasLocation" x="2172.65625" y="957.42187499999989"/>
         </scene>
         <!--View Controller Admin Edit-->
         <scene sceneID="Efa-MW-cH9">
@@ -1406,15 +1416,16 @@
         <image name="ellipsis.circle" catalog="system" width="64" height="60"/>
         <image name="personIconClicked" width="960" height="720"/>
         <image name="personIconNotClicked-2" width="960" height="720"/>
+        <image name="signOut" width="512" height="512"/>
         <image name="starIconNotClicked" width="960" height="720"/>
         <image name="trash" catalog="system" width="60" height="64"/>
         <image name="unnamed" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="XVu-Ee-6cz"/>
-        <segue reference="KuB-2b-Pgb"/>
-        <segue reference="QSC-xB-fEY"/>
+        <segue reference="Yco-nf-Dsp"/>
+        <segue reference="HBN-lN-BdC"/>
+        <segue reference="13Z-ma-H7i"/>
         <segue reference="GGO-DH-1TB"/>
-        <segue reference="voT-Mt-29V"/>
+        <segue reference="sDv-vH-fYY"/>
     </inferredMetricsTieBreakers>
 </document>
