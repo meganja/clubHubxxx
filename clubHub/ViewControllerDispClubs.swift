@@ -357,6 +357,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             print("Num #\(self.clickedOn)!")
             vc.num = self.clickedOn
             vc.viewer = viewer
+            vc.senderPage = "browse"
             if (self.statement != "Statement #!"){
                 if(self.searchBar!.text!.count > 0){
                      if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn){
