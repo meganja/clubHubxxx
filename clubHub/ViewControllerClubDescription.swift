@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import GoogleSignIn
 
-class ViewControllerClubDescription: UIViewController {
+class ViewControllerClubDescription: UIViewController{
     
     @IBOutlet weak var clubName: UILabel!
     @IBOutlet weak var clubDescription: UILabel!
@@ -23,7 +23,7 @@ class ViewControllerClubDescription: UIViewController {
     @IBOutlet weak var schoologyCode: UILabel!
     @IBOutlet weak var meetingTime: UILabel!
     @IBOutlet weak var AMPM: UILabel!
-    @IBOutlet weak var moreInfo: UILabel!
+    @IBOutlet weak var moreInfo: UIButton!
     
     var ClubName = ""
     var meetings = ""
@@ -32,6 +32,7 @@ class ViewControllerClubDescription: UIViewController {
     var senderPage = ""
     let db = Firestore.firestore()
     
+    var conantLink = ""
     var statement = ""
     var num = 0
     let email = ""
@@ -41,9 +42,6 @@ class ViewControllerClubDescription: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //self.clubDescription.sizeToFit()
-        
         
         
         if viewer == "admin"{
@@ -99,7 +97,9 @@ class ViewControllerClubDescription: UIViewController {
                 self.AMPM.text = String(describing: document.get("AM-PM")!)
                 self.meetingTime.text = String(describing: document.get("time")!)
                 self.schoologyCode.text = String(describing: document.get("schoology")!)
-                self.moreInfo.text = String(describing: document.get("link")!)
+                self.moreInfo.setTitle(String(describing: document.get("link")!), for: .normal)
+                self.conantLink = String(describing: document.get("link")!)
+        
                 
                 let daysInfo = document.data()["days"]! as! [Any]
                 print(daysInfo)
@@ -153,7 +153,18 @@ class ViewControllerClubDescription: UIViewController {
         
     }
     
+    //MARK: -Link
+    @IBAction func openConantLink(_ sender: Any) {
+        print("clicked me")
+        if let url = NSURL(string: conantLink){
+            UIApplication.shared.openURL(url as URL)
+        }
+        
+    }
     
+    
+    
+    //MARK: -Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if profileClicked{
             var vc = segue.destination as! ViewControllerProfile
