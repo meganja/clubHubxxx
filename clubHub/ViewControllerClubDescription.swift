@@ -45,7 +45,6 @@ class ViewControllerClubDescription: UIViewController {
         print("viewer")
         print(viewer)
         if viewer == "admin"{
-            profileState.isHidden = true
             wishlistState.isHidden = true
         }
         else if viewer == "student"{
@@ -159,16 +158,10 @@ class ViewControllerClubDescription: UIViewController {
     }
     
     
-    //MARK: -Nav Bar
-    @IBOutlet weak var profileState: UIButton!
+
     var profileClicked = false
     var browseClicked = false
-    @IBAction func profileButton(_ sender: Any) {
-        profileClicked = true
-    }
-    @IBAction func browseButton(_ sender: Any) {
-        browseClicked = true
-    }
+
     
     //MARK: -Wishlisting Clubs
     
