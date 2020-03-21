@@ -96,6 +96,10 @@ class ViewControllerClubDescription: UIViewController {
                 self.clubDescription.numberOfLines = 0
                 self.clubDescription.sizeToFit()
                 self.commitmentLevel.text = String(describing: document.get("commit")!)
+                self.AMPM.text = String(describing: document.get("AM-PM")!)
+                self.meetingTime.text = String(describing: document.get("time")!)
+                self.schoologyCode.text = String(describing: document.get("schoology")!)
+                self.moreInfo.text = String(describing: document.get("link")!)
                 
                 let daysInfo = document.data()["days"]! as! [Any]
                 print(daysInfo)

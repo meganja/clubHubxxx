@@ -48,6 +48,7 @@ class ViewControllerAdminEdit: UIViewController {
     @IBOutlet weak var AMPMSwitch: UISegmentedControl!
     @IBOutlet weak var moreInfo: UITextField!
     
+    var timeOfDay = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +66,9 @@ class ViewControllerAdminEdit: UIViewController {
                 print(self.docID)
                 
                 self.genDescriptTxtFld.text = String(describing: document.get("description")!)
+                self.meetingTimes.text = String(describing: document.get("time")!)
+                self.moreInfo.text = String(describing: document.get("link")!)
+                self.schoologyCode.text = String(describing: document.get("schoology")!)
                 
                  if String(describing: document.get("commit")!) == "Low"{
                     self.commitSegControl.selectedSegmentIndex = 0
@@ -75,6 +79,16 @@ class ViewControllerAdminEdit: UIViewController {
                        else if String(describing: document.get("commit")!) == "High"{
                     self.commitSegControl.selectedSegmentIndex = 2
                        }
+                
+                if String(describing: document.get("AM-PM")!) == "AM"{
+                self.commitSegControl.selectedSegmentIndex = 0
+                   }
+                   else if String(describing: document.get("AM-PM")!) == "PM"{
+                self.commitSegControl.selectedSegmentIndex = 1
+                   }
+                   else if String(describing: document.get("AM-PM")!) == "AM/PM"{
+                self.commitSegControl.selectedSegmentIndex = 2
+                   }
 
                 let daysInfo = document.data()["days"]! as! [String]
                 print(daysInfo)
@@ -230,12 +244,25 @@ class ViewControllerAdminEdit: UIViewController {
             commit = "High"
         }
         
+        if AMPMSwitch.selectedSegmentIndex == 0{
+            timeOfDay = "AM"
+        }
+        else if AMPMSwitch.selectedSegmentIndex == 1{
+            timeOfDay = "PM"
+        }
+        else if AMPMSwitch.selectedSegmentIndex == 2{
+            timeOfDay = "AM/PM"
+        }
+        
         let clubsRef = db.collection("clubs")
         if (!nameTxtFld.text!.isEmpty &&
             !genDescriptTxtFld.text.isEmpty &&
             !roomNumTxtFld.text!.isEmpty &&
             !sponsorNameTxtFld.text!.isEmpty &&
-            !sponsorEmailTxtFld.text!.isEmpty){
+            !sponsorEmailTxtFld.text!.isEmpty &&
+            !schoologyCode.text!.isEmpty &&
+            !meetingTimes.text!.isEmpty &&
+            !moreInfo.text!.isEmpty){
             print("none empty")
             print("\(nameTxtFld.text!)")
             print(commit)
@@ -250,7 +277,12 @@ class ViewControllerAdminEdit: UIViewController {
                     "commit":commit,
                     "description":"\(genDescriptTxtFld.text!)",
                     "room":"\(roomNumTxtFld.text!)",
-                    "sponsor":["\(sponsorNameTxtFld.text!)", "\(sponsorEmailTxtFld.text!)"]])
+                    "sponsor":["\(sponsorNameTxtFld.text!)", "\(sponsorEmailTxtFld.text!)"],
+                    "schoology":"\(schoologyCode.text!)",
+                    "time":"\(meetingTimes.text!)",
+                    "AM-PM":timeOfDay,
+                    "link":"\(moreInfo.text!)"
+            ])
             performSegue(withIdentifier: "backToBrowsing", sender: "done")
         }
         else{
