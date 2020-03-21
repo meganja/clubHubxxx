@@ -25,10 +25,15 @@ class ViewControllerAddClub: UIViewController {
     @IBOutlet weak var sponsorName: UITextField!
     @IBOutlet weak var sponsorEmail: UITextField!
     @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var schoologyCode: UITextField!
+    @IBOutlet weak var meetingTimes: UITextField!
+    @IBOutlet weak var AMPMSwitch: UISegmentedControl!
+    @IBOutlet weak var moreInfo: UITextField!
     
     var club = ""
     var days = [String]()
     var commit = ""
+    var timeOfDay = ""
     var db = Firestore.firestore()
     var viewer = "admin"
     
@@ -77,20 +82,27 @@ class ViewControllerAddClub: UIViewController {
             commit = "High"
         }
         
+        if AMPMSwitch.selectedSegmentIndex == 0{
+            timeOfDay = "AM"
+        }
+        else if AMPMSwitch.selectedSegmentIndex == 1{
+            timeOfDay = "PM"
+        }
+        else if AMPMSwitch.selectedSegmentIndex == 2{
+            timeOfDay = "AM/PM"
+        }
+        
+        
         let clubsRef = db.collection("clubs")
         
         if (!nameLabel.text!.isEmpty &&
             !generalDescription.text.isEmpty &&
             !roomNumber.text!.isEmpty &&
             !sponsorName.text!.isEmpty &&
-            !sponsorEmail.text!.isEmpty){
-            print("none empty")
-            print("\(nameLabel.text!)")
-            print(commit)
-            print("\(generalDescription.text!)")
-            print("\(roomNumber.text!)")
-            print("\(sponsorName.text!)")
-            print("\(sponsorEmail.text!)")
+            !sponsorEmail.text!.isEmpty &&
+            !schoologyCode.text!.isEmpty &&
+            !meetingTimes.text!.isEmpty &&
+            !moreInfo.text!.isEmpty){
             clubsRef.document().setData(
                 ["name":"\(nameLabel.text!)",
                     "days":days,
@@ -98,7 +110,13 @@ class ViewControllerAddClub: UIViewController {
                     "commit":commit,
                     "description":"\(generalDescription.text!)",
                     "room":"\(roomNumber.text!)",
-                    "sponsor":["\(sponsorName.text!)", "\(sponsorEmail.text!)"]])
+                    "sponsor":["\(sponsorName.text!)", "\(sponsorEmail.text!)"],
+                    "schoology":"\(schoologyCode.text!)",
+                    "time":"\(meetingTimes.text!)",
+                    "AM-PM":timeOfDay,
+                    "link":"\(moreInfo.text!)"
+            
+            ])
             performSegue(withIdentifier: "addToBrowsing", sender: "done")
         }
         else{
