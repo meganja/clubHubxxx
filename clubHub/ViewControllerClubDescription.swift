@@ -35,6 +35,13 @@ class ViewControllerClubDescription: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //clubDescription.numberOfLines = 0
+        //clubDescription.frame = CGRectMake(151,165,578,266)
+        
+        //clubDescription.textAlignment = NSTextAlignmentRight
+        
+        
         print("viewer")
         print(viewer)
         if viewer == "admin"{
@@ -82,6 +89,8 @@ class ViewControllerClubDescription: UIViewController {
                 
                 
                 self.clubDescription.text = String(describing: document.get("description")!)
+                //self.clubDescription.numberOfLines= 0
+                [self.clubDescription .sizeToFit()]
                 self.commitmentLevel.text = String(describing: document.get("commit")!)
                 
                 let daysInfo = document.data()["days"]! as! [Any]

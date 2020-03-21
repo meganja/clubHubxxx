@@ -227,10 +227,10 @@ class ViewControllerAdminEdit: UIViewController {
         }
         
         let clubsRef = db.collection("clubs")
-        if (!nameTxtFld.text!.isEmpty ||
-            !genDescriptTxtFld.text.isEmpty ||
-            !roomNumTxtFld.text!.isEmpty ||
-            !sponsorNameTxtFld.text!.isEmpty ||
+        if (!nameTxtFld.text!.isEmpty &&
+            !genDescriptTxtFld.text.isEmpty &&
+            !roomNumTxtFld.text!.isEmpty &&
+            !sponsorNameTxtFld.text!.isEmpty &&
             !sponsorEmailTxtFld.text!.isEmpty){
             print("none empty")
             print("\(nameTxtFld.text!)")
@@ -247,9 +247,30 @@ class ViewControllerAdminEdit: UIViewController {
                     "description":"\(genDescriptTxtFld.text!)",
                     "room":"\(roomNumTxtFld.text!)",
                     "sponsor":["\(sponsorNameTxtFld.text!)", "\(sponsorEmailTxtFld.text!)"]])
+            performSegue(withIdentifier: "backToBrowsing", sender: "done")
         }
+        else{
+                    let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Not all fields are filled in", preferredStyle: .alert)
+                    
+                    // Create OK button with action handler
+                    let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+                         print("Ok button tapped")
+                         
+                    })
+                    
+        //            // Create Cancel button with action handlder
+        //            let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+        //                print("Cancel button tapped")
+        //            }
+                    
+                    //Add OK and Cancel button to dialog message
+                    dialogMessage.addAction(ok)
+                    //dialogMessage.addAction(cancel)
+                    
+                    // Present dialog message to user
+                    self.present(dialogMessage, animated: true, completion: nil)
+                }
         
-        performSegue(withIdentifier: "backToBrowsing", sender: "done")
     }
     
 }
