@@ -45,6 +45,8 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("***************************************************viewer  \(viewer)")
+        print(viewer)
         if (viewer != "admin"){
             addClubButton.isHidden = true
         }
@@ -357,6 +359,8 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             print("Num #\(self.clickedOn)!")
             vc.num = self.clickedOn
             vc.viewer = viewer
+            print("1111111111111111111111111111")
+            print(viewer)
             vc.senderPage = "browse"
             if (self.statement != "Statement #!"){
                 if(self.searchBar!.text!.count > 0){
