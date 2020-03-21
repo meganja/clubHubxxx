@@ -20,6 +20,10 @@ class ViewControllerClubDescription: UIViewController {
     @IBOutlet weak var room: UILabel!
     @IBOutlet weak var sponsorName: UILabel!
     @IBOutlet weak var sponsorEmail: UILabel!
+    @IBOutlet weak var schoologyCode: UILabel!
+    @IBOutlet weak var meetingTime: UILabel!
+    @IBOutlet weak var AMPM: UILabel!
+    @IBOutlet weak var moreInfo: UILabel!
     
     var ClubName = ""
     var meetings = ""

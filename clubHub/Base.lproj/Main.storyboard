@@ -845,7 +845,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="AM/PM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="stV-fW-075">
-                                                <rect key="frame" x="179" y="546" width="66" height="24"/>
+                                                <rect key="frame" x="179" y="546" width="293" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <nil key="textColor"/>
@@ -1023,11 +1023,15 @@
                     </view>
                     <size key="freeformSize" width="768" height="1300"/>
                     <connections>
+                        <outlet property="AMPM" destination="stV-fW-075" id="RVV-K2-Pa0"/>
                         <outlet property="clubDescription" destination="I61-of-Pfs" id="ToJ-7o-Rg4"/>
                         <outlet property="clubName" destination="Exz-f4-Cv6" id="Yiw-Wd-vVT"/>
                         <outlet property="commitmentLevel" destination="Jmf-SW-mna" id="bX2-bj-hZ3"/>
                         <outlet property="meetingDays" destination="bnN-ob-zCi" id="ZWq-dK-Ngg"/>
+                        <outlet property="meetingTime" destination="tlK-uD-mTI" id="g95-sQ-yaY"/>
+                        <outlet property="moreInfo" destination="pKU-k1-dom" id="qos-f3-LgS"/>
                         <outlet property="room" destination="NvM-dJ-O8x" id="Pin-o5-Qzo"/>
+                        <outlet property="schoologyCode" destination="Awl-DC-lVN" id="hUb-VH-lYh"/>
                         <outlet property="sponsorEmail" destination="bD2-d7-vzw" id="mJz-si-p2E"/>
                         <outlet property="sponsorName" destination="lsE-Bk-iRQ" id="Z7t-bY-w9m"/>
                         <outlet property="volunteer" destination="FKb-yk-X42" id="erl-iX-2Ha"/>
@@ -1699,9 +1703,9 @@
         <image name="unnamed" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Yco-nf-Dsp"/>
+        <segue reference="jyz-EB-t97"/>
         <segue reference="HBN-lN-BdC"/>
-        <segue reference="QSC-xB-fEY"/>
+        <segue reference="dSB-4A-GFN"/>
         <segue reference="GGO-DH-1TB"/>
         <segue reference="sDv-vH-fYY"/>
     </inferredMetricsTieBreakers>
