@@ -33,22 +33,21 @@ class ViewControllerClubDescription: UIViewController {
     let email = ""
     let name = ""
     
+    var realViewer = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //clubDescription.numberOfLines = 0
-        //clubDescription.frame = CGRectMake(151,165,578,266)
-        
-        //clubDescription.textAlignment = NSTextAlignmentRight
+        //self.clubDescription.sizeToFit()
         
         
-        print("viewer")
-        print(viewer)
+        
         if viewer == "admin"{
-            profileState.isHidden = true
+            realViewer = "admin"
             wishlistState.isHidden = true
         }
         else if viewer == "student"{
+            realViewer = "student"
             let userRef = db.collection("users").document(uid)
             userRef.getDocument { (document, error) in
                 let tempWish = document?.data()!["wishlist"]! as![Any]
@@ -69,7 +68,8 @@ class ViewControllerClubDescription: UIViewController {
         print()
         print()
         print("in new view controller")
-        
+        print("viewer")
+        print(viewer)
         print(self.ClubName)
         print(self.statement)
         print("You selected cell #\(self.num)!")
@@ -89,8 +89,8 @@ class ViewControllerClubDescription: UIViewController {
                 
                 
                 self.clubDescription.text = String(describing: document.get("description")!)
-                //self.clubDescription.numberOfLines= 0
-                [self.clubDescription .sizeToFit()]
+                self.clubDescription.numberOfLines = 0
+                self.clubDescription.sizeToFit()
                 self.commitmentLevel.text = String(describing: document.get("commit")!)
                 
                 let daysInfo = document.data()["days"]! as! [Any]
@@ -149,26 +149,22 @@ class ViewControllerClubDescription: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if profileClicked{
             var vc = segue.destination as! ViewControllerProfile
-            vc.viewer = viewer
+            vc.viewer = "student"
             
         }else if browseClicked{
+            print("going back")
+            print("real viewer = \(realViewer)")
             var vc = segue.destination as! ViewControllerDispClubs
-            vc.viewer = viewer
+            vc.viewer = self.realViewer
         }
         
     }
     
     
-    //MARK: -Nav Bar
-    @IBOutlet weak var profileState: UIButton!
+
     var profileClicked = false
     var browseClicked = false
-    @IBAction func profileButton(_ sender: Any) {
-        profileClicked = true
-    }
-    @IBAction func browseButton(_ sender: Any) {
-        browseClicked = true
-    }
+
     
     //MARK: -Wishlisting Clubs
     
@@ -201,12 +197,14 @@ class ViewControllerClubDescription: UIViewController {
     @IBAction func backButtonClicked(_ sender: Any) {
         print("BACK CLICKED THIS IS THE SENDER: (SHOULD BE PROFILE OR BROWSE)-- \(senderPage)")
         if("\(senderPage)" == "profile"){
-            performSegue(withIdentifier: "descriptToProfile", sender: self)
             profileClicked = true
+            performSegue(withIdentifier: "descriptToProfile", sender: self)
+            
         }
         else if("\(senderPage)" == "browse"){
-            performSegue(withIdentifier: "descriptToBrowse", sender: self)
             browseClicked = true
+            performSegue(withIdentifier: "descriptToBrowse", sender: self)
+            
         }
     }
     
