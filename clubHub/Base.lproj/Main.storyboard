@@ -765,13 +765,17 @@
                     </view>
                     <size key="freeformSize" width="768" height="1100"/>
                     <connections>
+                        <outlet property="AMPMSwitch" destination="WZk-gp-ydc" id="Tcf-Zl-4cg"/>
                         <outlet property="commitmentLevel" destination="VcB-LT-ksU" id="Mmg-FQ-n7t"/>
                         <outlet property="doneButton" destination="jyx-4K-dql" id="N9t-DC-a7G"/>
                         <outlet property="fridaySwitch" destination="XWR-0P-HJF" id="ovT-rv-PPG"/>
                         <outlet property="generalDescription" destination="QjS-Y9-ZQt" id="K0M-Vw-2cZ"/>
+                        <outlet property="meetingTimes" destination="BD0-yy-39F" id="tK8-3X-DGg"/>
                         <outlet property="mondaySwitch" destination="rqE-JQ-vKQ" id="BRB-Tp-mkD"/>
+                        <outlet property="moreInfo" destination="Va2-Dz-dne" id="FlW-V2-F8t"/>
                         <outlet property="nameLabel" destination="U2H-Sf-sZh" id="mYb-eN-gnh"/>
                         <outlet property="roomNumber" destination="JX4-Ee-qQW" id="Yv8-fB-bwc"/>
+                        <outlet property="schoologyCode" destination="ceb-m8-nEB" id="9Hf-ap-9vm"/>
                         <outlet property="sponsorEmail" destination="jOg-E8-yZq" id="xcH-im-n0J"/>
                         <outlet property="sponsorName" destination="PeT-hw-ATJ" id="8Iu-wa-ABV"/>
                         <outlet property="thursdaySwitch" destination="XBv-uH-jsx" id="btD-ZV-eby"/>
@@ -1576,12 +1580,16 @@
                     </view>
                     <size key="freeformSize" width="768" height="1150"/>
                     <connections>
+                        <outlet property="AMPMSwitch" destination="lxd-53-RkP" id="Dfi-rg-gZY"/>
                         <outlet property="commitSegControl" destination="NKG-Mb-hMg" id="2FT-vX-8g6"/>
                         <outlet property="fridaySwitch" destination="Zdz-05-R7S" id="0fB-XF-x94"/>
                         <outlet property="genDescriptTxtFld" destination="vg6-mw-r17" id="fhw-bB-Rfm"/>
+                        <outlet property="meetingTimes" destination="uXz-F9-H42" id="JnG-JW-laT"/>
                         <outlet property="mondaySwitch" destination="Eq0-sh-cV9" id="D5Z-pO-Lhx"/>
+                        <outlet property="moreInfo" destination="Noc-bv-53L" id="5JD-GP-l1A"/>
                         <outlet property="nameTxtFld" destination="ai1-88-F7r" id="JNw-Vf-wbe"/>
                         <outlet property="roomNumTxtFld" destination="sC3-Lj-34t" id="VsD-jW-Mfm"/>
+                        <outlet property="schoologyCode" destination="kGo-P1-uMq" id="1dd-S4-7Rg"/>
                         <outlet property="sponsorEmailTxtFld" destination="MhT-1j-pzF" id="7pe-bB-KXR"/>
                         <outlet property="sponsorNameTxtFld" destination="8pw-q4-TZd" id="OxM-l7-NHM"/>
                         <outlet property="thursdaySwitch" destination="FYi-RN-bi1" id="RAP-QI-8fz"/>
@@ -1705,7 +1713,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="jyz-EB-t97"/>
         <segue reference="HBN-lN-BdC"/>
-        <segue reference="dSB-4A-GFN"/>
+        <segue reference="gJ8-zr-gjY"/>
         <segue reference="GGO-DH-1TB"/>
         <segue reference="sDv-vH-fYY"/>
     </inferredMetricsTieBreakers>

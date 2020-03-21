@@ -43,6 +43,10 @@ class ViewControllerAdminEdit: UIViewController {
     @IBOutlet weak var sponsorEmailTxtFld: UITextField!
     
     @IBOutlet weak var titleLbl: UILabel!
+    @IBOutlet weak var schoologyCode: UITextField!
+    @IBOutlet weak var meetingTimes: UITextField!
+    @IBOutlet weak var AMPMSwitch: UISegmentedControl!
+    @IBOutlet weak var moreInfo: UITextField!
     
     
     override func viewDidLoad() {

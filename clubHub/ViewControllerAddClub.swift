@@ -25,6 +25,10 @@ class ViewControllerAddClub: UIViewController {
     @IBOutlet weak var sponsorName: UITextField!
     @IBOutlet weak var sponsorEmail: UITextField!
     @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var schoologyCode: UITextField!
+    @IBOutlet weak var meetingTimes: UITextField!
+    @IBOutlet weak var AMPMSwitch: UISegmentedControl!
+    @IBOutlet weak var moreInfo: UITextField!
     
     var club = ""
     var days = [String]()
