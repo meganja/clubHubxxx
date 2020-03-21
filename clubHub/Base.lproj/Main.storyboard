@@ -932,13 +932,6 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pKU-k1-dom">
-                                                <rect key="frame" x="168" y="720" width="557" height="24"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tlK-uD-mTI">
                                                 <rect key="frame" x="182" y="509" width="543" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -988,6 +981,14 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xg5-sM-S2E">
+                                                <rect key="frame" x="161" y="717" width="405" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="openConantLink:" destination="fl7-by-9zP" eventType="touchUpInside" id="H8P-KU-0e2"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
@@ -1026,7 +1027,7 @@
                         <outlet property="commitmentLevel" destination="Jmf-SW-mna" id="bX2-bj-hZ3"/>
                         <outlet property="meetingDays" destination="bnN-ob-zCi" id="ZWq-dK-Ngg"/>
                         <outlet property="meetingTime" destination="tlK-uD-mTI" id="g95-sQ-yaY"/>
-                        <outlet property="moreInfo" destination="pKU-k1-dom" id="qos-f3-LgS"/>
+                        <outlet property="moreInfo" destination="xg5-sM-S2E" id="n4s-PG-TW9"/>
                         <outlet property="room" destination="NvM-dJ-O8x" id="Pin-o5-Qzo"/>
                         <outlet property="schoologyCode" destination="Awl-DC-lVN" id="hUb-VH-lYh"/>
                         <outlet property="sponsorEmail" destination="bD2-d7-vzw" id="mJz-si-p2E"/>
@@ -1039,7 +1040,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J3b-sy-nSM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3542" y="1666"/>
+            <point key="canvasLocation" x="3541.40625" y="1665.8203125"/>
         </scene>
         <!--View Controller Profile-->
         <scene sceneID="USB-5N-IVv">
@@ -1667,7 +1668,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="jyz-EB-t97"/>
         <segue reference="HBN-lN-BdC"/>
-        <segue reference="vzz-9E-Rsf"/>
+        <segue reference="dSB-4A-GFN"/>
         <segue reference="GGO-DH-1TB"/>
         <segue reference="sDv-vH-fYY"/>
     </inferredMetricsTieBreakers>
