@@ -9,8 +9,9 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import MessageUI
 
-class ViewControllerClubDescription: UIViewController{
+class ViewControllerClubDescription: UIViewController, MFMailComposeViewControllerDelegate{
     
     @IBOutlet weak var clubName: UILabel!
     @IBOutlet weak var clubDescription: UILabel!
@@ -19,7 +20,8 @@ class ViewControllerClubDescription: UIViewController{
     @IBOutlet weak var volunteer: UILabel!
     @IBOutlet weak var room: UILabel!
     @IBOutlet weak var sponsorName: UILabel!
-    @IBOutlet weak var sponsorEmail: UILabel!
+    @IBOutlet weak var sponsorEmail: UIButton!
+    
     @IBOutlet weak var schoologyCode: UILabel!
     @IBOutlet weak var meetingTime: UILabel!
     @IBOutlet weak var AMPM: UILabel!
@@ -33,6 +35,7 @@ class ViewControllerClubDescription: UIViewController{
     let db = Firestore.firestore()
     
     var conantLink = ""
+    var emailAddress = ""
     var statement = ""
     var num = 0
     let email = ""
@@ -99,6 +102,7 @@ class ViewControllerClubDescription: UIViewController{
                 self.schoologyCode.text = String(describing: document.get("schoology")!)
                 self.moreInfo.setTitle(String(describing: document.get("link")!), for: .normal)
                 self.conantLink = String(describing: document.get("link")!)
+                
         
                 
                 let daysInfo = document.data()["days"]! as! [Any]
@@ -142,7 +146,8 @@ class ViewControllerClubDescription: UIViewController{
                 
                 let sponsorInfo = document.data()["sponsor"]! as! [Any]
                 self.sponsorName.text = "\(sponsorInfo[0])"
-                self.sponsorEmail.text = "\(sponsorInfo[1])"
+                self.sponsorEmail.setTitle("\(sponsorInfo[1])", for: .normal)
+                self.emailAddress = "\(sponsorInfo[1])"
                 
             }
             
@@ -160,6 +165,30 @@ class ViewControllerClubDescription: UIViewController{
             UIApplication.shared.openURL(url as URL)
         }
         
+    }
+    
+    //MARK: -Email
+    @IBAction func sendEmail(_ sender: Any) {
+        let mailComposeViewController = configureMailController()
+        if MFMailComposeViewController.canSendMail(){
+            self.present(mailComposeViewController, animated: true, completion: nil)
+        }else{
+            print("could not send")
+        }
+    }
+    
+    func configureMailController() -> MFMailComposeViewController{
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self
+        mailComposerVC.setToRecipients([emailAddress])
+        mailComposerVC.setSubject(ClubName)
+        return mailComposerVC
+    }
+    
+
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
     }
     
     
