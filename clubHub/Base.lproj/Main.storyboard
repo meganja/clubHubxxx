@@ -939,13 +939,6 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bD2-d7-vzw">
-                                                <rect key="frame" x="161" y="688" width="564" height="24"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mathcmaker" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dG1-Qc-tdE">
                                                 <rect key="frame" x="33" y="773" width="704" height="241"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -989,6 +982,14 @@
                                                     <action selector="openConantLink:" destination="fl7-by-9zP" eventType="touchUpInside" id="H8P-KU-0e2"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UEl-EH-G34">
+                                                <rect key="frame" x="161" y="679" width="311" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="sendEmail:" destination="fl7-by-9zP" eventType="touchUpInside" id="6v5-4M-joU"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
@@ -1030,7 +1031,7 @@
                         <outlet property="moreInfo" destination="xg5-sM-S2E" id="n4s-PG-TW9"/>
                         <outlet property="room" destination="NvM-dJ-O8x" id="Pin-o5-Qzo"/>
                         <outlet property="schoologyCode" destination="Awl-DC-lVN" id="hUb-VH-lYh"/>
-                        <outlet property="sponsorEmail" destination="bD2-d7-vzw" id="mJz-si-p2E"/>
+                        <outlet property="sponsorEmail" destination="UEl-EH-G34" id="6Jr-hk-9ja"/>
                         <outlet property="sponsorName" destination="lsE-Bk-iRQ" id="Z7t-bY-w9m"/>
                         <outlet property="volunteer" destination="FKb-yk-X42" id="erl-iX-2Ha"/>
                         <outlet property="wishlistState" destination="rKz-Sa-kNQ" id="w7k-N7-aSv"/>
@@ -1040,7 +1041,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J3b-sy-nSM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3541.40625" y="1665.8203125"/>
+            <point key="canvasLocation" x="3543.75" y="1272.65625"/>
         </scene>
         <!--View Controller Profile-->
         <scene sceneID="USB-5N-IVv">
