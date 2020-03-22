@@ -1702,6 +1702,7 @@
         <image name="unnamed" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="nUa-P3-Ifl"/>
         <segue reference="Yco-nf-Dsp"/>
         <segue reference="HBN-lN-BdC"/>
         <segue reference="gJ8-zr-gjY"/>
