@@ -37,9 +37,12 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     @IBOutlet weak var medCommitmentSwitch: UISwitch!
     @IBOutlet weak var highCommitmentSwitch: UISwitch!
     @IBOutlet weak var volunteerSwitch: UISwitch!
+    @IBOutlet weak var AMSwitch: UISwitch!
+    @IBOutlet weak var PMSwitch: UISwitch!
     
     
     var levels = [String]()
+    var timeOfDay = [String]()
     var viewer = ""
     
     let db = Firestore.firestore()
@@ -55,6 +58,9 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             navBarState.isHidden = true
         }
         getItems()
+        DispatchQueue.main.async {
+            self.collectionViewClubs.reloadData()
+        }
     }
     
     func getItems(){
@@ -79,9 +85,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             print()
             print()
             print()
-            DispatchQueue.main.async {
-                self.collectionViewClubs.reloadData()
-            }
+            
         }
     }
     
@@ -127,6 +131,15 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         if highCommitmentSwitch.isOn{
             levels.append("High")
         }
+        
+        if AMSwitch.isOn{
+            timeOfDay.append("AM")
+        }
+        
+        if PMSwitch.isOn{
+            timeOfDay.append("PM")
+        }
+        
         
         if volunteerSwitch.isOn{
             volunteerSwitchState = true
@@ -176,6 +189,12 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     @IBAction func checkHighCommit(_ sender: Any) {
         checkAllSwitches()
     }
+    @IBAction func checkAMSwitch(_ sender: Any) {
+        checkAllSwitches()
+    }
+    @IBAction func checkPMSwitch(_ sender: Any) {
+        checkAllSwitches()
+    }
     
     //MARK: -checking filters
     func updateCollectionWithFilters(){
@@ -194,7 +213,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         print("levels")
         print(levels)
         var clubsRef = db.collection("clubs")
-        if (volunteerSwitchState == true || switches.count>0 || levels.count>0){
+        if (volunteerSwitchState == true || switches.count>0 || levels.count>0 || timeOfDay.count>0){
             if (switches.count>0){
                 for i in (0...self.switches.count-1){
                     print("days check")
@@ -278,6 +297,48 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                 }
             }
             
+            if (timeOfDay.count>0){
+                for i in (0...self.timeOfDay.count-1){
+                    print("check timeOfDay")
+                    print(self.timeOfDay[i])
+                    clubsRef.whereField("AM-PM", isEqualTo: self.timeOfDay[i]).getDocuments(){ (querySnapshot, error) in
+                        print("here")
+                        for document in querySnapshot!.documents{
+                            let temp = "\(String(describing: document.get("name")!))"
+                            print(temp)
+                            if(self.searchBar!.text!.count > 0){
+                                print("by array filter and search result")
+                                print(!self.filterAndSearchResult.contains(temp))
+                                print(self.filterAndSearchResult.append(temp))
+                                if !self.filterAndSearchResult.contains(temp){
+                                    self.filterAndSearchResult.append(temp)
+                                }
+                            }
+                            else{
+                                if !self.items.contains(temp){
+                                    self.items.append(temp)
+                                }
+                            }
+                        }
+                        self.items = self.items.sorted(by: {$0 < $1})
+                        print()
+                        print()
+                        print("items")
+                        print(self.items)
+                        print()
+                        print()
+                        print()
+                        DispatchQueue.main.async {
+                            if(self.searchBar!.text!.count > 0){
+                                self.applyFiltersToSearch(searchText: self.searchBar!.text!)
+                            }
+                            self.collectionViewClubs.reloadData()
+                            self.timeOfDay.removeAll()
+                        }
+                    }
+                }
+            }
+            
             if (volunteerSwitchState){
                 print("in if trying to upload clubs that offer volunteer")
                 clubsRef.whereField("volunteer", isEqualTo: volunteerSwitchState).getDocuments(){ (querySnapshot, error) in
@@ -312,7 +373,6 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                             self.applyFiltersToSearch(searchText: self.searchBar!.text!)
                         }
                         self.collectionViewClubs.reloadData()
-                        //self.switches.removeAll()
                     }
                 }
             }
@@ -346,7 +406,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if self.searchBar!.text!.count > 0{
-            if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn){
+            if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn || AMSwitch.isOn || PMSwitch.isOn){
                 return filterAndSearchResult.count
             }
             else{
@@ -371,7 +431,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         cell.editClubBtn.addTarget(self, action: #selector(editClub(_:)), for: .touchUpInside)
         
         if (self.searchBar!.text!.count > 0) {
-            if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn){
+            if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn || AMSwitch.isOn || PMSwitch.isOn){
                 cell.clubName.text = self.filterAndSearchResult[indexPath.row]
             }
             else{
@@ -428,7 +488,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             vc.senderPage = "browse"
             if (self.statement != "Statement #!"){
                 if(self.searchBar!.text!.count > 0){
-                    if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn){
+                    if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn  || AMSwitch.isOn || PMSwitch.isOn){
                         vc.ClubName = self.filterAndSearchResult[self.clickedOn]
                     }
                     else{
@@ -447,7 +507,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             print("Num #\(self.clickedOn)!")
             if (self.statement != "Statement #!"){
                 if(self.searchBar!.text!.count > 0){
-                    if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn){
+                    if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn  || AMSwitch.isOn || PMSwitch.isOn){
                         vc.ClubName = self.filterAndSearchResult[self.clickedOn]
                     }
                     else{
