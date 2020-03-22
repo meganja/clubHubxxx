@@ -88,9 +88,6 @@ class ViewControllerAddClub: UIViewController {
         else if AMPMSwitch.selectedSegmentIndex == 1{
             timeOfDay = "PM"
         }
-        else if AMPMSwitch.selectedSegmentIndex == 2{
-            timeOfDay = "AM/PM"
-        }
         
         
         let clubsRef = db.collection("clubs")

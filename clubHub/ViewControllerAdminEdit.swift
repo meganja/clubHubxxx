@@ -86,9 +86,6 @@ class ViewControllerAdminEdit: UIViewController {
                    else if String(describing: document.get("AM-PM")!) == "PM"{
                 self.commitSegControl.selectedSegmentIndex = 1
                    }
-                   else if String(describing: document.get("AM-PM")!) == "AM/PM"{
-                self.commitSegControl.selectedSegmentIndex = 2
-                   }
 
                 let daysInfo = document.data()["days"]! as! [String]
                 print(daysInfo)
@@ -249,9 +246,6 @@ class ViewControllerAdminEdit: UIViewController {
         }
         else if AMPMSwitch.selectedSegmentIndex == 1{
             timeOfDay = "PM"
-        }
-        else if AMPMSwitch.selectedSegmentIndex == 2{
-            timeOfDay = "AM/PM"
         }
         
         let clubsRef = db.collection("clubs")
