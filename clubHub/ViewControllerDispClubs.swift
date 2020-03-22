@@ -64,6 +64,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     }
     
     func getItems(){
+        items.removeAll()
         db.collection("clubs").order(by: "name").getDocuments(){ (querySnapshot, err) in
             for document in querySnapshot!.documents{
                 let temp = "\(String(describing: document.get("name")!))"
@@ -85,7 +86,9 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             print()
             print()
             print()
-            
+            DispatchQueue.main.async {
+                self.collectionViewClubs.reloadData()
+            }
         }
     }
     
@@ -214,6 +217,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         print(levels)
         var clubsRef = db.collection("clubs")
         if (volunteerSwitchState == true || switches.count>0 || levels.count>0 || timeOfDay.count>0){
+            searchBar?.isHidden = true
             if (switches.count>0){
                 for i in (0...self.switches.count-1){
                     print("days check")
@@ -379,24 +383,26 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             
         }
         else{
-            db.collection("clubs").getDocuments(){ (querySnapshot, err) in
-                for document in querySnapshot!.documents{
-                    let temp = "\(String(describing: document.get("name")!))"
-                    print(temp)
-                    self.items.append(temp)
-                }
-                self.items = self.items.sorted(by: {$0 < $1})
-                print()
-                print()
-                print("items")
-                print(self.items)
-                print()
-                print()
-                print()
-                DispatchQueue.main.async {
-                    self.collectionViewClubs.reloadData()
-                }
-            }
+            searchBar?.isHidden = false
+            getItems()
+//            db.collection("clubs").getDocuments(){ (querySnapshot, err) in
+//                for document in querySnapshot!.documents{
+//                    let temp = "\(String(describing: document.get("name")!))"
+//                    print(temp)
+//                    self.items.append(temp)
+//                }
+//                self.items = self.items.sorted(by: {$0 < $1})
+//                print()
+//                print()
+//                print("items")
+//                print(self.items)
+//                print()
+//                print()
+//                print()
+//                DispatchQueue.main.async {
+//                    self.collectionViewClubs.reloadData()
+//                }
+//            }
         }
     }
     
@@ -523,7 +529,9 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     
     //MARK: -Search Bar
     func filterContentForSearchText(searchText:String){
+         
         self.dataSourceForSearchResult = self.items.filter({ (text:String) -> Bool in
+            print("####################################################################################################")
             print("in data source")
             print(text.lowercased())
             print(searchText.lowercased())
@@ -542,7 +550,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             return text.lowercased().contains(searchText.lowercased())
         })
     }
-    
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // user did type something, check our datasource for text that looks the same
         if searchText.count > 0 {
