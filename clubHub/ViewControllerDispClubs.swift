@@ -53,12 +53,31 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         else{
             navBarState.isHidden = true
         }
-        db.collection("clubs").getDocuments(){ (querySnapshot, err) in
+        getItems()
+    }
+    
+    func getItems(){
+        db.collection("clubs").order(by: "name").getDocuments(){ (querySnapshot, err) in
             for document in querySnapshot!.documents{
                 let temp = "\(String(describing: document.get("name")!))"
                 print(temp)
                 self.items.append(temp)
             }
+            print()
+            print()
+            print("items")
+            print(self.items)
+            print()
+            print()
+            print()
+            self.items = self.items.sorted(by: {$0 < $1})
+            print()
+            print()
+            print("items")
+            print(self.items)
+            print()
+            print()
+            print()
             DispatchQueue.main.async {
                 self.collectionViewClubs.reloadData()
             }
@@ -166,7 +185,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             filterAndSearchResult.removeAll()
         }
         items.removeAll()
-
+        
         
         print("items")
         print(items)
@@ -193,6 +212,14 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                                 }
                             }
                         }
+                        self.items = self.items.sorted(by: {$0 < $1})
+                        print()
+                        print()
+                        print("items")
+                        print(self.items)
+                        print()
+                        print()
+                        print()
                         DispatchQueue.main.async {
                             if(self.searchBar!.text!.count > 0){
                                 self.applyFiltersToSearch(searchText: self.searchBar!.text!)
@@ -224,6 +251,14 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                                 }
                             }
                         }
+                        self.items = self.items.sorted(by: {$0 < $1})
+                        print()
+                        print()
+                        print("items")
+                        print(self.items)
+                        print()
+                        print()
+                        print()
                         DispatchQueue.main.async {
                             if(self.searchBar!.text!.count > 0){
                                 self.applyFiltersToSearch(searchText: self.searchBar!.text!)
@@ -253,8 +288,16 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                             }
                         }
                     }
+                    self.items = self.items.sorted(by: {$0 < $1})
+                    print()
+                    print()
+                    print("items")
+                    print(self.items)
+                    print()
+                    print()
+                    print()
                     DispatchQueue.main.async {
-                       if(self.searchBar!.text!.count > 0){
+                        if(self.searchBar!.text!.count > 0){
                             self.applyFiltersToSearch(searchText: self.searchBar!.text!)
                         }
                         self.collectionViewClubs.reloadData()
@@ -271,6 +314,14 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                     print(temp)
                     self.items.append(temp)
                 }
+                self.items = self.items.sorted(by: {$0 < $1})
+                print()
+                print()
+                print("items")
+                print(self.items)
+                print()
+                print()
+                print()
                 DispatchQueue.main.async {
                     self.collectionViewClubs.reloadData()
                 }
@@ -288,7 +339,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                 return filterAndSearchResult.count
             }
             else{
-                 return self.dataSourceForSearchResult.count
+                return self.dataSourceForSearchResult.count
             }
         }
         
@@ -307,7 +358,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         cell.editClubBtn.addTarget(self, action: #selector(editClub(_:)), for: .touchUpInside)
         
         if (self.searchBar!.text!.count > 0) {
-              if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn){
+            if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn){
                 cell.clubName.text = self.filterAndSearchResult[indexPath.row]
             }
             else{
@@ -364,7 +415,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             vc.senderPage = "browse"
             if (self.statement != "Statement #!"){
                 if(self.searchBar!.text!.count > 0){
-                     if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn){
+                    if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn){
                         vc.ClubName = self.filterAndSearchResult[self.clickedOn]
                     }
                     else{
@@ -383,7 +434,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             print("Num #\(self.clickedOn)!")
             if (self.statement != "Statement #!"){
                 if(self.searchBar!.text!.count > 0){
-                      if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn){
+                    if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn){
                         vc.ClubName = self.filterAndSearchResult[self.clickedOn]
                     }
                     else{
