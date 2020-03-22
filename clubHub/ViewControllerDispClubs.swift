@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import Foundation
 
 class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
     
@@ -176,6 +177,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         checkAllSwitches()
     }
     
+    //MARK: -checking filters
     func updateCollectionWithFilters(){
         print("switches")
         print(switches)
@@ -202,6 +204,9 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                             let temp = "\(String(describing: document.get("name")!))"
                             print(temp)
                             if(self.searchBar!.text!.count > 0){
+                                print("by array filter and search result")
+                                print(!self.filterAndSearchResult.contains(temp))
+                                print(self.filterAndSearchResult.append(temp))
                                 if !self.filterAndSearchResult.contains(temp){
                                     self.filterAndSearchResult.append(temp)
                                 }
@@ -241,6 +246,9 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                             let temp = "\(String(describing: document.get("name")!))"
                             print(temp)
                             if(self.searchBar!.text!.count > 0){
+                                print("by array filter and search result")
+                                print(!self.filterAndSearchResult.contains(temp))
+                                print(self.filterAndSearchResult.append(temp))
                                 if !self.filterAndSearchResult.contains(temp){
                                     self.filterAndSearchResult.append(temp)
                                 }
@@ -278,6 +286,9 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                         let temp = "\(String(describing: document.get("name")!))"
                         print(temp)
                         if(self.searchBar!.text!.count > 0){
+                            print("by array filter and search result")
+                            print(!self.filterAndSearchResult.contains(temp))
+                            print(self.filterAndSearchResult.append(temp))
                             if !self.filterAndSearchResult.contains(temp){
                                 self.filterAndSearchResult.append(temp)
                             }
@@ -339,6 +350,8 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                 return filterAndSearchResult.count
             }
             else{
+                print("returning data search for search results")
+                print(dataSourceForSearchResult)
                 return self.dataSourceForSearchResult.count
             }
         }
@@ -392,7 +405,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     }
     
     
-    
+    //MARK: -Preparing Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print(segue.identifier)
         print(sender!)
@@ -451,15 +464,22 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     //MARK: -Search Bar
     func filterContentForSearchText(searchText:String){
         self.dataSourceForSearchResult = self.items.filter({ (text:String) -> Bool in
-            print("CONTAINS: \(text.contains(searchText))")
-            return text.contains(searchText)
+            print("in data source")
+            print(text.lowercased())
+            print(searchText.lowercased())
+            print("CONTAINS: \(text.lowercased().contains(searchText.lowercased()))")
+            print(dataSourceForSearchResult)
+            return text.lowercased().contains(searchText.lowercased())
         })
     }
     
     func applyFiltersToSearch(searchText:String){
         self.filterAndSearchResult = self.filterAndSearchResult.filter({ (text:String) -> Bool in
-            print("CONTAINS: \(text.contains(searchText))")
-            return text.contains(searchText)
+            print("in filters and search")
+            print(text.lowercased())
+            print(searchText.lowercased())
+            print("CONTAINS: \(text.lowercased().contains(searchText.lowercased()))")
+            return text.lowercased().contains(searchText.lowercased())
         })
     }
     
@@ -512,7 +532,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         self.searchBar!.text = ""
     }
     
-    // MARK: prepareVC
+    // MARK: -prepareVC
     func prepareUI(){
         self.addSearchBar()
     }
