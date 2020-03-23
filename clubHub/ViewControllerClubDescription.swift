@@ -33,6 +33,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     var viewer = ""
     var senderPage = ""
     let db = Firestore.firestore()
+    var rememberFilters = [String]()
     
     var conantLink = ""
     var emailAddress = ""
@@ -45,6 +46,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("rememberfilters \(rememberFilters)")
         
         
         if viewer == "admin"{
@@ -204,6 +206,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
             print("real viewer = \(realViewer)")
             var vc = segue.destination as! ViewControllerDispClubs
             vc.viewer = self.realViewer
+            vc.filtersOnBeforeSearch = self.rememberFilters
         }
         
     }

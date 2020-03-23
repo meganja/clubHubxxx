@@ -497,6 +497,13 @@
                                     <action selector="checkPMSwitch:" destination="SSq-PF-znA" eventType="valueChanged" id="hcy-6G-m6A"/>
                                 </connections>
                             </switch>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No results found..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cvm-OH-a5L">
+                                <rect key="frame" x="175" y="256" width="573" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="i6M-aG-ryn"/>
@@ -512,6 +519,7 @@
                         <outlet property="medCommitmentSwitch" destination="Xfb-us-gcF" id="8vz-ed-31k"/>
                         <outlet property="mondaySwitch" destination="nHl-Uy-JiK" id="WZ2-sG-TSh"/>
                         <outlet property="navBarState" destination="EZF-FY-nxS" id="RDo-a4-dX4"/>
+                        <outlet property="noResultsFound" destination="Cvm-OH-a5L" id="VO6-1Q-4MS"/>
                         <outlet property="thursdaySwitch" destination="nxO-QV-eFn" id="YmV-nG-CeK"/>
                         <outlet property="tuesdaySwitch" destination="RGB-Yo-c9r" id="8HN-fz-LYR"/>
                         <outlet property="volunteerSwitch" destination="dM8-bo-0KA" id="whg-sO-1Jz"/>
@@ -1003,8 +1011,8 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BTu-Bg-dYw">
-                                                <rect key="frame" x="33" y="17" width="100" height="24"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BTu-Bg-dYw">
+                                                <rect key="frame" x="33" y="17" width="106" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <nil key="textColor"/>
@@ -1702,10 +1710,9 @@
         <image name="unnamed" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="nUa-P3-Ifl"/>
-        <segue reference="Yco-nf-Dsp"/>
+        <segue reference="jyz-EB-t97"/>
         <segue reference="HBN-lN-BdC"/>
-        <segue reference="gJ8-zr-gjY"/>
+        <segue reference="dSB-4A-GFN"/>
         <segue reference="THt-XV-fNh"/>
         <segue reference="sDv-vH-fYY"/>
     </inferredMetricsTieBreakers>

@@ -19,10 +19,12 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     
     let reuseIdentifier = "cell" // also enter this string as the cell identifier in the storyboard
     var items = [String]()
+    var itemsOnload = [String]()
     var dataSourceForSearchResult = [String]()
     var filterAndSearchResult = [String]()
     var switches = [String]()
     var volunteerSwitchState = false
+    @IBOutlet weak var noResultsFound: UILabel!
     
     
     @IBOutlet weak var collectionViewClubs: UICollectionView!
@@ -48,6 +50,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     let db = Firestore.firestore()
     
     override func viewDidLoad() {
+        noResultsFound.isHidden = true
         super.viewDidLoad()
         print("***************************************************viewer  \(viewer)")
         print(viewer)
@@ -57,35 +60,24 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         else{
             navBarState.isHidden = true
         }
-        getItems()
-        DispatchQueue.main.async {
-            self.collectionViewClubs.reloadData()
-        }
+        //getItems()
+        
     }
     
     func getItems(){
+        print("in get items")
         items.removeAll()
+        itemsOnload.removeAll()
         db.collection("clubs").order(by: "name").getDocuments(){ (querySnapshot, err) in
             for document in querySnapshot!.documents{
                 let temp = "\(String(describing: document.get("name")!))"
                 print(temp)
                 self.items.append(temp)
+                self.itemsOnload.append(temp)
             }
-            print()
-            print()
-            print("items")
-            print(self.items)
-            print()
-            print()
-            print()
-            self.items = self.items.sorted(by: {$0 < $1})
-            print()
-            print()
-            print("items")
-            print(self.items)
-            print()
-            print()
-            print()
+            
+            self.items = self.items.sorted{$0.localizedCompare($1) == .orderedAscending}
+            self.itemsOnload = self.itemsOnload.sorted{$0.localizedCompare($1) == .orderedAscending}
             DispatchQueue.main.async {
                 self.collectionViewClubs.reloadData()
             }
@@ -199,6 +191,100 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         checkAllSwitches()
     }
     
+    var filtersOnBeforeSearch = [String]()
+    
+    func checkIfSwitchesOn(){
+        filtersOnBeforeSearch.removeAll()
+        if mondaySwitch.isOn{
+            filtersOnBeforeSearch.append("Monday")
+        }
+        
+        if tuesdaySwitch.isOn{
+            filtersOnBeforeSearch.append("Tuesday")
+        }
+        
+        if wednesdaySwitch.isOn{
+            filtersOnBeforeSearch.append("Wednesday")
+        }
+        
+        if thursdaySwitch.isOn{
+            filtersOnBeforeSearch.append("Thursday")
+        }
+        
+        if fridaySwitch.isOn{
+            filtersOnBeforeSearch.append("Friday")
+        }
+        
+        if lowCommitmentSwitch.isOn{
+            filtersOnBeforeSearch.append("Low")
+        }
+        
+        if medCommitmentSwitch.isOn{
+            filtersOnBeforeSearch.append("Medium")
+        }
+        
+        if highCommitmentSwitch.isOn{
+            filtersOnBeforeSearch.append("High")
+        }
+        
+        if AMSwitch.isOn{
+            filtersOnBeforeSearch.append("AM")
+        }
+        
+        if PMSwitch.isOn{
+            filtersOnBeforeSearch.append("PM")
+        }
+        if volunteerSwitch.isOn{
+            filtersOnBeforeSearch.append("volunteer")
+        }
+        print("filtersOnBeforeSearch  \(filtersOnBeforeSearch)")
+    }
+    
+    func reApplySwitches(){
+        print("filtersOnBeforeSearch  \(filtersOnBeforeSearch)")
+        if filtersOnBeforeSearch.count > 0{
+            for i in (0...filtersOnBeforeSearch.count - 1){
+                if (filtersOnBeforeSearch[i] == "Monday"){
+                    mondaySwitch.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "Tuesday"){
+                    tuesdaySwitch.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "Wednesday"){
+                    wednesdaySwitch.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "Thursday"){
+                    thursdaySwitch.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "Friday"){
+                    fridaySwitch.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "Low"){
+                    
+                    lowCommitmentSwitch.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "Medium"){
+                    medCommitmentSwitch.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "High"){
+                    highCommitmentSwitch.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "AM"){
+                    
+                    AMSwitch.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "PM"){
+                    PMSwitch.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "volunteer"){
+                    
+                    volunteerSwitch.setOn(true, animated: true)
+                }
+            }
+        }
+        
+    }
+    
     //MARK: -checking filters
     func updateCollectionWithFilters(){
         print("switches")
@@ -217,7 +303,6 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         print(levels)
         var clubsRef = db.collection("clubs")
         if (volunteerSwitchState == true || switches.count>0 || levels.count>0 || timeOfDay.count>0){
-            searchBar?.isHidden = true
             if (switches.count>0){
                 for i in (0...self.switches.count-1){
                     print("days check")
@@ -240,7 +325,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                                 }
                             }
                         }
-                        self.items = self.items.sorted(by: {$0 < $1})
+                        self.items = self.items.sorted{$0.localizedCompare($1) == .orderedAscending}
                         print()
                         print()
                         print("items")
@@ -282,7 +367,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                                 }
                             }
                         }
-                        self.items = self.items.sorted(by: {$0 < $1})
+                        self.items = self.items.sorted{$0.localizedCompare($1) == .orderedAscending}
                         print()
                         print()
                         print("items")
@@ -324,7 +409,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                                 }
                             }
                         }
-                        self.items = self.items.sorted(by: {$0 < $1})
+                        self.items = self.items.sorted{$0.localizedCompare($1) == .orderedAscending}
                         print()
                         print()
                         print("items")
@@ -364,7 +449,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                             }
                         }
                     }
-                    self.items = self.items.sorted(by: {$0 < $1})
+                    self.items = self.items.sorted{$0.localizedCompare($1) == .orderedAscending}
                     print()
                     print()
                     print("items")
@@ -383,26 +468,10 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             
         }
         else{
-            searchBar?.isHidden = false
             getItems()
-//            db.collection("clubs").getDocuments(){ (querySnapshot, err) in
-//                for document in querySnapshot!.documents{
-//                    let temp = "\(String(describing: document.get("name")!))"
-//                    print(temp)
-//                    self.items.append(temp)
-//                }
-//                self.items = self.items.sorted(by: {$0 < $1})
-//                print()
-//                print()
-//                print("items")
-//                print(self.items)
-//                print()
-//                print()
-//                print()
-//                DispatchQueue.main.async {
-//                    self.collectionViewClubs.reloadData()
-//                }
-//            }
+            DispatchQueue.main.async {
+                self.collectionViewClubs.reloadData()
+            }
         }
     }
     
@@ -413,15 +482,33 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         
         if self.searchBar!.text!.count > 0{
             if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn || AMSwitch.isOn || PMSwitch.isOn){
+                self.filterAndSearchResult = self.filterAndSearchResult.sorted{$0.localizedCompare($1) == .orderedAscending}
+                if filterAndSearchResult.count == 0{
+                    noResultsFound.isHidden = false
+                }else{
+                    noResultsFound.isHidden = true
+                }
                 return filterAndSearchResult.count
             }
             else{
                 print("returning data search for search results")
                 print(dataSourceForSearchResult)
+                self.dataSourceForSearchResult = self.dataSourceForSearchResult.sorted{$0.localizedCompare($1) == .orderedAscending}
+                if dataSourceForSearchResult.count == 0{
+                    noResultsFound.isHidden = false
+                }else{
+                    noResultsFound.isHidden = true
+                }
                 return self.dataSourceForSearchResult.count
             }
         }
-        
+        self.items = self.items.sorted{$0.localizedCompare($1) == .orderedAscending}
+        print("checking if items is sorted \(self.items)")
+        if items.count == 0{
+            noResultsFound.isHidden = false
+        }else{
+            noResultsFound.isHidden = true
+        }
         return self.items.count
     }
     
@@ -430,6 +517,8 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         
         
         print("second func")
+        print("index path \(indexPath)")
+        print("index path row \(indexPath.row)")
         // get a reference to our storyboard cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! CollectionViewCellAllClubs
         
@@ -483,7 +572,9 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             print("IN DESCRIPT PREPARE")
             print("Clicked on #\(self.clickedOn)!")
             var vc = segue.destination as! ViewControllerClubDescription
-            
+            self.checkIfSwitchesOn()
+            print("vc filterONBeforeSearch \(filtersOnBeforeSearch)")
+            vc.rememberFilters = self.filtersOnBeforeSearch
             print("Statement #\(self.statement)!")
             vc.statement = self.statement
             print("Num #\(self.clickedOn)!")
@@ -527,11 +618,43 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         }
     }
     
+    
+    
+
     //MARK: -Search Bar
     func filterContentForSearchText(searchText:String){
-         
+        print("####################################################################################################")
+        print("??????????????????????????????????????????????????")
+        checkIfSwitchesOn()
+        mondaySwitch.setOn(false, animated: true)
+        tuesdaySwitch.setOn(false, animated: true)
+        wednesdaySwitch.setOn(false, animated: true)
+        thursdaySwitch.setOn(false, animated: true)
+        fridaySwitch.setOn(false, animated: true)
+        lowCommitmentSwitch.setOn(false, animated: true)
+        medCommitmentSwitch.setOn(false, animated: true)
+        highCommitmentSwitch.setOn(false, animated: true)
+        volunteerSwitch.setOn(false, animated: true)
+        AMSwitch.setOn(false, animated: true)
+        PMSwitch.setOn(false, animated: true)
+        //updateCollectionWithFilters()
+        print("monday switch = \(mondaySwitch.isOn)")
+        print("switches = \(switches)")
+        print("levels = \(levels)")
+        print("timeOfDay = \(timeOfDay)")
+        switches.removeAll()
+        levels.removeAll()
+        timeOfDay.removeAll()
+        print("switches = \(switches)")
+        print("levels = \(levels)")
+        print("timeOfDay = \(timeOfDay)")
+        //getItems()
+        
+        print("///////////////items = \(items)")
+        print("??????????????????????????????????????????????????")
+        items = itemsOnload
         self.dataSourceForSearchResult = self.items.filter({ (text:String) -> Bool in
-            print("####################################################################################################")
+            
             print("in data source")
             print(text.lowercased())
             print(searchText.lowercased())
@@ -539,6 +662,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             print(dataSourceForSearchResult)
             return text.lowercased().contains(searchText.lowercased())
         })
+        print("####################################################################################################")
     }
     
     func applyFiltersToSearch(searchText:String){
@@ -550,17 +674,21 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             return text.lowercased().contains(searchText.lowercased())
         })
     }
-
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // user did type something, check our datasource for text that looks the same
         if searchText.count > 0 {
             // search and reload data source
+            
             self.searchBarActive    = true
             self.filterContentForSearchText(searchText: searchText)
             self.collectionViewClubs.reloadData()
         }else{
             // if text length == 0
             // we will consider the searchbar is not active
+            print("cancel search bar")
+            reApplySwitches()
+            checkAllSwitches()
             self.searchBarActive = false
             self.collectionViewClubs.reloadData()
         }
@@ -568,6 +696,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
         self.cancelSearching()
         self.collectionViewClubs.reloadData()
     }
@@ -595,6 +724,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         self.searchBar!.setShowsCancelButton(false, animated: false)
     }
     func cancelSearching(){
+        
         self.searchBarActive = false
         self.searchBar!.resignFirstResponder()
         self.searchBar!.text = ""
@@ -620,13 +750,18 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             self.searchBar!.tintColor            = UIColor.white
             self.searchBar!.barTintColor         = UIColor.white
             self.searchBar!.delegate             = self as? UISearchBarDelegate;
-            self.searchBar!.placeholder          = "search here";
+            self.searchBar!.placeholder          = "Search here";
             
         }
         
         if !self.searchBar!.isDescendant(of: self.view){
             self.view.addSubview(self.searchBar!)
         }
+        
+        print("before dispatch que")
+        self.reApplySwitches()
+        self.checkAllSwitches()
+        print("after dispatch que")
     }
     
     //MARK: -Edit
