@@ -188,7 +188,104 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         checkAllSwitches()
     }
     
+    var filtersOnBeforeSearch = [String]()
+    
+    func checkIfSwitchesOn(){
+        filtersOnBeforeSearch.removeAll()
+        if mondaySwitch.isOn{
+            filtersOnBeforeSearch.append("Monday")
+        }
+        
+        if tuesdaySwitch.isOn{
+            filtersOnBeforeSearch.append("Tuesday")
+        }
+        
+        if wednesdaySwitch.isOn{
+            filtersOnBeforeSearch.append("Wednesday")
+        }
+        
+        if thursdaySwitch.isOn{
+            filtersOnBeforeSearch.append("Thursday")
+        }
+        
+        if fridaySwitch.isOn{
+            filtersOnBeforeSearch.append("Friday")
+        }
+        
+        if lowCommitmentSwitch.isOn{
+            filtersOnBeforeSearch.append("Low")
+        }
+        
+        if medCommitmentSwitch.isOn{
+            filtersOnBeforeSearch.append("Medium")
+        }
+        
+        if highCommitmentSwitch.isOn{
+            filtersOnBeforeSearch.append("High")
+        }
+        
+        if AMSwitch.isOn{
+            filtersOnBeforeSearch.append("AM")
+        }
+        
+        if PMSwitch.isOn{
+            filtersOnBeforeSearch.append("PM")
+        }
+        if volunteerSwitch.isOn{
+            filtersOnBeforeSearch.append("volunteer")
+        }
+        print("filtersOnBeforeSearch  \(filtersOnBeforeSearch)")
+    }
+    
+    func reApplySwitches(){
+        print("filtersOnBeforeSearch  \(filtersOnBeforeSearch)")
+        if filtersOnBeforeSearch.count > 0{
+            for i in (0...filtersOnBeforeSearch.count - 1){
+                if (filtersOnBeforeSearch[i] == "Monday"){
+                    mondaySwitch.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "Tuesday"){
+                    tuesdaySwitch.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "Wednesday"){
+                    wednesdaySwitch.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "Thursday"){
+                    thursdaySwitch.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "Friday"){
+                    fridaySwitch.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "Low"){
+                    
+                    lowCommitmentSwitch.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "Medium"){
+                    medCommitmentSwitch.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "High"){
+                    highCommitmentSwitch.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "AM"){
+                    
+                    AMSwitch.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "PM"){
+                    PMSwitch.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "volunteer"){
+                    
+                    volunteerSwitch.setOn(true, animated: true)
+                }
+            }
+        }
+        
+    }
+    
     //MARK: -checking filters
+    
+    
+    
     func updateCollectionWithFilters(){
         print("switches")
         print(switches)
@@ -502,102 +599,10 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         }
     }
     
+    
+    
+
     //MARK: -Search Bar
-    
-    var filtersOnBeforeSearch = [String]()
-    
-    func checkIfSwitchesOn(){
-        filtersOnBeforeSearch.removeAll()
-        if mondaySwitch.isOn{
-            filtersOnBeforeSearch.append("Monday")
-        }
-        
-        if tuesdaySwitch.isOn{
-            filtersOnBeforeSearch.append("Tuesday")
-        }
-        
-        if wednesdaySwitch.isOn{
-            filtersOnBeforeSearch.append("Wednesday")
-        }
-        
-        if thursdaySwitch.isOn{
-            filtersOnBeforeSearch.append("Thursday")
-        }
-        
-        if fridaySwitch.isOn{
-            filtersOnBeforeSearch.append("Friday")
-        }
-        
-        if lowCommitmentSwitch.isOn{
-            filtersOnBeforeSearch.append("Low")
-        }
-        
-        if medCommitmentSwitch.isOn{
-            filtersOnBeforeSearch.append("Medium")
-        }
-        
-        if highCommitmentSwitch.isOn{
-            filtersOnBeforeSearch.append("High")
-        }
-        
-        if AMSwitch.isOn{
-            filtersOnBeforeSearch.append("AM")
-        }
-        
-        if PMSwitch.isOn{
-            filtersOnBeforeSearch.append("PM")
-        }
-        if volunteerSwitch.isOn{
-            filtersOnBeforeSearch.append("volunteer")
-        }
-        print("filtersOnBeforeSearch  \(filtersOnBeforeSearch)")
-    }
-    
-    func reApplySwitches(){
-        print("filtersOnBeforeSearch  \(filtersOnBeforeSearch)")
-        if filtersOnBeforeSearch.count > 0{
-            for i in (0...filtersOnBeforeSearch.count - 1){
-                if (filtersOnBeforeSearch[i] == "Monday"){
-                    mondaySwitch.setOn(true, animated: true)
-                }
-                if (filtersOnBeforeSearch[i] == "Tuesday"){
-                    tuesdaySwitch.setOn(true, animated: true)
-                }
-                if (filtersOnBeforeSearch[i] == "Wednesday"){
-                    wednesdaySwitch.setOn(true, animated: true)
-                }
-                if (filtersOnBeforeSearch[i] == "Thursday"){
-                    thursdaySwitch.setOn(true, animated: true)
-                }
-                if (filtersOnBeforeSearch[i] == "Friday"){
-                    fridaySwitch.setOn(true, animated: true)
-                }
-                if (filtersOnBeforeSearch[i] == "Low"){
-                    
-                    lowCommitmentSwitch.setOn(true, animated: true)
-                }
-                if (filtersOnBeforeSearch[i] == "Medium"){
-                    medCommitmentSwitch.setOn(true, animated: true)
-                }
-                if (filtersOnBeforeSearch[i] == "High"){
-                    highCommitmentSwitch.setOn(true, animated: true)
-                }
-                if (filtersOnBeforeSearch[i] == "AM"){
-                    
-                    AMSwitch.setOn(true, animated: true)
-                }
-                if (filtersOnBeforeSearch[i] == "PM"){
-                    PMSwitch.setOn(true, animated: true)
-                }
-                if (filtersOnBeforeSearch[i] == "volunteer"){
-                    
-                    volunteerSwitch.setOn(true, animated: true)
-                }
-            }
-        }
-        
-    }
-    
     func filterContentForSearchText(searchText:String){
         print("####################################################################################################")
         print("??????????????????????????????????????????????????")
