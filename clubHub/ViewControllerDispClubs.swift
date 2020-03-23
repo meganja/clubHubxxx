@@ -60,13 +60,14 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         else{
             navBarState.isHidden = true
         }
-        getItems()
+        //getItems()
         
     }
     
     func getItems(){
         print("in get items")
         items.removeAll()
+        itemsOnload.removeAll()
         db.collection("clubs").order(by: "name").getDocuments(){ (querySnapshot, err) in
             for document in querySnapshot!.documents{
                 let temp = "\(String(describing: document.get("name")!))"
@@ -285,9 +286,6 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     }
     
     //MARK: -checking filters
-    
-    
-    
     func updateCollectionWithFilters(){
         print("switches")
         print(switches)
@@ -574,7 +572,9 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             print("IN DESCRIPT PREPARE")
             print("Clicked on #\(self.clickedOn)!")
             var vc = segue.destination as! ViewControllerClubDescription
-            
+            self.checkIfSwitchesOn()
+            print("vc filterONBeforeSearch \(filtersOnBeforeSearch)")
+            vc.rememberFilters = self.filtersOnBeforeSearch
             print("Statement #\(self.statement)!")
             vc.statement = self.statement
             print("Num #\(self.clickedOn)!")
@@ -757,6 +757,11 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         if !self.searchBar!.isDescendant(of: self.view){
             self.view.addSubview(self.searchBar!)
         }
+        
+        print("before dispatch que")
+        self.reApplySwitches()
+        self.checkAllSwitches()
+        print("after dispatch que")
     }
     
     //MARK: -Edit
