@@ -24,6 +24,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     var filterAndSearchResult = [String]()
     var switches = [String]()
     var volunteerSwitchState = false
+    @IBOutlet weak var noResultsFound: UILabel!
     
     
     @IBOutlet weak var collectionViewClubs: UICollectionView!
@@ -49,6 +50,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     let db = Firestore.firestore()
     
     override func viewDidLoad() {
+        noResultsFound.isHidden = true
         super.viewDidLoad()
         print("***************************************************viewer  \(viewer)")
         print(viewer)
@@ -483,17 +485,32 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         if self.searchBar!.text!.count > 0{
             if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn || AMSwitch.isOn || PMSwitch.isOn){
                 self.filterAndSearchResult = self.filterAndSearchResult.sorted{$0.localizedCompare($1) == .orderedAscending}
+                if filterAndSearchResult.count == 0{
+                    noResultsFound.isHidden = false
+                }else{
+                    noResultsFound.isHidden = true
+                }
                 return filterAndSearchResult.count
             }
             else{
                 print("returning data search for search results")
                 print(dataSourceForSearchResult)
                 self.dataSourceForSearchResult = self.dataSourceForSearchResult.sorted{$0.localizedCompare($1) == .orderedAscending}
+                if dataSourceForSearchResult.count == 0{
+                    noResultsFound.isHidden = false
+                }else{
+                    noResultsFound.isHidden = true
+                }
                 return self.dataSourceForSearchResult.count
             }
         }
         self.items = self.items.sorted{$0.localizedCompare($1) == .orderedAscending}
         print("checking if items is sorted \(self.items)")
+        if items.count == 0{
+            noResultsFound.isHidden = false
+        }else{
+            noResultsFound.isHidden = true
+        }
         return self.items.count
     }
     
@@ -502,6 +519,8 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         
         
         print("second func")
+        print("index path \(indexPath)")
+        print("index path row \(indexPath.row)")
         // get a reference to our storyboard cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! CollectionViewCellAllClubs
         
