@@ -10,8 +10,10 @@ import UIKit
 import Foundation
 import Firebase
 
-class ViewControllerAddClub: UIViewController {
+
+class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
+    @IBOutlet weak var addClubImgVw: UIImageView!
     @IBOutlet weak var generalDescription: UITextView!
     @IBOutlet weak var nameLabel: UITextField!
     @IBOutlet weak var mondaySwitch: UISwitch!
@@ -139,6 +141,28 @@ class ViewControllerAddClub: UIViewController {
         }
         
         
+        //saves image to firebase storage, saves downloadurl under field in club
+        self.db.collection("clubs").whereField("name", isEqualTo: self.nameLabel.text).getDocuments(){ (querySnapshot, err) in
+            
+            for document in querySnapshot!.documents{
+                
+                let docID = document.documentID
+                
+                let ref = Storage.storage().reference()
+                print("club: \(docID)")
+                let imgRef = ref.child("images/\(docID).png")
+                if let uploadData = self.addClubImgVw.image?.pngData(){
+                    imgRef.putData(uploadData, metadata: nil) { (metadata, error) in
+                        
+                        if error != nil{
+                            print(error)
+                        }
+                        print("UPLOADED IMAGE!")
+                        
+                    }
+                }
+            }
+        }
         
     }
     
@@ -154,7 +178,36 @@ class ViewControllerAddClub: UIViewController {
         super.viewDidLoad()
         self.generalDescription.layer.borderColor = UIColor.lightGray.cgColor
         self.generalDescription.layer.borderWidth = 1
+        
+        addClubImgVw.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectClubImageView)))
     }
     
+    @objc func handleSelectClubImageView(){
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        var selectedImageFromPicker: UIImage?
+        
+        if let editedImage = info[.editedImage] as? UIImage{
+            selectedImageFromPicker = editedImage
+        }
+        else if let originalImage = info[.originalImage] as? UIImage{
+            selectedImageFromPicker = originalImage
+        }
+        
+        if let selectedImage = selectedImageFromPicker{
+            addClubImgVw.image = selectedImage
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        print("picker cancelled!")
+        dismiss(animated: true, completion: nil)
+    }
 
 }
