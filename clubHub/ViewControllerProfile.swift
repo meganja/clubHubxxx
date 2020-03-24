@@ -86,7 +86,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
                     let imgRef = ref.child("images/\(docID).png")
                     imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
                         if let error = error {
-                            print(error)
+                            cell.clubLogo.image = UIImage(named: "chs-cougar-mascot")
                         } else {
                             // Data for "images/island.jpg" is returned
                             let imageDownloaded = UIImage(data: data!)
@@ -118,7 +118,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
                     let imgRef = ref.child("images/\(docID).png")
                     imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
                         if let error = error {
-                            print(error)
+                            cell.clubLogo.image = UIImage(named: "chs-cougar-mascot")
                         } else {
                             // Data for "images/island.jpg" is returned
                             let imageDownloaded = UIImage(data: data!)

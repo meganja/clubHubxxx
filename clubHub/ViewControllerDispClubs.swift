@@ -536,17 +536,17 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             cell.clubName.text = self.items[indexPath.row]
         }
         
-        self.db.collection("clubs").whereField("name", isEqualTo: cell.clubName.text ).getDocuments(){ (querySnapshot, err) in
+        self.db.collection("clubs").whereField("name", isEqualTo: cell.clubName.text! ).getDocuments(){ (querySnapshot, err) in
             
             for document in querySnapshot!.documents{
                 
                 let docID = document.documentID
                 let ref = Storage.storage().reference()
                 print("club: \(docID)")
-                let imgRef = ref.child("images/\(docID).png")
+                let imgRef = ref.child("images/\(docID).png")
                 imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
                     if let error = error {
-                        print(error)
+                        cell.clubImage.image = UIImage(named: "chs-cougar-mascot")
                     } else {
                         // Data for "images/island.jpg" is returned
                         let imageDownloaded = UIImage(data: data!)
