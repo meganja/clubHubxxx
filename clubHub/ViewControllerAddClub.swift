@@ -158,8 +158,8 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
                             print(error)
                         }
                         print("UPLOADED IMAGE!")
+                        
                     }
-                    
                 }
             }
         }
