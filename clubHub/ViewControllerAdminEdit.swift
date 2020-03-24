@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class ViewControllerAdminEdit: UIViewController {
+class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let db = Firestore.firestore()
     var ClubName = ""
@@ -17,6 +17,8 @@ class ViewControllerAdminEdit: UIViewController {
     var commit = ""
     var viewer = ""
     var docID = ""
+    
+    @IBOutlet weak var editClubImgVw: UIImageView!
     
     @IBOutlet weak var nameTxtFld: UITextField!
     
@@ -56,6 +58,7 @@ class ViewControllerAdminEdit: UIViewController {
         titleLbl.text = "Edit \(ClubName)"
         
         self.nameTxtFld.text = self.ClubName
+
         
         //sets everything to its current values in order to be edited
         self.db.collection("clubs").whereField("name", isEqualTo: self.ClubName).getDocuments(){ (querySnapshot, err) in
@@ -64,6 +67,21 @@ class ViewControllerAdminEdit: UIViewController {
                 
                 self.docID = document.documentID
                 print(self.docID)
+                
+                let ref = Storage.storage().reference()
+                print("club: \(self.docID)")
+                let imgRef = ref.child("images/\(self.docID).png")
+                imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+                  if let error = error {
+                    print(error)
+                  } else {
+                    // Data for "images/island.jpg" is returned
+                    let imageDownloaded = UIImage(data: data!)
+                    self.editClubImgVw.image = imageDownloaded
+                    print("SUCCESS! IMAGE SHOULD DISPLAY ON EDIT SCREEN")
+                  }
+                }
+                
                 
                 self.genDescriptTxtFld.text = String(describing: document.get("description")!)
                 self.meetingTimes.text = String(describing: document.get("time")!)
@@ -140,6 +158,11 @@ class ViewControllerAdminEdit: UIViewController {
             }
             
         }
+        
+        
+        
+        editClubImgVw.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectClubImageView)))
+        
     }
     
 
@@ -150,7 +173,7 @@ class ViewControllerAdminEdit: UIViewController {
 //         Get the new view controller using segue.destination.
 //         Pass the selected object to the new view controller.
         var vc = segue.destination as! ViewControllerDispClubs
-        vc.viewer = "admin"
+        vc.viewer = "admin" 
 
     }
 
@@ -277,7 +300,22 @@ class ViewControllerAdminEdit: UIViewController {
                     "AM-PM":timeOfDay,
                     "link":"\(moreInfo.text!)"
             ])
-            performSegue(withIdentifier: "backToBrowsing", sender: "done")
+            
+            let ref = Storage.storage().reference()
+            print("club: \(docID)")
+            let imgRef = ref.child("images/\(docID).png")
+            if let uploadData = self.editClubImgVw.image?.pngData(){
+                imgRef.putData(uploadData, metadata: nil) { (metadata, error) in
+                    
+                    if error != nil{
+                        print(error)
+                    }
+                    
+                    self.performSegue(withIdentifier: "backToBrowsing", sender: "done")
+                }
+            }
+                
+            
         }
         else{
                     let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Not all fields are filled in", preferredStyle: .alert)
@@ -303,4 +341,34 @@ class ViewControllerAdminEdit: UIViewController {
         
     }
     
+
+       
+    @objc func handleSelectClubImageView(){
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+         var selectedImageFromPicker: UIImage?
+               
+        if let editedImage = info[.editedImage] as? UIImage{
+            selectedImageFromPicker = editedImage
+        }
+        else if let originalImage = info[.originalImage] as? UIImage{
+            selectedImageFromPicker = originalImage
+        }
+        
+        if let selectedImage = selectedImageFromPicker{
+            editClubImgVw.image = selectedImage
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        print("picker cancelled!")
+        dismiss(animated: true, completion: nil)
+    }
 }

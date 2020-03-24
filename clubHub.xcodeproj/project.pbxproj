@@ -7,15 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0EF0B3595A0102945228D189 /* libPods-clubHub-clubHubUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 595674E48A4B2DA325E8708D /* libPods-clubHub-clubHubUITests.a */; };
-		2553E6E79A34D783847E04E0 /* libPods-clubHubTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B33F02944F8DF4EDD00CF6 /* libPods-clubHubTests.a */; };
-		44DA6E1F354B1564444353C3 /* libPods-clubHub.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2812A1D1DE290C7FE7CEDC4 /* libPods-clubHub.a */; };
 		6641615D2408586300382948 /* CollectionViewCellAllClubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6641615C2408586300382948 /* CollectionViewCellAllClubs.swift */; };
 		BB25FC0D2411D9D500B8F690 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB25FC0C2411D9D500B8F690 /* GoogleService-Info.plist */; };
 		BB45A27F24144D7C0063AC50 /* ViewControllerAdminEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45A27E24144D7C0063AC50 /* ViewControllerAdminEdit.swift */; };
 		BB4A62092415786A003A887B /* ViewControllerProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A62082415786A003A887B /* ViewControllerProfile.swift */; };
 		BB4A620B241578D5003A887B /* CollectionViewCellClubsIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A620A241578D5003A887B /* CollectionViewCellClubsIn.swift */; };
 		BB4A620D241578F4003A887B /* CollectionViewCellWishlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A620C241578F4003A887B /* CollectionViewCellWishlist.swift */; };
+		C7B3EF89CF117933FE205194 /* libPods-clubHubTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2FC096293ACAAE9B09F6E4E /* libPods-clubHubTests.a */; };
 		CB242F972415C40400FE70E5 /* ViewControllerAddUserClubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB242F962415C40400FE70E5 /* ViewControllerAddUserClubs.swift */; };
 		CB242F9D2415C8C100FE70E5 /* CollectionViewCellYourClubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB242F9C2415C8C100FE70E5 /* CollectionViewCellYourClubs.swift */; };
 		CB5469FE24077360001DFA77 /* ViewControllerLoginDecision.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5469FD24077360001DFA77 /* ViewControllerLoginDecision.swift */; };
@@ -31,6 +29,8 @@
 		CB5D906D240314C2009184BA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB5D906B240314C2009184BA /* LaunchScreen.storyboard */; };
 		CB5D9078240314C4009184BA /* clubHubTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5D9077240314C4009184BA /* clubHubTests.swift */; };
 		CB5D9083240314C4009184BA /* clubHubUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5D9082240314C4009184BA /* clubHubUITests.swift */; };
+		D1CB4DC21A30909E67BEFEE0 /* libPods-clubHub-clubHubUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE62B74B71FB0E590DA8A59 /* libPods-clubHub-clubHubUITests.a */; };
+		EF0D307673ED6D48CBA7BB55 /* libPods-clubHub.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50AF6FE9F9908A79AA9109E5 /* libPods-clubHub.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,20 +51,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1F04FE3E2D95C0739C747B4E /* Pods-clubHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-clubHub.release.xcconfig"; path = "Target Support Files/Pods-clubHub/Pods-clubHub.release.xcconfig"; sourceTree = "<group>"; };
-		2423F3928B4743636E6141A1 /* Pods-clubHubTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-clubHubTests.debug.xcconfig"; path = "Target Support Files/Pods-clubHubTests/Pods-clubHubTests.debug.xcconfig"; sourceTree = "<group>"; };
-		3AAB449E96F51FBB043501CE /* Pods-clubHub-clubHubUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-clubHub-clubHubUITests.debug.xcconfig"; path = "Target Support Files/Pods-clubHub-clubHubUITests/Pods-clubHub-clubHubUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		5711985B3F6AD75FF4F10E03 /* Pods-clubHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-clubHub.debug.xcconfig"; path = "Target Support Files/Pods-clubHub/Pods-clubHub.debug.xcconfig"; sourceTree = "<group>"; };
-		595674E48A4B2DA325E8708D /* libPods-clubHub-clubHubUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-clubHub-clubHubUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A260473936A7277AE82CFCD /* Pods-clubHub-clubHubUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-clubHub-clubHubUITests.debug.xcconfig"; path = "Target Support Files/Pods-clubHub-clubHubUITests/Pods-clubHub-clubHubUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		50AF6FE9F9908A79AA9109E5 /* libPods-clubHub.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-clubHub.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C6C5EC2019DCC765ABFFEA8 /* Pods-clubHub-clubHubUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-clubHub-clubHubUITests.release.xcconfig"; path = "Target Support Files/Pods-clubHub-clubHubUITests/Pods-clubHub-clubHubUITests.release.xcconfig"; sourceTree = "<group>"; };
 		6641615C2408586300382948 /* CollectionViewCellAllClubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellAllClubs.swift; sourceTree = "<group>"; };
-		848C83FB99F4646AB6991718 /* Pods-clubHub-clubHubUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-clubHub-clubHubUITests.release.xcconfig"; path = "Target Support Files/Pods-clubHub-clubHubUITests/Pods-clubHub-clubHubUITests.release.xcconfig"; sourceTree = "<group>"; };
-		B8B33F02944F8DF4EDD00CF6 /* libPods-clubHubTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-clubHubTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		77DE8B4FC4C30B97A466BFCD /* Pods-clubHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-clubHub.release.xcconfig"; path = "Target Support Files/Pods-clubHub/Pods-clubHub.release.xcconfig"; sourceTree = "<group>"; };
+		79701D6D96552B2658FEC4A0 /* Pods-clubHubTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-clubHubTests.release.xcconfig"; path = "Target Support Files/Pods-clubHubTests/Pods-clubHubTests.release.xcconfig"; sourceTree = "<group>"; };
+		7CE62B74B71FB0E590DA8A59 /* libPods-clubHub-clubHubUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-clubHub-clubHubUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4CDE3F7C38E50292FF02ACF /* Pods-clubHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-clubHub.debug.xcconfig"; path = "Target Support Files/Pods-clubHub/Pods-clubHub.debug.xcconfig"; sourceTree = "<group>"; };
 		BB25FC0C2411D9D500B8F690 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BB45A27E24144D7C0063AC50 /* ViewControllerAdminEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerAdminEdit.swift; sourceTree = "<group>"; };
 		BB4A62082415786A003A887B /* ViewControllerProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerProfile.swift; sourceTree = "<group>"; };
 		BB4A620A241578D5003A887B /* CollectionViewCellClubsIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellClubsIn.swift; sourceTree = "<group>"; };
 		BB4A620C241578F4003A887B /* CollectionViewCellWishlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellWishlist.swift; sourceTree = "<group>"; };
-		C2812A1D1DE290C7FE7CEDC4 /* libPods-clubHub.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-clubHub.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB242F962415C40400FE70E5 /* ViewControllerAddUserClubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerAddUserClubs.swift; sourceTree = "<group>"; };
 		CB242F9C2415C8C100FE70E5 /* CollectionViewCellYourClubs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCellYourClubs.swift; sourceTree = "<group>"; };
 		CB5469FD24077360001DFA77 /* ViewControllerLoginDecision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerLoginDecision.swift; sourceTree = "<group>"; };
@@ -86,7 +85,8 @@
 		CB5D907E240314C4009184BA /* clubHubUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = clubHubUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB5D9082240314C4009184BA /* clubHubUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = clubHubUITests.swift; sourceTree = "<group>"; };
 		CB5D9084240314C4009184BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E736E5AA2550D66A5D682C3B /* Pods-clubHubTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-clubHubTests.release.xcconfig"; path = "Target Support Files/Pods-clubHubTests/Pods-clubHubTests.release.xcconfig"; sourceTree = "<group>"; };
+		E2FC096293ACAAE9B09F6E4E /* libPods-clubHubTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-clubHubTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8E8449D94F69AE7CE7D6F5D /* Pods-clubHubTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-clubHubTests.debug.xcconfig"; path = "Target Support Files/Pods-clubHubTests/Pods-clubHubTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44DA6E1F354B1564444353C3 /* libPods-clubHub.a in Frameworks */,
+				EF0D307673ED6D48CBA7BB55 /* libPods-clubHub.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,7 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2553E6E79A34D783847E04E0 /* libPods-clubHubTests.a in Frameworks */,
+				C7B3EF89CF117933FE205194 /* libPods-clubHubTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,7 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0EF0B3595A0102945228D189 /* libPods-clubHub-clubHubUITests.a in Frameworks */,
+				D1CB4DC21A30909E67BEFEE0 /* libPods-clubHub-clubHubUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,22 +120,22 @@
 		0B0E69F0CFC741666A00BC68 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				5711985B3F6AD75FF4F10E03 /* Pods-clubHub.debug.xcconfig */,
-				1F04FE3E2D95C0739C747B4E /* Pods-clubHub.release.xcconfig */,
-				3AAB449E96F51FBB043501CE /* Pods-clubHub-clubHubUITests.debug.xcconfig */,
-				848C83FB99F4646AB6991718 /* Pods-clubHub-clubHubUITests.release.xcconfig */,
-				2423F3928B4743636E6141A1 /* Pods-clubHubTests.debug.xcconfig */,
-				E736E5AA2550D66A5D682C3B /* Pods-clubHubTests.release.xcconfig */,
+				B4CDE3F7C38E50292FF02ACF /* Pods-clubHub.debug.xcconfig */,
+				77DE8B4FC4C30B97A466BFCD /* Pods-clubHub.release.xcconfig */,
+				4A260473936A7277AE82CFCD /* Pods-clubHub-clubHubUITests.debug.xcconfig */,
+				5C6C5EC2019DCC765ABFFEA8 /* Pods-clubHub-clubHubUITests.release.xcconfig */,
+				E8E8449D94F69AE7CE7D6F5D /* Pods-clubHubTests.debug.xcconfig */,
+				79701D6D96552B2658FEC4A0 /* Pods-clubHubTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		91F3EF08124B2ABD258CCB19 /* Frameworks */ = {
+		37701B4A14C30DCE40828542 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C2812A1D1DE290C7FE7CEDC4 /* libPods-clubHub.a */,
-				595674E48A4B2DA325E8708D /* libPods-clubHub-clubHubUITests.a */,
-				B8B33F02944F8DF4EDD00CF6 /* libPods-clubHubTests.a */,
+				50AF6FE9F9908A79AA9109E5 /* libPods-clubHub.a */,
+				7CE62B74B71FB0E590DA8A59 /* libPods-clubHub-clubHubUITests.a */,
+				E2FC096293ACAAE9B09F6E4E /* libPods-clubHubTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -148,7 +148,7 @@
 				CB5D9081240314C4009184BA /* clubHubUITests */,
 				CB5D905E240314A4009184BA /* Products */,
 				0B0E69F0CFC741666A00BC68 /* Pods */,
-				91F3EF08124B2ABD258CCB19 /* Frameworks */,
+				37701B4A14C30DCE40828542 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -214,11 +214,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CB5D9087240314C4009184BA /* Build configuration list for PBXNativeTarget "clubHub" */;
 			buildPhases = (
-				C068C9C80EAFE2D422C6FE36 /* [CP] Check Pods Manifest.lock */,
+				FCDB3E6054D75064C0CC00B9 /* [CP] Check Pods Manifest.lock */,
 				CB5D9059240314A4009184BA /* Sources */,
 				CB5D905A240314A4009184BA /* Frameworks */,
 				CB5D905B240314A4009184BA /* Resources */,
-				25CA483119B9689D94AD0D1E /* [CP] Copy Pods Resources */,
+				DB73B07701005E45889ED991 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -233,7 +233,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CB5D908A240314C4009184BA /* Build configuration list for PBXNativeTarget "clubHubTests" */;
 			buildPhases = (
-				6D8D8D5DA88490F876801A88 /* [CP] Check Pods Manifest.lock */,
+				CC9568CCD3116E64AB039213 /* [CP] Check Pods Manifest.lock */,
 				CB5D906F240314C3009184BA /* Sources */,
 				CB5D9070240314C3009184BA /* Frameworks */,
 				CB5D9071240314C3009184BA /* Resources */,
@@ -252,11 +252,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CB5D908D240314C4009184BA /* Build configuration list for PBXNativeTarget "clubHubUITests" */;
 			buildPhases = (
-				492267107A1C3DF391509A90 /* [CP] Check Pods Manifest.lock */,
+				AB3525B673CDDB16ED95665F /* [CP] Check Pods Manifest.lock */,
 				CB5D907A240314C4009184BA /* Sources */,
 				CB5D907B240314C4009184BA /* Frameworks */,
 				CB5D907C240314C4009184BA /* Resources */,
-				C525A5B797419E643A776EDA /* [CP] Copy Pods Resources */,
+				F2929461F72A9AC769E5CB37 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -340,24 +340,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		25CA483119B9689D94AD0D1E /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-clubHub/Pods-clubHub-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-clubHub/Pods-clubHub-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-clubHub/Pods-clubHub-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		492267107A1C3DF391509A90 /* [CP] Check Pods Manifest.lock */ = {
+		AB3525B673CDDB16ED95665F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -379,7 +362,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6D8D8D5DA88490F876801A88 /* [CP] Check Pods Manifest.lock */ = {
+		CC9568CCD3116E64AB039213 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -401,7 +384,41 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C068C9C80EAFE2D422C6FE36 /* [CP] Check Pods Manifest.lock */ = {
+		DB73B07701005E45889ED991 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-clubHub/Pods-clubHub-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-clubHub/Pods-clubHub-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-clubHub/Pods-clubHub-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F2929461F72A9AC769E5CB37 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-clubHub-clubHubUITests/Pods-clubHub-clubHubUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-clubHub-clubHubUITests/Pods-clubHub-clubHubUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-clubHub-clubHubUITests/Pods-clubHub-clubHubUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FCDB3E6054D75064C0CC00B9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -421,23 +438,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C525A5B797419E643A776EDA /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-clubHub-clubHubUITests/Pods-clubHub-clubHubUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-clubHub-clubHubUITests/Pods-clubHub-clubHubUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-clubHub-clubHubUITests/Pods-clubHub-clubHubUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -624,17 +624,17 @@
 		};
 		CB5D9088240314C4009184BA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5711985B3F6AD75FF4F10E03 /* Pods-clubHub.debug.xcconfig */;
+			baseConfigurationReference = B4CDE3F7C38E50292FF02ACF /* Pods-clubHub.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W8JSH57J54;
+				DEVELOPMENT_TEAM = AMU5HUBAR2;
 				INFOPLIST_FILE = clubHub/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.c1843.clubHub;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sideload.clubHub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -643,17 +643,17 @@
 		};
 		CB5D9089240314C4009184BA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1F04FE3E2D95C0739C747B4E /* Pods-clubHub.release.xcconfig */;
+			baseConfigurationReference = 77DE8B4FC4C30B97A466BFCD /* Pods-clubHub.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W8JSH57J54;
+				DEVELOPMENT_TEAM = AMU5HUBAR2;
 				INFOPLIST_FILE = clubHub/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.c1843.clubHub;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sideload.clubHub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -662,7 +662,7 @@
 		};
 		CB5D908B240314C4009184BA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2423F3928B4743636E6141A1 /* Pods-clubHubTests.debug.xcconfig */;
+			baseConfigurationReference = E8E8449D94F69AE7CE7D6F5D /* Pods-clubHubTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -684,7 +684,7 @@
 		};
 		CB5D908C240314C4009184BA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E736E5AA2550D66A5D682C3B /* Pods-clubHubTests.release.xcconfig */;
+			baseConfigurationReference = 79701D6D96552B2658FEC4A0 /* Pods-clubHubTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -706,7 +706,7 @@
 		};
 		CB5D908E240314C4009184BA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3AAB449E96F51FBB043501CE /* Pods-clubHub-clubHubUITests.debug.xcconfig */;
+			baseConfigurationReference = 4A260473936A7277AE82CFCD /* Pods-clubHub-clubHubUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -726,7 +726,7 @@
 		};
 		CB5D908F240314C4009184BA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 848C83FB99F4646AB6991718 /* Pods-clubHub-clubHubUITests.release.xcconfig */;
+			baseConfigurationReference = 5C6C5EC2019DCC765ABFFEA8 /* Pods-clubHub-clubHubUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

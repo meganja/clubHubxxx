@@ -75,6 +75,27 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             cell.backgroundColor = UIColor.white // make cell more visible in our example project
             cell.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
             cell.layer.borderWidth = 1
+            
+            self.db.collection("clubs").whereField("name", isEqualTo: cell.clubName.text ).getDocuments(){ (querySnapshot, err) in
+                
+                for document in querySnapshot!.documents{
+                    
+                    let docID = document.documentID
+                    let ref = Storage.storage().reference()
+                    print("club: \(docID)")
+                    let imgRef = ref.child("images/\(docID).png")
+                    imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+                        if let error = error {
+                            print(error)
+                        } else {
+                            // Data for "images/island.jpg" is returned
+                            let imageDownloaded = UIImage(data: data!)
+                            cell.clubLogo.image = imageDownloaded
+                        }
+                    }
+                }
+            }
+            
             return cell
         }
         else{
@@ -86,8 +107,31 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             cell.backgroundColor = UIColor.white // make cell more visible in our example project
             cell.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
             cell.layer.borderWidth = 1
+            
+            self.db.collection("clubs").whereField("name", isEqualTo: cell.clubName.text ).getDocuments(){ (querySnapshot, err) in
+                
+                for document in querySnapshot!.documents{
+                    
+                    let docID = document.documentID
+                    let ref = Storage.storage().reference()
+                    print("club: \(docID)")
+                    let imgRef = ref.child("images/\(docID).png")
+                    imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+                        if let error = error {
+                            print(error)
+                        } else {
+                            // Data for "images/island.jpg" is returned
+                            let imageDownloaded = UIImage(data: data!)
+                            cell.clubLogo.image = imageDownloaded
+                        }
+                    }
+                }
+            }
+            
             return cell
         }
+        
+        
     }
     
     // MARK: - UICollectionViewDelegate protocol

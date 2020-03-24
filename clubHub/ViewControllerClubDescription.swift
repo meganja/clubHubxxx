@@ -13,6 +13,7 @@ import MessageUI
 
 class ViewControllerClubDescription: UIViewController, MFMailComposeViewControllerDelegate{
     
+    @IBOutlet weak var clubImgVw: UIImageView!
     @IBOutlet weak var clubName: UILabel!
     @IBOutlet weak var clubDescription: UILabel!
     @IBOutlet weak var commitmentLevel: UILabel!
@@ -93,6 +94,21 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
             for document in querySnapshot!.documents{
                 
                 
+                let docID = document.documentID
+                let ref = Storage.storage().reference()
+                print("club: \(docID)")
+                let imgRef = ref.child("images/\(docID).png")
+                imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+                    if let error = error {
+                        print(error)
+                    } else {
+                        // Data for "images/island.jpg" is returned
+                        let imageDownloaded = UIImage(data: data!)
+                        self.clubImgVw.image = imageDownloaded
+                    }
+                }
+                
+                
                 self.clubDescription.text = String(describing: document.get("description")!)
                 self.clubDescription.numberOfLines = 0
                 self.clubDescription.sizeToFit()
@@ -151,6 +167,14 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 
             }
             
+        }
+        
+        self.db.collection("clubs").whereField("name", isEqualTo: self.ClubName).getDocuments(){ (querySnapshot, err) in
+            
+            for document in querySnapshot!.documents{
+                
+                
+            }
         }
         print()
         print()

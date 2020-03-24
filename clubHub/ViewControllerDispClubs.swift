@@ -217,7 +217,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         print(levels)
         var clubsRef = db.collection("clubs")
         if (volunteerSwitchState == true || switches.count>0 || levels.count>0 || timeOfDay.count>0){
-            searchBar?.isHidden = true
+//            searchBar?.isHidden = true
             if (switches.count>0){
                 for i in (0...self.switches.count-1){
                     print("days check")
@@ -445,6 +445,26 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             }
         }else{ // Use the outlet in our custom class to get a reference to the UILabel in the cell
             cell.clubName.text = self.items[indexPath.row]
+        }
+        
+        self.db.collection("clubs").whereField("name", isEqualTo: cell.clubName.text ).getDocuments(){ (querySnapshot, err) in
+            
+            for document in querySnapshot!.documents{
+                
+                let docID = document.documentID
+                let ref = Storage.storage().reference()
+                print("club: \(docID)")
+                let imgRef = ref.child("images/\(docID).png")
+                imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+                    if let error = error {
+                        print(error)
+                    } else {
+                        // Data for "images/island.jpg" is returned
+                        let imageDownloaded = UIImage(data: data!)
+                        cell.clubImage.image = imageDownloaded
+                    }
+                }
+            }
         }
         
         if (viewer != "admin"){

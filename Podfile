@@ -23,6 +23,7 @@ target 'clubHub' do
   pod 'Firebase/Auth'
   pod 'GoogleSignIn'
   pod 'Firebase/Firestore'
+  pod 'Firebase/Storage'
   
 #  pod 'Firebase'
 #  pod 'Firebase/Core'
