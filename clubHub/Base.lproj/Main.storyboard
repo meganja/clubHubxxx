@@ -1674,7 +1674,6 @@
                                 </state>
                                 <connections>
                                     <action selector="doneBtn:" destination="Ntu-Pz-j5H" eventType="touchUpInside" id="Xnx-d1-YPp"/>
-                                    <segue destination="psG-IV-fUG" kind="presentation" modalPresentationStyle="fullScreen" id="XVu-Ee-6cz"/>
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="6ho-XW-L8L">
@@ -1727,11 +1726,12 @@
                     </view>
                     <connections>
                         <outlet property="allClubsCollection" destination="6ho-XW-L8L" id="BtV-l0-UlS"/>
+                        <segue destination="psG-IV-fUG" kind="presentation" identifier="addBackToProfile" modalPresentationStyle="fullScreen" id="h1h-kk-D5T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pYB-co-PlU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2745.3125" y="1682.8125"/>
+            <point key="canvasLocation" x="2735" y="1662"/>
         </scene>
     </scenes>
     <resources>
@@ -1748,7 +1748,7 @@
         <image name="unnamed" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="jyz-EB-t97"/>
+        <segue reference="h1h-kk-D5T"/>
         <segue reference="HBN-lN-BdC"/>
         <segue reference="dSB-4A-GFN"/>
         <segue reference="THt-XV-fNh"/>

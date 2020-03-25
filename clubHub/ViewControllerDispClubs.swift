@@ -536,6 +536,17 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             cell.clubName.text = self.items[indexPath.row]
         }
         
+        
+        if (viewer != "admin"){
+            cell.editClubBtn.isHidden = true
+        }
+        
+        cell.backgroundColor = UIColor.white // make cell more visible in our example project
+        cell.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
+        cell.layer.borderWidth = 1
+        //cell.sizeThatFits(width: 250, height: 150)
+        
+        
         self.db.collection("clubs").whereField("name", isEqualTo: cell.clubName.text! ).getDocuments(){ (querySnapshot, err) in
             
             for document in querySnapshot!.documents{
@@ -555,16 +566,6 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                 }
             }
         }
-        
-        if (viewer != "admin"){
-            cell.editClubBtn.isHidden = true
-        }
-        
-        cell.backgroundColor = UIColor.white // make cell more visible in our example project
-        cell.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
-        cell.layer.borderWidth = 1
-        //cell.sizeThatFits(width: 250, height: 150)
-        
         return cell
     }
     

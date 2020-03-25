@@ -34,6 +34,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		BB426800242AF71D0047F15E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB5D9055240314A4009184BA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CB5D905C240314A4009184BA;
+			remoteInfo = clubHub;
+		};
 		CB5D9074240314C3009184BA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CB5D9055240314A4009184BA /* Project object */;
@@ -60,6 +67,7 @@
 		7CE62B74B71FB0E590DA8A59 /* libPods-clubHub-clubHubUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-clubHub-clubHubUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4CDE3F7C38E50292FF02ACF /* Pods-clubHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-clubHub.debug.xcconfig"; path = "Target Support Files/Pods-clubHub/Pods-clubHub.debug.xcconfig"; sourceTree = "<group>"; };
 		BB25FC0C2411D9D500B8F690 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BB4267FB242AF71C0047F15E /* XCTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XCTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB45A27E24144D7C0063AC50 /* ViewControllerAdminEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerAdminEdit.swift; sourceTree = "<group>"; };
 		BB4A62082415786A003A887B /* ViewControllerProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerProfile.swift; sourceTree = "<group>"; };
 		BB4A620A241578D5003A887B /* CollectionViewCellClubsIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellClubsIn.swift; sourceTree = "<group>"; };
@@ -90,6 +98,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		BB4267F8242AF71C0047F15E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CB5D905A240314A4009184BA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -158,6 +173,7 @@
 				CB5D905D240314A4009184BA /* clubHub.app */,
 				CB5D9073240314C3009184BA /* clubHubTests.xctest */,
 				CB5D907E240314C4009184BA /* clubHubUITests.xctest */,
+				BB4267FB242AF71C0047F15E /* XCTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -210,6 +226,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		BB4267FA242AF71C0047F15E /* XCTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BB426804242AF71D0047F15E /* Build configuration list for PBXNativeTarget "XCTest" */;
+			buildPhases = (
+				BB4267F7242AF71C0047F15E /* Sources */,
+				BB4267F8242AF71C0047F15E /* Frameworks */,
+				BB4267F9242AF71C0047F15E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BB426801242AF71D0047F15E /* PBXTargetDependency */,
+			);
+			name = XCTest;
+			productName = XCTest;
+			productReference = BB4267FB242AF71C0047F15E /* XCTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		CB5D905C240314A4009184BA /* clubHub */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CB5D9087240314C4009184BA /* Build configuration list for PBXNativeTarget "clubHub" */;
@@ -278,6 +312,10 @@
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = c1843;
 				TargetAttributes = {
+					BB4267FA242AF71C0047F15E = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = CB5D905C240314A4009184BA;
+					};
 					CB5D905C240314A4009184BA = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
@@ -307,11 +345,19 @@
 				CB5D905C240314A4009184BA /* clubHub */,
 				CB5D9072240314C3009184BA /* clubHubTests */,
 				CB5D907D240314C4009184BA /* clubHubUITests */,
+				BB4267FA242AF71C0047F15E /* XCTest */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		BB4267F9242AF71C0047F15E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CB5D905B240314A4009184BA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -443,6 +489,13 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		BB4267F7242AF71C0047F15E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CB5D9059240314A4009184BA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -484,6 +537,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		BB426801242AF71D0047F15E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CB5D905C240314A4009184BA /* clubHub */;
+			targetProxy = BB426800242AF71D0047F15E /* PBXContainerItemProxy */;
+		};
 		CB5D9075240314C3009184BA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = CB5D905C240314A4009184BA /* clubHub */;
@@ -508,6 +566,44 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		BB426802242AF71D0047F15E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = XCTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Knott.co.XCTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/clubHub.app/clubHub";
+			};
+			name = Debug;
+		};
+		BB426803242AF71D0047F15E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = XCTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Knott.co.XCTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/clubHub.app/clubHub";
+			};
+			name = Release;
+		};
 		CB5D9085240314C4009184BA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -747,6 +843,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		BB426804242AF71D0047F15E /* Build configuration list for PBXNativeTarget "XCTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BB426802242AF71D0047F15E /* Debug */,
+				BB426803242AF71D0047F15E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CB5D9058240314A4009184BA /* Build configuration list for PBXProject "clubHub" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
