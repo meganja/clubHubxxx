@@ -19,6 +19,7 @@ class ViewControllerAddUserClubs: UIViewController, UICollectionViewDataSource, 
     let reuseIdentifier = "cell" // also enter this string as the cell identifier in the storyboard
     var items = [String]()
     var selectedItems = [String]()
+    var pdfData = Data()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +60,17 @@ class ViewControllerAddUserClubs: UIViewController, UICollectionViewDataSource, 
                 DispatchQueue.main.async {
                     self.allClubsCollection.reloadData()
                 }
+            }
+        }
+        
+        let ref = Storage.storage().reference()
+        let pdfRef = ref.child("pdf/PARENTS OLR Athletics Activities.pdf")
+        pdfRef.getData(maxSize: 5000000) { (pdfData, error) in
+            if error != nil {
+                print(error)
+            } else {
+                self.pdfData = pdfData!
+                
             }
         }
     }
@@ -211,23 +223,9 @@ class ViewControllerAddUserClubs: UIViewController, UICollectionViewDataSource, 
         mailComposerVC.setToRecipients([parentEmailAddress])
         mailComposerVC.setSubject("Infinite Campus Club Signup")
         mailComposerVC.setMessageBody(messageBody, isHTML: false)
+        mailComposerVC.addAttachmentData(pdfData, mimeType: "application/pdf", fileName: "Instructions.pdf")
+        print("PDF SHOULD BE ATTACHED!")
         
-        var attachmentComplete = false
-        let ref = Storage.storage().reference()
-        let pdfRef = ref.child("pdf/PARENTS OLR Athletics Activities.pdf")
-        
-        
-        pdfRef.getData(maxSize: 5000000) { (pdfData, error) in
-            if error != nil {
-                print(error)
-            } else {
-                print(pdfData)
-                mailComposerVC.addAttachmentData(pdfData!, mimeType: "application/pdf", fileName: "Instructions.pdf")
-                print("PDF SHOULD BE ATTACHED!")
-                attachmentComplete = true
-                
-            }
-        }
         
         print("returning")
         return mailComposerVC
