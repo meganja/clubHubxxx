@@ -11,8 +11,9 @@ import Foundation
 import Firebase
 
 
-class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate{
     
+    @IBOutlet weak var categoriesCollection: UICollectionView!
     @IBOutlet weak var addClubImgVw: UIImageView!
     @IBOutlet weak var generalDescription: UITextView!
     @IBOutlet weak var nameLabel: UITextField!
@@ -32,12 +33,15 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var AMPMSwitch: UISegmentedControl!
     @IBOutlet weak var moreInfo: UITextField!
     
+    let reuseIdentifier = "cell"
     var club = ""
     var days = [String]()
     var commit = ""
     var timeOfDay = ""
     var db = Firestore.firestore()
     var viewer = "admin"
+    var categories = [String]()
+    var selectedCategories = [String]()
     
     
     @IBAction func readCommitment(_ sender: Any) {
@@ -117,6 +121,7 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
             
             ])
             performSegue(withIdentifier: "addToBrowsing", sender: "done")
+            
         }
         else{
             let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Not all fields are filled in", preferredStyle: .alert)
@@ -161,8 +166,61 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
                         
                     }
                 }
+                
+                //first, put category with identifier "2" first in array
+                var selectedOnes = [String]()
+                var selectedOnesOrdered = [String]()
+
+                
+                for i in 0..<self.selectedCategories.count{
+                    
+                    //just for printing
+                    if(self.selectedCategories[i] == "1" || self.selectedCategories[i] == "2"){
+                        selectedOnes.append(self.categories[i])
+                    }
+                    
+                    
+                    if(self.selectedCategories[i] == "2"){
+                        var temp = self.selectedCategories[i]
+                        self.selectedCategories.remove(at: i)
+                        self.selectedCategories.insert(temp, at: 0)
+                        
+                        temp = self.categories[i]
+                        self.categories.remove(at: i)
+                        self.categories.insert(temp, at: 0)
+                    }
+                }
+                
+                
+                //just for printing re-ordered array
+                for i in 0..<self.selectedCategories.count{
+                    if(self.selectedCategories[i] == "1" || self.selectedCategories[i] == "2"){
+                        selectedOnesOrdered.append(self.categories[i])
+                    }
+                }
+                
+                print("selected categories: \(selectedOnes)")
+                print("reordered with important one first: \(selectedOnesOrdered)")
+                
+                
+                //then save array to club in firestore
+                let clubRef = self.db.collection("clubs").document(docID)
+                for i in 0..<self.selectedCategories.count{
+                    if self.selectedCategories[i] == "1" || self.selectedCategories[i] == "2"{
+                        clubRef.updateData([
+                            "categories": FieldValue.arrayUnion([self.categories[i]])
+                        ])
+                    }
+                    if self.selectedCategories[i] == "0"{
+                        clubRef.updateData([
+                            "categories": FieldValue.arrayRemove([self.categories[i]])
+                        ])
+                    }
+                }
             }
         }
+        
+        
         
     }
     
@@ -179,10 +237,14 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
         self.generalDescription.layer.borderColor = UIColor.lightGray.cgColor
         self.generalDescription.layer.borderWidth = 1
         
-        addClubImgVw.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectClubImageView)))
+        
+        categories = ["Music/Arts", "Competitive", "Leadership", "Other", "Cultural/Community", "STEM", "Performance", "Intellectual", "Student Government", "School Pride", "Volunteer", "Business", "FCS"]
+        for i in 0..<categories.count{
+            selectedCategories.append("0")
+        }
     }
     
-    @objc func handleSelectClubImageView(){
+    @IBAction func handleSelectClubImageView(){
         let picker = UIImagePickerController()
         picker.delegate = self
         picker.allowsEditing = true
@@ -210,4 +272,63 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
         dismiss(animated: true, completion: nil)
     }
 
+    
+    // MARK: - UICollectionViewDataSource protocol
+    
+    // tell the collection view how many cells to make
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.categories.count
+    }
+    
+    // make a cell for each cell index path
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        // get a reference to our storyboard cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! CollectionViewCellCategories
+        
+        // Use the outlet in our custom class to get a reference to the UILabel in the cell
+        cell.categoryName.text = self.categories[indexPath.item]
+        if self.selectedCategories[indexPath.item] == "0" {
+            cell.backgroundColor = UIColor.white // make cell more visible in our example project
+        }else if self.selectedCategories[indexPath.item] == "1"{
+            cell.backgroundColor = UIColor.yellow
+        }
+        else if self.selectedCategories[indexPath.item] == "2"{
+            cell.backgroundColor = UIColor.purple
+        }
+        cell.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
+        cell.layer.borderWidth = 1
+        
+        
+        return cell
+    }
+    
+    // MARK: - UICollectionViewDelegate protocol
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // handle tap events
+        print("TAP EVENTTTTT")
+        print("You selected cell #\(indexPath.item)!")
+        let cell = collectionView.cellForItem(at: indexPath)
+        if cell?.backgroundColor == UIColor.purple {
+            cell?.backgroundColor = UIColor.white
+            cell?.backgroundColor = UIColor.white // make cell more visible in our example project
+            cell?.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
+            cell?.layer.borderWidth = 1
+            selectedCategories[indexPath.item] = "0"
+        }
+        else if cell?.backgroundColor == UIColor.white{
+            cell?.backgroundColor = UIColor.yellow
+            cell?.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
+            cell?.layer.borderWidth = 1
+            selectedCategories[indexPath.item] = "1"
+        }
+        else if cell?.backgroundColor == UIColor.yellow{
+            cell?.backgroundColor = UIColor.purple
+            cell?.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
+            cell?.layer.borderWidth = 1
+            selectedCategories[indexPath.item] = "2"
+        }
+        
+    }
 }

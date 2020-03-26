@@ -567,8 +567,8 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tv5-si-dXX">
                                 <rect key="frame" x="0.0" y="144" width="768" height="1356"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cRd-8z-btC">
-                                        <rect key="frame" x="0.0" y="0.0" width="768" height="938"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cRd-8z-btC">
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="1356"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="U2H-Sf-sZh">
                                                 <rect key="frame" x="100" y="27" width="390" height="34"/>
@@ -597,7 +597,7 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jyx-4K-dql">
-                                                <rect key="frame" x="25" y="858" width="719" height="60"/>
+                                                <rect key="frame" x="25" y="1263" width="719" height="60"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="0.83137254900000002" green="0.1215686275" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
@@ -757,13 +757,6 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="chs-cougar-mascot" translatesAutoresizingMaskIntoConstraints="NO" id="TJr-zn-cDg">
-                                                <rect key="frame" x="539" y="27" width="178" height="178"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <accessibility key="accessibilityConfiguration">
-                                                    <accessibilityTraits key="traits" button="YES" image="YES"/>
-                                                </accessibility>
-                                            </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Click to upload your club's image." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sep-4V-l1v">
                                                 <rect key="frame" x="537" y="213" width="182" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -779,6 +772,64 @@
                                                     <segment title="PM"/>
                                                 </segments>
                                             </segmentedControl>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cvh-nj-wAg">
+                                                <rect key="frame" x="26" y="843" width="734" height="92"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <string key="text">Categories: Single tap to select a general category, double tap to select a defining category. You must select one defining category; general categories are optional, but you may select any you feel apply.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uk5-eJ-Xpu">
+                                                <rect key="frame" x="539" y="74" width="178" height="131"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <connections>
+                                                    <action selector="handleSelectClubImageView" destination="ZPR-WV-qLw" eventType="touchUpInside" id="Heo-0A-y3t"/>
+                                                </connections>
+                                            </button>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="chs-cougar-mascot" translatesAutoresizingMaskIntoConstraints="NO" id="c4B-4p-4SS">
+                                                <rect key="frame" x="539" y="74" width="178" height="131"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="3iu-X0-nXa">
+                                                <rect key="frame" x="25" y="943" width="718" height="296"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4Ib-Ze-Usv">
+                                                    <size key="itemSize" width="187" height="100"/>
+                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                </collectionViewFlowLayout>
+                                                <cells>
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="o1z-M5-rbR" customClass="CollectionViewCellCategories" customModule="clubHub" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="187" height="100"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="LsH-gI-qhT" customClass="CollectionViewCellCategories" customModule="clubHub" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="187" height="100"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KSo-cn-35E">
+                                                                    <rect key="frame" x="0.0" y="40" width="187" height="21"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </collectionViewCellContentView>
+                                                        <color key="backgroundColor" red="0.56092965602874756" green="0.69158625602722168" blue="0.91458666324615479" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <size key="customSize" width="187" height="100"/>
+                                                        <connections>
+                                                            <outlet property="categoryName" destination="KSo-cn-35E" id="Ax5-ym-HUa"/>
+                                                        </connections>
+                                                    </collectionViewCell>
+                                                </cells>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="ZPR-WV-qLw" id="pZY-Y2-PlX"/>
+                                                    <outlet property="delegate" destination="ZPR-WV-qLw" id="XQU-nC-oJ1"/>
+                                                </connections>
+                                            </collectionView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="U2H-Sf-sZh" firstAttribute="leading" secondItem="UbB-1P-vkJ" secondAttribute="trailing" constant="5" id="9s2-wa-1XL"/>
@@ -817,7 +868,8 @@
                     <size key="freeformSize" width="768" height="1500"/>
                     <connections>
                         <outlet property="AMPMSwitch" destination="WZk-gp-ydc" id="Tcf-Zl-4cg"/>
-                        <outlet property="addClubImgVw" destination="TJr-zn-cDg" id="6TM-Va-Z2c"/>
+                        <outlet property="addClubImgVw" destination="c4B-4p-4SS" id="I8Q-8t-CJ9"/>
+                        <outlet property="categoriesCollection" destination="3iu-X0-nXa" id="dzi-Fa-BSJ"/>
                         <outlet property="commitmentLevel" destination="VcB-LT-ksU" id="Mmg-FQ-n7t"/>
                         <outlet property="doneButton" destination="jyx-4K-dql" id="N9t-DC-a7G"/>
                         <outlet property="fridaySwitch" destination="XWR-0P-HJF" id="ovT-rv-PPG"/>
@@ -1573,12 +1625,16 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="chs-cougar-mascot" translatesAutoresizingMaskIntoConstraints="NO" id="OjV-Ku-YI4">
-                                                <rect key="frame" x="539" y="32" width="178" height="178"/>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ui-ie-6Dl">
+                                                <rect key="frame" x="539" y="74" width="178" height="131"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <accessibility key="accessibilityConfiguration">
-                                                    <accessibilityTraits key="traits" button="YES" image="YES"/>
-                                                </accessibility>
+                                                <connections>
+                                                    <action selector="handleSelectClubImageView" destination="pUj-lt-Noy" eventType="touchUpInside" id="7pL-cw-MhT"/>
+                                                </connections>
+                                            </button>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="chs-cougar-mascot" translatesAutoresizingMaskIntoConstraints="NO" id="Qqk-Tf-Erz">
+                                                <rect key="frame" x="539" y="74" width="178" height="131"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                         </subviews>
                                         <constraints>
@@ -1618,7 +1674,7 @@
                     <connections>
                         <outlet property="AMPMSwitch" destination="lxd-53-RkP" id="Dfi-rg-gZY"/>
                         <outlet property="commitSegControl" destination="NKG-Mb-hMg" id="2FT-vX-8g6"/>
-                        <outlet property="editClubImgVw" destination="OjV-Ku-YI4" id="rG6-yr-oWu"/>
+                        <outlet property="editClubImgVw" destination="Qqk-Tf-Erz" id="JNu-JD-Q2q"/>
                         <outlet property="fridaySwitch" destination="Zdz-05-R7S" id="0fB-XF-x94"/>
                         <outlet property="genDescriptTxtFld" destination="vg6-mw-r17" id="fhw-bB-Rfm"/>
                         <outlet property="meetingTimes" destination="uXz-F9-H42" id="JnG-JW-laT"/>
@@ -1748,9 +1804,9 @@
         <image name="unnamed" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="h1h-kk-D5T"/>
+        <segue reference="Yco-nf-Dsp"/>
         <segue reference="HBN-lN-BdC"/>
-        <segue reference="dSB-4A-GFN"/>
+        <segue reference="y8n-0E-zGg"/>
         <segue reference="THt-XV-fNh"/>
         <segue reference="sDv-vH-fYY"/>
     </inferredMetricsTieBreakers>
