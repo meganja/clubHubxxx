@@ -160,9 +160,6 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
         }
         
         
-        
-        editClubImgVw.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectClubImageView)))
-        
     }
     
 
@@ -343,7 +340,7 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
     
 
        
-    @objc func handleSelectClubImageView(){
+    @IBAction func handleSelectClubImageView(){
         let picker = UIImagePickerController()
         picker.delegate = self
         picker.allowsEditing = true
