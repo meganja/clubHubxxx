@@ -55,7 +55,7 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        titleLbl.text = "Edit \(ClubName)"
+        titleLbl.text = "Edit \n \(ClubName)"
         
         self.nameTxtFld.text = self.ClubName
 

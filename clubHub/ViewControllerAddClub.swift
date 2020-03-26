@@ -238,6 +238,7 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
         self.generalDescription.layer.borderWidth = 1
         
         
+        
         categories = ["Music/Arts", "Competitive", "Leadership", "Other", "Cultural/Community", "STEM", "Performance", "Intellectual", "Student Government", "School Pride", "Volunteer", "Business", "FCS"]
         for i in 0..<categories.count{
             selectedCategories.append("0")
