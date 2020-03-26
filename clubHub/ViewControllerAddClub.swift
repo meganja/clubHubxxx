@@ -106,42 +106,56 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
             !schoologyCode.text!.isEmpty &&
             !meetingTimes.text!.isEmpty &&
             !moreInfo.text!.isEmpty){
-            clubsRef.document().setData(
-                ["name":"\(nameLabel.text!)",
-                    "days":days,
-                    "volunteer":volunteerSwitch.isOn,
-                    "commit":commit,
-                    "description":"\(generalDescription.text!)",
-                    "room":"\(roomNumber.text!)",
-                    "sponsor":["\(sponsorName.text!)", "\(sponsorEmail.text!)"],
-                    "schoology":"\(schoologyCode.text!)",
-                    "time":"\(meetingTimes.text!)",
-                    "AM-PM":timeOfDay,
-                    "link":"\(moreInfo.text!)"
-            
-            ])
-            performSegue(withIdentifier: "addToBrowsing", sender: "done")
-            
+            if checkMainCategory() == true{
+                clubsRef.document().setData(
+                    ["name":"\(nameLabel.text!)",
+                        "days":days,
+                        "volunteer":volunteerSwitch.isOn,
+                        "commit":commit,
+                        "description":"\(generalDescription.text!)",
+                        "room":"\(roomNumber.text!)",
+                        "sponsor":["\(sponsorName.text!)", "\(sponsorEmail.text!)"],
+                        "schoology":"\(schoologyCode.text!)",
+                        "time":"\(meetingTimes.text!)",
+                        "AM-PM":timeOfDay,
+                        "link":"\(moreInfo.text!)"
+                        
+                ])
+                performSegue(withIdentifier: "addToBrowsing", sender: "done")
+            }
+            else{
+                if count2 == 0{
+                    let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Must pick a defining category", preferredStyle: .alert)
+                    
+                    // Create OK button with action handler
+                    let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+                        print("Ok button tapped")
+                        
+                    })
+                    dialogMessage.addAction(ok)
+                    self.present(dialogMessage, animated: true, completion: nil)
+                }else{
+                    let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Too many defining categories picked.  Pick only one.", preferredStyle: .alert)
+                    
+                    // Create OK button with action handler
+                    let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+                        print("Ok button tapped")
+                        
+                    })
+                    dialogMessage.addAction(ok)
+                    self.present(dialogMessage, animated: true, completion: nil)
+                }
+            }
         }
         else{
-            let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Not all fields are filled in", preferredStyle: .alert)
+            let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Not all fields are filled in.", preferredStyle: .alert)
             
             // Create OK button with action handler
             let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
-                 print("Ok button tapped")
-                 
+                print("Ok button tapped")
+                
             })
-            
-//            // Create Cancel button with action handlder
-//            let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
-//                print("Cancel button tapped")
-//            }
-            
-            //Add OK and Cancel button to dialog message
             dialogMessage.addAction(ok)
-            //dialogMessage.addAction(cancel)
-            
-            // Present dialog message to user
             self.present(dialogMessage, animated: true, completion: nil)
         }
         
@@ -170,7 +184,7 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
                 //first, put category with identifier "2" first in array
                 var selectedOnes = [String]()
                 var selectedOnesOrdered = [String]()
-
+                
                 
                 for i in 0..<self.selectedCategories.count{
                     
@@ -272,7 +286,7 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
         print("picker cancelled!")
         dismiss(animated: true, completion: nil)
     }
-
+    
     
     // MARK: - UICollectionViewDataSource protocol
     
@@ -306,6 +320,21 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
     
     // MARK: - UICollectionViewDelegate protocol
     
+    var mainCategory = [0,0,0,0,0,0,0,0,0,0,0,0,0]
+    var count2 = 0
+    func checkMainCategory()-> Bool{
+        count2 = 0
+        for i in (0..<mainCategory.count){
+            if mainCategory[i] == 2{
+                count2+=1
+            }
+        }
+        if count2 == 1{
+            return true
+        }
+        return false
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // handle tap events
         print("TAP EVENTTTTT")
@@ -317,18 +346,21 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
             cell?.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
             cell?.layer.borderWidth = 1
             selectedCategories[indexPath.item] = "0"
+            mainCategory[indexPath.item] = 0
         }
         else if cell?.backgroundColor == UIColor.white{
             cell?.backgroundColor = UIColor.yellow
             cell?.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
             cell?.layer.borderWidth = 1
             selectedCategories[indexPath.item] = "1"
+            mainCategory[indexPath.item] = 1
         }
         else if cell?.backgroundColor == UIColor.yellow{
             cell?.backgroundColor = UIColor.purple
             cell?.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
             cell?.layer.borderWidth = 1
             selectedCategories[indexPath.item] = "2"
+            mainCategory[indexPath.item] = 2
         }
         
     }
