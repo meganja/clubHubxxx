@@ -322,12 +322,12 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
     
     // MARK: - UICollectionViewDelegate protocol
     
-    var mainCategory = [0,0,0,0,0,0,0,0,0,0,0,0,0]
+    
     var count2 = 0
     func checkMainCategory()-> Bool{
         count2 = 0
-        for i in (0..<mainCategory.count){
-            if mainCategory[i] == 2{
+        for i in (0..<selectedCategories.count){
+            if selectedCategories[i] == "2"{
                 count2+=1
             }
         }
@@ -348,21 +348,18 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
             cell?.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
             cell?.layer.borderWidth = 1
             selectedCategories[indexPath.item] = "0"
-            mainCategory[indexPath.item] = 0
         }
         else if cell?.backgroundColor == UIColor.white{
             cell?.backgroundColor = UIColor.yellow
             cell?.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
             cell?.layer.borderWidth = 1
             selectedCategories[indexPath.item] = "1"
-            mainCategory[indexPath.item] = 1
         }
         else if cell?.backgroundColor == UIColor.yellow{
             cell?.backgroundColor = UIColor.purple
             cell?.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
             cell?.layer.borderWidth = 1
             selectedCategories[indexPath.item] = "2"
-            mainCategory[indexPath.item] = 2
         }
         
     }
