@@ -43,6 +43,19 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
     var categories = [String]()
     var selectedCategories = [String]()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.generalDescription.layer.borderColor = UIColor.lightGray.cgColor
+        self.generalDescription.layer.borderWidth = 1
+        
+        
+        
+        categories = ["Music/Arts", "Competitive", "Leadership", "Other", "Cultural/Community", "STEM", "Performance", "Intellectual", "Student Government", "School Pride", "Volunteer", "Business", "FCS"]
+        for i in 0..<categories.count{
+            selectedCategories.append("0")
+        }
+    }
+    
     
     @IBAction func readCommitment(_ sender: Any) {
         if commitmentLevel.selectedSegmentIndex == 0{
@@ -246,18 +259,7 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
         
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.generalDescription.layer.borderColor = UIColor.lightGray.cgColor
-        self.generalDescription.layer.borderWidth = 1
-        
-        
-        
-        categories = ["Music/Arts", "Competitive", "Leadership", "Other", "Cultural/Community", "STEM", "Performance", "Intellectual", "Student Government", "School Pride", "Volunteer", "Business", "FCS"]
-        for i in 0..<categories.count{
-            selectedCategories.append("0")
-        }
-    }
+    
     
     @IBAction func handleSelectClubImageView(){
         let picker = UIImagePickerController()

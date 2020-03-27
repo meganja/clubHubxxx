@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
     
     let db = Firestore.firestore()
     var ClubName = ""
@@ -18,6 +18,7 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
     var viewer = ""
     var docID = ""
     
+    @IBOutlet weak var categoriesCollectionView: UICollectionView!
     @IBOutlet weak var editClubImgVw: UIImageView!
     
     @IBOutlet weak var nameTxtFld: UITextField!
@@ -52,13 +53,23 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
     
     var timeOfDay = ""
     
+    var categories = [String]()
+    var selectedCategories = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         titleLbl.text = "Edit \n \(ClubName)"
         
         self.nameTxtFld.text = self.ClubName
-
+        
+        self.genDescriptTxtFld.layer.borderColor = UIColor.lightGray.cgColor
+        self.genDescriptTxtFld.layer.borderWidth = 1
+        
+        categories = ["Music/Arts", "Competitive", "Leadership", "Other", "Cultural/Community", "STEM", "Performance", "Intellectual", "Student Government", "School Pride", "Volunteer", "Business", "FCS"]
+        for i in 0..<categories.count{
+            selectedCategories.append("0")
+        }
         
         //sets everything to its current values in order to be edited
         self.db.collection("clubs").whereField("name", isEqualTo: self.ClubName).getDocuments(){ (querySnapshot, err) in
@@ -72,14 +83,14 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
                 print("club: \(self.docID)")
                 let imgRef = ref.child("images/\(self.docID).png")
                 imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-                  if let error = error {
-                    print(error)
-                  } else {
-                    // Data for "images/island.jpg" is returned
-                    let imageDownloaded = UIImage(data: data!)
-                    self.editClubImgVw.image = imageDownloaded
-                    print("SUCCESS! IMAGE SHOULD DISPLAY ON EDIT SCREEN")
-                  }
+                    if let error = error {
+                        print(error)
+                    } else {
+                        // Data for "images/island.jpg" is returned
+                        let imageDownloaded = UIImage(data: data!)
+                        self.editClubImgVw.image = imageDownloaded
+                        print("SUCCESS! IMAGE SHOULD DISPLAY ON EDIT SCREEN")
+                    }
                 }
                 
                 
@@ -88,23 +99,23 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
                 self.moreInfo.text = String(describing: document.get("link")!)
                 self.schoologyCode.text = String(describing: document.get("schoology")!)
                 
-                 if String(describing: document.get("commit")!) == "Low"{
+                if String(describing: document.get("commit")!) == "Low"{
                     self.commitSegControl.selectedSegmentIndex = 0
-                       }
-                       else if String(describing: document.get("commit")!) == "Medium"{
+                }
+                else if String(describing: document.get("commit")!) == "Medium"{
                     self.commitSegControl.selectedSegmentIndex = 1
-                       }
-                       else if String(describing: document.get("commit")!) == "High"{
+                }
+                else if String(describing: document.get("commit")!) == "High"{
                     self.commitSegControl.selectedSegmentIndex = 2
-                       }
+                }
                 
                 if String(describing: document.get("AM-PM")!) == "AM"{
-                self.commitSegControl.selectedSegmentIndex = 0
-                   }
-                   else if String(describing: document.get("AM-PM")!) == "PM"{
-                self.commitSegControl.selectedSegmentIndex = 1
-                   }
-
+                    self.commitSegControl.selectedSegmentIndex = 0
+                }
+                else if String(describing: document.get("AM-PM")!) == "PM"{
+                    self.commitSegControl.selectedSegmentIndex = 1
+                }
+                
                 let daysInfo = document.data()["days"]! as! [String]
                 print(daysInfo)
                 if(daysInfo.contains("Monday")){
@@ -141,40 +152,90 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
                 else{
                     self.fridaySwitch.setOn(false, animated: false)
                 }
-
+                
                 
                 if (String(describing: document.get("volunteer")!)) == "0"{
                     self.volunteerOppSwitch.setOn(false, animated: false)
                 }else{
                     self.volunteerOppSwitch.setOn(true, animated: false)
                 }
-
+                
                 self.roomNumTxtFld.text = String(describing: document.get("room")!)
-
-
+                
+                
                 let sponsorInfo = document.data()["sponsor"]! as! [Any]
                 self.sponsorNameTxtFld.text = "\(sponsorInfo[0])"
                 self.sponsorEmailTxtFld.text = "\(sponsorInfo[1])"
+                
+                let firebaseCategory = document.data()["categories"]! as! [Any]
+                print()
+                print()
+                print("firebase categories")
+                print(firebaseCategory)
+                
+                print()
+                print()
+                for i in (0..<firebaseCategory.count){
+                    for j in (0..<self.categories.count){
+                        print()
+                        print("\(firebaseCategory[i])")
+                        print(self.categories[j])
+                        print("\(firebaseCategory[i])" == self.categories[j])
+        
+                        if "\(firebaseCategory[i])" == self.categories[j]{
+                            print("is i == 0? \(i == 0)")
+                            print("what is i?\(i)")
+                            if i == 0{
+                                print("2")
+                                self.selectedCategories[j] = "2"
+                                
+                            }
+                            else{
+                                print("1")
+                                self.selectedCategories[j] = "1"
+                            }
+                        }
+                    }
+                    print()
+                    print("selectedCategories")
+                    print(self.selectedCategories)
+                }
+                print()
+                print()
+                print("selectedCategories")
+                print(self.selectedCategories)
+                
+                print()
+                print()
+                DispatchQueue.main.async {
+                    self.categoriesCollectionView.reloadData()
+                }
+            }
+            DispatchQueue.main.async {
+                self.categoriesCollectionView.reloadData()
             }
             
+        }
+        DispatchQueue.main.async {
+            self.categoriesCollectionView.reloadData()
         }
         
         
     }
     
-
-
+    
+    
     // MARK: - Navigation
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//         Get the new view controller using segue.destination.
-//         Pass the selected object to the new view controller.
+        //         Get the new view controller using segue.destination.
+        //         Pass the selected object to the new view controller.
         var vc = segue.destination as! ViewControllerDispClubs
         vc.viewer = "admin" 
-
+        
     }
-
-
+    
+    
     @IBAction func presentDeleteAlertAction(_ sender: Any) {
         //first, use UIAlertController to check that admin really wants to delete the club
         
@@ -183,8 +244,8 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
         
         // Create OK button with action handler
         let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
-             print("Ok button tapped")
-             self.deleteClub()
+            print("Ok button tapped")
+            self.deleteClub()
         })
         
         // Create Cancel button with action handlder
@@ -198,7 +259,7 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
         
         // Present dialog message to user
         self.present(dialogMessage, animated: true, completion: nil)
-
+        
     }
     
     
@@ -212,12 +273,87 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
                 print("Document successfully removed!")
             }
         }
-                
+        
         
         performSegue(withIdentifier: "backToBrowsing", sender: "done")
     }
     
+    //MARK: -Collection View
+    let reuseIdentifier = "cell"
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.categories.count
+    }
     
+    // make a cell for each cell index path
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        // get a reference to our storyboard cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! CollectionViewCellEditCategory
+        
+        // Use the outlet in our custom class to get a reference to the UILabel in the cell
+        cell.categoryName.text = self.categories[indexPath.item]
+        print("cell selected category \(selectedCategories[indexPath.item])")
+        if self.selectedCategories[indexPath.item] == "0" {
+            cell.backgroundColor = UIColor.white // make cell more visible in our example project
+        }else if self.selectedCategories[indexPath.item] == "1"{
+            cell.backgroundColor = UIColor.yellow
+        }
+        else if self.selectedCategories[indexPath.item] == "2"{
+            cell.backgroundColor = UIColor.purple
+        }
+        cell.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
+        cell.layer.borderWidth = 1
+        
+        
+        return cell
+    }
+    
+    // MARK: - UICollectionViewDelegate protocol
+    
+    
+    var count2 = 0
+    func checkMainCategory()-> Bool{
+        count2 = 0
+        for i in (0..<selectedCategories.count){
+            if selectedCategories[i] == "2"{
+                count2+=1
+            }
+        }
+        if count2 == 1{
+            return true
+        }
+        return false
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // handle tap events
+        print("TAP EVENTTTTT")
+        print("You selected cell #\(indexPath.item)!")
+        let cell = collectionView.cellForItem(at: indexPath)
+        if cell?.backgroundColor == UIColor.purple {
+            cell?.backgroundColor = UIColor.white
+            cell?.backgroundColor = UIColor.white // make cell more visible in our example project
+            cell?.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
+            cell?.layer.borderWidth = 1
+            selectedCategories[indexPath.item] = "0"
+        }
+        else if cell?.backgroundColor == UIColor.white{
+            cell?.backgroundColor = UIColor.yellow
+            cell?.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
+            cell?.layer.borderWidth = 1
+            selectedCategories[indexPath.item] = "1"
+        }
+        else if cell?.backgroundColor == UIColor.yellow{
+            cell?.backgroundColor = UIColor.purple
+            cell?.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
+            cell?.layer.borderWidth = 1
+            selectedCategories[indexPath.item] = "2"
+        }
+        
+    }
+    
+    
+    //MARK: -Ready to submit to firebase
     @IBAction func commitmentChanged(_ sender: Any) {
         if commitSegControl.selectedSegmentIndex == 0{
             commit = "Low"
@@ -284,62 +420,127 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
             print("\(roomNumTxtFld.text!)")
             print("\(sponsorNameTxtFld.text!)")
             print("\(sponsorEmailTxtFld.text!)")
-            clubsRef.document(docID).setData(
-                ["name":"\(nameTxtFld.text!)",
-                    "days":days,
-                    "volunteer":volunteerOppSwitch.isOn,
-                    "commit":commit,
-                    "description":"\(genDescriptTxtFld.text!)",
-                    "room":"\(roomNumTxtFld.text!)",
-                    "sponsor":["\(sponsorNameTxtFld.text!)", "\(sponsorEmailTxtFld.text!)"],
-                    "schoology":"\(schoologyCode.text!)",
-                    "time":"\(meetingTimes.text!)",
-                    "AM-PM":timeOfDay,
-                    "link":"\(moreInfo.text!)"
-            ])
-            
-            let ref = Storage.storage().reference()
-            print("club: \(docID)")
-            let imgRef = ref.child("images/\(docID).png")
-            if let uploadData = self.editClubImgVw.image?.pngData(){
-                imgRef.putData(uploadData, metadata: nil) { (metadata, error) in
+            if checkMainCategory() == true{
+                clubsRef.document(docID).setData(
+                    ["name":"\(nameTxtFld.text!)",
+                        "days":days,
+                        "volunteer":volunteerOppSwitch.isOn,
+                        "commit":commit,
+                        "description":"\(genDescriptTxtFld.text!)",
+                        "room":"\(roomNumTxtFld.text!)",
+                        "sponsor":["\(sponsorNameTxtFld.text!)", "\(sponsorEmailTxtFld.text!)"],
+                        "schoology":"\(schoologyCode.text!)",
+                        "time":"\(meetingTimes.text!)",
+                        "AM-PM":timeOfDay,
+                        "link":"\(moreInfo.text!)"
+                ])
+                
+                let ref = Storage.storage().reference()
+                print("club: \(docID)")
+                let imgRef = ref.child("images/\(docID).png")
+                if let uploadData = self.editClubImgVw.image?.pngData(){
+                    imgRef.putData(uploadData, metadata: nil) { (metadata, error) in
+                        
+                        if error != nil{
+                            print(error)
+                        }
+                        
+                        self.performSegue(withIdentifier: "backToBrowsing", sender: "done")
+                    }
+                }
+                
+                //first, put category with identifier "2" first in array
+                var selectedOnes = [String]()
+                var selectedOnesOrdered = [String]()
+                
+                
+                for i in 0..<self.selectedCategories.count{
                     
-                    if error != nil{
-                        print(error)
+                    //just for printing
+                    if(self.selectedCategories[i] == "1" || self.selectedCategories[i] == "2"){
+                        selectedOnes.append(self.categories[i])
                     }
                     
-                    self.performSegue(withIdentifier: "backToBrowsing", sender: "done")
+                    
+                    if(self.selectedCategories[i] == "2"){
+                        var temp = self.selectedCategories[i]
+                        self.selectedCategories.remove(at: i)
+                        self.selectedCategories.insert(temp, at: 0)
+                        
+                        temp = self.categories[i]
+                        self.categories.remove(at: i)
+                        self.categories.insert(temp, at: 0)
+                    }
                 }
-            }
                 
-            
-        }
-        else{
-                    let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Not all fields are filled in", preferredStyle: .alert)
+                
+                //just for printing re-ordered array
+                for i in 0..<self.selectedCategories.count{
+                    if(self.selectedCategories[i] == "1" || self.selectedCategories[i] == "2"){
+                        selectedOnesOrdered.append(self.categories[i])
+                    }
+                }
+                
+                print("selected categories: \(selectedOnes)")
+                print("reordered with important one first: \(selectedOnesOrdered)")
+                
+                
+                //then save array to club in firestore
+                let clubRef = self.db.collection("clubs").document(docID)
+                for i in 0..<self.selectedCategories.count{
+                    if self.selectedCategories[i] == "1" || self.selectedCategories[i] == "2"{
+                        clubRef.updateData([
+                            "categories": FieldValue.arrayUnion([self.categories[i]])
+                        ])
+                    }
+                    if self.selectedCategories[i] == "0"{
+                        clubRef.updateData([
+                            "categories": FieldValue.arrayRemove([self.categories[i]])
+                        ])
+                    }
+                }
+                
+                
+            }else{
+                if count2 == 0{
+                    let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Must pick a defining category", preferredStyle: .alert)
                     
                     // Create OK button with action handler
                     let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
-                         print("Ok button tapped")
-                         
+                        print("Ok button tapped")
+                        
                     })
-                    
-        //            // Create Cancel button with action handlder
-        //            let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
-        //                print("Cancel button tapped")
-        //            }
-                    
-                    //Add OK and Cancel button to dialog message
                     dialogMessage.addAction(ok)
-                    //dialogMessage.addAction(cancel)
+                    self.present(dialogMessage, animated: true, completion: nil)
+                }else{
+                    let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Too many defining categories picked.  Pick only one.", preferredStyle: .alert)
                     
-                    // Present dialog message to user
+                    // Create OK button with action handler
+                    let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+                        print("Ok button tapped")
+                        
+                    })
+                    dialogMessage.addAction(ok)
                     self.present(dialogMessage, animated: true, completion: nil)
                 }
+            }
+        }
+        else{
+            let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Not all fields are filled in", preferredStyle: .alert)
+            
+            // Create OK button with action handler
+            let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+                print("Ok button tapped")
+                
+            })
+            dialogMessage.addAction(ok)
+            self.present(dialogMessage, animated: true, completion: nil)
+        }
         
     }
     
-
-       
+    
+    
     @IBAction func handleSelectClubImageView(){
         let picker = UIImagePickerController()
         picker.delegate = self
@@ -348,8 +549,8 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-         var selectedImageFromPicker: UIImage?
-               
+        var selectedImageFromPicker: UIImage?
+        
         if let editedImage = info[.editedImage] as? UIImage{
             selectedImageFromPicker = editedImage
         }

@@ -30,6 +30,7 @@
 		CB5D906D240314C2009184BA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB5D906B240314C2009184BA /* LaunchScreen.storyboard */; };
 		CB5D9078240314C4009184BA /* clubHubTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5D9077240314C4009184BA /* clubHubTests.swift */; };
 		CB5D9083240314C4009184BA /* clubHubUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5D9082240314C4009184BA /* clubHubUITests.swift */; };
+		CBA72385242D744700EF1DFA /* CollectionViewCellEditCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBA72384242D744700EF1DFA /* CollectionViewCellEditCategory.swift */; };
 		D1CB4DC21A30909E67BEFEE0 /* libPods-clubHub-clubHubUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE62B74B71FB0E590DA8A59 /* libPods-clubHub-clubHubUITests.a */; };
 		EF0D307673ED6D48CBA7BB55 /* libPods-clubHub.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50AF6FE9F9908A79AA9109E5 /* libPods-clubHub.a */; };
 /* End PBXBuildFile section */
@@ -95,6 +96,7 @@
 		CB5D907E240314C4009184BA /* clubHubUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = clubHubUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB5D9082240314C4009184BA /* clubHubUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = clubHubUITests.swift; sourceTree = "<group>"; };
 		CB5D9084240314C4009184BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CBA72384242D744700EF1DFA /* CollectionViewCellEditCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellEditCategory.swift; sourceTree = "<group>"; };
 		E2FC096293ACAAE9B09F6E4E /* libPods-clubHubTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-clubHubTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8E8449D94F69AE7CE7D6F5D /* Pods-clubHubTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-clubHubTests.debug.xcconfig"; path = "Target Support Files/Pods-clubHubTests/Pods-clubHubTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -183,6 +185,7 @@
 		CB5D905F240314A4009184BA /* clubHub */ = {
 			isa = PBXGroup;
 			children = (
+				CBA72384242D744700EF1DFA /* CollectionViewCellEditCategory.swift */,
 				BB25FC0C2411D9D500B8F690 /* GoogleService-Info.plist */,
 				CB5D9060240314A4009184BA /* AppDelegate.swift */,
 				CB5D9062240314A4009184BA /* SceneDelegate.swift */,
@@ -519,6 +522,7 @@
 				CB546A0024077851001DFA77 /* ViewControllerLoggingIn.swift in Sources */,
 				BB45A27F24144D7C0063AC50 /* ViewControllerAdminEdit.swift in Sources */,
 				6641615D2408586300382948 /* CollectionViewCellAllClubs.swift in Sources */,
+				CBA72385242D744700EF1DFA /* CollectionViewCellEditCategory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
