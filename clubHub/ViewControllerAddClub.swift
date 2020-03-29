@@ -110,59 +110,82 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
         
         
         let clubsRef = db.collection("clubs")
+        var clubName = "\(nameLabel.text!)"
+        var searchTerm = clubName[clubName.startIndex]
+        print("Search term = \(searchTerm)")
         
-        if (!nameLabel.text!.isEmpty &&
-            !generalDescription.text.isEmpty &&
-            !roomNumber.text!.isEmpty &&
-            !sponsorName.text!.isEmpty &&
-            !sponsorEmail.text!.isEmpty &&
-            !schoologyCode.text!.isEmpty &&
-            !meetingTimes.text!.isEmpty &&
-            !moreInfo.text!.isEmpty){
-            if checkMainCategory() == true{
-                clubsRef.document().setData(
-                    ["name":"\(nameLabel.text!)",
-                        "days":days,
-                        "volunteer":volunteerSwitch.isOn,
-                        "commit":commit,
-                        "description":"\(generalDescription.text!)",
-                        "room":"\(roomNumber.text!)",
-                        "sponsor":["\(sponsorName.text!)", "\(sponsorEmail.text!)"],
-                        "schoology":"\(schoologyCode.text!)",
-                        "time":"\(meetingTimes.text!)",
-                        "AM-PM":timeOfDay,
-                        "link":"\(moreInfo.text!)"
-                        
-                ])
-                performSegue(withIdentifier: "addToBrowsing", sender: "done")
-            }
-            else{
-                if count2 == 0{
-                    let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Must pick a defining category", preferredStyle: .alert)
-                    
-                    // Create OK button with action handler
-                    let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
-                        print("Ok button tapped")
-                        
-                    })
-                    dialogMessage.addAction(ok)
-                    self.present(dialogMessage, animated: true, completion: nil)
-                }else{
-                    let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Too many defining categories picked.  Pick only one.", preferredStyle: .alert)
-                    
-                    // Create OK button with action handler
-                    let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
-                        print("Ok button tapped")
-                        
-                    })
-                    dialogMessage.addAction(ok)
-                    self.present(dialogMessage, animated: true, completion: nil)
-                }
+        
+        let characterset = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","0","1","2","3","4","5","6","7","8","9"]
+        var noSpecialChar = false
+        for i in (0..<characterset.count){
+            if "\(searchTerm)" == characterset[i]{
+                noSpecialChar = true
             }
         }
-        else{
-            let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Not all fields are filled in.", preferredStyle: .alert)
-            
+        print("noSpecialChar = \(noSpecialChar)")
+        if noSpecialChar{
+            if (!nameLabel.text!.isEmpty &&
+                !generalDescription.text.isEmpty &&
+                !roomNumber.text!.isEmpty &&
+                !sponsorName.text!.isEmpty &&
+                !sponsorEmail.text!.isEmpty &&
+                !schoologyCode.text!.isEmpty &&
+                !meetingTimes.text!.isEmpty &&
+                !moreInfo.text!.isEmpty){
+                if checkMainCategory() == true{
+                    clubsRef.document().setData(
+                        ["name":"\(nameLabel.text!)",
+                            "days":days,
+                            "volunteer":volunteerSwitch.isOn,
+                            "commit":commit,
+                            "description":"\(generalDescription.text!)",
+                            "room":"\(roomNumber.text!)",
+                            "sponsor":["\(sponsorName.text!)", "\(sponsorEmail.text!)"],
+                            "schoology":"\(schoologyCode.text!)",
+                            "time":"\(meetingTimes.text!)",
+                            "AM-PM":timeOfDay,
+                            "link":"\(moreInfo.text!)"
+                            
+                    ])
+                    performSegue(withIdentifier: "addToBrowsing", sender: "done")
+                }
+                else{
+                    if count2 == 0{
+                        let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Must pick a defining category", preferredStyle: .alert)
+                        
+                        // Create OK button with action handler
+                        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+                            print("Ok button tapped")
+                            
+                        })
+                        dialogMessage.addAction(ok)
+                        self.present(dialogMessage, animated: true, completion: nil)
+                    }else{
+                        let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Too many defining categories picked.  Pick only one.", preferredStyle: .alert)
+                        
+                        // Create OK button with action handler
+                        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+                            print("Ok button tapped")
+                            
+                        })
+                        dialogMessage.addAction(ok)
+                        self.present(dialogMessage, animated: true, completion: nil)
+                    }
+                }
+            }
+            else{
+                let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Not all fields are filled in.", preferredStyle: .alert)
+                
+                // Create OK button with action handler
+                let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+                    print("Ok button tapped")
+                    
+                })
+                dialogMessage.addAction(ok)
+                self.present(dialogMessage, animated: true, completion: nil)
+            }
+        }else{
+            let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Club Name can't begin with a space or special character", preferredStyle: .alert)
             // Create OK button with action handler
             let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
                 print("Ok button tapped")
@@ -246,6 +269,7 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
                 }
             }
         }
+        
         
         
         
