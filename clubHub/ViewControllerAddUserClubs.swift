@@ -32,6 +32,7 @@ class ViewControllerAddUserClubs: UIViewController, UICollectionViewDataSource, 
             }
             print("selected Items1")
             print(self.selectedItems)
+            self.items = self.items.sorted{$0.localizedCompare($1) == .orderedAscending}
             let userRef = self.db.collection("users").document(uid)
             userRef.getDocument { (document, error) in
                 let tempList = document?.data()!["myClubs"]! as![Any]
