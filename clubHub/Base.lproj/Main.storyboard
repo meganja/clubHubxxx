@@ -237,30 +237,30 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="WY3-O6-n4S">
-                                    <size key="itemSize" width="250" height="175"/>
+                                    <size key="itemSize" width="280" height="175"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="mX9-Kb-NTS" customClass="CollectionViewCellAllClubs" customModule="clubHub" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="250" height="175"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="175"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="OPQ-9k-2wh">
-                                            <rect key="frame" x="0.0" y="0.0" width="250" height="175"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="280" height="175"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="chs-cougar-mascot" translatesAutoresizingMaskIntoConstraints="NO" id="j4h-TM-p8k">
-                                                    <rect key="frame" x="5" y="8" width="237" height="109"/>
+                                                    <rect key="frame" x="5" y="8" width="267" height="109"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qby-pn-Pti">
-                                                    <rect key="frame" x="204" y="5" width="40" height="35"/>
+                                                    <rect key="frame" x="235" y="5" width="40" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" backgroundImage="ellipsis.circle" catalog="system"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="The quick brown fox jumped across the fence" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JcK-I0-6fz">
-                                                    <rect key="frame" x="8" y="125" width="234" height="50"/>
+                                                    <rect key="frame" x="8" y="125" width="272" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -269,7 +269,7 @@
                                             </subviews>
                                         </collectionViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <size key="customSize" width="250" height="175"/>
+                                        <size key="customSize" width="280" height="175"/>
                                         <connections>
                                             <outlet property="ClubName" destination="JcK-I0-6fz" id="u9A-TY-o8K"/>
                                             <outlet property="clubImage" destination="j4h-TM-p8k" id="8CW-R6-xad"/>
@@ -497,8 +497,8 @@
                                     <action selector="checkPMSwitch:" destination="SSq-PF-znA" eventType="valueChanged" id="hcy-6G-m6A"/>
                                 </connections>
                             </switch>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No results found..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cvm-OH-a5L">
-                                <rect key="frame" x="175" y="256" width="573" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cvm-OH-a5L">
+                                <rect key="frame" x="175" y="256" width="339" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1852,11 +1852,10 @@
         <image name="unnamed" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GdG-xW-vhM"/>
-        <segue reference="h1h-kk-D5T"/>
-        <segue reference="KuB-2b-Pgb"/>
+        <segue reference="Yco-nf-Dsp"/>
+        <segue reference="HBN-lN-BdC"/>
         <segue reference="13Z-ma-H7i"/>
         <segue reference="THt-XV-fNh"/>
-        <segue reference="voT-Mt-29V"/>
+        <segue reference="sDv-vH-fYY"/>
     </inferredMetricsTieBreakers>
 </document>
