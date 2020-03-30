@@ -14,7 +14,6 @@ import Firebase
 class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate{
     
     @IBOutlet weak var categoriesCollection: UICollectionView!
-    @IBOutlet weak var sponsorsCollection: UICollectionView!
     @IBOutlet weak var addClubImgVw: UIImageView!
     @IBOutlet weak var generalDescription: UITextView!
     @IBOutlet weak var nameLabel: UITextField!
@@ -316,22 +315,12 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
     
     // tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == self.categoriesCollection{
             return self.categories.count
-        }
-        else{
-            print("SENDING HOW MANY CELLS")
-            return 1
-            //SPONSOR COLLECTION
-        }
-        
-        
     }
     
     // make a cell for each cell index path
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         print("making cell")
-        if collectionView == self.categoriesCollection{
             // get a reference to our storyboard cell
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! CollectionViewCellCategories
             
@@ -350,68 +339,18 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
             
             
             return cell
-        }else{
-            print("MAKING CELLS FOR COLLECTION VIEW SPONSORS")
-            // get a reference to our storyboard cell
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier2, for: indexPath as IndexPath) as! CollectionViewCellSponsorAdd
-            
-            cell.deleteBtn.tag = indexPath.item
-            cell.deleteBtn.addTarget(self, action: #selector(deleteSponsor(_:)), for: .touchUpInside)
-            cell.nameTextField.tag = indexPath.item
-            cell.nameTextField.addTarget(self, action: #selector(detectNameText(_:)), for: .touchUpInside)
-            cell.emailTextField.tag = indexPath.item
-            cell.emailTextField.addTarget(self, action: #selector(detectEmailText(_:)), for: .touchUpInside)
-
-            
-            
-            cell.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
-            cell.layer.borderWidth = 1
-            
-            
-            return cell
-        }
+        
         
     }
     
-    @objc func deleteSponsor(_ sender: UIButton) {
-        print("Delete sponsor HAS BEEN CALLED")
-
-        //SPONSOR COLLECTION
-        //MUST REFRESH COLLECTION VIEW
-        //DECREASE SPONSOR COUNT
-        //REMOVE THAT CELL
-    }
+   
     
-    @objc func detectNameText(_ sender: UITextField) {
-        print("detecting name HAS BEEN CALLED")
-        
-        
-        
-        //SPONSOR COLLECTION
-        //MUST REFRESH COLLECTION VIEW
-        //DECREASE SPONSOR COUNT
-        //REMOVE THAT CELL
-    }
     
-    @objc func detectEmailText(_ sender: UITextField) {
-        print("Detecting email HAS BEEN CALLED")
-
-        
-        
-        //SPONSOR COLLECTION
-        //MUST REFRESH COLLECTION VIEW
-        //DECREASE SPONSOR COUNT
-        //REMOVE THAT CELL
-    }
     
 
     
     
     
-    @IBAction func addSponsor(_ sender: Any) {
-        print("want to add sponsor")
-        //SPONSOR COLLECTION
-    }
     
     // MARK: - UICollectionViewDelegate protocol
     
