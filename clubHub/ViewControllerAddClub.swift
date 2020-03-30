@@ -14,6 +14,7 @@ import Firebase
 class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate{
     
     @IBOutlet weak var categoriesCollection: UICollectionView!
+    @IBOutlet weak var sponsorsCollection: UICollectionView!
     @IBOutlet weak var addClubImgVw: UIImageView!
     @IBOutlet weak var generalDescription: UITextView!
     @IBOutlet weak var nameLabel: UITextField!
@@ -25,8 +26,6 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var volunteerSwitch: UISwitch!
     @IBOutlet weak var commitmentLevel: UISegmentedControl!
     @IBOutlet weak var roomNumber: UITextField!
-    @IBOutlet weak var sponsorName: UITextField!
-    @IBOutlet weak var sponsorEmail: UITextField!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var schoologyCode: UITextField!
     @IBOutlet weak var meetingTimes: UITextField!
@@ -34,6 +33,8 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var moreInfo: UITextField!
     
     let reuseIdentifier = "cell"
+    let reuseIdentifier2 = "cellSponsor"
+    
     var club = ""
     var days = [String]()
     var commit = ""
@@ -127,8 +128,6 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
             if (!nameLabel.text!.isEmpty &&
                 !generalDescription.text.isEmpty &&
                 !roomNumber.text!.isEmpty &&
-                !sponsorName.text!.isEmpty &&
-                !sponsorEmail.text!.isEmpty &&
                 !schoologyCode.text!.isEmpty &&
                 !meetingTimes.text!.isEmpty &&
                 !moreInfo.text!.isEmpty){
@@ -140,7 +139,7 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
                             "commit":commit,
                             "description":"\(generalDescription.text!)",
                             "room":"\(roomNumber.text!)",
-                            "sponsor":["\(sponsorName.text!)", "\(sponsorEmail.text!)"],
+//                            "sponsor":["\(sponsorName.text!)", "\(sponsorEmail.text!)"],
                             "schoology":"\(schoologyCode.text!)",
                             "time":"\(meetingTimes.text!)",
                             "AM-PM":timeOfDay,
@@ -318,30 +317,71 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
     
     // tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.categories.count
+        if collectionView == self.categoriesCollection{
+            return self.categories.count
+        }
+        else{
+            print("SENDING HOW MANY CELLS")
+            return 1
+            //SPONSOR COLLECTION
+        }
+        
+        
     }
     
     // make a cell for each cell index path
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        // get a reference to our storyboard cell
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! CollectionViewCellCategories
-        
-        // Use the outlet in our custom class to get a reference to the UILabel in the cell
-        cell.categoryName.text = self.categories[indexPath.item]
-        if self.selectedCategories[indexPath.item] == "0" {
-            cell.backgroundColor = UIColor.white // make cell more visible in our example project
-        }else if self.selectedCategories[indexPath.item] == "1"{
-            cell.backgroundColor = UIColor.yellow
+        print("making cell")
+        if collectionView == self.categoriesCollection{
+            // get a reference to our storyboard cell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! CollectionViewCellCategories
+            
+            // Use the outlet in our custom class to get a reference to the UILabel in the cell
+            cell.categoryName.text = self.categories[indexPath.item]
+            if self.selectedCategories[indexPath.item] == "0" {
+                cell.backgroundColor = UIColor.white // make cell more visible in our example project
+            }else if self.selectedCategories[indexPath.item] == "1"{
+                cell.backgroundColor = UIColor.yellow
+            }
+            else if self.selectedCategories[indexPath.item] == "2"{
+                cell.backgroundColor = UIColor.purple
+            }
+            cell.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
+            cell.layer.borderWidth = 1
+            
+            
+            return cell
+        }else{
+            print("MAKING CELLS FOR COLLECTION VIEW SPONSORS")
+            // get a reference to our storyboard cell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier2, for: indexPath as IndexPath) as! CollectionViewCellSponsorAdd
+            
+            cell.deleteBtn.tag = indexPath.item
+            cell.deleteBtn.addTarget(self, action: #selector(deleteSponsor(_:)), for: .touchUpInside)
+            cell.sponsorNameLabel.text = "yeehaw yippee kaiyay"
+            
+            cell.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
+            cell.layer.borderWidth = 1
+            
+            
+            return cell
         }
-        else if self.selectedCategories[indexPath.item] == "2"{
-            cell.backgroundColor = UIColor.purple
-        }
-        cell.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
-        cell.layer.borderWidth = 1
         
-        
-        return cell
+    }
+    
+    
+    @objc func deleteSponsor(_ sender: UIButton) {
+        print("Delete sponsor HAS BEEN CALLED")
+
+        //SPONSOR COLLECTION
+        //MUST REFRESH COLLECTION VIEW
+        //DECREASE SPONSOR COUNT
+        //REMOVE THAT CELL
+    }
+    
+    @IBAction func addSponsor(_ sender: Any) {
+        print("want to add sponsor")
+        //SPONSOR COLLECTION
     }
     
     // MARK: - UICollectionViewDelegate protocol
@@ -363,27 +403,29 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // handle tap events
-        print("TAP EVENTTTTT")
-        print("You selected cell #\(indexPath.item)!")
-        let cell = collectionView.cellForItem(at: indexPath)
-        if cell?.backgroundColor == UIColor.purple {
-            cell?.backgroundColor = UIColor.white
-            cell?.backgroundColor = UIColor.white // make cell more visible in our example project
-            cell?.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
-            cell?.layer.borderWidth = 1
-            selectedCategories[indexPath.item] = "0"
-        }
-        else if cell?.backgroundColor == UIColor.white{
-            cell?.backgroundColor = UIColor.yellow
-            cell?.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
-            cell?.layer.borderWidth = 1
-            selectedCategories[indexPath.item] = "1"
-        }
-        else if cell?.backgroundColor == UIColor.yellow{
-            cell?.backgroundColor = UIColor.purple
-            cell?.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
-            cell?.layer.borderWidth = 1
-            selectedCategories[indexPath.item] = "2"
+        if collectionView == self.categoriesCollection{
+            print("TAP EVENTTTTT")
+            print("You selected cell #\(indexPath.item)!")
+            let cell = collectionView.cellForItem(at: indexPath)
+            if cell?.backgroundColor == UIColor.purple {
+                cell?.backgroundColor = UIColor.white
+                cell?.backgroundColor = UIColor.white // make cell more visible in our example project
+                cell?.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
+                cell?.layer.borderWidth = 1
+                selectedCategories[indexPath.item] = "0"
+            }
+            else if cell?.backgroundColor == UIColor.white{
+                cell?.backgroundColor = UIColor.yellow
+                cell?.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
+                cell?.layer.borderWidth = 1
+                selectedCategories[indexPath.item] = "1"
+            }
+            else if cell?.backgroundColor == UIColor.yellow{
+                cell?.backgroundColor = UIColor.purple
+                cell?.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
+                cell?.layer.borderWidth = 1
+                selectedCategories[indexPath.item] = "2"
+            }
         }
         
     }
