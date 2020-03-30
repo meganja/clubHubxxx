@@ -230,10 +230,10 @@ class ViewControllerAddUserClubs: UIViewController, UICollectionViewDataSource, 
         
         print("returning")
         return mailComposerVC
-
+        
     }
     
-
+    
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
@@ -249,7 +249,7 @@ class ViewControllerAddUserClubs: UIViewController, UICollectionViewDataSource, 
         
         // Create OK button with action handler
         let yes = UIAlertAction(title: "Yes", style: .default, handler: { (action) -> Void in
-             print("Yes button tapped")
+            print("Yes button tapped")
             let textField = dialogMessage.textFields![0]
             self.parentEmailAddress = textField.text!
             self.sendEmail()
@@ -272,7 +272,7 @@ class ViewControllerAddUserClubs: UIViewController, UICollectionViewDataSource, 
         
         // Present dialog message to user
         self.present(dialogMessage, animated: true, completion: nil)
-
+        
     }
 }
 

@@ -269,19 +269,15 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
             }
         }
         
-        
-        
-        
     }
     
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if newSponsor{
-            var vc = segue.destination as! ViewControllerAddSponsor
-            
-        }else{
+        
             var vc = segue.destination as! ViewControllerDispClubs
             vc.viewer = "admin"
-        }
+        
         
     }
     
@@ -361,9 +357,12 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
             
             cell.deleteBtn.tag = indexPath.item
             cell.deleteBtn.addTarget(self, action: #selector(deleteSponsor(_:)), for: .touchUpInside)
-            cell.editBtn.tag = indexPath.item
-            cell.editBtn.addTarget(self, action: #selector(editSponsor(_:)), for: .touchUpInside)
-            cell.sponsorNameLabel.text = "yeehaw yippee kaiyay"
+            cell.nameTextField.tag = indexPath.item
+            cell.nameTextField.addTarget(self, action: #selector(detectNameText(_:)), for: .touchUpInside)
+            cell.emailTextField.tag = indexPath.item
+            cell.emailTextField.addTarget(self, action: #selector(detectEmailText(_:)), for: .touchUpInside)
+
+            
             
             cell.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
             cell.layer.borderWidth = 1
@@ -374,7 +373,6 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
         
     }
     
-    var newSponsor = false
     @objc func deleteSponsor(_ sender: UIButton) {
         print("Delete sponsor HAS BEEN CALLED")
 
@@ -384,18 +382,34 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
         //REMOVE THAT CELL
     }
     
-    @objc func editSponsor(_ sender: UIButton) {
-        print("Edit sponsor HAS BEEN CALLED")
-
+    @objc func detectNameText(_ sender: UITextField) {
+        print("detecting name HAS BEEN CALLED")
+        
+        
+        
         //SPONSOR COLLECTION
         //MUST REFRESH COLLECTION VIEW
         //DECREASE SPONSOR COUNT
         //REMOVE THAT CELL
     }
     
+    @objc func detectEmailText(_ sender: UITextField) {
+        print("Detecting email HAS BEEN CALLED")
+
+        
+        
+        //SPONSOR COLLECTION
+        //MUST REFRESH COLLECTION VIEW
+        //DECREASE SPONSOR COUNT
+        //REMOVE THAT CELL
+    }
+    
+
+    
+    
+    
     @IBAction func addSponsor(_ sender: Any) {
         print("want to add sponsor")
-        newSponsor = true
         //SPONSOR COLLECTION
     }
     
