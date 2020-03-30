@@ -12,6 +12,7 @@ class CollectionViewCellSponsorAdd: UICollectionViewCell {
         @IBOutlet weak var deleteBtn: UIButton!
     @IBOutlet weak var sponsorNameLabel: UILabel!
     
+    @IBOutlet weak var editBtn: UIButton!
     @IBOutlet weak var sponsorEmailLabel: UILabel!
     
      override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
@@ -28,7 +29,9 @@ class CollectionViewCellSponsorAdd: UICollectionViewCell {
            // add one of these blocks for each button in our collection view cell we want to actually work
            if self.deleteBtn.point(inside: convert(point, to: deleteBtn), with: event) {
                return self.deleteBtn
-           }
+           }else if self.editBtn.point(inside: convert(point, to: editBtn), with: event) {
+            return self.editBtn
+        }
 
            return super.hitTest(point, with: event)
        }
