@@ -56,6 +56,21 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     
     var realViewer = ""
     
+//    func countLines(of label: UILabel, maxHeight: CGFloat) -> Int {
+//            // viewDidLayoutSubviews() in ViewController or layoutIfNeeded() in view subclass
+//            guard let labelText = label.text else {
+//                return 0
+//            }
+//
+//            let rect = CGSize(width: label.bounds.width, height: maxHeight)
+//            let labelSize = labelText.boundingRect(with: rect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: label.font!], context: nil)
+//
+//            let lines = Int(ceil(CGFloat(labelSize.height) / label.font.lineHeight))
+//            return labelText.contains("\n") && lines == 1 ? lines + 1 : lines
+//       }
+     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("rememberfilters \(rememberFilters)")
@@ -127,6 +142,8 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 self.clubDescription.sizeToFit()
                 self.commitmentLevel.text = String(describing: document.get("commit")!)
                 self.meetingTime.text = String(describing: document.get("time")!)
+                self.meetingTime.numberOfLines = 0
+                self.meetingTime.sizeToFit()
                 self.schoologyCode.text = String(describing: document.get("schoology")!)
                 self.moreInfo.setTitle(String(describing: document.get("link")!), for: .normal)
                 self.conantLink = String(describing: document.get("link")!)
