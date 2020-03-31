@@ -27,10 +27,10 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var roomNumber: UITextField!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var schoologyCode: UITextField!
-    @IBOutlet weak var meetingTimes: UITextField!
     @IBOutlet weak var AMPMSwitch: UISegmentedControl!
     @IBOutlet weak var moreInfo: UITextField!
     
+    @IBOutlet weak var meetingTimes: UITextView!
     @IBOutlet weak var name1: UITextField!
     @IBOutlet weak var email1: UITextField!
     @IBOutlet weak var name2: UITextField!
@@ -55,6 +55,8 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
         super.viewDidLoad()
         self.generalDescription.layer.borderColor = UIColor.lightGray.cgColor
         self.generalDescription.layer.borderWidth = 1
+        self.meetingTimes.layer.borderColor = UIColor.lightGray.cgColor
+        self.meetingTimes.layer.borderWidth = 1
         
         
         
@@ -96,15 +98,15 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     var sponsorsName = [String]()
-       var sponsorsEmail = [String]()
-       func checkSponsors() -> Bool{
-           if ((!name1.text!.isEmpty && !email1.text!.isEmpty) || (!name2.text!.isEmpty && !email2.text!.isEmpty) ||
-               (!name3.text!.isEmpty && !email3.text!.isEmpty)){
-               
-               if ((!name1.text!.isEmpty && !email1.text!.isEmpty)){
-                   sponsorsName.append("\(name1.text!)")
-                   sponsorsEmail.append("\(email1.text!)")
-               }
+    var sponsorsEmail = [String]()
+    func checkSponsors() -> Bool{
+        if ((!name1.text!.isEmpty && !email1.text!.isEmpty) || (!name2.text!.isEmpty && !email2.text!.isEmpty) ||
+            (!name3.text!.isEmpty && !email3.text!.isEmpty)){
+            
+            if ((!name1.text!.isEmpty && !email1.text!.isEmpty)){
+                sponsorsName.append("\(name1.text!)")
+                sponsorsEmail.append("\(email1.text!)")
+            }
             if ((!name2.text!.isEmpty && !email2.text!.isEmpty)){
                 sponsorsName.append("\(name2.text!)")
                 sponsorsEmail.append("\(email2.text!)")
@@ -113,12 +115,23 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
                 sponsorsName.append("\(name3.text!)")
                 sponsorsEmail.append("\(email3.text!)")
             }
-               return true
-               
-           }
-           return false
-       }
+            print("vaalid sponsor")
+            return true
+            
+        }
+        print("no sponsor")
+        return false
+    }
     
+    func checkDaySelected() -> Bool{
+        if (mondaySwitch.isOn == true || tuesdaySwitch.isOn == true || wednesdaySwitch.isOn == true || thursdaySwitch.isOn == true || fridaySwitch.isOn == true){
+            print("no day selected")
+            
+            return true
+            
+        }
+        return false
+    }
     
     @IBAction func done(_ sender: Any) {
         
@@ -139,19 +152,26 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
         else if AMPMSwitch.selectedSegmentIndex == 1{
             timeOfDay = "PM"
         }
+        else if AMPMSwitch.selectedSegmentIndex == 2{
+            timeOfDay = "BOTH"
+        }
         
         
         let clubsRef = db.collection("clubs")
         var clubName = "\(nameLabel.text!)"
-        var searchTerm = clubName[clubName.startIndex]
-        print("Search term = \(searchTerm)")
+        
+        
         
         
         let characterset = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","0","1","2","3","4","5","6","7","8","9"]
         var noSpecialChar = false
-        for i in (0..<characterset.count){
-            if "\(searchTerm)" == characterset[i]{
-                noSpecialChar = true
+        if !nameLabel.text!.isEmpty{
+            var searchTerm = clubName[clubName.startIndex]
+            print("Search term = \(searchTerm)")
+            for i in (0..<characterset.count){
+                if "\(searchTerm)" == characterset[i]{
+                    noSpecialChar = true
+                }
             }
         }
         print("noSpecialChar = \(noSpecialChar)")
@@ -161,7 +181,7 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
                 !roomNumber.text!.isEmpty &&
                 !schoologyCode.text!.isEmpty &&
                 !meetingTimes.text!.isEmpty &&
-                !moreInfo.text!.isEmpty && checkSponsors()){
+                !moreInfo.text!.isEmpty && checkSponsors() && checkDaySelected()){
                 if checkMainCategory() == true{
                     clubsRef.document().setData(
                         ["name":"\(nameLabel.text!)",
@@ -432,5 +452,5 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
         
     }
     
-   
+    
 }

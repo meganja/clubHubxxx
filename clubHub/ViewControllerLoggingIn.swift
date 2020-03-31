@@ -66,9 +66,11 @@ class ViewControllerLoggingIn: UIViewController {
                             if ("\(String(describing: document.get("username")!))" == "\(self.username.text!)" && "\(String(describing: document.get("password")!))" == "\(self.password.text!)"){
                                 print("got it right")
                                 self.performSegue(withIdentifier: "startBrowsing", sender: self)
+                                self.alertLabel.text = "Start Browsing"
                             }
+                            
                             else{
-                                self.alertLabel.text = "Wrong Password"
+                                self.alertLabel.text = "Wrong Username or Password"
                             }
                         } else {
                             print("Document does not exist")
