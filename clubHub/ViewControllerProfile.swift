@@ -15,6 +15,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var collectionClubsIn: UICollectionView!
     @IBOutlet weak var collectionWishlist: UICollectionView!
+    @IBOutlet weak var signUpBtn: UIButton!
     var viewer = ""
     
     let reuseIdentifier = "cell"
@@ -39,6 +40,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             for i in 0..<tempWish.count{
                 self.wishItems.append(tempWish[i] as! String)
             }
+            
             let tempEnrolled = document?.data()!["myClubs"]! as![Any]
             print(tempEnrolled)
             for i in 0..<tempEnrolled.count{
@@ -51,6 +53,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             }
         }
         
+        
     }
     
     // MARK: - UICollectionViewDataSource protocol
@@ -60,6 +63,12 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             return self.enrolledItems.count
         }
         else{
+            print("wish items count = \(wishItems.count)")
+            if self.wishItems.count == 0{
+                signUpBtn.isHidden = true
+            }else{
+                signUpBtn.isHidden = false
+            }
             return self.wishItems.count
         }
     }
@@ -174,6 +183,10 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             var vc = segue.destination as! ViewControllerAddUserClubs
             vc.viewer = viewer
         }
+            else if goToSignUp{
+                var vc = segue.destination as! ViewControllerSignUp
+                vc.viewer = viewer
+            }
         else if wantSignOut{
             var vc = segue.destination as! ViewController
         }
@@ -192,6 +205,11 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
                 vc.ClubName = self.clubNameTemp
             }
         }
+    }
+    //MARK: -Sign Up
+    var goToSignUp = false
+    @IBAction func signUp(_ sender: Any) {
+        goToSignUp = true
     }
     
     //MARK: -Add Your Clubs
