@@ -179,100 +179,11 @@ class ViewControllerAddUserClubs: UIViewController, UICollectionViewDataSource, 
             }
         }
         
-        presentParentEmailAlertAction()
-    }
-    
-    
-    
-    //MARK: -Email
-    func sendEmail() {
-        let mailComposeViewController = configureMailController()
-        if MFMailComposeViewController.canSendMail(){
-            self.present(mailComposeViewController, animated: true, completion: nil)
-        }else{
-            print("could not send")
-        }
-    }
-    
-    var clubsToEmail: Array<String> = []
-    func configureMailController() -> MFMailComposeViewController{
-        for i in 0..<selectedItems.count{
-            if selectedItems[i] == "1"{
-                clubsToEmail.append(items[i])
-            }
-        }
-        
-        var messageBody = "Hello! I would like to join "
-        for i in 0..<clubsToEmail.count{
-            if(i < clubsToEmail.count - 2 && clubsToEmail.count > 2 ){
-                messageBody = "\(messageBody)\(clubsToEmail[i]), "
-            }
-            else if(i == clubsToEmail.count - 2 && clubsToEmail.count > 2 ){
-                messageBody = "\(messageBody)\(clubsToEmail[i]), and "
-            }
-            else if (clubsToEmail.count == 2 && i == 0){
-                messageBody = "\(messageBody)\(clubsToEmail[i]) and "
-            }
-            else{
-                messageBody = "\(messageBody)\(clubsToEmail[i]). "
-            }
-        }
-        messageBody = "\(messageBody)Attached are instructions on how to sign me up for these clubs using the Infinite Campus Parent Portal."
-        
-        let mailComposerVC = MFMailComposeViewController()
-        mailComposerVC.mailComposeDelegate = self
-        mailComposerVC.setToRecipients([parentEmailAddress])
-        mailComposerVC.setSubject("Infinite Campus Club Signup")
-        mailComposerVC.setMessageBody(messageBody, isHTML: false)
-        mailComposerVC.addAttachmentData(pdfData, mimeType: "application/pdf", fileName: "Instructions.pdf")
-        print("PDF SHOULD BE ATTACHED!")
-        
-        
-        print("returning")
-        return mailComposerVC
         
     }
     
     
     
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        controller.dismiss(animated: true, completion: nil)
-        performSegue(withIdentifier: "addBackToProfile", sender: self)
-    }
     
-    var parentEmailAddress = ""
-    func presentParentEmailAlertAction() {
-        //first, use UIAlertController to check that student wants to email instructions to parent/guardian
-        
-        // Declare Alert message
-        let dialogMessage = UIAlertController(title: "Campus Portal", message: "Would you like to email the names of these clubs to your parent/guardian along with instructions on how to sign up in Infinite Campus?", preferredStyle: .alert)
-        
-        // Create OK button with action handler
-        let yes = UIAlertAction(title: "Yes", style: .default, handler: { (action) -> Void in
-            print("Yes button tapped")
-            let textField = dialogMessage.textFields![0]
-            self.parentEmailAddress = textField.text!
-            self.sendEmail()
-        })
-        
-        // Create Cancel button with action handlder
-        let no = UIAlertAction(title: "No", style: .cancel) { (action) -> Void in
-            print("No button tapped")
-            self.performSegue(withIdentifier: "addBackToProfile", sender: self)
-        }
-        
-        dialogMessage.addTextField { (textField) in
-            textField.placeholder = "Parent/Guardian Email"
-        }
-        
-        
-        //Add OK and Cancel button to dialog message
-        dialogMessage.addAction(yes)
-        dialogMessage.addAction(no)
-        
-        // Present dialog message to user
-        self.present(dialogMessage, animated: true, completion: nil)
-        
-    }
 }
 

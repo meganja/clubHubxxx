@@ -2036,6 +2036,7 @@
                                 </state>
                                 <connections>
                                     <action selector="doneBtn:" destination="Ntu-Pz-j5H" eventType="touchUpInside" id="Xnx-d1-YPp"/>
+                                    <segue destination="psG-IV-fUG" kind="presentation" modalPresentationStyle="fullScreen" id="URn-VL-Xa9"/>
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="6ho-XW-L8L">
@@ -2088,7 +2089,6 @@
                     </view>
                     <connections>
                         <outlet property="allClubsCollection" destination="6ho-XW-L8L" id="BtV-l0-UlS"/>
-                        <segue destination="psG-IV-fUG" kind="presentation" identifier="addBackToProfile" modalPresentationStyle="fullScreen" id="h1h-kk-D5T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pYB-co-PlU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2097,7 +2097,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="jyz-EB-t97"/>
+        <segue reference="URn-VL-Xa9"/>
         <segue reference="KuB-2b-Pgb"/>
         <segue reference="dSB-4A-GFN"/>
         <segue reference="GGO-DH-1TB"/>
