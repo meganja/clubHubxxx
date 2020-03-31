@@ -31,6 +31,14 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var AMPMSwitch: UISegmentedControl!
     @IBOutlet weak var moreInfo: UITextField!
     
+    @IBOutlet weak var name1: UITextField!
+    @IBOutlet weak var email1: UITextField!
+    @IBOutlet weak var name2: UITextField!
+    @IBOutlet weak var email2: UITextField!
+    @IBOutlet weak var name3: UITextField!
+    @IBOutlet weak var email3: UITextField!
+    
+    
     let reuseIdentifier = "cell"
     let reuseIdentifier2 = "cellSponsor"
     
@@ -87,6 +95,30 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
         }
     }
     
+    var sponsorsName = [String]()
+       var sponsorsEmail = [String]()
+       func checkSponsors() -> Bool{
+           if ((!name1.text!.isEmpty && !email1.text!.isEmpty) || (!name2.text!.isEmpty && !email2.text!.isEmpty) ||
+               (!name3.text!.isEmpty && !email3.text!.isEmpty)){
+               
+               if ((!name1.text!.isEmpty && !email1.text!.isEmpty)){
+                   sponsorsName.append("\(name1.text!)")
+                   sponsorsEmail.append("\(email1.text!)")
+               }
+            if ((!name2.text!.isEmpty && !email2.text!.isEmpty)){
+                sponsorsName.append("\(name2.text!)")
+                sponsorsEmail.append("\(email2.text!)")
+            }
+            if ((!name3.text!.isEmpty && !email3.text!.isEmpty)){
+                sponsorsName.append("\(name3.text!)")
+                sponsorsEmail.append("\(email3.text!)")
+            }
+               return true
+               
+           }
+           return false
+       }
+    
     
     @IBAction func done(_ sender: Any) {
         
@@ -129,7 +161,7 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
                 !roomNumber.text!.isEmpty &&
                 !schoologyCode.text!.isEmpty &&
                 !meetingTimes.text!.isEmpty &&
-                !moreInfo.text!.isEmpty){
+                !moreInfo.text!.isEmpty && checkSponsors()){
                 if checkMainCategory() == true{
                     clubsRef.document().setData(
                         ["name":"\(nameLabel.text!)",
@@ -138,7 +170,8 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
                             "commit":commit,
                             "description":"\(generalDescription.text!)",
                             "room":"\(roomNumber.text!)",
-//                            "sponsor":["\(sponsorName.text!)", "\(sponsorEmail.text!)"],
+                            "sponsorsName":sponsorsName,
+                            "sponsorsEmail":sponsorsEmail,
                             "schoology":"\(schoologyCode.text!)",
                             "time":"\(meetingTimes.text!)",
                             "AM-PM":timeOfDay,
@@ -272,10 +305,11 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
     
     
     
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-            var vc = segue.destination as! ViewControllerDispClubs
-            vc.viewer = "admin"
+        var vc = segue.destination as! ViewControllerDispClubs
+        vc.viewer = "admin"
         
         
     }
@@ -315,39 +349,39 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
     
     // tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return self.categories.count
+        return self.categories.count
     }
     
     // make a cell for each cell index path
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         print("making cell")
-            // get a reference to our storyboard cell
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! CollectionViewCellCategories
-            
-            // Use the outlet in our custom class to get a reference to the UILabel in the cell
-            cell.categoryName.text = self.categories[indexPath.item]
-            if self.selectedCategories[indexPath.item] == "0" {
-                cell.backgroundColor = UIColor.white // make cell more visible in our example project
-            }else if self.selectedCategories[indexPath.item] == "1"{
-                cell.backgroundColor = UIColor.yellow
-            }
-            else if self.selectedCategories[indexPath.item] == "2"{
-                cell.backgroundColor = UIColor.purple
-            }
-            cell.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
-            cell.layer.borderWidth = 1
-            
-            
-            return cell
+        // get a reference to our storyboard cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! CollectionViewCellCategories
+        
+        // Use the outlet in our custom class to get a reference to the UILabel in the cell
+        cell.categoryName.text = self.categories[indexPath.item]
+        if self.selectedCategories[indexPath.item] == "0" {
+            cell.backgroundColor = UIColor.white // make cell more visible in our example project
+        }else if self.selectedCategories[indexPath.item] == "1"{
+            cell.backgroundColor = UIColor.yellow
+        }
+        else if self.selectedCategories[indexPath.item] == "2"{
+            cell.backgroundColor = UIColor.purple
+        }
+        cell.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
+        cell.layer.borderWidth = 1
+        
+        
+        return cell
         
         
     }
     
-   
     
     
     
-
+    
+    
     
     
     
@@ -397,4 +431,6 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
         }
         
     }
+    
+   
 }
