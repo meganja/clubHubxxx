@@ -173,20 +173,24 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
                 
                 self.roomNumTxtFld.text = String(describing: document.get("room")!)
                 
-                
-                self.sponsorName = document.data()["sponsorsName"]! as! [String]
-                self.sponsorEmail = document.data()["sponsorsEmail"]! as! [String]
-                
-                self.name1.text = "\(self.sponsorName[0])"
-                self.email1.text = "\(self.sponsorEmail[0])"
-                if (self.sponsorName.count == 2){
-                    self.name2.text = "\(self.sponsorName[1])"
-                    self.email2.text = "\(self.sponsorEmail[1])"
-                }else if (self.sponsorName.count == 3){
-                    self.name2.text = "\(self.sponsorName[1])"
-                    self.email2.text = "\(self.sponsorEmail[1])"
-                    self.name3.text = "\(self.sponsorName[2])"
-                    self.email3.text = "\(self.sponsorEmail[2])"
+                if document.get("sponsorsName") != nil && document.get("sponsorsEmail") != nil{
+                    self.sponsorName = document.data()["sponsorsName"]! as! [String]
+                    self.sponsorEmail = document.data()["sponsorsEmail"]! as! [String]
+                    
+                    if (self.sponsorName.count == 1){
+                        self.name1.text = "\(self.sponsorName[0])"
+                        self.email1.text = "\(self.sponsorEmail[0])"
+                    }else if (self.sponsorName.count == 2){
+                        self.name1.text = "\(self.sponsorName[0])"
+                        self.email1.text = "\(self.sponsorEmail[0])"
+                        self.name2.text = "\(self.sponsorName[1])"
+                        self.email2.text = "\(self.sponsorEmail[1])"
+                    }else if (self.sponsorName.count == 3){
+                        self.name2.text = "\(self.sponsorName[1])"
+                        self.email2.text = "\(self.sponsorEmail[1])"
+                        self.name3.text = "\(self.sponsorName[2])"
+                        self.email3.text = "\(self.sponsorEmail[2])"
+                    }
                 }
                 
                 

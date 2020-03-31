@@ -131,7 +131,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 self.moreInfo.setTitle(String(describing: document.get("link")!), for: .normal)
                 self.conantLink = String(describing: document.get("link")!)
                 
-        
+                
                 
                 let daysInfo = document.data()["days"]! as! [Any]
                 print(daysInfo)
@@ -171,29 +171,34 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 
                 self.room.text = String(describing: document.get("room")!)
                 
-                
-                self.sponsorsName = document.data()["sponsorsName"]! as! [String]
-                self.sponsorsEmail = document.data()["sponsorsEmail"]! as! [String]
-                self.name1.text = "\(self.sponsorsName[0])"
-                self.email1.setTitle("\(self.sponsorsEmail[0])", for: .normal)
-                
-                if (self.sponsorsName.count == 2){
-                    self.name2.text = "\(self.sponsorsName[1])"
-                    self.email2.setTitle("\(self.sponsorsEmail[1])", for: .normal)
-                    self.name2.isHidden = false
-                    self.email2.isHidden = false
-                }else if (self.sponsorsName.count == 3){
-                    self.name2.text = "\(self.sponsorsName[1])"
-                    self.email2.setTitle("\(self.sponsorsEmail[1])", for: .normal)
-                    self.name3.text = "\(self.sponsorsName[2])"
-                    self.email3.setTitle("\(self.sponsorsEmail[2])", for: .normal)
-                    self.name2.isHidden = false
-                    self.email2.isHidden = false
-                    self.name3.isHidden = false
-                    self.email3.isHidden = false
+                if document.get("sponsorsName") != nil && document.get("sponsorsEmail") != nil{
+                    self.sponsorsName = document.data()["sponsorsName"]! as! [String]
+                    self.sponsorsEmail = document.data()["sponsorsEmail"]! as! [String]
+                    self.name1.text = "\(self.sponsorsName[0])"
+                    self.email1.setTitle("\(self.sponsorsEmail[0])", for: .normal)
+                    
+                    if (self.sponsorsName.count == 1){
+                        self.name1.text = "\(self.sponsorsName[0])"
+                        self.email1.setTitle("\(self.sponsorsEmail[0])", for: .normal)
+                    }
+                    else if (self.sponsorsName.count == 2){
+                        self.name2.text = "\(self.sponsorsName[1])"
+                        self.email2.setTitle("\(self.sponsorsEmail[1])", for: .normal)
+                        self.name2.isHidden = false
+                        self.email2.isHidden = false
+                    }else if (self.sponsorsName.count == 3){
+                        self.name2.text = "\(self.sponsorsName[1])"
+                        self.email2.setTitle("\(self.sponsorsEmail[1])", for: .normal)
+                        self.name3.text = "\(self.sponsorsName[2])"
+                        self.email3.setTitle("\(self.sponsorsEmail[2])", for: .normal)
+                        self.name2.isHidden = false
+                        self.email2.isHidden = false
+                        self.name3.isHidden = false
+                        self.email3.isHidden = false
+                    }
                 }
                 
-
+                
                 
             }
             
@@ -239,7 +244,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
         return mailComposerVC
     }
     
-
+    
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
@@ -273,10 +278,10 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     }
     
     
-
+    
     var profileClicked = false
     var browseClicked = false
-
+    
     
     //MARK: -Wishlisting Clubs
     
