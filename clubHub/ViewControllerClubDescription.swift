@@ -20,13 +20,21 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     @IBOutlet weak var meetingDays: UILabel!
     @IBOutlet weak var volunteer: UILabel!
     @IBOutlet weak var room: UILabel!
-    @IBOutlet weak var sponsorName: UILabel!
-    @IBOutlet weak var sponsorEmail: UIButton!
+    
     
     @IBOutlet weak var schoologyCode: UILabel!
     @IBOutlet weak var meetingTime: UILabel!
-    @IBOutlet weak var AMPM: UILabel!
+    
     @IBOutlet weak var moreInfo: UIButton!
+    
+    @IBOutlet weak var name1: UILabel!
+    @IBOutlet weak var email1: UIButton!
+    @IBOutlet weak var name2: UILabel!
+    @IBOutlet weak var email2: UIButton!
+    @IBOutlet weak var name3: UILabel!
+    @IBOutlet weak var email3: UIButton!
+    
+    
     
     var ClubName = ""
     var meetings = ""
@@ -36,9 +44,12 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     let db = Firestore.firestore()
     var rememberFilters = [String]()
     
+    var sponsorsName = [String]()
+    var sponsorsEmail = [String]()
+    
     var conantLink = ""
-    var emailAddress = ""
     var statement = ""
+    var emailAddress = ""
     var num = 0
     let email = ""
     let name = ""
@@ -115,7 +126,6 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 self.clubDescription.numberOfLines = 0
                 self.clubDescription.sizeToFit()
                 self.commitmentLevel.text = String(describing: document.get("commit")!)
-                self.AMPM.text = String(describing: document.get("AM-PM")!)
                 self.meetingTime.text = String(describing: document.get("time")!)
                 self.schoologyCode.text = String(describing: document.get("schoology")!)
                 self.moreInfo.setTitle(String(describing: document.get("link")!), for: .normal)
@@ -154,18 +164,36 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 
                 
                 if (String(describing: document.get("volunteer")!)) == "0"{
-                    self.volunteer.text = " no"
+                    self.volunteer.text = " No"
                 }else{
-                    self.volunteer.text = " yes"
+                    self.volunteer.text = " Yes"
                 }
                 
                 self.room.text = String(describing: document.get("room")!)
                 
                 
-                let sponsorInfo = document.data()["sponsor"]! as! [Any]
-                self.sponsorName.text = "\(sponsorInfo[0])"
-                self.sponsorEmail.setTitle("\(sponsorInfo[1])", for: .normal)
-                self.emailAddress = "\(sponsorInfo[1])"
+                self.sponsorsName = document.data()["sponsorsName"]! as! [String]
+                self.sponsorsEmail = document.data()["sponsorsEmail"]! as! [String]
+                self.name1.text = "\(self.sponsorsName[0])"
+                self.email1.setTitle("\(self.sponsorsEmail[0])", for: .normal)
+                
+                if (self.sponsorsName.count == 2){
+                    self.name2.text = "\(self.sponsorsName[1])"
+                    self.email2.setTitle("\(self.sponsorsEmail[1])", for: .normal)
+                    self.name2.isHidden = false
+                    self.email2.isHidden = false
+                }else if (self.sponsorsName.count == 3){
+                    self.name2.text = "\(self.sponsorsName[1])"
+                    self.email2.setTitle("\(self.sponsorsEmail[1])", for: .normal)
+                    self.name3.text = "\(self.sponsorsName[2])"
+                    self.email3.setTitle("\(self.sponsorsEmail[2])", for: .normal)
+                    self.name2.isHidden = false
+                    self.email2.isHidden = false
+                    self.name3.isHidden = false
+                    self.email3.isHidden = false
+                }
+                
+
                 
             }
             
@@ -217,6 +245,15 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
         controller.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func email1(_ sender: Any) {
+        emailAddress = sponsorsEmail[0]
+    }
+    @IBAction func email2(_ sender: Any) {
+        emailAddress = sponsorsEmail[1]
+    }
+    @IBAction func email3(_ sender: Any) {
+        emailAddress = sponsorsEmail[2]
+    }
     
     
     //MARK: -Segue

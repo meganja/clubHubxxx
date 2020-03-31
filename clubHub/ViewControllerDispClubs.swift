@@ -148,10 +148,29 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         
         if AMSwitch.isOn{
             timeOfDay.append("AM")
+            var bothThere = false
+            for i in (0..<timeOfDay.count){
+                if timeOfDay[i] == "Both"{
+                    bothThere = true
+                }
+            }
+            if !bothThere{
+                timeOfDay.append("Both")
+            }
         }
         
         if PMSwitch.isOn{
             timeOfDay.append("PM")
+            var bothThere = false
+            for i in (0..<timeOfDay.count){
+                if timeOfDay[i] == "Both"{
+                    bothThere = true
+                }
+            }
+            if !bothThere{
+                timeOfDay.append("Both")
+            }
+            
         }
         
         
