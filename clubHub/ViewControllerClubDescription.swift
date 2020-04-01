@@ -28,6 +28,8 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     @IBOutlet weak var AMPM: UILabel!
     @IBOutlet weak var moreInfo: UIButton!
     
+    var recsList: [String]!
+    var priorities: [Int]!
     var ClubName = ""
     var meetings = ""
     var volunteerOp = ""
@@ -232,13 +234,18 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
             vc.viewer = self.realViewer
             vc.filtersOnBeforeSearch = self.rememberFilters
         }
-        
+        else if matchesClicked{
+            var vc = segue.destination as! ViewControllerMatchedDisplay
+            vc.recsList = recsList
+            vc.priorities = priorities
+        }
     }
     
     
 
     var profileClicked = false
     var browseClicked = false
+    var matchesClicked = false
 
     
     //MARK: -Wishlisting Clubs
@@ -280,6 +287,10 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
             browseClicked = true
             performSegue(withIdentifier: "descriptToBrowse", sender: self)
             
+        }
+        else if("\(senderPage)" == "matches"){
+            matchesClicked = true
+            performSegue(withIdentifier: "descriptToMatches", sender: self)
         }
     }
     
