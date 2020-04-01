@@ -35,6 +35,7 @@ class ViewControllerLoggingIn: UIViewController {
             username.isHidden = true
             password.isHidden = true
             startBrowsingBtn.isEnabled = false
+            alertLabel.text = "Use School Email"
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(reactToNotification(_:)), name: sNotification, object: nil)
@@ -66,9 +67,11 @@ class ViewControllerLoggingIn: UIViewController {
                             if ("\(String(describing: document.get("username")!))" == "\(self.username.text!)" && "\(String(describing: document.get("password")!))" == "\(self.password.text!)"){
                                 print("got it right")
                                 self.performSegue(withIdentifier: "startBrowsing", sender: self)
+                                self.alertLabel.text = "Start Browsing"
                             }
+                            
                             else{
-                                self.alertLabel.text = "Wrong Password"
+                                self.alertLabel.text = "Wrong Username or Password"
                             }
                         } else {
                             print("Document does not exist")
@@ -108,7 +111,7 @@ class ViewControllerLoggingIn: UIViewController {
             
             alertLabel.text = "\(fullName), you are ready to start browsing!"
         }else{
-            alertLabel.text = "Use school email."
+            alertLabel.text = "Please use school email."
         }
     }
     

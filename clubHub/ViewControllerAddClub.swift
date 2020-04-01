@@ -25,15 +25,23 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var volunteerSwitch: UISwitch!
     @IBOutlet weak var commitmentLevel: UISegmentedControl!
     @IBOutlet weak var roomNumber: UITextField!
-    @IBOutlet weak var sponsorName: UITextField!
-    @IBOutlet weak var sponsorEmail: UITextField!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var schoologyCode: UITextField!
-    @IBOutlet weak var meetingTimes: UITextField!
     @IBOutlet weak var AMPMSwitch: UISegmentedControl!
     @IBOutlet weak var moreInfo: UITextField!
     
+    @IBOutlet weak var meetingTimes: UITextView!
+    @IBOutlet weak var name1: UITextField!
+    @IBOutlet weak var email1: UITextField!
+    @IBOutlet weak var name2: UITextField!
+    @IBOutlet weak var email2: UITextField!
+    @IBOutlet weak var name3: UITextField!
+    @IBOutlet weak var email3: UITextField!
+    
+    
     let reuseIdentifier = "cell"
+    let reuseIdentifier2 = "cellSponsor"
+    
     var club = ""
     var days = [String]()
     var commit = ""
@@ -47,8 +55,11 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
         super.viewDidLoad()
         self.generalDescription.layer.borderColor = UIColor.lightGray.cgColor
         self.generalDescription.layer.borderWidth = 1
+        self.meetingTimes.layer.borderColor = UIColor.lightGray.cgColor
+        self.meetingTimes.layer.borderWidth = 1
         
-        
+       
+
         
         categories = ["Music/Arts", "Competitive", "Leadership", "Other", "Cultural/Community", "STEM", "Performance", "Intellectual", "Student Government", "School Pride", "Volunteer", "Business", "FCS"]
         for i in 0..<categories.count{
@@ -87,6 +98,41 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
         }
     }
     
+    var sponsorsName = [String]()
+    var sponsorsEmail = [String]()
+    func checkSponsors() -> Bool{
+        if ((!name1.text!.isEmpty && !email1.text!.isEmpty) || (!name2.text!.isEmpty && !email2.text!.isEmpty) ||
+            (!name3.text!.isEmpty && !email3.text!.isEmpty)){
+            
+            if ((!name1.text!.isEmpty && !email1.text!.isEmpty)){
+                sponsorsName.append("\(name1.text!)")
+                sponsorsEmail.append("\(email1.text!)")
+            }
+            if ((!name2.text!.isEmpty && !email2.text!.isEmpty)){
+                sponsorsName.append("\(name2.text!)")
+                sponsorsEmail.append("\(email2.text!)")
+            }
+            if ((!name3.text!.isEmpty && !email3.text!.isEmpty)){
+                sponsorsName.append("\(name3.text!)")
+                sponsorsEmail.append("\(email3.text!)")
+            }
+            print("vaalid sponsor")
+            return true
+            
+        }
+        print("no sponsor")
+        return false
+    }
+    
+    func checkDaySelected() -> Bool{
+        if (mondaySwitch.isOn == true || tuesdaySwitch.isOn == true || wednesdaySwitch.isOn == true || thursdaySwitch.isOn == true || fridaySwitch.isOn == true){
+            print("no day selected")
+            
+            return true
+            
+        }
+        return false
+    }
     
     @IBAction func done(_ sender: Any) {
         
@@ -107,62 +153,91 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
         else if AMPMSwitch.selectedSegmentIndex == 1{
             timeOfDay = "PM"
         }
+        else if AMPMSwitch.selectedSegmentIndex == 2{
+            timeOfDay = "BOTH"
+        }
         
         
         let clubsRef = db.collection("clubs")
+        var clubName = "\(nameLabel.text!)"
         
-        if (!nameLabel.text!.isEmpty &&
-            !generalDescription.text.isEmpty &&
-            !roomNumber.text!.isEmpty &&
-            !sponsorName.text!.isEmpty &&
-            !sponsorEmail.text!.isEmpty &&
-            !schoologyCode.text!.isEmpty &&
-            !meetingTimes.text!.isEmpty &&
-            !moreInfo.text!.isEmpty){
-            if checkMainCategory() == true{
-                clubsRef.document().setData(
-                    ["name":"\(nameLabel.text!)",
-                        "days":days,
-                        "volunteer":volunteerSwitch.isOn,
-                        "commit":commit,
-                        "description":"\(generalDescription.text!)",
-                        "room":"\(roomNumber.text!)",
-                        "sponsor":["\(sponsorName.text!)", "\(sponsorEmail.text!)"],
-                        "schoology":"\(schoologyCode.text!)",
-                        "time":"\(meetingTimes.text!)",
-                        "AM-PM":timeOfDay,
-                        "link":"\(moreInfo.text!)"
-                        
-                ])
-                performSegue(withIdentifier: "addToBrowsing", sender: "done")
-            }
-            else{
-                if count2 == 0{
-                    let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Must pick a defining category", preferredStyle: .alert)
-                    
-                    // Create OK button with action handler
-                    let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
-                        print("Ok button tapped")
-                        
-                    })
-                    dialogMessage.addAction(ok)
-                    self.present(dialogMessage, animated: true, completion: nil)
-                }else{
-                    let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Too many defining categories picked.  Pick only one.", preferredStyle: .alert)
-                    
-                    // Create OK button with action handler
-                    let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
-                        print("Ok button tapped")
-                        
-                    })
-                    dialogMessage.addAction(ok)
-                    self.present(dialogMessage, animated: true, completion: nil)
+        
+        
+        
+        let characterset = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","0","1","2","3","4","5","6","7","8","9"]
+        var noSpecialChar = false
+        if !nameLabel.text!.isEmpty{
+            var searchTerm = clubName[clubName.startIndex]
+            print("Search term = \(searchTerm)")
+            for i in (0..<characterset.count){
+                if "\(searchTerm)" == characterset[i]{
+                    noSpecialChar = true
                 }
             }
         }
-        else{
-            let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Not all fields are filled in.", preferredStyle: .alert)
-            
+        print("noSpecialChar = \(noSpecialChar)")
+        if noSpecialChar{
+            if (!nameLabel.text!.isEmpty &&
+                !generalDescription.text.isEmpty &&
+                !roomNumber.text!.isEmpty &&
+                !schoologyCode.text!.isEmpty &&
+                !meetingTimes.text!.isEmpty &&
+                !moreInfo.text!.isEmpty && checkSponsors() && checkDaySelected()){
+                if checkMainCategory() == true{
+                    clubsRef.document().setData(
+                        ["name":"\(nameLabel.text!)",
+                            "days":days,
+                            "volunteer":volunteerSwitch.isOn,
+                            "commit":commit,
+                            "description":"\(generalDescription.text!)",
+                            "room":"\(roomNumber.text!)",
+                            "sponsorsName":sponsorsName,
+                            "sponsorsEmail":sponsorsEmail,
+                            "schoology":"\(schoologyCode.text!)",
+                            "time":"\(meetingTimes.text!)",
+                            "AM-PM":timeOfDay,
+                            "link":"\(moreInfo.text!)"
+                            
+                    ])
+                    performSegue(withIdentifier: "addToBrowsing", sender: "done")
+                }
+                else{
+                    if count2 == 0{
+                        let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Must pick a defining category", preferredStyle: .alert)
+                        
+                        // Create OK button with action handler
+                        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+                            print("Ok button tapped")
+                            
+                        })
+                        dialogMessage.addAction(ok)
+                        self.present(dialogMessage, animated: true, completion: nil)
+                    }else{
+                        let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Too many defining categories picked.  Pick only one.", preferredStyle: .alert)
+                        
+                        // Create OK button with action handler
+                        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+                            print("Ok button tapped")
+                            
+                        })
+                        dialogMessage.addAction(ok)
+                        self.present(dialogMessage, animated: true, completion: nil)
+                    }
+                }
+            }
+            else{
+                let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Not all fields are filled in.", preferredStyle: .alert)
+                
+                // Create OK button with action handler
+                let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+                    print("Ok button tapped")
+                    
+                })
+                dialogMessage.addAction(ok)
+                self.present(dialogMessage, animated: true, completion: nil)
+            }
+        }else{
+            let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Club Name can't begin with a space or special character", preferredStyle: .alert)
             // Create OK button with action handler
             let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
                 print("Ok button tapped")
@@ -247,15 +322,16 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
             }
         }
         
-        
-        
     }
     
+    
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //         Get the new view controller using segue.destination.
-        //         Pass the selected object to the new view controller.
+        
         var vc = segue.destination as! ViewControllerDispClubs
         vc.viewer = "admin"
+        
         
     }
     
@@ -299,7 +375,7 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
     
     // make a cell for each cell index path
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+        print("making cell")
         // get a reference to our storyboard cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! CollectionViewCellCategories
         
@@ -318,7 +394,18 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
         
         
         return cell
+        
+        
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     // MARK: - UICollectionViewDelegate protocol
     
@@ -339,28 +426,32 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // handle tap events
-        print("TAP EVENTTTTT")
-        print("You selected cell #\(indexPath.item)!")
-        let cell = collectionView.cellForItem(at: indexPath)
-        if cell?.backgroundColor == UIColor.purple {
-            cell?.backgroundColor = UIColor.white
-            cell?.backgroundColor = UIColor.white // make cell more visible in our example project
-            cell?.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
-            cell?.layer.borderWidth = 1
-            selectedCategories[indexPath.item] = "0"
-        }
-        else if cell?.backgroundColor == UIColor.white{
-            cell?.backgroundColor = UIColor.yellow
-            cell?.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
-            cell?.layer.borderWidth = 1
-            selectedCategories[indexPath.item] = "1"
-        }
-        else if cell?.backgroundColor == UIColor.yellow{
-            cell?.backgroundColor = UIColor.purple
-            cell?.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
-            cell?.layer.borderWidth = 1
-            selectedCategories[indexPath.item] = "2"
+        if collectionView == self.categoriesCollection{
+            print("TAP EVENTTTTT")
+            print("You selected cell #\(indexPath.item)!")
+            let cell = collectionView.cellForItem(at: indexPath)
+            if cell?.backgroundColor == UIColor.purple {
+                cell?.backgroundColor = UIColor.white
+                cell?.backgroundColor = UIColor.white // make cell more visible in our example project
+                cell?.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
+                cell?.layer.borderWidth = 1
+                selectedCategories[indexPath.item] = "0"
+            }
+            else if cell?.backgroundColor == UIColor.white{
+                cell?.backgroundColor = UIColor.yellow
+                cell?.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
+                cell?.layer.borderWidth = 1
+                selectedCategories[indexPath.item] = "1"
+            }
+            else if cell?.backgroundColor == UIColor.yellow{
+                cell?.backgroundColor = UIColor.purple
+                cell?.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
+                cell?.layer.borderWidth = 1
+                selectedCategories[indexPath.item] = "2"
+            }
         }
         
     }
+    
+    
 }
