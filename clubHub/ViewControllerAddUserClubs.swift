@@ -23,6 +23,8 @@ class ViewControllerAddUserClubs: UIViewController, UICollectionViewDataSource, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("HELLO")
+        print(viewer)
         db.collection("clubs").getDocuments(){ (querySnapshot, err) in
             for document in querySnapshot!.documents{
                 let temp = "\(String(describing: document.get("name")!))"

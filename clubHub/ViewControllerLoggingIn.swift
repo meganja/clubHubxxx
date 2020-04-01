@@ -35,7 +35,7 @@ class ViewControllerLoggingIn: UIViewController {
             username.isHidden = true
             password.isHidden = true
             startBrowsingBtn.isEnabled = false
-            alertLabel.text = "Use School Email"
+            alertLabel.text = "Remember to use your school email!"
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(reactToNotification(_:)), name: sNotification, object: nil)
@@ -111,7 +111,7 @@ class ViewControllerLoggingIn: UIViewController {
             
             alertLabel.text = "\(fullName), you are ready to start browsing!"
         }else{
-            alertLabel.text = "Please use school email."
+            alertLabel.text = "Please sign in using school email (@students.d211.org)!"
         }
     }
     
