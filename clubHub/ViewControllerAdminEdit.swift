@@ -118,13 +118,13 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
                 }
                 
                 if String(describing: document.get("AM-PM")!) == "AM"{
-                    self.commitSegControl.selectedSegmentIndex = 0
+                    self.AMPMSwitch.selectedSegmentIndex = 0
                 }
                 else if String(describing: document.get("AM-PM")!) == "PM"{
-                    self.commitSegControl.selectedSegmentIndex = 1
+                    self.AMPMSwitch.selectedSegmentIndex = 1
                 }
                 else if String(describing: document.get("AM-PM")!) == "Both"{
-                    self.commitSegControl.selectedSegmentIndex = 2
+                    self.AMPMSwitch.selectedSegmentIndex = 2
                 }
                 
                 let daysInfo = document.data()["days"]! as! [String]
