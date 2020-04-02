@@ -127,6 +127,7 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
                     self.AMPMSwitch.selectedSegmentIndex = 2
                 }
                 
+                if document.get("days") != nil{
                 let daysInfo = document.data()["days"]! as! [String]
                 print(daysInfo)
                 if(daysInfo.contains("Monday")){
@@ -163,6 +164,7 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
                 else{
                     self.fridaySwitch.setOn(false, animated: false)
                 }
+                }
                 
                 
                 if (String(describing: document.get("volunteer")!)) == "0"{
@@ -186,6 +188,8 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
                         self.name2.text = "\(self.sponsorName[1])"
                         self.email2.text = "\(self.sponsorEmail[1])"
                     }else if (self.sponsorName.count == 3){
+                        self.name1.text = "\(self.sponsorName[0])"
+                        self.email1.text = "\(self.sponsorEmail[0])"
                         self.name2.text = "\(self.sponsorName[1])"
                         self.email2.text = "\(self.sponsorEmail[1])"
                         self.name3.text = "\(self.sponsorName[2])"
@@ -500,21 +504,38 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
                 print(commit)
                 print("\(genDescriptTxtFld.text!)")
                 print("\(roomNumTxtFld.text!)")
+                
+                
+                
+                
                 if checkMainCategory() == true{
                     clubsRef.document(docID).setData(
                         ["name":"\(nameTxtFld.text!)",
-                            "days":days,
+                            "days":[],
                             "volunteer":volunteerOppSwitch.isOn,
                             "commit":commit,
                             "description":"\(genDescriptTxtFld.text!)",
                             "room":"\(roomNumTxtFld.text!)",
-                            "sponsorsName":sponsorName,
-                            "sponsorsEmail":sponsorEmail,
+                            "sponsorsName":[],
+                            "sponsorsEmail":[],
                             "schoology":"\(schoologyCode.text!)",
                             "time":"\(meetingTimes.text!)",
                             "AM-PM":timeOfDay,
                             "link":"\(moreInfo.text!)"
                     ])
+                    
+                    for i in (0..<sponsorName.count){
+                        clubsRef.document(docID).updateData(["sponsorsName": FieldValue.arrayUnion(["\(sponsorName[i])"])])
+                                                             
+                    }
+                    for i in (0..<sponsorEmail.count){
+                        clubsRef.document(docID).updateData(["sponsorsEmail": FieldValue.arrayUnion(["\(sponsorEmail[i])"])])
+                                                             
+                    }
+                    for i in (0..<days.count){
+                        clubsRef.document(docID).updateData(["days": FieldValue.arrayUnion(["\(days[i])"])])
+                        
+                    }
                     
                     let ref = Storage.storage().reference()
                     print("club: \(docID)")

@@ -150,8 +150,8 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 self.conantLink = String(describing: document.get("link")!)
                 
                 
-                
-                let daysInfo = document.data()["days"]! as! [Any]
+                if document.get("days") != nil{
+                let daysInfo = document.data()["days"]! as! [String]
                 print(daysInfo)
                 print(daysInfo.count)
                 var dayString = ""
@@ -179,6 +179,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                     
                 }
                 self.meetingDays.text = dayString
+                }
                 
                 
                 if (String(describing: document.get("volunteer")!)) == "0"{
