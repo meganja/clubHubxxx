@@ -182,7 +182,9 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
                 !roomNumber.text!.isEmpty &&
                 !schoologyCode.text!.isEmpty &&
                 !meetingTimes.text!.isEmpty &&
-                !moreInfo.text!.isEmpty && checkSponsors() && checkDaySelected()){
+                !moreInfo.text!.isEmpty && checkSponsors()
+                && checkDaySelected()
+                ){
                 if checkMainCategory() == true{
                     clubsRef.document().setData(
                         ["name":"\(nameLabel.text!)",
