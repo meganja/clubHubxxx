@@ -11,7 +11,7 @@ import Firebase
 import GoogleSignIn
 import MessageUI
 
-class ViewControllerClubDescription: UIViewController, MFMailComposeViewControllerDelegate{
+class ViewControllerClubDescription: UIViewController, MFMailComposeViewControllerDelegate , UICollectionViewDataSource, UICollectionViewDelegate{
     
     @IBOutlet weak var clubImgVw: UIImageView!
     @IBOutlet weak var clubName: UILabel!
@@ -20,6 +20,8 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     @IBOutlet weak var meetingDays: UILabel!
     @IBOutlet weak var volunteer: UILabel!
     @IBOutlet weak var room: UILabel!
+    
+    let reuseIdentifier = "cell" // also enter this string as the cell identifier in the storyboard
     
     
     @IBOutlet weak var schoologyCode: UILabel!
@@ -73,12 +75,8 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
         self.db.collection("clubs").getDocuments(){ (querySnapshot, err) in
             
             for document in querySnapshot!.documents{
-                print(String(describing: document.get("name")!))
                 let categories = document.data()["categories"]! as! [String]
-                print("club's categories = \(categories)" )
                 let main = categories[0]
-                print("club's main categorie = \(main)" )
-                print(String(describing: document.get("name")!) != self.ClubName && main == self.clubCategories[0])
                 if String(describing: document.get("name")!) != self.ClubName && main == self.clubCategories[0]{
                     self.narrowingClubsName.append(String(describing: document.get("name")!))
                 }
@@ -142,9 +140,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 
                 var clubsKeep = [String]()
                 for document in querySnapshot!.documents{
-                    print(String(describing: document.get("name")!))
                     if self.narrowingClubsName.contains(String(describing: document.get("name")!)){
-                        print("in")
                         clubsKeep.append(String(describing: document.get("name")!))
                     }
                     
@@ -160,10 +156,23 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
 //                    done = true
                     print("sim clubs list based on main category and sub category 1 and commitment = \(self.narrowingClubsName)")
                 }
+                DispatchQueue.main.async {
+                    print("Reloading")
+                    print("sim clubs list  = \(self.narrowingClubsName)")
+                    self.collectionAlsoLike.reloadData()
+                }
+                
                 
                 
             }
         }
+        DispatchQueue.main.async {
+            print("Reloading")
+            print("sim clubs list  = \(self.narrowingClubsName)")
+            self.collectionAlsoLike.reloadData()
+        }
+        
+        
         
     }
     
@@ -330,9 +339,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
         print()
         print()
         print()
-        DispatchQueue.main.async {
-            print("sim clubs final final final \(self.narrowingClubsName)")
-        }
+        
        
         print()
         print()
@@ -455,6 +462,71 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
             matchesClicked = true
             performSegue(withIdentifier: "descriptToMatches", sender: self)
         }
+    }
+    
+    // MARK: - UICollectionViewDataSource protocol
+    
+    // tell the collection view how many cells to make
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("collection  askfjdlksa fioioDF   \(self.narrowingClubsName)")
+        print(self.narrowingClubsName.count)
+        return self.narrowingClubsName.count
+    }
+    
+    // make a cell for each cell index path
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        
+        print("second func")
+        print("index path \(indexPath)")
+        print("index path row \(indexPath.row)")
+        // get a reference to our storyboard cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! CollectionViewCellAlsoLike
+        
+       
+        cell.clubName.text = self.narrowingClubsName[indexPath.row]
+        
+        
+        
+        
+        
+        cell.backgroundColor = UIColor.white // make cell more visible in our example project
+        cell.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
+        cell.layer.borderWidth = 1
+        //cell.sizeThatFits(width: 250, height: 150)
+        
+        
+        self.db.collection("clubs").whereField("name", isEqualTo: cell.clubName.text! ).getDocuments(){ (querySnapshot, err) in
+            
+            for document in querySnapshot!.documents{
+                
+                let docID = document.documentID
+                let ref = Storage.storage().reference()
+                print("club: \(docID)")
+                let imgRef = ref.child("images/\(docID).png")
+                imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+                    if let error = error {
+                        cell.clubImage.image = UIImage(named: "chs-cougar-mascot")
+                    } else {
+                        // Data for "images/island.jpg" is returned
+                        let imageDownloaded = UIImage(data: data!)
+                        cell.clubImage.image = imageDownloaded
+                    }
+                }
+            }
+        }
+        return cell
+    }
+    
+    // MARK: - UICollectionViewDelegate protocol
+    var clickedOn = 0
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // handle tap events
+        self.clickedOn = indexPath.item
+        print("You selected cell #\(indexPath.item)!")
+//        statement = "You selected cell #\(indexPath.item)!"
+//        performSegue(withIdentifier: "goToDescription", sender: self)
     }
     
 }
