@@ -27,7 +27,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     
     @IBOutlet weak var moreInfo: UIButton!
     
-
+    
     var recsList: [String]!
     var priorities: [Int]!
     @IBOutlet weak var name1: UILabel!
@@ -55,25 +55,121 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     let email = ""
     let name = ""
     
+    @IBOutlet weak var collectionAlsoLike: UICollectionView!
+    
     var realViewer = ""
     
-//    func countLines(of label: UILabel, maxHeight: CGFloat) -> Int {
-//            // viewDidLayoutSubviews() in ViewController or layoutIfNeeded() in view subclass
-//            guard let labelText = label.text else {
-//                return 0
-//            }
-//
-//            let rect = CGSize(width: label.bounds.width, height: maxHeight)
-//            let labelSize = labelText.boundingRect(with: rect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: label.font!], context: nil)
-//
-//            let lines = Int(ceil(CGFloat(labelSize.height) / label.font.lineHeight))
-//            return labelText.contains("\n") && lines == 1 ? lines + 1 : lines
-//       }
-     
+    let dispCountMax = 8
     
+    var clubCategories = [String]()
+    var simClubTime = ""//AM-PM
+    var simCommitment = ""
+    var simDays = [String]()
+    var simVolunteer = ""//0 = false, 1 = true
+    var narrowingClubsName = [String]()
+    
+    func similarClubs(){
+        
+        self.db.collection("clubs").getDocuments(){ (querySnapshot, err) in
+            
+            for document in querySnapshot!.documents{
+                print(String(describing: document.get("name")!))
+                let categories = document.data()["categories"]! as! [String]
+                print("club's categories = \(categories)" )
+                let main = categories[0]
+                print("club's main categorie = \(main)" )
+                print(String(describing: document.get("name")!) != self.ClubName && main == self.clubCategories[0])
+                if String(describing: document.get("name")!) != self.ClubName && main == self.clubCategories[0]{
+                    self.narrowingClubsName.append(String(describing: document.get("name")!))
+                }
+                
+            }
+            print("sim clubs list based on main category \(self.narrowingClubsName)")
+            self.narrowSimClubs()
+        }
+        
+        
+        
+        
+    }
+    
+    func narrowSimClubs(){
+        print("first function")
+        print("sim clubs list based on main category = \(self.narrowingClubsName)")
+        var done = false
+        if (self.narrowingClubsName.count >= self.dispCountMax){
+            
+            if (self.clubCategories.count>2){
+                print("going in first")
+                self.db.collection("clubs").whereField("categories", in: [[self.clubCategories[0]], [self.clubCategories[1]]]).getDocuments(){ (querySnapshot, err) in
+                    
+                    var clubsRemove = [String]()
+                    for document in querySnapshot!.documents{
+                        if !self.narrowingClubsName.contains(String(describing: document.get("name")!)){
+                            clubsRemove.append(String(describing: document.get("name")!))
+                        }
+                        
+                    }
+                    if (self.narrowingClubsName.count - clubsRemove.count < 3){
+                        //don't do anything
+                        print("too little 1")
+                    }else{
+                        for i in (0..<clubsRemove.count){
+                            self.narrowingClubsName.remove(at: i)
+                        }
+                        print("sim clubs list based on main category and sub category 1 = \(self.narrowingClubsName)")
+
+                        if self.narrowingClubsName.count < self.dispCountMax{
+                            done = true
+                        }
+                    }
+                }
+                
+            }
+            print("done state = \(done)")
+            self.narrowSimClubs2(done: done)
+            
+        }
+        
+    }
+    
+    func narrowSimClubs2(done: Bool){
+        print("second function")
+        if (done == false && self.narrowingClubsName.count >= self.dispCountMax){
+            print("going in second")
+            print(self.simCommitment)
+            self.db.collection("clubs").whereField("commit", isEqualTo: self.simCommitment).getDocuments(){ (querySnapshot, err) in
+                
+                var clubsKeep = [String]()
+                for document in querySnapshot!.documents{
+                    print(String(describing: document.get("name")!))
+                    if self.narrowingClubsName.contains(String(describing: document.get("name")!)){
+                        print("in")
+                        clubsKeep.append(String(describing: document.get("name")!))
+                    }
+                    
+                }
+                
+                if clubsKeep.count < 3{
+                    print("clubs keep \(clubsKeep)")
+                    //don't do anything
+                    print("too little 2")
+                }else{
+                    self.narrowingClubsName.removeAll()
+                    self.narrowingClubsName = clubsKeep
+//                    done = true
+                    print("sim clubs list based on main category and sub category 1 and commitment = \(self.narrowingClubsName)")
+                }
+                
+                
+            }
+        }
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         print("rememberfilters \(rememberFilters)")
         
         
@@ -137,6 +233,10 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                     }
                 }
                 
+                self.clubCategories = document.data()["categories"]! as! [String]
+                self.simClubTime = String(describing: document.get("AM-PM")!)
+                self.simCommitment = String(describing: document.get("commit")!)
+                self.simVolunteer = String(describing: document.get("volunteer")!)
                 
                 self.clubDescription.text = String(describing: document.get("description")!)
                 self.clubDescription.numberOfLines = 0
@@ -151,34 +251,35 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 
                 
                 if document.get("days") != nil{
-                let daysInfo = document.data()["days"]! as! [String]
-                print(daysInfo)
-                print(daysInfo.count)
-                var dayString = ""
-                for i in 0..<daysInfo.count{
-                    if(daysInfo.count >= 3){
-                        if(i == daysInfo.count - 1){
-                            dayString += "\(daysInfo[i])"
-                        }
-                        else if(i == daysInfo.count - 2){
-                            dayString += "\(daysInfo[i]), and "
-                        }
-                        else{
-                            dayString += "\(daysInfo[i]), "
-                        }
-                    }
-                    else{
-                        if(i == daysInfo.count - 1){
-                            dayString += "\(daysInfo[i])"
+                    let daysInfo = document.data()["days"]! as! [String]
+                    self.simDays = daysInfo
+                    print(daysInfo)
+                    print(daysInfo.count)
+                    var dayString = ""
+                    for i in 0..<daysInfo.count{
+                        if(daysInfo.count >= 3){
+                            if(i == daysInfo.count - 1){
+                                dayString += "\(daysInfo[i])"
+                            }
+                            else if(i == daysInfo.count - 2){
+                                dayString += "\(daysInfo[i]), and "
+                            }
+                            else{
+                                dayString += "\(daysInfo[i]), "
+                            }
                         }
                         else{
-                            dayString += "\(daysInfo[i]) and "
+                            if(i == daysInfo.count - 1){
+                                dayString += "\(daysInfo[i])"
+                            }
+                            else{
+                                dayString += "\(daysInfo[i]) and "
+                            }
                         }
+                        
+                        
                     }
-                    
-                    
-                }
-                self.meetingDays.text = dayString
+                    self.meetingDays.text = dayString
                 }
                 
                 
@@ -222,14 +323,17 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
             }
             
         }
-        
-        self.db.collection("clubs").whereField("name", isEqualTo: self.ClubName).getDocuments(){ (querySnapshot, err) in
-            
-            for document in querySnapshot!.documents{
-                
-                
-            }
+        print()
+        print()
+        print("Finding sim clubs....")
+        similarClubs()
+        print()
+        print()
+        print()
+        DispatchQueue.main.async {
+            print("sim clubs final final final \(self.narrowingClubsName)")
         }
+       
         print()
         print()
         
@@ -305,7 +409,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     var profileClicked = false
     var browseClicked = false
     var matchesClicked = false
-
+    
     
     //MARK: -Wishlisting Clubs
     
