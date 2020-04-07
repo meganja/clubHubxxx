@@ -16,6 +16,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
     @IBOutlet weak var collectionClubsIn: UICollectionView!
     @IBOutlet weak var collectionWishlist: UICollectionView!
     @IBOutlet weak var collectionSavedMatches: UICollectionView!
+    @IBOutlet weak var matchesLabel: UILabel!
     
     var viewer = ""
     
@@ -26,6 +27,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
     var wishItems = [String]()
     var savedMatches = [String]()
     var savedPriorities = [Int]()
+    var surveyTaken = ""
     
     let db = Firestore.firestore()
     
@@ -57,6 +59,11 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             for i in 0..<tempMatches.count{
                 self.savedMatches.append(tempMatches[i] as! String)
                 self.savedPriorities.append(tempPriorities[i] as! Int)
+            }
+            
+            self.surveyTaken = document?.data()!["surveyTaken"]! as! String
+            if(self.surveyTaken != ""){
+                self.matchesLabel.text = "Your Matches: (Survey last taken on \(self.surveyTaken))"
             }
             
             DispatchQueue.main.async {

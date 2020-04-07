@@ -719,12 +719,17 @@ class ViewControllerClubMatchmaker: UIViewController {
             priorities.append(dictValDec[i].1)
         }
         
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy"
+        let dateString = (formatter.string(from: Date()) as NSString) as String
+        
+        
         let userRef = db.collection("users").document(uid)
         userRef.updateData([
             "savedMatches": recsList,
-            "savedPriorities": priorities
+            "savedPriorities": priorities,
+            "surveyTaken": dateString
         ])
-        
         print("REDONE: \(recsList)")
         print("REDONE: \(priorities)")
         print(recsList.count)

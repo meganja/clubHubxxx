@@ -1536,7 +1536,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your Matches:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LbI-1t-gJI">
-                                <rect key="frame" x="20" y="688" width="136" height="27"/>
+                                <rect key="frame" x="20" y="688" width="728" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <nil key="textColor"/>
@@ -1602,6 +1602,7 @@
                         <outlet property="collectionClubsIn" destination="ZNc-8k-vXW" id="X3t-d0-D2A"/>
                         <outlet property="collectionSavedMatches" destination="CTa-fH-8gq" id="7FZ-Oc-ZR6"/>
                         <outlet property="collectionWishlist" destination="4Re-qp-VYW" id="1as-Ys-6Wf"/>
+                        <outlet property="matchesLabel" destination="LbI-1t-gJI" id="bXA-Iz-BVm"/>
                         <outlet property="name" destination="9kv-lp-01X" id="hqe-HW-Mn0"/>
                         <outlet property="navBrowseState" destination="FGZ-xz-Fog" id="MSz-tY-CpU"/>
                         <segue destination="fl7-by-9zP" kind="presentation" identifier="goToDescription2" modalPresentationStyle="fullScreen" id="KuB-2b-Pgb"/>
@@ -3520,6 +3521,7 @@
         <image name="unnamed" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="37N-3e-iKA"/>
         <segue reference="vgH-Pa-ZsW"/>
         <segue reference="jne-Yx-Xv9"/>
         <segue reference="KuB-2b-Pgb"/>
