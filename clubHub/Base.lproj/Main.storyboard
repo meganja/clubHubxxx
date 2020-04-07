@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -961,7 +961,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Smc-Wz-O76">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="61"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="143"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.078431372550000003" green="0.1529411765" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -969,7 +969,7 @@
                                 <color key="highlightedColor" red="0.078431372550000003" green="0.1529411765" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Exz-f4-Cv6">
-                                <rect key="frame" x="0.0" y="43" width="768" height="100"/>
+                                <rect key="frame" x="20" y="43" width="728" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.078431372550000003" green="0.1529411765" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <attributedString key="attributedText">
@@ -1159,8 +1159,12 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Description:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BTu-Bg-dYw">
-                                                <rect key="frame" x="32" y="17" width="706" height="24"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BTu-Bg-dYw">
+                                                <rect key="frame" x="31" y="17" width="706" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="24" id="uD2-Ia-t8L"/>
+                                                    <constraint firstAttribute="width" constant="706" id="uJ5-Fa-8Dm"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1288,7 +1292,6 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="czE-CW-8k2" firstAttribute="top" secondItem="E1h-Kq-htr" secondAttribute="top" id="7lf-eF-nFb"/>
                                     <constraint firstItem="czE-CW-8k2" firstAttribute="height" secondItem="E1h-Kq-htr" secondAttribute="height" priority="250" id="91b-SX-pkW"/>
@@ -1349,7 +1352,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J3b-sy-nSM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3067.96875" y="1075.78125"/>
+            <point key="canvasLocation" x="3067.96875" y="1075.48828125"/>
         </scene>
         <!--View Controller Sign Up-->
         <scene sceneID="Zxi-aH-adp">
@@ -3607,19 +3610,6 @@
             <point key="canvasLocation" x="523" y="3154"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="155-1554499_kudos-back-white-icon-png" width="600" height="1059"/>
-        <image name="browseIconClicked" width="960" height="720"/>
-        <image name="browseIconNotClicked" width="960" height="720"/>
-        <image name="chs-cougar-mascot" width="600" height="319"/>
-        <image name="ellipsis.circle" catalog="system" width="64" height="60"/>
-        <image name="personIconClicked" width="960" height="720"/>
-        <image name="personIconNotClicked-2" width="960" height="720"/>
-        <image name="signOut" width="512" height="512"/>
-        <image name="starIconNotClicked" width="960" height="720"/>
-        <image name="trash" catalog="system" width="60" height="64"/>
-        <image name="unnamed" width="512" height="512"/>
-    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="v2y-g0-gcc"/>
         <segue reference="08j-Dy-qEo"/>
@@ -3628,4 +3618,17 @@
         <segue reference="GGO-DH-1TB"/>
         <segue reference="voT-Mt-29V"/>
     </inferredMetricsTieBreakers>
+    <resources>
+        <image name="155-1554499_kudos-back-white-icon-png" width="600" height="1059"/>
+        <image name="browseIconClicked" width="960" height="720"/>
+        <image name="browseIconNotClicked" width="960" height="720"/>
+        <image name="chs-cougar-mascot" width="600" height="319"/>
+        <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
+        <image name="personIconClicked" width="960" height="720"/>
+        <image name="personIconNotClicked-2" width="960" height="720"/>
+        <image name="signOut" width="512" height="512"/>
+        <image name="starIconNotClicked" width="960" height="720"/>
+        <image name="trash" catalog="system" width="121" height="128"/>
+        <image name="unnamed" width="512" height="512"/>
+    </resources>
 </document>
