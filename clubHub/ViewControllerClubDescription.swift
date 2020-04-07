@@ -98,7 +98,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
         var done = false
         if (self.narrowingClubsName.count >= self.dispCountMax){
             
-            if (self.clubCategories.count>2){
+            if (self.clubCategories.count == 2){
                 print("going in first")
                 self.db.collection("clubs").whereField("categories", in: [[self.clubCategories[0]], [self.clubCategories[1]]]).getDocuments(){ (querySnapshot, err) in
                     
@@ -117,18 +117,71 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                             self.narrowingClubsName.remove(at: i)
                         }
                         print("sim clubs list based on main category and sub category 1 = \(self.narrowingClubsName)")
-
+                        
                         if self.narrowingClubsName.count < self.dispCountMax{
                             done = true
                         }
+                        DispatchQueue.main.async {
+                            print("Reloading 125")
+                            print("sim clubs list  = \(self.narrowingClubsName)")
+                            self.collectionAlsoLike.reloadData()
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        print("Reloading 126")
+                        print("sim clubs list  = \(self.narrowingClubsName)")
+                        self.collectionAlsoLike.reloadData()
                     }
                 }
                 
             }
+            if (self.clubCategories.count > 2){
+                print("going in first 2")
+                self.db.collection("clubs").whereField("categories", in: [[self.clubCategories[0]], [self.clubCategories[1]], [self.clubCategories[2]]]).getDocuments(){ (querySnapshot, err) in
+                    
+                    var clubsRemove = [String]()
+                    for document in querySnapshot!.documents{
+                        if !self.narrowingClubsName.contains(String(describing: document.get("name")!)){
+                            clubsRemove.append(String(describing: document.get("name")!))
+                        }
+                        
+                    }
+                    if (self.narrowingClubsName.count - clubsRemove.count < 3){
+                        //don't do anything
+                        print("too little 1")
+                    }else{
+                        for i in (0..<clubsRemove.count){
+                            self.narrowingClubsName.remove(at: i)
+                        }
+                        print("sim clubs list based on main category and sub category 1 = \(self.narrowingClubsName)")
+                        
+                        if self.narrowingClubsName.count < self.dispCountMax{
+                            done = true
+                        }
+                        DispatchQueue.main.async {
+                            print("Reloading 157")
+                            print("sim clubs list  = \(self.narrowingClubsName)")
+                            self.collectionAlsoLike.reloadData()
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        print("Reloading 158")
+                        print("sim clubs list  = \(self.narrowingClubsName)")
+                        self.collectionAlsoLike.reloadData()
+                    }
+                }
+                
+            }
+            
             print("done state = \(done)")
             self.narrowSimClubs2(done: done)
             
         }
+        DispatchQueue.main.async {
+                           print("Reloading 199")
+                           print("sim clubs list  = \(self.narrowingClubsName)")
+                           self.collectionAlsoLike.reloadData()
+                       }
         
     }
     
@@ -154,11 +207,11 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 }else{
                     self.narrowingClubsName.removeAll()
                     self.narrowingClubsName = clubsKeep
-//                    done = true
+                    //                    done = true
                     print("sim clubs list based on main category and sub category 1 and commitment = \(self.narrowingClubsName)")
                 }
                 DispatchQueue.main.async {
-                    print("Reloading")
+                    print("Reloading 199")
                     print("sim clubs list  = \(self.narrowingClubsName)")
                     self.collectionAlsoLike.reloadData()
                 }
@@ -168,10 +221,10 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
             }
         }
         DispatchQueue.main.async {
-            print("Reloading")
-            print("sim clubs list  = \(self.narrowingClubsName)")
-            self.collectionAlsoLike.reloadData()
-        }
+                           print("Reloading 199")
+                           print("sim clubs list  = \(self.narrowingClubsName)")
+                           self.collectionAlsoLike.reloadData()
+                       }
         
         
         
@@ -179,180 +232,189 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     
     func loadData(){
         print("rememberfilters \(rememberFilters)")
-         
+        
         narrowingClubsName.removeAll()
-         
-         if viewer == "admin"{
-             realViewer = "admin"
-             wishlistState.isHidden = true
+        clubCategories.removeAll()
+        simDays.removeAll()
+        print(narrowingClubsName)
+        
+        if viewer == "admin"{
+            realViewer = "admin"
+            wishlistState.isHidden = true
             collectionAlsoLike.isHidden = true
-         }
-         else if viewer == "student"{
-             realViewer = "student"
-             let userRef = db.collection("users").document(uid)
-             userRef.getDocument { (document, error) in
-                 let tempWish = document?.data()!["wishlist"]! as![Any]
-                 print("temp wish")
-                 print(tempWish)
-                 for i in 0..<tempWish.count{
-                     if (tempWish[i] as! String == self.ClubName){
-                         print("should be clicked")
-                         self.clicks = 1
-                         let image = UIImage(named: "starIconClicked-2")
-                         self.wishlistState.setImage(image, for: .normal)
-                     }
-                     else{
+        }
+        else if viewer == "student"{
+            realViewer = "student"
+            let userRef = db.collection("users").document(uid)
+            userRef.getDocument { (document, error) in
+                let tempWish = document?.data()!["wishlist"]! as![Any]
+                print("temp wish")
+                print(tempWish)
+                for i in 0..<tempWish.count{
+                    if (tempWish[i] as! String == self.ClubName){
+                        print("should be clicked")
+                        self.clicks = 1
+                        let image = UIImage(named: "starIconClicked-2")
+                        self.wishlistState.setImage(image, for: .normal)
+                    }
+                    else{
                         print("should be not clicked")
                         self.clicks = 0
                         let image = UIImage(named: "starIconNotClicked")
                         self.wishlistState.setImage(image, for: .normal)
                     }
-                 }
-             }
-         }
-         print(uid)
-         print("")
-         print()
-         print()
-         print("in new view controller")
-         print("viewer")
-         print(viewer)
-         print(self.ClubName)
-         print(self.statement)
-         print("You selected cell #\(self.num)!")
-         print("in")
-         self.clubName.text = self.ClubName
-         
-         
-         
-         print("done")
-         print()
-         print()
-         print()
-         
-         self.db.collection("clubs").whereField("name", isEqualTo: self.ClubName).getDocuments(){ (querySnapshot, err) in
-             
-             for document in querySnapshot!.documents{
-                 
-                 
-                 let docID = document.documentID
-                 let ref = Storage.storage().reference()
-                 print("club: \(docID)")
-                 let imgRef = ref.child("images/\(docID).png")
-                 imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-                     if let error = error {
-                         print(error)
-                     } else {
-                         // Data for "images/island.jpg" is returned
-                         let imageDownloaded = UIImage(data: data!)
-                         self.clubImgVw.image = imageDownloaded
-                     }
-                 }
-                 
-                 self.clubCategories = document.data()["categories"]! as! [String]
-                 self.simClubTime = String(describing: document.get("AM-PM")!)
-                 self.simCommitment = String(describing: document.get("commit")!)
-                 self.simVolunteer = String(describing: document.get("volunteer")!)
-                 
-                 self.clubDescription.text = String(describing: document.get("description")!)
-                 self.clubDescription.numberOfLines = 0
-                 self.clubDescription.sizeToFit()
-                 self.commitmentLevel.text = String(describing: document.get("commit")!)
-                 self.meetingTime.text = String(describing: document.get("time")!)
-                 self.meetingTime.numberOfLines = 0
-                 self.meetingTime.sizeToFit()
-                 self.schoologyCode.text = String(describing: document.get("schoology")!)
-                 self.moreInfo.setTitle(String(describing: document.get("link")!), for: .normal)
-                 self.conantLink = String(describing: document.get("link")!)
-                 
-                 
-                 if document.get("days") != nil{
-                     let daysInfo = document.data()["days"]! as! [String]
-                     self.simDays = daysInfo
-                     print(daysInfo)
-                     print(daysInfo.count)
-                     var dayString = ""
-                     for i in 0..<daysInfo.count{
-                         if(daysInfo.count >= 3){
-                             if(i == daysInfo.count - 1){
-                                 dayString += "\(daysInfo[i])"
-                             }
-                             else if(i == daysInfo.count - 2){
-                                 dayString += "\(daysInfo[i]), and "
-                             }
-                             else{
-                                 dayString += "\(daysInfo[i]), "
-                             }
-                         }
-                         else{
-                             if(i == daysInfo.count - 1){
-                                 dayString += "\(daysInfo[i])"
-                             }
-                             else{
-                                 dayString += "\(daysInfo[i]) and "
-                             }
-                         }
-                         
-                         
-                     }
-                     self.meetingDays.text = dayString
-                 }
-                 
-                 
-                 if (String(describing: document.get("volunteer")!)) == "0"{
-                     self.volunteer.text = " No"
-                 }else{
-                     self.volunteer.text = " Yes"
-                 }
-                 
-                 self.room.text = String(describing: document.get("room")!)
-                 
-                 if document.get("sponsorsName") != nil && document.get("sponsorsEmail") != nil{
-                     self.sponsorsName = document.data()["sponsorsName"]! as! [String]
-                     self.sponsorsEmail = document.data()["sponsorsEmail"]! as! [String]
-                     self.name1.text = "\(self.sponsorsName[0])"
-                     self.email1.setTitle("\(self.sponsorsEmail[0])", for: .normal)
-                     
-                     if (self.sponsorsName.count == 1){
-                         self.name1.text = "\(self.sponsorsName[0])"
-                         self.email1.setTitle("\(self.sponsorsEmail[0])", for: .normal)
-                     }
-                     else if (self.sponsorsName.count == 2){
-                         self.name2.text = "\(self.sponsorsName[1])"
-                         self.email2.setTitle("\(self.sponsorsEmail[1])", for: .normal)
-                         self.name2.isHidden = false
-                         self.email2.isHidden = false
-                     }else if (self.sponsorsName.count == 3){
-                         self.name2.text = "\(self.sponsorsName[1])"
-                         self.email2.setTitle("\(self.sponsorsEmail[1])", for: .normal)
-                         self.name3.text = "\(self.sponsorsName[2])"
-                         self.email3.setTitle("\(self.sponsorsEmail[2])", for: .normal)
-                         self.name2.isHidden = false
-                         self.email2.isHidden = false
-                         self.name3.isHidden = false
-                         self.email3.isHidden = false
-                     }
-                 }
-                 
-                 
-                 
-             }
-             
-         }
-         print()
-         print()
-        if viewer == "student"{
-         print("Finding sim clubs....")
-         similarClubs()
+                }
+            }
         }
-         print()
-         print()
-         print()
-         
+        print(uid)
+        print("")
+        print()
+        print()
+        print("in new view controller")
+        print("viewer")
+        print(viewer)
+        print(self.ClubName)
+        print(self.statement)
+        print("You selected cell #\(self.num)!")
+        print("in")
+        self.clubName.text = self.ClubName
         
-         print()
-         print()
-         
+        
+        
+        print("done")
+        print()
+        print()
+        print()
+        
+        self.db.collection("clubs").whereField("name", isEqualTo: self.ClubName).getDocuments(){ (querySnapshot, err) in
+            
+            for document in querySnapshot!.documents{
+                
+                
+                let docID = document.documentID
+                let ref = Storage.storage().reference()
+                print("club: \(docID)")
+                let imgRef = ref.child("images/\(docID).png")
+                imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+                    if let error = error {
+                        print(error)
+                    } else {
+                        // Data for "images/island.jpg" is returned
+                        let imageDownloaded = UIImage(data: data!)
+                        self.clubImgVw.image = imageDownloaded
+                    }
+                }
+                
+                self.clubCategories = document.data()["categories"]! as! [String]
+                print("printing club categories")
+                print(self.clubCategories)
+                self.simClubTime = String(describing: document.get("AM-PM")!)
+                self.simCommitment = String(describing: document.get("commit")!)
+                self.simVolunteer = String(describing: document.get("volunteer")!)
+                
+                self.clubDescription.text = String(describing: document.get("description")!)
+                self.clubDescription.numberOfLines = 0
+                self.clubDescription.sizeToFit()
+                self.commitmentLevel.text = String(describing: document.get("commit")!)
+                self.meetingTime.text = String(describing: document.get("time")!)
+                self.meetingTime.numberOfLines = 0
+                self.meetingTime.sizeToFit()
+                self.schoologyCode.text = String(describing: document.get("schoology")!)
+                self.moreInfo.setTitle(String(describing: document.get("link")!), for: .normal)
+                self.conantLink = String(describing: document.get("link")!)
+                
+                
+                if document.get("days") != nil{
+                    let daysInfo = document.data()["days"]! as! [String]
+                    self.simDays = daysInfo
+                    print(daysInfo)
+                    print(daysInfo.count)
+                    var dayString = ""
+                    for i in 0..<daysInfo.count{
+                        if(daysInfo.count >= 3){
+                            if(i == daysInfo.count - 1){
+                                dayString += "\(daysInfo[i])"
+                            }
+                            else if(i == daysInfo.count - 2){
+                                dayString += "\(daysInfo[i]), and "
+                            }
+                            else{
+                                dayString += "\(daysInfo[i]), "
+                            }
+                        }
+                        else{
+                            if(i == daysInfo.count - 1){
+                                dayString += "\(daysInfo[i])"
+                            }
+                            else{
+                                dayString += "\(daysInfo[i]) and "
+                            }
+                        }
+                        
+                        
+                    }
+                    self.meetingDays.text = dayString
+                }
+                
+                
+                if (String(describing: document.get("volunteer")!)) == "0"{
+                    self.volunteer.text = " No"
+                }else{
+                    self.volunteer.text = " Yes"
+                }
+                
+                self.room.text = String(describing: document.get("room")!)
+                
+                if document.get("sponsorsName") != nil && document.get("sponsorsEmail") != nil{
+                    self.sponsorsName = document.data()["sponsorsName"]! as! [String]
+                    self.sponsorsEmail = document.data()["sponsorsEmail"]! as! [String]
+                    self.name1.text = "\(self.sponsorsName[0])"
+                    self.email1.setTitle("\(self.sponsorsEmail[0])", for: .normal)
+                    
+                    if (self.sponsorsName.count == 1){
+                        self.name1.text = "\(self.sponsorsName[0])"
+                        self.email1.setTitle("\(self.sponsorsEmail[0])", for: .normal)
+                    }
+                    else if (self.sponsorsName.count == 2){
+                        self.name2.text = "\(self.sponsorsName[1])"
+                        self.email2.setTitle("\(self.sponsorsEmail[1])", for: .normal)
+                        self.name2.isHidden = false
+                        self.email2.isHidden = false
+                    }else if (self.sponsorsName.count == 3){
+                        self.name2.text = "\(self.sponsorsName[1])"
+                        self.email2.setTitle("\(self.sponsorsEmail[1])", for: .normal)
+                        self.name3.text = "\(self.sponsorsName[2])"
+                        self.email3.setTitle("\(self.sponsorsEmail[2])", for: .normal)
+                        self.name2.isHidden = false
+                        self.email2.isHidden = false
+                        self.name3.isHidden = false
+                        self.email3.isHidden = false
+                    }
+                }
+                print()
+                print()
+                if self.viewer == "student"{
+                    print("Finding sim clubs....")
+                    self.similarClubs()
+                    
+                    
+                }
+                print()
+                print()
+                print()
+                
+                
+                
+                
+            }
+            
+        }
+        
+        
+        
+        print()
+        print()
+        
     }
     
     override func viewDidLoad() {
@@ -514,7 +576,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
         // get a reference to our storyboard cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! CollectionViewCellAlsoLike
         
-       
+        
         cell.clubName.text = self.narrowingClubsName[indexPath.row]
         
         
