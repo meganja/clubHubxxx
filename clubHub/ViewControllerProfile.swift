@@ -15,13 +15,19 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var collectionClubsIn: UICollectionView!
     @IBOutlet weak var collectionWishlist: UICollectionView!
-    @IBOutlet weak var signUpBtn: UIButton!
+    @IBOutlet weak var collectionSavedMatches: UICollectionView!
+    @IBOutlet weak var matchesLabel: UILabel!
+    
     var viewer = ""
     
     let reuseIdentifier = "cell"
     let reuseIdentifier2 = "cellWish"
+    let reuseIdentifier3 = "cellMatches"
     var enrolledItems = [String]()
     var wishItems = [String]()
+    var savedMatches = [String]()
+    var savedPriorities = [Int]()
+    var surveyTaken = ""
     
     let db = Firestore.firestore()
     
@@ -47,9 +53,23 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
                 self.enrolledItems.append(tempEnrolled[i] as! String)
             }
             
+            let tempMatches = document?.data()!["savedMatches"]! as![Any]
+            let tempPriorities = document?.data()!["savedPriorities"]! as![Any]
+            print(tempMatches)
+            for i in 0..<tempMatches.count{
+                self.savedMatches.append(tempMatches[i] as! String)
+                self.savedPriorities.append(tempPriorities[i] as! Int)
+            }
+            
+            self.surveyTaken = document?.data()!["surveyTaken"]! as! String
+            if(self.surveyTaken != ""){
+                self.matchesLabel.text = "Your Matches: (Survey last taken on \(self.surveyTaken))"
+            }
+            
             DispatchQueue.main.async {
                 self.collectionWishlist.reloadData()
                 self.collectionClubsIn.reloadData()
+                self.collectionSavedMatches.reloadData()
             }
         }
         
@@ -60,16 +80,18 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.collectionClubsIn{
-            return self.enrolledItems.count
+            return self.enrolledItems.count + 1
         }
-        else{
+        else if collectionView == self.collectionWishlist{
             print("wish items count = \(wishItems.count)")
             if self.wishItems.count == 0{
-                signUpBtn.isHidden = true
+                 return self.wishItems.count
             }else{
-                signUpBtn.isHidden = false
+                 return self.wishItems.count + 1
             }
-            return self.wishItems.count
+        }
+        else{
+            return self.savedMatches.count + 1
         }
     }
     
@@ -80,26 +102,79 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! CollectionViewCellClubsIn
             
             // Use the outlet in our custom class to get a reference to the UILabel in the cell
-            cell.clubName.text = self.enrolledItems[indexPath.item]
+            if(indexPath.item == 0){
+                cell.clubName.text = "Add a Club"
+            }
+            else{
+                print(indexPath.item)
+                cell.clubName.text = self.enrolledItems[indexPath.item - 1]
+            }
             cell.backgroundColor = UIColor.white // make cell more visible in our example project
             cell.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
             cell.layer.borderWidth = 1
             
-            self.db.collection("clubs").whereField("name", isEqualTo: cell.clubName.text ).getDocuments(){ (querySnapshot, err) in
-                
-                for document in querySnapshot!.documents{
+            if(indexPath.item == 0){
+                cell.clubLogo.image = UIImage(named: "plus")
+            }
+            else{
+                self.db.collection("clubs").whereField("name", isEqualTo: cell.clubName.text ).getDocuments(){ (querySnapshot, err) in
                     
-                    let docID = document.documentID
-                    let ref = Storage.storage().reference()
-                    print("club: \(docID)")
-                    let imgRef = ref.child("images/\(docID).png")
-                    imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-                        if let error = error {
-                            cell.clubLogo.image = UIImage(named: "chs-cougar-mascot")
-                        } else {
-                            // Data for "images/island.jpg" is returned
-                            let imageDownloaded = UIImage(data: data!)
-                            cell.clubLogo.image = imageDownloaded
+                    for document in querySnapshot!.documents{
+                        
+                        let docID = document.documentID
+                        let ref = Storage.storage().reference()
+                        print("club: \(docID)")
+                        let imgRef = ref.child("images/\(docID).png")
+                        imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+                            if let error = error {
+                                cell.clubLogo.image = UIImage(named: "chs-cougar-mascot")
+                            } else {
+                                // Data for "images/island.jpg" is returned
+                                let imageDownloaded = UIImage(data: data!)
+                                cell.clubLogo.image = imageDownloaded
+                            }
+                        }
+                    }
+                }
+            }
+            
+            
+            return cell
+        }
+        else if collectionView == self.collectionWishlist{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier2, for: indexPath as IndexPath) as! CollectionViewCellWishlist 
+            
+            // Use the outlet in our custom class to get a reference to the UILabel in the cell
+            if(indexPath.item == 0){
+                cell.clubName.text = "Sign Up For a Wishlisted Club"
+            }
+            else{
+                cell.clubName.text = self.wishItems[indexPath.item - 1]
+            }
+            cell.backgroundColor = UIColor.white // make cell more visible in our example project
+            cell.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
+            cell.layer.borderWidth = 1
+            
+            if(indexPath.item == 0){
+                cell.clubLogo.image = UIImage(named: "plus")
+            }
+            else{
+                self.db.collection("clubs").whereField("name", isEqualTo: cell.clubName.text ).getDocuments(){ (querySnapshot, err) in
+                    
+                    for document in querySnapshot!.documents{
+                        
+                        let docID = document.documentID
+                        let ref = Storage.storage().reference()
+                        print("club: \(docID)")
+                        let imgRef = ref.child("images/\(docID).png")
+                        imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+                            if let error = error {
+                                cell.clubLogo.image = UIImage(named: "chs-cougar-mascot")
+                            } else {
+                                // Data for "images/island.jpg" is returned
+                                let imageDownloaded = UIImage(data: data!)
+                                cell.clubLogo.image = imageDownloaded
+                            }
                         }
                     }
                 }
@@ -107,31 +182,50 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             
             return cell
         }
-        else{
-            print("went in else 2")
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier2, for: indexPath as IndexPath) as! CollectionViewCellWishlist 
+        else{ //saved matches
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier3, for: indexPath as IndexPath) as! CollectionViewCellSavedMatches
             
             // Use the outlet in our custom class to get a reference to the UILabel in the cell
-            cell.clubName.text = self.wishItems[indexPath.item]
+            if(indexPath.item == 0){
+                cell.clubName.text = "Take the Club Matchmaker Survey!"
+                cell.matchStrength.backgroundColor = UIColor.white
+            }
+            else{
+                cell.clubName.text = self.savedMatches[indexPath.item - 1]
+                if self.savedPriorities[indexPath.item - 1] > 2{
+                    cell.matchStrength.backgroundColor = UIColor.green
+                }
+                else if self.savedPriorities[indexPath.item - 1] > 1{
+                    cell.matchStrength.backgroundColor = UIColor.yellow
+                }
+                else{
+                    cell.matchStrength.backgroundColor = UIColor.orange
+                }
+            }
             cell.backgroundColor = UIColor.white // make cell more visible in our example project
             cell.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
             cell.layer.borderWidth = 1
             
-            self.db.collection("clubs").whereField("name", isEqualTo: cell.clubName.text ).getDocuments(){ (querySnapshot, err) in
-                
-                for document in querySnapshot!.documents{
+            if(indexPath.item == 0){
+                cell.clubLogo.image = UIImage(named: "plus")
+            }
+            else{
+                self.db.collection("clubs").whereField("name", isEqualTo: cell.clubName.text ).getDocuments(){ (querySnapshot, err) in
                     
-                    let docID = document.documentID
-                    let ref = Storage.storage().reference()
-                    print("club: \(docID)")
-                    let imgRef = ref.child("images/\(docID).png")
-                    imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-                        if let error = error {
-                            cell.clubLogo.image = UIImage(named: "chs-cougar-mascot")
-                        } else {
-                            // Data for "images/island.jpg" is returned
-                            let imageDownloaded = UIImage(data: data!)
-                            cell.clubLogo.image = imageDownloaded
+                    for document in querySnapshot!.documents{
+                        
+                        let docID = document.documentID
+                        let ref = Storage.storage().reference()
+                        print("club: \(docID)")
+                        let imgRef = ref.child("images/\(docID).png")
+                        imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+                            if let error = error {
+                                cell.clubLogo.image = UIImage(named: "chs-cougar-mascot")
+                            } else {
+                                // Data for "images/island.jpg" is returned
+                                let imageDownloaded = UIImage(data: data!)
+                                cell.clubLogo.image = imageDownloaded
+                            }
                         }
                     }
                 }
@@ -150,18 +244,40 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // handle tap events
         if collectionView == self.collectionClubsIn{
-            print("You selected cell #\(indexPath.item)! in clubs in")
-            self.clickedOn = indexPath.item
-            statement = "You selected cell #\(indexPath.item)!"
-            clubNameTemp = self.enrolledItems[self.clickedOn]
-            performSegue(withIdentifier: "goToDescription2", sender: self)
+            if(indexPath.item == 0){
+                performSegue(withIdentifier: "addToJoinedClubs", sender: self)
+            }
+            else{
+                print("You selected cell #\(indexPath.item - 1)! in clubs in")
+                self.clickedOn = indexPath.item - 1
+                statement = "You selected cell #\(indexPath.item - 1)!"
+                clubNameTemp = self.enrolledItems[self.clickedOn]
+                performSegue(withIdentifier: "goToDescription2", sender: self)
+            }
         }
         else if collectionView == self.collectionWishlist{
-            print("You selected cell #\(indexPath.item)! in wishlist")
-            self.clickedOn = indexPath.item
-            statement = "You selected cell #\(indexPath.item)!"
-            clubNameTemp = self.wishItems[self.clickedOn]
-            performSegue(withIdentifier: "goToDescription2", sender: self)
+            if(indexPath.item == 0){
+                performSegue(withIdentifier: "requestToJoin", sender: self)
+            }
+            else{
+                print("You selected cell #\(indexPath.item - 1)! in wishlist")
+                self.clickedOn = indexPath.item - 1
+                statement = "You selected cell #\(indexPath.item - 1)!"
+                clubNameTemp = self.wishItems[self.clickedOn]
+                performSegue(withIdentifier: "goToDescription2", sender: self)
+            }
+        }
+        else{ //matches
+            if(indexPath.item == 0){
+                performSegue(withIdentifier: "takeSurvey", sender: self)
+            }
+            else{
+                print("You selected cell #\(indexPath.item - 1)! in saved matches")
+                self.clickedOn = indexPath.item - 1
+                statement = "You selected cell #\(indexPath.item - 1)!"
+                clubNameTemp = self.savedMatches[self.clickedOn]
+                performSegue(withIdentifier: "goToDescription2", sender: self)
+            }
         }
     }
     
@@ -179,14 +295,17 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             var vc = segue.destination as! ViewControllerDispClubs
             vc.viewer = viewer
         }
-        else if goAddYourClubs{
+        else if (segue.identifier == "addToJoinedClubs"){
             var vc = segue.destination as! ViewControllerAddUserClubs
             vc.viewer = viewer
         }
-            else if goToSignUp{
-                var vc = segue.destination as! ViewControllerSignUp
-                vc.viewer = viewer
-            }
+        else if (segue.identifier == "requestToJoin"){
+            var vc = segue.destination as! ViewControllerSignUp
+            vc.viewer = viewer
+        }
+        else if (segue.identifier == "takeSurvey"){
+            var vc = segue.destination as! ViewControllerClubMatchmaker
+        }
         else if wantSignOut{
             var vc = segue.destination as! ViewController
         }
@@ -206,17 +325,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             }
         }
     }
-    //MARK: -Sign Up
-    var goToSignUp = false
-    @IBAction func signUp(_ sender: Any) {
-        goToSignUp = true
-    }
-    
-    //MARK: -Add Your Clubs
-    var goAddYourClubs = false
-    @IBAction func addYourClubsBtn(_ sender: Any) {
-        goAddYourClubs = true
-    }
+
     
     //MARK: -sign out
     var wantSignOut = false
