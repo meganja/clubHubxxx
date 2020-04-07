@@ -957,7 +957,7 @@
             <objects>
                 <viewController id="fl7-by-9zP" customClass="ViewControllerClubDescription" customModule="clubHub" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="52x-8G-oep">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1350"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1425"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Smc-Wz-O76">
@@ -997,6 +997,41 @@
                                 <state key="normal" image="155-1554499_kudos-back-white-icon-png"/>
                                 <connections>
                                     <action selector="backButtonClicked:" destination="fl7-by-9zP" eventType="touchUpInside" id="sdv-Rv-EUV"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hiiiiii" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y2E-Kg-d52">
+                                <rect key="frame" x="0.0" y="1350" width="768" height="75"/>
+                                <color key="backgroundColor" red="0.078431372550000003" green="0.1529411765" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="YyK-OR-ygi"/>
+                                    <constraint firstAttribute="width" constant="768" id="oEy-GB-Pwl"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.078431372550000003" green="0.1529411765" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="osd-cs-IIQ">
+                                <rect key="frame" x="335" y="1350" width="98" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="98" id="Wna-xQ-FYN"/>
+                                    <constraint firstAttribute="height" constant="75" id="fP0-zc-2dr"/>
+                                </constraints>
+                                <state key="normal" title="search" image="browseIconNotClicked"/>
+                                <connections>
+                                    <action selector="dispClubsBtn:" destination="fl7-by-9zP" eventType="touchUpInside" id="6tQ-tj-D3g"/>
+                                    <segue destination="SSq-PF-znA" kind="presentation" identifier="navDispClubs" modalPresentationStyle="fullScreen" id="exb-Of-pYH"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7HP-Hy-Ujf">
+                                <rect key="frame" x="117" y="1350" width="98" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="WHd-iQ-sWX"/>
+                                    <constraint firstAttribute="width" constant="98" id="ecd-cR-n1F"/>
+                                </constraints>
+                                <state key="normal" title="profile" image="personIconNotClicked-2"/>
+                                <connections>
+                                    <action selector="profileBtn:" destination="fl7-by-9zP" eventType="touchUpInside" id="hTL-QN-M0g"/>
+                                    <segue destination="psG-IV-fUG" kind="presentation" identifier="navProfile" modalPresentationStyle="fullScreen" id="08j-Dy-qEo"/>
                                 </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E1h-Kq-htr">
@@ -1253,6 +1288,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="czE-CW-8k2" firstAttribute="top" secondItem="E1h-Kq-htr" secondAttribute="top" id="7lf-eF-nFb"/>
                                     <constraint firstItem="czE-CW-8k2" firstAttribute="height" secondItem="E1h-Kq-htr" secondAttribute="height" priority="250" id="91b-SX-pkW"/>
@@ -1268,13 +1304,25 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="E1h-Kq-htr" firstAttribute="leading" secondItem="ERl-ky-6aM" secondAttribute="leading" id="2iy-Z3-Gtg"/>
+                            <constraint firstItem="osd-cs-IIQ" firstAttribute="leading" secondItem="7HP-Hy-Ujf" secondAttribute="trailing" constant="120" id="3Tw-O4-wLP"/>
                             <constraint firstItem="E1h-Kq-htr" firstAttribute="top" secondItem="ERl-ky-6aM" secondAttribute="top" constant="139" id="6SJ-In-OKa"/>
-                            <constraint firstItem="ERl-ky-6aM" firstAttribute="bottom" secondItem="E1h-Kq-htr" secondAttribute="bottom" id="TOf-ZP-1ST"/>
+                            <constraint firstItem="Y2E-Kg-d52" firstAttribute="trailing" secondItem="ERl-ky-6aM" secondAttribute="trailing" id="7hT-ht-AHD"/>
+                            <constraint firstItem="Y2E-Kg-d52" firstAttribute="top" secondItem="E1h-Kq-htr" secondAttribute="bottom" id="8MD-jw-45d"/>
+                            <constraint firstItem="osd-cs-IIQ" firstAttribute="leading" secondItem="7HP-Hy-Ujf" secondAttribute="trailing" constant="120" id="BwB-lX-z8y"/>
+                            <constraint firstItem="ERl-ky-6aM" firstAttribute="trailing" secondItem="osd-cs-IIQ" secondAttribute="trailing" constant="335" id="Kgv-IR-wIf"/>
+                            <constraint firstItem="7HP-Hy-Ujf" firstAttribute="bottom" secondItem="ERl-ky-6aM" secondAttribute="bottom" id="RvI-Q0-vhq"/>
+                            <constraint firstItem="Y2E-Kg-d52" firstAttribute="bottom" secondItem="ERl-ky-6aM" secondAttribute="bottom" id="btK-iN-WCx"/>
+                            <constraint firstItem="7HP-Hy-Ujf" firstAttribute="top" secondItem="E1h-Kq-htr" secondAttribute="bottom" id="dZc-2A-SVR"/>
+                            <constraint firstItem="Y2E-Kg-d52" firstAttribute="leading" secondItem="ERl-ky-6aM" secondAttribute="leading" id="g6i-2g-rtf"/>
+                            <constraint firstItem="osd-cs-IIQ" firstAttribute="bottom" secondItem="ERl-ky-6aM" secondAttribute="bottom" id="gsu-de-dhc"/>
+                            <constraint firstItem="ERl-ky-6aM" firstAttribute="bottom" secondItem="E1h-Kq-htr" secondAttribute="bottom" constant="75" id="izx-2i-bUx"/>
+                            <constraint firstItem="7HP-Hy-Ujf" firstAttribute="leading" secondItem="ERl-ky-6aM" secondAttribute="leading" constant="117" id="mNX-P8-Yu9"/>
                             <constraint firstItem="ERl-ky-6aM" firstAttribute="trailing" secondItem="E1h-Kq-htr" secondAttribute="trailing" id="sBb-7X-erJ"/>
+                            <constraint firstItem="osd-cs-IIQ" firstAttribute="top" secondItem="E1h-Kq-htr" secondAttribute="bottom" id="yw9-bW-Pag"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ERl-ky-6aM"/>
                     </view>
-                    <size key="freeformSize" width="768" height="1350"/>
+                    <size key="freeformSize" width="768" height="1425"/>
                     <connections>
                         <outlet property="clubDescription" destination="I61-of-Pfs" id="ToJ-7o-Rg4"/>
                         <outlet property="clubImgVw" destination="zX1-Oh-8vO" id="54A-J0-jXU"/>
@@ -3529,7 +3577,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="v2y-g0-gcc"/>
-        <segue reference="jyz-EB-t97"/>
+        <segue reference="08j-Dy-qEo"/>
         <segue reference="KuB-2b-Pgb"/>
         <segue reference="dSB-4A-GFN"/>
         <segue reference="GGO-DH-1TB"/>

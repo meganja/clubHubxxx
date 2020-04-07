@@ -429,7 +429,15 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     }
     
     
+    @IBAction func dispClubsBtn(_ sender: Any) {
+        browseClicked = true
+        performSegue(withIdentifier: "navDispClubs", sender: self)
+    }
     
+    @IBAction func profileBtn(_ sender: Any) {
+        profileClicked = true
+        performSegue(withIdentifier: "navProfile", sender: self)
+    }
     var profileClicked = false
     var browseClicked = false
     var matchesClicked = false
