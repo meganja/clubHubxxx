@@ -719,8 +719,14 @@ class ViewControllerClubMatchmaker: UIViewController {
             priorities.append(dictValDec[i].1)
         }
         
+        let userRef = db.collection("users").document(uid)
+        userRef.updateData([
+            "savedMatches": recsList,
+            "savedPriorities": priorities
+        ])
+        
         print("REDONE: \(recsList)")
-         print("REDONE: \(priorities)")
+        print("REDONE: \(priorities)")
         print(recsList.count)
         
         performSegue(withIdentifier: "toMatched", sender: self)

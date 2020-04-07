@@ -114,7 +114,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                                 "email": email,
                                 "accountType": "student",
                                 "myClubs": [],
-                                "wishlist": []
+                                "wishlist": [],
+                                "savedMatches": [],
+                                "savedPriorities": []
                             ]) { err in
                                 if let err = err {
                                     print("Error writing document: \(err)")
