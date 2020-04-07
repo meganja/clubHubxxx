@@ -21,6 +21,7 @@
 		C7B3EF89CF117933FE205194 /* libPods-clubHubTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2FC096293ACAAE9B09F6E4E /* libPods-clubHubTests.a */; };
 		CB242F972415C40400FE70E5 /* ViewControllerAddUserClubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB242F962415C40400FE70E5 /* ViewControllerAddUserClubs.swift */; };
 		CB242F9D2415C8C100FE70E5 /* CollectionViewCellYourClubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB242F9C2415C8C100FE70E5 /* CollectionViewCellYourClubs.swift */; };
+		CB48B095243BD43300F797D1 /* CollectionViewCellAlsoLike.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB48B094243BD43300F797D1 /* CollectionViewCellAlsoLike.swift */; };
 		CB5469FE24077360001DFA77 /* ViewControllerLoginDecision.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5469FD24077360001DFA77 /* ViewControllerLoginDecision.swift */; };
 		CB546A0024077851001DFA77 /* ViewControllerLoggingIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5469FF24077851001DFA77 /* ViewControllerLoggingIn.swift */; };
 		CB546A02240779DD001DFA77 /* ViewControllerDispClubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB546A01240779DD001DFA77 /* ViewControllerDispClubs.swift */; };
@@ -87,6 +88,7 @@
 		BBB0735C242D130000285585 /* CollectionViewCellCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellCategories.swift; sourceTree = "<group>"; };
 		CB242F962415C40400FE70E5 /* ViewControllerAddUserClubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerAddUserClubs.swift; sourceTree = "<group>"; };
 		CB242F9C2415C8C100FE70E5 /* CollectionViewCellYourClubs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCellYourClubs.swift; sourceTree = "<group>"; };
+		CB48B094243BD43300F797D1 /* CollectionViewCellAlsoLike.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellAlsoLike.swift; sourceTree = "<group>"; };
 		CB5469FD24077360001DFA77 /* ViewControllerLoginDecision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerLoginDecision.swift; sourceTree = "<group>"; };
 		CB5469FF24077851001DFA77 /* ViewControllerLoggingIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerLoggingIn.swift; sourceTree = "<group>"; };
 		CB546A01240779DD001DFA77 /* ViewControllerDispClubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerDispClubs.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				6641615C2408586300382948 /* CollectionViewCellAllClubs.swift */,
 				CB5BD4E5240C16AA008ABA2D /* ViewControllerAddClub.swift */,
 				CB55E0E0240C96F9006C1F41 /* Main.storyboard */,
+				CB48B094243BD43300F797D1 /* CollectionViewCellAlsoLike.swift */,
 				CB84B1232433F201005EEF7C /* CollectionViewCellSignUpClubs.swift */,
 				CB84B1212433EFD1005EEF7C /* ViewControllerSignUp.swift */,
 				CB242F9C2415C8C100FE70E5 /* CollectionViewCellYourClubs.swift */,
@@ -536,6 +539,7 @@
 				CB5D9063240314A4009184BA /* SceneDelegate.swift in Sources */,
 				CB5BD4E6240C16AA008ABA2D /* ViewControllerAddClub.swift in Sources */,
 				BB4A62092415786A003A887B /* ViewControllerProfile.swift in Sources */,
+				CB48B095243BD43300F797D1 /* CollectionViewCellAlsoLike.swift in Sources */,
 				CB242F972415C40400FE70E5 /* ViewControllerAddUserClubs.swift in Sources */,
 				CB546A02240779DD001DFA77 /* ViewControllerDispClubs.swift in Sources */,
 				BB4A620B241578D5003A887B /* CollectionViewCellClubsIn.swift in Sources */,
@@ -756,13 +760,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = AMU5HUBAR2;
+				DEVELOPMENT_TEAM = W8JSH57J54;
 				INFOPLIST_FILE = clubHub/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sideload.clubHub;
+				PRODUCT_BUNDLE_IDENTIFIER = com.c1843.clubHub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -775,13 +779,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = AMU5HUBAR2;
+				DEVELOPMENT_TEAM = W8JSH57J54;
 				INFOPLIST_FILE = clubHub/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sideload.clubHub;
+				PRODUCT_BUNDLE_IDENTIFIER = com.c1843.clubHub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
