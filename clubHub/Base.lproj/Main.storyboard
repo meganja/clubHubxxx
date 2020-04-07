@@ -1002,7 +1002,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E1h-Kq-htr">
                                 <rect key="frame" x="0.0" y="139" width="768" height="1211"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="czE-CW-8k2">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="czE-CW-8k2">
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="1211"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Meeting Days:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XzA-p6-aT6">
@@ -1117,15 +1117,15 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sVd-vi-a21">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sVd-vi-a21">
                                                 <rect key="frame" x="363" y="8" width="42" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BTu-Bg-dYw">
-                                                <rect key="frame" x="33" y="17" width="106" height="24"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Description:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BTu-Bg-dYw">
+                                                <rect key="frame" x="32" y="17" width="706" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1247,9 +1247,9 @@
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="sVd-vi-a21" secondAttribute="bottom" constant="1132" id="3Ah-Wa-HgK"/>
-                                            <constraint firstItem="sVd-vi-a21" firstAttribute="centerX" secondItem="czE-CW-8k2" secondAttribute="centerX" id="TMf-bt-7Lw"/>
-                                            <constraint firstItem="sVd-vi-a21" firstAttribute="top" secondItem="czE-CW-8k2" secondAttribute="top" constant="8" id="fAG-aZ-lc4"/>
+                                            <constraint firstAttribute="bottom" secondItem="BTu-Bg-dYw" secondAttribute="bottom" constant="1170" id="6LZ-eG-M3T"/>
+                                            <constraint firstItem="BTu-Bg-dYw" firstAttribute="top" secondItem="czE-CW-8k2" secondAttribute="top" constant="17" id="8fL-m5-Trh"/>
+                                            <constraint firstItem="BTu-Bg-dYw" firstAttribute="centerX" secondItem="czE-CW-8k2" secondAttribute="centerX" id="U6x-JW-DDp"/>
                                         </constraints>
                                     </view>
                                 </subviews>
