@@ -62,7 +62,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     
     var realViewer = ""
     
-    let dispCountMax = 8
+    let dispCountMax = 6
     
     var clubCategories = [String]()
     var simClubTime = ""//AM-PM
@@ -71,164 +71,167 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     var simVolunteer = ""//0 = false, 1 = true
     var narrowingClubsName = [String]()
     
-    func similarClubs(){
+    
+    
+    func narrowSimClubs(){
+        print()
+        print()
+        print("club name = \(self.ClubName)")
+        print("club's categories = \(self.clubCategories)")
+        print()
+        print()
+        print("going into you may also like function")
+        print("the club you selected's categories = \(self.clubCategories)")
+        var done = false
+        
         
         self.db.collection("clubs").getDocuments(){ (querySnapshot, err) in
-            
+            print("############################################################club categories count == 1")
             for document in querySnapshot!.documents{
                 let categories = document.data()["categories"]! as! [String]
                 let main = categories[0]
+                print("\(String(describing: document.get("name")!)) --> \(main) --> qualifies: \(String(describing: document.get("name")!) != self.ClubName && main == self.clubCategories[0])")
                 if String(describing: document.get("name")!) != self.ClubName && main == self.clubCategories[0]{
                     self.narrowingClubsName.append(String(describing: document.get("name")!))
                 }
-                
             }
-            print("sim clubs list based on main category \(self.narrowingClubsName)")
-            self.narrowSimClubs()
-        }
-        
-        
-        
-        
-    }
-    
-    func narrowSimClubs(){
-        print("first function")
-        print("sim clubs list based on main category = \(self.narrowingClubsName)")
-        var done = false
-        if (self.narrowingClubsName.count >= self.dispCountMax){
-            
-            if (self.clubCategories.count == 2){
-                print("going in first")
-                self.db.collection("clubs").whereField("categories", in: [[self.clubCategories[0]], [self.clubCategories[1]]]).getDocuments(){ (querySnapshot, err) in
-                    
-                    var clubsRemove = [String]()
-                    for document in querySnapshot!.documents{
-                        if !self.narrowingClubsName.contains(String(describing: document.get("name")!)){
-                            clubsRemove.append(String(describing: document.get("name")!))
-                        }
-                        
-                    }
-                    if (self.narrowingClubsName.count - clubsRemove.count < 3){
-                        //don't do anything
-                        print("too little 1")
-                    }else{
-                        for i in (0..<clubsRemove.count){
-                            self.narrowingClubsName.remove(at: i)
-                        }
-                        print("sim clubs list based on main category and sub category 1 = \(self.narrowingClubsName)")
-                        
-                        if self.narrowingClubsName.count < self.dispCountMax{
-                            done = true
-                        }
-                        DispatchQueue.main.async {
-                            print("Reloading 125")
-                            print("sim clubs list  = \(self.narrowingClubsName)")
-                            self.collectionAlsoLike.reloadData()
-                        }
-                    }
-                    DispatchQueue.main.async {
-                        print("Reloading 126")
-                        print("sim clubs list  = \(self.narrowingClubsName)")
-                        self.collectionAlsoLike.reloadData()
-                    }
+            print()
+            print()
+            print()
+            print()
+            print("narrowing clubs by 1 category \(self.narrowingClubsName)")
+            print()
+            print()
+            print()
+            print()
+            if (self.narrowingClubsName.count > 1){
+                if self.narrowingClubsName.count < self.dispCountMax + 1{
+                    done = true
                 }
-                
-            }
-            if (self.clubCategories.count > 2){
-                print("going in first 2")
-                self.db.collection("clubs").whereField("categories", in: [[self.clubCategories[0]], [self.clubCategories[1]], [self.clubCategories[2]]]).getDocuments(){ (querySnapshot, err) in
-                    
-                    var clubsRemove = [String]()
-                    for document in querySnapshot!.documents{
-                        if !self.narrowingClubsName.contains(String(describing: document.get("name")!)){
-                            clubsRemove.append(String(describing: document.get("name")!))
-                        }
-                        
-                    }
-                    if (self.narrowingClubsName.count - clubsRemove.count < 3){
-                        //don't do anything
-                        print("too little 1")
-                    }else{
-                        for i in (0..<clubsRemove.count){
-                            self.narrowingClubsName.remove(at: i)
-                        }
-                        print("sim clubs list based on main category and sub category 1 = \(self.narrowingClubsName)")
-                        
-                        if self.narrowingClubsName.count < self.dispCountMax{
-                            done = true
-                        }
-                        DispatchQueue.main.async {
-                            print("Reloading 157")
-                            print("sim clubs list  = \(self.narrowingClubsName)")
-                            self.collectionAlsoLike.reloadData()
-                        }
-                    }
-                    DispatchQueue.main.async {
-                        print("Reloading 158")
-                        print("sim clubs list  = \(self.narrowingClubsName)")
-                        self.collectionAlsoLike.reloadData()
-                    }
+                else{
+                    self.narrowByCategory()
                 }
-                
             }
-            
-            print("done state = \(done)")
-            self.narrowSimClubs2(done: done)
-            
+            print("???????????????????????????????????????????????????????????sim clubs list based on main category \(self.narrowingClubsName)")
         }
-        DispatchQueue.main.async {
-                           print("Reloading 199")
-                           print("sim clubs list  = \(self.narrowingClubsName)")
-                           self.collectionAlsoLike.reloadData()
-                       }
-        
-    }
-    
-    func narrowSimClubs2(done: Bool){
-        print("second function")
-        if (done == false && self.narrowingClubsName.count >= self.dispCountMax){
-            print("going in second")
-            print(self.simCommitment)
-            self.db.collection("clubs").whereField("commit", isEqualTo: self.simCommitment).getDocuments(){ (querySnapshot, err) in
-                
-                var clubsKeep = [String]()
+        print()
+        print()
+        print()
+        print()
+        if (self.clubCategories.count == 2){
+            
+            self.db.collection("clubs").whereField("categories", arrayContainsAny: [self.clubCategories[0], self.clubCategories[1]]).getDocuments(){ (querySnapshot, err) in
+                print("############################################################club categories count == 2")
+                var tempArr = [String]()
                 for document in querySnapshot!.documents{
-                    if self.narrowingClubsName.contains(String(describing: document.get("name")!)){
-                        clubsKeep.append(String(describing: document.get("name")!))
-                    }
-                    
+                let categories = document.data()["categories"]! as! [String]
+                print("\(String(describing: document.get("name")!)) --> \(categories) --> in array \(self.narrowingClubsName.contains(String(describing: document.get("name")!)))")
+                if self.narrowingClubsName.contains(String(describing: document.get("name")!)){
+                tempArr.append(String(describing: document.get("name")!))
                 }
-                
-                if clubsKeep.count < 3{
-                    print("clubs keep \(clubsKeep)")
-                    //don't do anything
-                    print("too little 2")
-                }else{
-                    self.narrowingClubsName.removeAll()
-                    self.narrowingClubsName = clubsKeep
-                    //                    done = true
-                    print("sim clubs list based on main category and sub category 1 and commitment = \(self.narrowingClubsName)")
                 }
-                DispatchQueue.main.async {
-                    print("Reloading 199")
-                    print("sim clubs list  = \(self.narrowingClubsName)")
-                    self.collectionAlsoLike.reloadData()
+                print()
+                print()
+                print()
+                print()
+                print("narrowing clubs arrray = \(self.narrowingClubsName)")
+                print("tempArr by 2 categories = \(tempArr)")
+                print()
+                print()
+                print()
+                print()
+                if (tempArr.count > 1){
+                if tempArr.count < self.dispCountMax + 1{
+                self.narrowingClubsName.removeAll()
+                self.narrowingClubsName = tempArr
+                done = true
                 }
-                
-                
-                
+                else{
+                self.narrowByCategory()
+                }
+                }
             }
         }
-        DispatchQueue.main.async {
-                           print("Reloading 199")
-                           print("sim clubs list  = \(self.narrowingClubsName)")
-                           self.collectionAlsoLike.reloadData()
-                       }
+            
+        else if (self.clubCategories.count > 2){
+            
+            self.db.collection("clubs").whereField("categories", arrayContainsAny: [self.clubCategories[0], self.clubCategories[1], self.clubCategories[2]]).getDocuments(){ (querySnapshot, err) in
+                print("############################################################club categories count == 3")
+                var tempArr = [String]()
+                for document in querySnapshot!.documents{
+                    let categories = document.data()["categories"]! as! [String]
+                    print("\(String(describing: document.get("name")!)) --> \(categories) --> in array \(self.narrowingClubsName.contains(String(describing: document.get("name")!)))")
+                    if self.narrowingClubsName.contains(String(describing: document.get("name")!)){
+                        tempArr.append(String(describing: document.get("name")!))
+                    }
+                }
+                print()
+                print()
+                print()
+                print()
+                print("narrowing clubs arrray = \(self.narrowingClubsName)")
+                print("tempArr by 2 categories = \(tempArr)")
+                print()
+                print()
+                print()
+                print()
+                if (tempArr.count > 1){
+                    if tempArr.count < self.dispCountMax + 1{
+                        self.narrowingClubsName.removeAll()
+                        self.narrowingClubsName = tempArr
+                        done = true
+                    }
+                    else{
+                        self.narrowByCategory()
+                    }
+                }
+                
+            }
+            
+        }
+        print("done state after filtering through categories = \(done)")
+        print()
         
         
+        //print("============================================================================final array = \(self.narrowingClubsName)")
         
     }
+    
+    func narrowByCategory(){
+        
+        
+        self.db.collection("clubs").whereField("commit", isEqualTo: self.simCommitment).getDocuments(){ (querySnapshot, err) in
+            print("going in to comparing commitment")
+            print("the club we selected's commitment level = \(self.simCommitment)")
+            var tempArr = [String]()
+            for document in querySnapshot!.documents{
+                let commit = (String(describing: document.get("commit")!))
+                print("\(String(describing: document.get("name")!)) --> \(commit) --> in array \(self.narrowingClubsName.contains(String(describing: document.get("name")!)))")
+                if self.narrowingClubsName.contains(String(describing: document.get("name")!)){
+                    tempArr.append(String(describing: document.get("name")!))
+                }
+            }
+            print()
+            print()
+            print()
+            print()
+            print("narrowing clubs arrray = \(self.narrowingClubsName)")
+            print("tempArr by commitment = \(tempArr)")
+            print()
+            print()
+            print()
+            print()
+            if (tempArr.count > 1){
+                if tempArr.count < self.dispCountMax + 1{
+                    self.narrowingClubsName.removeAll()
+                    self.narrowingClubsName = tempArr
+                }
+            }
+        }
+        
+    }
+    
+    
     
     func loadData(){
         print("rememberfilters \(rememberFilters)")
@@ -395,23 +398,13 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 print()
                 if self.viewer == "student"{
                     print("Finding sim clubs....")
-                    self.similarClubs()
-                    
-                    
+                    self.narrowSimClubs()
                 }
                 print()
                 print()
                 print()
-                
-                
-                
-                
             }
-            
         }
-        
-        
-        
         print()
         print()
         
