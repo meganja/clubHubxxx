@@ -107,6 +107,9 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
             if (self.narrowingClubsName.count > 1){
                 if self.narrowingClubsName.count < self.dispCountMax + 1{
                     done = true
+                    DispatchQueue.main.async {
+                        self.collectionAlsoLike.reloadData()
+                    }
                 }
                 else{
                     self.narrowByCategory()
@@ -145,6 +148,9 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 self.narrowingClubsName.removeAll()
                 self.narrowingClubsName = tempArr
                 done = true
+                    DispatchQueue.main.async {
+                        self.collectionAlsoLike.reloadData()
+                    }
                 }
                 else{
                 self.narrowByCategory()
@@ -180,6 +186,9 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                         self.narrowingClubsName.removeAll()
                         self.narrowingClubsName = tempArr
                         done = true
+                        DispatchQueue.main.async {
+                            self.collectionAlsoLike.reloadData()
+                        }
                     }
                     else{
                         self.narrowByCategory()
@@ -187,13 +196,9 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 }
                 
             }
-            
         }
-        print("done state after filtering through categories = \(done)")
-        print()
         
         
-        //print("============================================================================final array = \(self.narrowingClubsName)")
         
     }
     
@@ -225,7 +230,13 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 if tempArr.count < self.dispCountMax + 1{
                     self.narrowingClubsName.removeAll()
                     self.narrowingClubsName = tempArr
+                    DispatchQueue.main.async {
+                        self.collectionAlsoLike.reloadData()
+                    }
                 }
+            }
+            DispatchQueue.main.async {
+                self.collectionAlsoLike.reloadData()
             }
         }
         
