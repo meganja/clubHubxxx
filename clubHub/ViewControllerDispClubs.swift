@@ -17,6 +17,8 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     var searchBarBoundsY:CGFloat?
     var searchBar:UISearchBar?
     
+    @IBOutlet weak var filtersScrollView: UIScrollView!
+    
     let reuseIdentifier = "cell" // also enter this string as the cell identifier in the storyboard
     var items = [String]()
     var itemsOnload = [String]()
@@ -41,15 +43,24 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     @IBOutlet weak var volunteerSwitch: UISwitch!
     @IBOutlet weak var AMSwitch: UISwitch!
     @IBOutlet weak var PMSwitch: UISwitch!
+    @IBOutlet weak var subjectArts: UISwitch!
+    @IBOutlet weak var subjectLeadership: UISwitch!
+    @IBOutlet weak var subjectCompetitive: UISwitch!
+    @IBOutlet weak var subjectIntellectual: UISwitch!
+    @IBOutlet weak var subjectCommunity: UISwitch!
+    @IBOutlet weak var subjectSchool: UISwitch!
     
     
     var levels = [String]()
     var timeOfDay = [String]()
+    var subjectFilters = [String]()
     var viewer = ""
     
     let db = Firestore.firestore()
     
     override func viewDidLoad() {
+//        filtersScrollView.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
+//        filtersScrollView.layer.borderWidth = 1
         noResultsFound.text = ""
         super.viewDidLoad()
         print("***************************************************viewer  \(viewer)")
@@ -173,6 +184,30 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             
         }
         
+        if subjectArts.isOn{
+            subjectFilters.append("Music/Arts")
+        }
+        if subjectLeadership.isOn{
+            subjectFilters.append("Leadership")
+        }
+        if subjectCompetitive.isOn{
+            subjectFilters.append("Competitive")
+            subjectFilters.append("Performance")
+        }
+        if subjectIntellectual.isOn{
+            subjectFilters.append("Intellectual")
+            subjectFilters.append("STEM")
+            subjectFilters.append("Business")
+        }
+        if subjectCommunity.isOn{
+            subjectFilters.append("Volunteer")
+            subjectFilters.append("Cultural/Community")
+        }
+        if subjectSchool.isOn{
+            subjectFilters.append("Student Government")
+            subjectFilters.append("School Pride")
+        }
+        
         
         if volunteerSwitch.isOn{
             volunteerSwitchState = true
@@ -182,6 +217,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         }
         print(volunteerSwitchState)
         print(switches)
+        print("Subject Filters \(subjectFilters)")
         updateCollectionWithFilters()
     }
     
@@ -228,6 +264,25 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     @IBAction func checkPMSwitch(_ sender: Any) {
         checkAllSwitches()
     }
+    @IBAction func checkMusic(_ sender: Any) {
+        print("checking music")
+        checkAllSwitches()
+    }
+    @IBAction func checkLeadership(_ sender: Any) {
+        checkAllSwitches()
+    }
+    @IBAction func checkCompetitive(_ sender: Any) {
+        checkAllSwitches()
+    }
+    @IBAction func checkIntellectual(_ sender: Any) {
+        checkAllSwitches()
+    }
+    @IBAction func checkCommunity(_ sender: Any) {
+        checkAllSwitches()
+    }
+    @IBAction func checkSchool(_ sender: Any) {
+        checkAllSwitches()
+    }
     
     var filtersOnBeforeSearch = [String]()
     
@@ -272,6 +327,24 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         if PMSwitch.isOn{
             filtersOnBeforeSearch.append("PM")
         }
+        if subjectArts.isOn{
+            filtersOnBeforeSearch.append("Music/Arts")
+        }
+        if subjectLeadership.isOn{
+            filtersOnBeforeSearch.append("Leadership")
+        }
+        if subjectCompetitive.isOn{
+            filtersOnBeforeSearch.append("Competitive")
+        }
+        if subjectIntellectual.isOn{
+            filtersOnBeforeSearch.append("Intellectual")
+        }
+        if subjectCommunity.isOn{
+            filtersOnBeforeSearch.append("Cultural/Community")
+        }
+        if subjectSchool.isOn{
+            filtersOnBeforeSearch.append("School Pride")
+        }
         if volunteerSwitch.isOn{
             filtersOnBeforeSearch.append("volunteer")
         }
@@ -315,8 +388,25 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                     PMSwitch.setOn(true, animated: true)
                 }
                 if (filtersOnBeforeSearch[i] == "volunteer"){
-                    
                     volunteerSwitch.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "Music/Arts"){
+                    subjectArts.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "Leadership"){
+                    subjectLeadership.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "Competitive"){
+                    subjectCompetitive.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "Intellectual"){
+                    subjectIntellectual.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "Cultural/Community"){
+                    subjectCommunity.setOn(true, animated: true)
+                }
+                if (filtersOnBeforeSearch[i] == "School Pride"){
+                    subjectSchool.setOn(true, animated: true)
                 }
             }
         }
@@ -340,7 +430,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         print("levels")
         print(levels)
         var clubsRef = db.collection("clubs")
-        if (volunteerSwitchState == true || switches.count>0 || levels.count>0 || timeOfDay.count>0){
+        if (volunteerSwitchState == true || switches.count>0 || levels.count>0 || timeOfDay.count>0 || subjectFilters.count>0){
             if (switches.count>0){
                 for i in (0...self.switches.count-1){
                     print("days check")
@@ -465,6 +555,48 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                     }
                 }
             }
+            if (subjectFilters.count>0){
+                print("checking subject filters")
+                print("subject filters \(subjectFilters)")
+                for i in (0...self.subjectFilters.count-1){
+                    
+                    clubsRef.whereField("categories", arrayContains: subjectFilters[i]).getDocuments(){ (querySnapshot, error) in
+                        print("here in categories")
+                        for document in querySnapshot!.documents{
+                            let temp = "\(String(describing: document.get("name")!))"
+                            print(temp)
+                            if(self.searchBar!.text!.count > 0){
+                                print("by array filter and search result")
+                                print(!self.filterAndSearchResult.contains(temp))
+                                print(self.filterAndSearchResult.append(temp))
+                                if !self.filterAndSearchResult.contains(temp){
+                                    self.filterAndSearchResult.append(temp)
+                                }
+                            }
+                            else{
+                                if !self.items.contains(temp){
+                                    self.items.append(temp)
+                                }
+                            }
+                        }
+                        self.items = self.items.sorted{$0.localizedCompare($1) == .orderedAscending}
+                        print()
+                        print()
+                        print("items")
+                        print(self.items)
+                        print()
+                        print()
+                        print()
+                        DispatchQueue.main.async {
+                            if(self.searchBar!.text!.count > 0){
+                                self.applyFiltersToSearch(searchText: self.searchBar!.text!)
+                            }
+                            self.collectionViewClubs.reloadData()
+                            self.subjectFilters.removeAll()
+                        }
+                    }
+                }
+            }
             
             if (volunteerSwitchState){
                 print("in if trying to upload clubs that offer volunteer")
@@ -519,7 +651,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if self.searchBar!.text!.count > 0{
-            if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn || AMSwitch.isOn || PMSwitch.isOn){
+            if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn || AMSwitch.isOn || PMSwitch.isOn || subjectLeadership.isOn || subjectSchool.isOn || subjectIntellectual.isOn || subjectCommunity.isOn || subjectCompetitive.isOn || subjectArts.isOn){
                 self.filterAndSearchResult = self.filterAndSearchResult.sorted{$0.localizedCompare($1) == .orderedAscending}
                     noResultsFound.text = "\(filterAndSearchResult.count) clubs found"
                 
@@ -553,7 +685,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         cell.editClubBtn.addTarget(self, action: #selector(editClub(_:)), for: .touchUpInside)
         
         if (self.searchBar!.text!.count > 0) {
-            if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn || AMSwitch.isOn || PMSwitch.isOn){
+            if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn || AMSwitch.isOn || PMSwitch.isOn || subjectLeadership.isOn || subjectSchool.isOn || subjectIntellectual.isOn || subjectCommunity.isOn || subjectCompetitive.isOn || subjectArts.isOn){
                 cell.clubName.text = self.filterAndSearchResult[indexPath.row]
             }
             else{
@@ -633,7 +765,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             vc.senderPage = "browse"
             if (self.statement != "Statement #!"){
                 if(self.searchBar!.text!.count > 0){
-                    if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn  || AMSwitch.isOn || PMSwitch.isOn){
+                    if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn  || AMSwitch.isOn || PMSwitch.isOn || subjectLeadership.isOn || subjectSchool.isOn || subjectIntellectual.isOn || subjectCommunity.isOn || subjectCompetitive.isOn || subjectArts.isOn){
                         vc.ClubName = self.filterAndSearchResult[self.clickedOn]
                     }
                     else{
@@ -652,7 +784,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             print("Num #\(self.clickedOn)!")
             if (self.statement != "Statement #!"){
                 if(self.searchBar!.text!.count > 0){
-                    if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn  || AMSwitch.isOn || PMSwitch.isOn){
+                    if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn  || AMSwitch.isOn || PMSwitch.isOn || subjectLeadership.isOn || subjectSchool.isOn || subjectIntellectual.isOn || subjectCommunity.isOn || subjectCompetitive.isOn || subjectArts.isOn){
                         vc.ClubName = self.filterAndSearchResult[self.clickedOn]
                     }
                     else{
@@ -685,6 +817,12 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         volunteerSwitch.setOn(false, animated: true)
         AMSwitch.setOn(false, animated: true)
         PMSwitch.setOn(false, animated: true)
+        subjectLeadership.setOn(false, animated: true)
+        subjectSchool.setOn(false, animated: true)
+        subjectIntellectual.setOn(false, animated: true)
+        subjectCommunity.setOn(false, animated: true)
+        subjectCompetitive.setOn(false, animated: true)
+        subjectArts.setOn(false, animated: true)
         //updateCollectionWithFilters()
         print("monday switch = \(mondaySwitch.isOn)")
         print("switches = \(switches)")
@@ -693,6 +831,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         switches.removeAll()
         levels.removeAll()
         timeOfDay.removeAll()
+        subjectFilters.removeAll()
         print("switches = \(switches)")
         print("levels = \(levels)")
         print("timeOfDay = \(timeOfDay)")
