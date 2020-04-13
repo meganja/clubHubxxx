@@ -82,7 +82,6 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
         print()
         print("going into you may also like function")
         print("the club you selected's categories = \(self.clubCategories)")
-        var done = false
         
         
         self.db.collection("clubs").getDocuments(){ (querySnapshot, err) in
@@ -104,72 +103,59 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
             print()
             print()
             print()
-            if (self.narrowingClubsName.count > 1){
-                if self.narrowingClubsName.count < self.dispCountMax + 1{
-                    done = true
+            print("self.narrowingClubsName.count > 0 \(self.narrowingClubsName.count > 0)")
+            if (self.narrowingClubsName.count > 0){
+                print("self.clubCategories.count == 1 \(self.clubCategories.count == 1)")
+                print("self.narrowingClubsName.count < self.dispCountMax + 1 \(self.narrowingClubsName.count < self.dispCountMax + 1)")
+                if self.clubCategories.count > 1{
+                    self.narrowByMultCategories()
+                }
+                else if self.clubCategories.count == 1{
+                    self.narrowByCategory()
+                }
+                else if self.narrowingClubsName.count < self.dispCountMax + 1{
                     DispatchQueue.main.async {
                         self.collectionAlsoLike.reloadData()
                     }
                 }
-                else{
-                    self.narrowByCategory()
-                }
+                
             }
             print("???????????????????????????????????????????????????????????sim clubs list based on main category \(self.narrowingClubsName)")
         }
+        
+        
+            
+
+        
+        
+        
+    }
+    
+    func narrowByMultCategories(){
         print()
         print()
         print()
-        print()
-        if (self.clubCategories.count == 2){
+        print("clubcategories count \(self.clubCategories.count)")
+        if (self.clubCategories.count > 1){
             
             self.db.collection("clubs").whereField("categories", arrayContainsAny: [self.clubCategories[0], self.clubCategories[1]]).getDocuments(){ (querySnapshot, err) in
                 print("############################################################club categories count == 2")
                 var tempArr = [String]()
                 for document in querySnapshot!.documents{
-                let categories = document.data()["categories"]! as! [String]
-                print("\(String(describing: document.get("name")!)) --> \(categories) --> in array \(self.narrowingClubsName.contains(String(describing: document.get("name")!)))")
-                if self.narrowingClubsName.contains(String(describing: document.get("name")!)){
-                tempArr.append(String(describing: document.get("name")!))
-                }
-                }
-                print()
-                print()
-                print()
-                print()
-                print("narrowing clubs arrray = \(self.narrowingClubsName)")
-                print("tempArr by 2 categories = \(tempArr)")
-                print()
-                print()
-                print()
-                print()
-                if (tempArr.count > 1){
-                if tempArr.count < self.dispCountMax + 1{
-                self.narrowingClubsName.removeAll()
-                self.narrowingClubsName = tempArr
-                done = true
-                    DispatchQueue.main.async {
-                        self.collectionAlsoLike.reloadData()
-                    }
-                }
-                else{
-                self.narrowByCategory()
-                }
-                }
-            }
-        }
-            
-        else if (self.clubCategories.count > 2){
-            
-            self.db.collection("clubs").whereField("categories", arrayContainsAny: [self.clubCategories[0], self.clubCategories[1], self.clubCategories[2]]).getDocuments(){ (querySnapshot, err) in
-                print("############################################################club categories count == 3")
-                var tempArr = [String]()
-                for document in querySnapshot!.documents{
                     let categories = document.data()["categories"]! as! [String]
-                    print("\(String(describing: document.get("name")!)) --> \(categories) --> in array \(self.narrowingClubsName.contains(String(describing: document.get("name")!)))")
-                    if self.narrowingClubsName.contains(String(describing: document.get("name")!)){
-                        tempArr.append(String(describing: document.get("name")!))
-                    }
+                    print("name: \(String(describing: document.get("name")!)) --> categories: \(categories)")
+                    
+                    
+                        if categories.contains(self.clubCategories[0]) && categories.contains(self.clubCategories[1]) {
+                            print("name: \(String(describing: document.get("name")!)) --> categories: \(categories) --> containsBoth: true")
+                            
+                                print("\(String(describing: document.get("name")!)) --> \(categories) --> in array \(self.narrowingClubsName.contains(String(describing: document.get("name")!)))")
+                                if self.narrowingClubsName.contains(String(describing: document.get("name")!)){
+                                    tempArr.append(String(describing: document.get("name")!))
+                                }
+                        }
+                    
+                    
                 }
                 print()
                 print()
@@ -181,11 +167,10 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 print()
                 print()
                 print()
-                if (tempArr.count > 1){
+                if (tempArr.count > 0){
                     if tempArr.count < self.dispCountMax + 1{
                         self.narrowingClubsName.removeAll()
                         self.narrowingClubsName = tempArr
-                        done = true
                         DispatchQueue.main.async {
                             self.collectionAlsoLike.reloadData()
                         }
@@ -194,12 +179,8 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                         self.narrowByCategory()
                     }
                 }
-                
             }
         }
-        
-        
-        
     }
     
     func narrowByCategory(){
@@ -226,7 +207,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
             print()
             print()
             print()
-            if (tempArr.count > 1){
+            if (tempArr.count > 0){
                 if tempArr.count < self.dispCountMax + 1{
                     self.narrowingClubsName.removeAll()
                     self.narrowingClubsName = tempArr
@@ -328,11 +309,18 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 
                 self.clubDescription.text = String(describing: document.get("description")!)
                 self.clubDescription.numberOfLines = 0
+                self.clubDescription.frame = CGRect(x: 32, y: 45, width: 519,height: 326)
+                self.clubDescription.adjustsFontSizeToFitWidth = true
+                self.clubDescription.adjustsFontForContentSizeCategory = true
+                self.clubDescription.minimumScaleFactor = 0.5
                 self.clubDescription.sizeToFit()
                 self.commitmentLevel.text = String(describing: document.get("commit")!)
+                
                 self.meetingTime.text = String(describing: document.get("time")!)
                 self.meetingTime.numberOfLines = 0
+                self.meetingTime.frame = CGRect(x: 181, y: 559, width: 543,height: 75)
                 self.meetingTime.sizeToFit()
+                
                 self.schoologyCode.text = String(describing: document.get("schoology")!)
                 self.moreInfo.setTitle(String(describing: document.get("link")!), for: .normal)
                 self.conantLink = String(describing: document.get("link")!)
