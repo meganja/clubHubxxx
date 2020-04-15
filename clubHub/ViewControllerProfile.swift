@@ -17,8 +17,9 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
     @IBOutlet weak var collectionWishlist: UICollectionView!
     @IBOutlet weak var collectionSavedMatches: UICollectionView!
     @IBOutlet weak var matchesLabel: UILabel!
+    @IBOutlet weak var clubsWishlistLabel: UILabel!
     
-    var viewer = ""
+    var viewer = "student"
     
     let reuseIdentifier = "cell"
     let reuseIdentifier2 = "cellWish"
@@ -39,39 +40,51 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
         print(fullName)
         name.text = fullName ?? ""
         
-        let userRef = db.collection("users").document(uid)
-        userRef.getDocument { (document, error) in
-            let tempWish = document?.data()!["wishlist"]! as![Any]
-            print(tempWish)
-            for i in 0..<tempWish.count{
-                self.wishItems.append(tempWish[i] as! String)
-            }
-            
-            let tempEnrolled = document?.data()!["myClubs"]! as![Any]
-            print(tempEnrolled)
-            for i in 0..<tempEnrolled.count{
-                self.enrolledItems.append(tempEnrolled[i] as! String)
-            }
-            
-            let tempMatches = document?.data()!["savedMatches"]! as![Any]
-            let tempPriorities = document?.data()!["savedPriorities"]! as![Any]
-            print(tempMatches)
-            for i in 0..<tempMatches.count{
-                self.savedMatches.append(tempMatches[i] as! String)
-                self.savedPriorities.append(tempPriorities[i] as! Int)
-            }
-            
-            self.surveyTaken = document?.data()!["surveyTaken"]! as! String
-            if(self.surveyTaken != ""){
-                self.matchesLabel.text = "Your Matches: (Survey last taken on \(self.surveyTaken))"
-            }
-            
-            DispatchQueue.main.async {
-                self.collectionWishlist.reloadData()
-                self.collectionClubsIn.reloadData()
-                self.collectionSavedMatches.reloadData()
-            }
+        if viewer == "sponsor"{
+            self.collectionWishlist.isHidden = true
+            self.collectionSavedMatches.isHidden = true
+            matchesLabel.isHidden = true
+            clubsWishlistLabel.isHidden = true
         }
+        
+            let userRef = db.collection("users").document(uid)
+            userRef.getDocument { (document, error) in
+                
+                
+                let tempEnrolled = document?.data()!["myClubs"]! as![Any]
+                print(tempEnrolled)
+                for i in 0..<tempEnrolled.count{
+                    self.enrolledItems.append(tempEnrolled[i] as! String)
+                }
+                print("viewer \(self.viewer)")
+                if self.viewer == "student"{
+                    let tempWish = document?.data()!["wishlist"]! as![Any]
+                    print(tempWish)
+                    for i in 0..<tempWish.count{
+                        self.wishItems.append(tempWish[i] as! String)
+                    }
+                    
+                    let tempMatches = document?.data()!["savedMatches"]! as![Any]
+                    let tempPriorities = document?.data()!["savedPriorities"]! as![Any]
+                    print(tempMatches)
+                    for i in 0..<tempMatches.count{
+                        self.savedMatches.append(tempMatches[i] as! String)
+                        self.savedPriorities.append(tempPriorities[i] as! Int)
+                    }
+                    
+                    self.surveyTaken = document?.data()!["surveyTaken"]! as! String
+                    if(self.surveyTaken != ""){
+                        self.matchesLabel.text = "Your Matches: (Survey last taken on \(self.surveyTaken))"
+                    }
+                }
+                
+                DispatchQueue.main.async {
+                    self.collectionWishlist.reloadData()
+                    self.collectionClubsIn.reloadData()
+                    self.collectionSavedMatches.reloadData()
+                }
+            }
+        
         
         
     }
@@ -80,14 +93,18 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.collectionClubsIn{
-            return self.enrolledItems.count + 1
+            if viewer == "student"{
+                return self.enrolledItems.count + 1
+            }else{
+                return self.enrolledItems.count
+            }
         }
         else if collectionView == self.collectionWishlist{
             print("wish items count = \(wishItems.count)")
             if self.wishItems.count == 0{
-                 return self.wishItems.count
+                return self.wishItems.count
             }else{
-                 return self.wishItems.count + 1
+                return self.wishItems.count + 1
             }
         }
         else{
@@ -102,18 +119,26 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! CollectionViewCellClubsIn
             
             // Use the outlet in our custom class to get a reference to the UILabel in the cell
-            if(indexPath.item == 0){
+            if(indexPath.item == 0 && viewer == "student"){
                 cell.clubName.text = "Add a Club"
             }
-            else{
+            else if viewer == "student"{
                 print(indexPath.item)
                 cell.clubName.text = self.enrolledItems[indexPath.item - 1]
+            }
+            else if viewer == "sponsor"{
+                print(indexPath.item)
+                cell.clubName.text = self.enrolledItems[indexPath.item]
+            }
+            
+            if (viewer != "sponsor"){
+                cell.editClubBtn.isHidden = true
             }
             cell.backgroundColor = UIColor.white // make cell more visible in our example project
             cell.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
             cell.layer.borderWidth = 1
             
-            if(indexPath.item == 0){
+            if(indexPath.item == 0 && viewer == "student"){
                 cell.clubLogo.image = UIImage(named: "plus")
             }
             else{
@@ -237,6 +262,16 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
         
     }
     
+    //MARK: -Edit
+    @objc func editClub(_ sender: UIButton) {
+        print("EDIT CLUB HAS BEEN CALLED, ONTO SEGUE")
+        self.clickedOn = sender.tag
+        print("You selected cell #\(sender.tag)!")
+        statement = "You selected cell #\(sender.tag)!"
+        performSegue(withIdentifier: "sponsorProfileToEdit", sender: self)
+    }
+
+    
     // MARK: - UICollectionViewDelegate protocol
     var clickedOn = 0
     var statement = ""
@@ -244,13 +279,19 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // handle tap events
         if collectionView == self.collectionClubsIn{
-            if(indexPath.item == 0){
+            if(indexPath.item == 0 && viewer == "student"){
                 performSegue(withIdentifier: "addToJoinedClubs", sender: self)
             }
-            else{
+            else if viewer == "student"{
                 print("You selected cell #\(indexPath.item - 1)! in clubs in")
                 self.clickedOn = indexPath.item - 1
                 statement = "You selected cell #\(indexPath.item - 1)!"
+                clubNameTemp = self.enrolledItems[self.clickedOn]
+                performSegue(withIdentifier: "goToDescription2", sender: self)
+            }else if viewer == "sponsor"{
+                print("You selected cell #\(indexPath.item)! in clubs in")
+                self.clickedOn = indexPath.item
+                statement = "You selected cell #\(indexPath.item)!"
                 clubNameTemp = self.enrolledItems[self.clickedOn]
                 performSegue(withIdentifier: "goToDescription2", sender: self)
             }
@@ -318,14 +359,25 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             vc.statement = self.statement
             print("Num #\(self.clickedOn)!")
             vc.num = self.clickedOn
-            vc.viewer = "student"
+            vc.viewer = viewer
             vc.senderPage = "profile"
             if (self.statement != "Statement #!"){
                 vc.ClubName = self.clubNameTemp
             }
         }
+        else if(segue.identifier == "sponsorProfileToEdit"){
+            print("IN EDIT PREPARE")
+            var vc = segue.destination as! ViewControllerAdminEdit
+            vc.viewer = self.viewer
+            vc.cameFrom = "profile"
+            print("Statement #\(self.statement)!")
+            print("Num #\(self.clickedOn)!")
+            if (self.statement != "Statement #!"){
+                vc.ClubName = self.enrolledItems[self.clickedOn]
+            }
+        }
     }
-
+    
     
     //MARK: -sign out
     var wantSignOut = false

@@ -17,6 +17,7 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
     var commit = ""
     var viewer = ""
     var docID = ""
+    var cameFrom = ""
     
     @IBOutlet weak var categoriesCollectionView: UICollectionView!
     @IBOutlet weak var editClubImgVw: UIImageView!
@@ -260,10 +261,13 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //         Get the new view controller using segue.destination.
-        //         Pass the selected object to the new view controller.
-        var vc = segue.destination as! ViewControllerDispClubs
-        vc.viewer = "admin" 
+        if cameFrom == "profile"{
+            var vc = segue.destination as! ViewControllerProfile
+            vc.viewer = self.viewer
+        }else{
+            var vc = segue.destination as! ViewControllerDispClubs
+            vc.viewer = self.viewer
+        }
         
     }
     
@@ -306,8 +310,12 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
             }
         }
         
-        
-        performSegue(withIdentifier: "backToBrowsing", sender: "done")
+        if cameFrom == "profile"{
+            performSegue(withIdentifier: "editToSponsorProfile", sender: "done")
+            
+        }else{
+            performSegue(withIdentifier: "backToBrowsing", sender: "done")
+        }
     }
     
     //MARK: -Collection View
@@ -546,8 +554,13 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
                             if error != nil{
                                 print(error)
                             }
-                            
-                            self.performSegue(withIdentifier: "backToBrowsing", sender: "done")
+                            if self.cameFrom == "profile"{
+                                 self.performSegue(withIdentifier: "editToSponsorProfile", sender: "done")
+                                
+                            }else{
+                                self.performSegue(withIdentifier: "backToBrowsing", sender: "done")
+                                
+                            }
                         }
                     }
                     

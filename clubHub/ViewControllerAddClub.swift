@@ -106,15 +106,15 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
             
             if ((!name1.text!.isEmpty && !email1.text!.isEmpty)){
                 sponsorsName.append("\(name1.text!)")
-                sponsorsEmail.append("\(email1.text!)")
+                sponsorsEmail.append("\(email1.text!.lowercased())")
             }
             if ((!name2.text!.isEmpty && !email2.text!.isEmpty)){
                 sponsorsName.append("\(name2.text!)")
-                sponsorsEmail.append("\(email2.text!)")
+                sponsorsEmail.append("\(email2.text!.lowercased())")
             }
             if ((!name3.text!.isEmpty && !email3.text!.isEmpty)){
                 sponsorsName.append("\(name3.text!)")
-                sponsorsEmail.append("\(email3.text!)")
+                sponsorsEmail.append("\(email3.text!.lowercased())")
             }
             print("vaalid sponsor")
             return true
