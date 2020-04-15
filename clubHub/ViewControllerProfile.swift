@@ -118,6 +118,9 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             // get a reference to our storyboard cell
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! CollectionViewCellClubsIn
             
+            cell.editClubBtn.tag = indexPath.item
+            cell.editClubBtn.addTarget(self, action: #selector(editClub(_:)), for: .touchUpInside)
+            
             // Use the outlet in our custom class to get a reference to the UILabel in the cell
             if(indexPath.item == 0 && viewer == "student"){
                 cell.clubName.text = "Add a Club"

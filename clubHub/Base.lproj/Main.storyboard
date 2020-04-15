@@ -1918,7 +1918,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="155-1554499_kudos-back-white-icon-png"/>
                                 <connections>
-                                    <segue destination="SSq-PF-znA" kind="presentation" modalPresentationStyle="fullScreen" id="gJ8-zr-gjY"/>
+                                    <action selector="backBtn:" destination="pUj-lt-Noy" eventType="touchUpInside" id="hOg-Ri-1PV"/>
                                 </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SzB-HI-dhY">
@@ -3786,9 +3786,9 @@
     <inferredMetricsTieBreakers>
         <segue reference="v2y-g0-gcc"/>
         <segue reference="Laq-H6-Ecp"/>
-        <segue reference="08j-Dy-qEo"/>
+        <segue reference="gTa-Gl-rZM"/>
         <segue reference="KuB-2b-Pgb"/>
-        <segue reference="dSB-4A-GFN"/>
+        <segue reference="ggq-gQ-nsC"/>
         <segue reference="GGO-DH-1TB"/>
         <segue reference="voT-Mt-29V"/>
     </inferredMetricsTieBreakers>

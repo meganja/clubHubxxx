@@ -535,6 +535,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     
     @IBAction func backButtonClicked(_ sender: Any) {
         print("BACK CLICKED THIS IS THE SENDER: (SHOULD BE PROFILE OR BROWSE)-- \(senderPage)")
+        
         if clubsViewed.count > 1{
             clubsViewed.remove(at: clubsViewed.count - 1)
             ClubName = clubsViewed[clubsViewed.count - 1]

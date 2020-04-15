@@ -262,7 +262,7 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if cameFrom == "profile"{
-            var vc = segue.destination as! ViewControllerProfile
+            let vc = segue.destination as! ViewControllerProfile
             vc.viewer = self.viewer
         }else{
             var vc = segue.destination as! ViewControllerDispClubs
@@ -558,6 +558,7 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
                                  self.performSegue(withIdentifier: "editToSponsorProfile", sender: "done")
                                 
                             }else{
+                                
                                 self.performSegue(withIdentifier: "backToBrowsing", sender: "done")
                                 
                             }
@@ -694,4 +695,16 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
         print("picker cancelled!")
         dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func backBtn(_ sender: Any) {
+        if self.cameFrom == "profile"{
+             self.performSegue(withIdentifier: "editToSponsorProfile", sender: "done")
+            
+        }else{
+            
+            self.performSegue(withIdentifier: "backToBrowsing", sender: "done")
+            
+        }
+    }
+    
 }
