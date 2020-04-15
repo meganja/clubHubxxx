@@ -1867,11 +1867,19 @@
                                     <outlet property="delegate" destination="psG-IV-fUG" id="M9O-n8-i8H"/>
                                 </connections>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You have nothing on your wish list yet.  Start wishlisting some clubs!!!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdJ-h8-F5U">
+                                <rect key="frame" x="20" y="507" width="255" height="160"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Pwp-f6-0X0"/>
                     </view>
                     <connections>
+                        <outlet property="addWishlistClubsLbl" destination="fdJ-h8-F5U" id="FsE-XL-tLq"/>
                         <outlet property="clubsWishlistLabel" destination="gb0-XY-YqF" id="nB7-29-DOk"/>
                         <outlet property="collectionClubsIn" destination="ZNc-8k-vXW" id="X3t-d0-D2A"/>
                         <outlet property="collectionSavedMatches" destination="CTa-fH-8gq" id="7FZ-Oc-ZR6"/>
@@ -3788,7 +3796,7 @@
         <segue reference="Laq-H6-Ecp"/>
         <segue reference="gTa-Gl-rZM"/>
         <segue reference="KuB-2b-Pgb"/>
-        <segue reference="ggq-gQ-nsC"/>
+        <segue reference="13Z-ma-H7i"/>
         <segue reference="GGO-DH-1TB"/>
         <segue reference="voT-Mt-29V"/>
     </inferredMetricsTieBreakers>

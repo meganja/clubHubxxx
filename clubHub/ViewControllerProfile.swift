@@ -91,6 +91,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
     
     // MARK: - UICollectionViewDataSource protocol
     
+    @IBOutlet weak var addWishlistClubsLbl: UILabel!
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.collectionClubsIn{
             if viewer == "student"{
@@ -102,12 +103,17 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
         else if collectionView == self.collectionWishlist{
             print("wish items count = \(wishItems.count)")
             if self.wishItems.count == 0{
+                addWishlistClubsLbl.isHidden = false
+                addWishlistClubsLbl.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
+                addWishlistClubsLbl.layer.borderWidth = 1
                 return self.wishItems.count
             }else{
+                addWishlistClubsLbl.isHidden = true
                 return self.wishItems.count + 1
             }
         }
         else{
+            
             return self.savedMatches.count + 1
         }
     }
