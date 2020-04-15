@@ -64,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         
         // ...
         if let error = error {
-            // ...
+            print("got error here")
             return
         }
         
@@ -91,9 +91,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 let name = user.displayName
                 var firstLogin = true
                 print(uid)
-                print(email)
+                print("email \(email)")
                 let tempEmail = "\(email)"
-                print(tempEmail)
+                print("logging in\(tempEmail)")
+                print("is it normal gmail? \(tempEmail.contains("gmail.com"))")
                 
                 if tempEmail.contains("students.d211.org"){
                     //checks if user has already logged in or if this is the first time
@@ -106,8 +107,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                                     firstLogin = false
                                 }
                             }
-                            
-                            
                             // creates user doc in "users" collection if there is not already one created
                             if(firstLogin){ self.db?.collection("users").document(uid).setData([
                                 "name": name,
@@ -118,6 +117,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                                 "savedMatches": [],
                                 "savedPriorities": [],
                                 "surveyTaken": ""
+                            ]) { err in
+                                if let err = err {
+                                    print("Error writing document: \(err)")
+                                } else {
+                                    print(uid)
+                                    print("Document successfully written!")
+                                }
+                                }
+                            }
+                        }
+                    }
+                }
+                else if tempEmail.contains("gmail.com"){
+                    //                else if tempEmail.contains("d211.org"){
+                    print("sponsor going in")
+                    print("uid \(uid)")
+                    self.db?.collection("users").getDocuments() { (querySnapshot, err) in
+                        if let err = err {
+                            print("Error getting documents: \(err)")
+                        } else {
+                            for document in querySnapshot!.documents {
+                                if(document.documentID == uid){
+                                    firstLogin = false
+                                }
+                            }
+
+                            print(firstLogin)
+                            // creates user doc in "users" collection if there is not already one created
+                            if(firstLogin){
+                                self.db?.collection("users").document(uid).setData([
+                                "name": name,
+                                "email": email,
+                                "accountType": "sponsor",
+                                "myClubs": [],
                             ]) { err in
                                 if let err = err {
                                     print("Error writing document: \(err)")

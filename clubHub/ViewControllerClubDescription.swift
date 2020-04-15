@@ -39,6 +39,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     @IBOutlet weak var name3: UILabel!
     @IBOutlet weak var email3: UIButton!
     
+    @IBOutlet weak var youMayAlsoLikeLabel: UILabel!
     var ClubName = ""
     var meetings = ""
     var volunteerOp = ""
@@ -237,7 +238,14 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
             realViewer = "admin"
             wishlistState.isHidden = true
             collectionAlsoLike.isHidden = true
+            youMayAlsoLikeLabel.isHidden = true
         }
+            else if viewer == "sponsor"{
+                realViewer = "sponsor"
+                wishlistState.isHidden = true
+                collectionAlsoLike.isHidden = true
+            youMayAlsoLikeLabel.isHidden = true
+            }
         else if viewer == "student"{
             realViewer = "student"
             let userRef = db.collection("users").document(uid)
@@ -465,7 +473,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if profileClicked{
             var vc = segue.destination as! ViewControllerProfile
-            vc.viewer = "student"
+            vc.viewer = self.viewer
             
         }else if browseClicked{
             print("going back")
@@ -527,6 +535,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     
     @IBAction func backButtonClicked(_ sender: Any) {
         print("BACK CLICKED THIS IS THE SENDER: (SHOULD BE PROFILE OR BROWSE)-- \(senderPage)")
+        
         if clubsViewed.count > 1{
             clubsViewed.remove(at: clubsViewed.count - 1)
             ClubName = clubsViewed[clubsViewed.count - 1]

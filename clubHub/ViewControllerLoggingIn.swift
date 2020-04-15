@@ -24,18 +24,23 @@ class ViewControllerLoggingIn: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         
         GIDSignIn.sharedInstance()?.presentingViewController = self
         alertLabel.text = ""
         if (decision == "admin"){
             googleLogin.isHidden = true
         }
-        if (decision == "student"){
+        else if (decision == "student"){
             username.isHidden = true
             password.isHidden = true
             startBrowsingBtn.isEnabled = false
             alertLabel.text = "Remember to use your school email!"
+        }else if (decision == "sponsor"){
+            username.isHidden = true
+            password.isHidden = true
+            startBrowsingBtn.isEnabled = false
+            alertLabel.text = "Please use D211 email!"
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(reactToNotification(_:)), name: sNotification, object: nil)
@@ -51,39 +56,44 @@ class ViewControllerLoggingIn: UIViewController {
     @IBAction func startBrowsing(_ sender: Any) {
         print("clicked meeeee")
         print(decision)
-                if (decision == "admin"){
-                    print("in admin")
-        
-                    let docRef = db.collection("users").document("admin")
-                    docRef.getDocument { (document, error) in
-                        if let document = document, document.exists {
-                            print("checking")
-                            print("\(String(describing: document.get("username")!))")
-                            print("\(self.username.text!)")
-                            print("\(String(describing: document.get("password")!))")
-                            print("\(self.password.text!)")
-                            print("\(String(describing: document.get("username")!))" == "\(self.username.text!)")
-                            print("\(String(describing: document.get("password")!))" == "\(self.password.text!)")
-                            if ("\(String(describing: document.get("username")!))" == "\(self.username.text!)" && "\(String(describing: document.get("password")!))" == "\(self.password.text!)"){
-                                print("got it right")
-                                self.performSegue(withIdentifier: "startBrowsing", sender: self)
-                                self.alertLabel.text = "Start Browsing"
-                            }
-                            
-                            else{
-                                self.alertLabel.text = "Wrong Username or Password"
-                            }
-                        } else {
-                            print("Document does not exist")
-                        }
+        if (decision == "admin"){
+            print("in admin")
+            
+            let docRef = db.collection("users").document("admin")
+            docRef.getDocument { (document, error) in
+                if let document = document, document.exists {
+                    print("checking")
+                    print("\(String(describing: document.get("username")!))")
+                    print("\(self.username.text!)")
+                    print("\(String(describing: document.get("password")!))")
+                    print("\(self.password.text!)")
+                    print("\(String(describing: document.get("username")!))" == "\(self.username.text!)")
+                    print("\(String(describing: document.get("password")!))" == "\(self.password.text!)")
+                    if ("\(String(describing: document.get("username")!))" == "\(self.username.text!)" && "\(String(describing: document.get("password")!))" == "\(self.password.text!)"){
+                        print("got it right")
+                        self.performSegue(withIdentifier: "startBrowsing", sender: self)
+                        self.alertLabel.text = "Start Browsing"
                     }
-
+                        
+                    else{
+                        self.alertLabel.text = "Wrong Username or Password"
+                    }
+                } else {
+                    print("Document does not exist")
                 }
-                else if (decision == "student"){
-                    print("STUDENT++++++++++++++++")
-                    performSegue(withIdentifier: "startBrowsing", sender: self)
-
-                }
+            }
+            
+        }
+        else if (decision == "student"){
+            print("STUDENT++++++++++++++++")
+            performSegue(withIdentifier: "startBrowsing", sender: self)
+            
+        }
+        else if (decision == "sponsor"){
+            print("STUDENT++++++++++++++++")
+            performSegue(withIdentifier: "startBrowsing", sender: self)
+            
+        }
     }
     
     
@@ -106,48 +116,68 @@ class ViewControllerLoggingIn: UIViewController {
     @objc func reactToNotification(_ sender: Notification){
         let user: GIDGoogleUser = GIDSignIn.sharedInstance()!.currentUser
         let fullName = user.profile.name!
-        if ("\(user.profile.email)").contains("students.d211.org"){
-            startBrowsingBtn.isEnabled = true
+        let fullEmail = user.profile.email!
+        if decision == "student"{
+            if ("\(fullEmail)").contains("students.d211.org"){
+                startBrowsingBtn.isEnabled = true
+                alertLabel.text = "\(fullName), you are ready to start browsing!"
+            }else{
+                alertLabel.text = "Please sign in using school email (@students.d211.org)!"
+            }
+        }
+        else if (decision == "sponsor"){
+            print("view controller sponsor loggin in")
+            print(fullEmail)
             
-            alertLabel.text = "\(fullName), you are ready to start browsing!"
-        }else{
-            alertLabel.text = "Please sign in using school email (@students.d211.org)!"
+            //            if ("\(fullEmail)").contains("d211.org"){
+            if ("\(fullEmail)").contains("gmail.com"){
+                print("inside if statement, contains gmail.com")
+                var clubsRef = db.collection("clubs")
+                var sponsorsRef = db.collection("users")
+                var sponsorsClubsFromUser = [String]()
+                var sponsorsClubsFromClubs = [String]()
+                print("close to first queuery")
+                print("full email \(fullEmail)")
+                sponsorsRef.whereField("email", isEqualTo: fullEmail).getDocuments(){ (querySnapshot, error) in
+                    print("got into first queury")
+                    for document in querySnapshot!.documents{
+                        sponsorsClubsFromUser = document.data()["myClubs"]! as! [String]
+                    }
+                }
+
+                print("sponsorsClubsFromUser\(sponsorsClubsFromUser)")
+                clubsRef.whereField("sponsorsEmail", arrayContains: fullEmail).getDocuments(){ (querySnapshot, error) in
+                    print("going in")
+                    for document in querySnapshot!.documents{
+                        let temp = "\(String(describing: document.get("name")!))"
+                        sponsorsClubsFromClubs.append(temp)
+                        
+                        print("sponsorsClubsFromClubs\(sponsorsClubsFromClubs)")
+
+                    }
+                    
+                    
+                    
+                    print(uid)
+                    
+                    sponsorsRef.document(uid).setData(["myClubs": sponsorsClubsFromClubs], merge: true)
+
+                }
+                print("uid2 \(uid)")
+                
+                
+                
+                
+                startBrowsingBtn.isEnabled = true
+                alertLabel.text = "\(fullName), you are ready to start browsing!"
+            }else{
+                alertLabel.text = "Please sign in using school email (@d211.org)!"
+            }
         }
     }
     
 }
 
-
-
-
-//here's the code for logging out in case needed in future
-//     let firebaseAuth = Auth.auth()
-//    do {
-//      try firebaseAuth.signOut()
-//    } catch let signOutError as NSError {
-//      print ("Error signing out: %@", signOutError)
-//    }
-
-
-//for profile:
-
-//to check user is signed in and get uid, which will be the doc name
-//    if Auth.auth().currentUser != nil {
-//      // User is signed in.
-//      let user = Auth.auth().currentUser
-//      if let user = user {
-//        // The user's ID, unique to the Firebase project.
-//        // Do NOT use this value to authenticate with your backend server,
-//        // if you have one. Use getTokenWithCompletion:completion: instead.
-//        let uid = user.uid
-//        let email = user.email
-//        let photoURL = user.photoURL
-//        // ...
-//      }
-//    } else {
-//      // No user is signed in.
-//      // ...
-//    }
 
 
 

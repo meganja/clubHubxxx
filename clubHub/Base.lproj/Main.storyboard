@@ -63,7 +63,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J54-kM-iEI">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J54-kM-iEI">
                                 <rect key="frame" x="209" y="470" width="350" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.83137254900000002" green="0.1215686275" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1508,6 +1508,7 @@
                         <outlet property="schoologyCode" destination="Awl-DC-lVN" id="hUb-VH-lYh"/>
                         <outlet property="volunteer" destination="FKb-yk-X42" id="erl-iX-2Ha"/>
                         <outlet property="wishlistState" destination="rKz-Sa-kNQ" id="w7k-N7-aSv"/>
+                        <outlet property="youMayAlsoLikeLabel" destination="pgE-Lv-yxT" id="3wz-VY-O22"/>
                         <segue destination="SSq-PF-znA" kind="presentation" identifier="descriptToBrowse" modalPresentationStyle="fullScreen" id="dSB-4A-GFN"/>
                         <segue destination="psG-IV-fUG" kind="presentation" identifier="descriptToProfile" modalPresentationStyle="fullScreen" id="jyz-EB-t97"/>
                         <segue destination="7wT-w9-5YU" kind="presentation" identifier="descriptToMatches" modalPresentationStyle="fullScreen" id="v2y-g0-gcc"/>
@@ -1708,12 +1709,18 @@
                                                     <rect key="frame" x="5" y="0.0" width="237" height="99"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vrS-Xy-5O6">
+                                                    <rect key="frame" x="205" y="1" width="37" height="25"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" backgroundImage="ellipsis.circle" catalog="system"/>
+                                                </button>
                                             </subviews>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="250" height="150"/>
                                         <connections>
                                             <outlet property="clubLogo" destination="B1d-ke-Ube" id="yFu-qj-obs"/>
                                             <outlet property="clubName" destination="UkG-8I-dI2" id="Rek-f0-JNN"/>
+                                            <outlet property="editClubBtn" destination="vrS-Xy-5O6" id="elm-hZ-Bub"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -1865,6 +1872,7 @@
                         <viewLayoutGuide key="safeArea" id="Pwp-f6-0X0"/>
                     </view>
                     <connections>
+                        <outlet property="clubsWishlistLabel" destination="gb0-XY-YqF" id="nB7-29-DOk"/>
                         <outlet property="collectionClubsIn" destination="ZNc-8k-vXW" id="X3t-d0-D2A"/>
                         <outlet property="collectionSavedMatches" destination="CTa-fH-8gq" id="7FZ-Oc-ZR6"/>
                         <outlet property="collectionWishlist" destination="4Re-qp-VYW" id="1as-Ys-6Wf"/>
@@ -1875,6 +1883,7 @@
                         <segue destination="Ntu-Pz-j5H" kind="presentation" identifier="addToJoinedClubs" modalPresentationStyle="fullScreen" id="lpZ-Tm-SrN"/>
                         <segue destination="EPI-wB-tsh" kind="presentation" identifier="requestToJoin" modalPresentationStyle="fullScreen" id="hbc-AX-Age"/>
                         <segue destination="tQ8-IW-0un" kind="presentation" identifier="takeSurvey" modalPresentationStyle="fullScreen" id="37N-3e-iKA"/>
+                        <segue destination="pUj-lt-Noy" kind="presentation" identifier="sponsorProfileToEdit" modalPresentationStyle="fullScreen" id="Laq-H6-Ecp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3E8-Va-tlM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1909,7 +1918,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="155-1554499_kudos-back-white-icon-png"/>
                                 <connections>
-                                    <segue destination="SSq-PF-znA" kind="presentation" modalPresentationStyle="fullScreen" id="gJ8-zr-gjY"/>
+                                    <action selector="backBtn:" destination="pUj-lt-Noy" eventType="touchUpInside" id="hOg-Ri-1PV"/>
                                 </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SzB-HI-dhY">
@@ -2305,6 +2314,7 @@
                         <outlet property="volunteerOppSwitch" destination="viz-wq-1Eo" id="GnW-fk-Yy5"/>
                         <outlet property="wednesdaySwitch" destination="7NB-zn-Lu0" id="2QD-1e-w5x"/>
                         <segue destination="SSq-PF-znA" kind="presentation" identifier="backToBrowsing" modalPresentationStyle="fullScreen" id="ggq-gQ-nsC"/>
+                        <segue destination="psG-IV-fUG" kind="presentation" identifier="editToSponsorProfile" modalPresentationStyle="fullScreen" id="gTa-Gl-rZM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GY3-V2-fpf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -3775,11 +3785,12 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="v2y-g0-gcc"/>
-        <segue reference="Yco-nf-Dsp"/>
-        <segue reference="HBN-lN-BdC"/>
-        <segue reference="dSB-4A-GFN"/>
+        <segue reference="Laq-H6-Ecp"/>
+        <segue reference="gTa-Gl-rZM"/>
+        <segue reference="KuB-2b-Pgb"/>
+        <segue reference="ggq-gQ-nsC"/>
         <segue reference="GGO-DH-1TB"/>
-        <segue reference="sDv-vH-fYY"/>
+        <segue reference="voT-Mt-29V"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="155-1554499_kudos-back-white-icon-png" width="600" height="1059"/>

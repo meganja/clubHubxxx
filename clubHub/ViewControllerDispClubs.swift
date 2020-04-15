@@ -55,12 +55,13 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     var timeOfDay = [String]()
     var subjectFilters = [String]()
     var viewer = ""
+    var sponsorsClubs = [String]()
     
     let db = Firestore.firestore()
+    var uid = ""
+   
     
     override func viewDidLoad() {
-//        filtersScrollView.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
-//        filtersScrollView.layer.borderWidth = 1
         noResultsFound.text = ""
         super.viewDidLoad()
         print("***************************************************viewer  \(viewer)")
@@ -71,7 +72,47 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         else{
             navBarState.isHidden = true
         }
-        //getItems()
+        
+        
+        if viewer == "sponsor"{
+            let user: GIDGoogleUser = GIDSignIn.sharedInstance()!.currentUser
+            let fullName = user.profile.name!
+            let fullEmail = user.profile.email!
+            
+            var clubsRef = db.collection("clubs")
+            var sponsorsRef = db.collection("users")
+            var sponsorsClubsFromUser = [String]()
+            var sponsorsClubsFromClubs = [String]()
+            print("close to first queuery")
+            print("full email \(fullEmail)")
+            sponsorsRef.whereField("email", isEqualTo: fullEmail).getDocuments(){ (querySnapshot, error) in
+                print("got into first queury")
+                for document in querySnapshot!.documents{
+                    sponsorsClubsFromUser = document.data()["myClubs"]! as! [String]
+                }
+            }
+
+            print("sponsorsClubsFromUser\(sponsorsClubsFromUser)")
+            clubsRef.whereField("sponsorsEmail", arrayContains: fullEmail).getDocuments(){ (querySnapshot, error) in
+                print("going in")
+                for document in querySnapshot!.documents{
+                    let temp = "\(String(describing: document.get("name")!))"
+                    sponsorsClubsFromClubs.append(temp)
+                    self.uid = document.documentID
+                    
+                    print("sponsorsClubsFromClubs\(sponsorsClubsFromClubs)")
+                    print(self.uid)
+                    
+                    sponsorsRef.document(document.documentID).setData(["myClubs": sponsorsClubsFromClubs], merge: true)
+                    self.sponsorsClubs = sponsorsClubsFromClubs
+
+                }
+                
+
+            }
+            
+
+        }
         
     }
     
@@ -696,7 +737,16 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         }
         
         
-        if (viewer != "admin"){
+        
+        if (viewer == "sponsor"){
+            print(sponsorsClubs)
+            print(self.items[indexPath.row])
+            print(!sponsorsClubs.contains(self.items[indexPath.row]))
+            if !sponsorsClubs.contains(self.items[indexPath.row]){
+                cell.editClubBtn.isHidden = true
+            }
+        }
+        else if (viewer != "admin"){
             cell.editClubBtn.isHidden = true
         }
         
@@ -780,6 +830,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         else if(segue.identifier == "editClubSegue"){
             print("IN EDIT PREPARE")
             var vc = segue.destination as! ViewControllerAdminEdit
+            vc.viewer = self.viewer
             print("Statement #\(self.statement)!")
             print("Num #\(self.clickedOn)!")
             if (self.statement != "Statement #!"){
