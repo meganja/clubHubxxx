@@ -712,11 +712,31 @@ class ViewControllerClubMatchmaker: UIViewController {
         print("recommended list sorted by priority: \(dictValDec)")
         displayTime = true
         
+        var orange = 0
+        var yellow = 0
         recsList.removeAll()
         priorities.removeAll()
         for i in 0..<dictValDec.count{
-            recsList.append(dictValDec[i].0)
-            priorities.append(dictValDec[i].1)
+            if(dictValDec[i].1 > 0){
+                if(dictValDec[i].1 == 1){
+                    if(orange < 5){
+                        recsList.append(dictValDec[i].0)
+                        priorities.append(dictValDec[i].1)
+                        orange += 1
+                    }
+                }
+                else if(dictValDec[i].1 == 2){
+                    if(yellow < 5){
+                        recsList.append(dictValDec[i].0)
+                        priorities.append(dictValDec[i].1)
+                        yellow += 1
+                    }
+                }
+                else{
+                    recsList.append(dictValDec[i].0)
+                    priorities.append(dictValDec[i].1)
+                }
+            }
         }
         
         let formatter = DateFormatter()
