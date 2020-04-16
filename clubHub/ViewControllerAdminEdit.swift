@@ -102,6 +102,11 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
                     }
                 }
                 
+                self.editClubImgVw.layer.borderWidth=1.0
+                self.editClubImgVw.layer.masksToBounds = false
+                self.editClubImgVw.layer.borderColor = UIColor.white.cgColor
+                self.editClubImgVw.layer.cornerRadius = self.editClubImgVw.frame.size.height/2
+                self.editClubImgVw.clipsToBounds = true
                 
                 self.genDescriptTxtFld.text = String(describing: document.get("description")!)
                 self.meetingTimes.text = String(describing: document.get("time")!)

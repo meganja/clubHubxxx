@@ -740,7 +740,7 @@ class ViewControllerClubMatchmaker: UIViewController {
         }
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd/yyyy"
+        formatter.dateFormat = "MM/dd/yyyy HH:mm"
         let dateString = (formatter.string(from: Date()) as NSString) as String
         
         

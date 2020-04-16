@@ -77,6 +77,12 @@ class ViewControllerMatchedDisplay: UIViewController, UICollectionViewDataSource
             }
         }
         
+//        cell.ClubLogo.layer.borderWidth=1.0
+//        cell.ClubLogo.layer.masksToBounds = false
+//        cell.ClubLogo.layer.borderColor = UIColor.white.cgColor
+//        cell.ClubLogo.layer.cornerRadius = cell.ClubLogo.frame.size.height/2
+//        cell.ClubLogo.clipsToBounds = true
+        
         return cell
     }
     
