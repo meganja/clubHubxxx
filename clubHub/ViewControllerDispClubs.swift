@@ -776,12 +776,6 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             }
         }
         
-//        cell.clubImage.layer.borderWidth=1.0
-//        cell.clubImage.layer.masksToBounds = false
-//        cell.clubImage.layer.borderColor = UIColor.white.cgColor
-//        cell.clubImage.layer.cornerRadius = cell.clubImage.frame.size.height/2
-//        cell.clubImage.clipsToBounds = true
-        
         return cell
     }
     

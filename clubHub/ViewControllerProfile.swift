@@ -172,12 +172,6 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
                 }
             }
             
-//            cell.clubLogo.layer.borderWidth=1.0
-//            cell.clubLogo.layer.masksToBounds = false
-//            cell.clubLogo.layer.borderColor = UIColor.white.cgColor
-//            cell.clubLogo.layer.cornerRadius = cell.clubLogo.frame.size.height/2
-//            cell.clubLogo.clipsToBounds = true
-            
             return cell
         }
         else if collectionView == self.collectionWishlist{
@@ -218,12 +212,6 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
                     }
                 }
             }
-            
-//            cell.clubLogo.layer.borderWidth=1.0
-//            cell.clubLogo.layer.masksToBounds = false
-//            cell.clubLogo.layer.borderColor = UIColor.white.cgColor
-//            cell.clubLogo.layer.cornerRadius = cell.clubLogo.frame.size.height/2
-//            cell.clubLogo.clipsToBounds = true
             
             return cell
         }
@@ -275,12 +263,6 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
                     }
                 }
             }
-            
-//            cell.clubLogo.layer.borderWidth=1.0
-//            cell.clubLogo.layer.masksToBounds = false
-//            cell.clubLogo.layer.borderColor = UIColor.white.cgColor
-//            cell.clubLogo.layer.cornerRadius = cell.clubLogo.frame.size.height/2
-//            cell.clubLogo.clipsToBounds = true
             
             return cell
         }
