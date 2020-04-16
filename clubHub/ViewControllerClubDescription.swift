@@ -253,19 +253,24 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 let tempWish = document?.data()!["wishlist"]! as![Any]
                 print("temp wish")
                 print(tempWish)
+                var inWishlist = false
                 for i in 0..<tempWish.count{
                     if (tempWish[i] as! String == self.ClubName){
-                        print("should be clicked")
-                        self.clicks = 1
-                        let image = UIImage(named: "starIconClicked-2")
-                        self.wishlistState.setImage(image, for: .normal)
+                        inWishlist = true
                     }
-                    else{
-                        print("should be not clicked")
-                        self.clicks = 0
-                        let image = UIImage(named: "starIconNotClicked")
-                        self.wishlistState.setImage(image, for: .normal)
-                    }
+                }
+                
+                if(inWishlist){
+                     print("should be clicked")
+                    self.clicks = 1
+                    let image = UIImage(named: "starIconClicked-2")
+                    self.wishlistState.setImage(image, for: .normal)
+                }
+                else{
+                    print("should be not clicked")
+                    self.clicks = 0
+                    let image = UIImage(named: "starIconNotClicked")
+                    self.wishlistState.setImage(image, for: .normal)
                 }
             }
         }
@@ -307,6 +312,12 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                         self.clubImgVw.image = imageDownloaded
                     }
                 }
+                
+                self.clubImgVw.layer.borderWidth=1.0
+                self.clubImgVw.layer.masksToBounds = false
+                self.clubImgVw.layer.borderColor = UIColor.white.cgColor
+                self.clubImgVw.layer.cornerRadius = self.clubImgVw.frame.size.height/2
+                self.clubImgVw.clipsToBounds = true
                 
                 self.clubCategories = document.data()["categories"]! as! [String]
                 print("printing club categories")
@@ -609,6 +620,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 }
             }
         }
+        
         return cell
     }
     

@@ -775,6 +775,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                 }
             }
         }
+        
         return cell
     }
     

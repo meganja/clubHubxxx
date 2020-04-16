@@ -11,8 +11,6 @@ import Firebase
 
 class ViewControllerNotifBoard: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    
-    
     @IBOutlet weak var collectionViewNotifs: UICollectionView!
     
     @IBOutlet weak var createPostBtn: UIButton!
@@ -25,6 +23,7 @@ class ViewControllerNotifBoard: UIViewController, UICollectionViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //after collection ref:   .order(by: "datePosted", descending: true)
         db.collection("notifications").getDocuments(){ (querySnapshot, err) in
             for document in querySnapshot!.documents{
                 print(String(describing: document.get("message")!))
@@ -81,6 +80,12 @@ class ViewControllerNotifBoard: UIViewController, UICollectionViewDataSource, UI
                 }
             }
         }
+        
+        cell.clubLogo.layer.borderWidth=1.0
+        cell.clubLogo.layer.masksToBounds = false
+        cell.clubLogo.layer.borderColor = UIColor.white.cgColor
+        cell.clubLogo.layer.cornerRadius = cell.clubLogo.frame.size.height/2
+        cell.clubLogo.clipsToBounds = true
         
         return cell
     }

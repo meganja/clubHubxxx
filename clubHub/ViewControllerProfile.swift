@@ -172,7 +172,6 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
                 }
             }
             
-            
             return cell
         }
         else if collectionView == self.collectionWishlist{

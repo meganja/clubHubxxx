@@ -17,4 +17,5 @@ class CollectionViewCellNotif: UICollectionViewCell {
     @IBOutlet weak var clubMessage: UILabel!
     
     @IBOutlet weak var postedDate: UILabel!
+    
 }
