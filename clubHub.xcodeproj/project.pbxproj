@@ -11,6 +11,8 @@
 		BB25FC0D2411D9D500B8F690 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB25FC0C2411D9D500B8F690 /* GoogleService-Info.plist */; };
 		BB456673242E90B600CB09BB /* ViewControllerClubMatchmaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB456672242E90B600CB09BB /* ViewControllerClubMatchmaker.swift */; };
 		BB45A27F24144D7C0063AC50 /* ViewControllerAdminEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45A27E24144D7C0063AC50 /* ViewControllerAdminEdit.swift */; };
+		BB45B4102447CFAD00ED0AD1 /* ViewControllerNotifBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45B40F2447CFAD00ED0AD1 /* ViewControllerNotifBoard.swift */; };
+		BB45B4122447CFC900ED0AD1 /* CollectionViewCellNotif.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45B4112447CFC900ED0AD1 /* CollectionViewCellNotif.swift */; };
 		BB4A62092415786A003A887B /* ViewControllerProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A62082415786A003A887B /* ViewControllerProfile.swift */; };
 		BB4A620B241578D5003A887B /* CollectionViewCellClubsIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A620A241578D5003A887B /* CollectionViewCellClubsIn.swift */; };
 		BB4A620D241578F4003A887B /* CollectionViewCellWishlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A620C241578F4003A887B /* CollectionViewCellWishlist.swift */; };
@@ -79,6 +81,8 @@
 		BB4267FB242AF71C0047F15E /* XCTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XCTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB456672242E90B600CB09BB /* ViewControllerClubMatchmaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerClubMatchmaker.swift; sourceTree = "<group>"; };
 		BB45A27E24144D7C0063AC50 /* ViewControllerAdminEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerAdminEdit.swift; sourceTree = "<group>"; };
+		BB45B40F2447CFAD00ED0AD1 /* ViewControllerNotifBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerNotifBoard.swift; sourceTree = "<group>"; };
+		BB45B4112447CFC900ED0AD1 /* CollectionViewCellNotif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellNotif.swift; sourceTree = "<group>"; };
 		BB4A62082415786A003A887B /* ViewControllerProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerProfile.swift; sourceTree = "<group>"; };
 		BB4A620A241578D5003A887B /* CollectionViewCellClubsIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellClubsIn.swift; sourceTree = "<group>"; };
 		BB4A620C241578F4003A887B /* CollectionViewCellWishlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellWishlist.swift; sourceTree = "<group>"; };
@@ -228,6 +232,8 @@
 				BB456672242E90B600CB09BB /* ViewControllerClubMatchmaker.swift */,
 				BB4BB61924341F8E005D61CA /* CollectionViewCellMatchedClubs.swift */,
 				BB4BB61B24342142005D61CA /* ViewControllerMatchedDisplay.swift */,
+				BB45B40F2447CFAD00ED0AD1 /* ViewControllerNotifBoard.swift */,
+				BB45B4112447CFC900ED0AD1 /* CollectionViewCellNotif.swift */,
 			);
 			path = clubHub;
 			sourceTree = "<group>";
@@ -548,6 +554,8 @@
 				BB4BB61C24342142005D61CA /* ViewControllerMatchedDisplay.swift in Sources */,
 				BB45A27F24144D7C0063AC50 /* ViewControllerAdminEdit.swift in Sources */,
 				6641615D2408586300382948 /* CollectionViewCellAllClubs.swift in Sources */,
+				BB45B4122447CFC900ED0AD1 /* CollectionViewCellNotif.swift in Sources */,
+				BB45B4102447CFAD00ED0AD1 /* ViewControllerNotifBoard.swift in Sources */,
 				CB84B1222433EFD1005EEF7C /* ViewControllerSignUp.swift in Sources */,
 				BB4A9853243BFB1600068B73 /* CollectionViewCellSavedMatches.swift in Sources */,
 				CBA72385242D744700EF1DFA /* CollectionViewCellEditCategory.swift in Sources */,
