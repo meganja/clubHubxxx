@@ -313,11 +313,11 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                     }
                 }
                 
-                self.clubImgVw.layer.borderWidth=1.0
-                self.clubImgVw.layer.masksToBounds = false
-                self.clubImgVw.layer.borderColor = UIColor.white.cgColor
-                self.clubImgVw.layer.cornerRadius = self.clubImgVw.frame.size.height/2
-                self.clubImgVw.clipsToBounds = true
+//                self.clubImgVw.layer.borderWidth=1.0
+//                self.clubImgVw.layer.masksToBounds = false
+//                self.clubImgVw.layer.borderColor = UIColor.white.cgColor
+//                self.clubImgVw.layer.cornerRadius = self.clubImgVw.frame.size.height/2
+//                self.clubImgVw.clipsToBounds = true
                 
                 self.clubCategories = document.data()["categories"]! as! [String]
                 print("printing club categories")
