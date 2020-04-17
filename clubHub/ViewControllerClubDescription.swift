@@ -63,7 +63,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     
     var realViewer = ""
     
-    let dispCountMax = 6
+    let dispCountMax = 5
     
     var clubCategories = [String]()
     var simClubTime = ""//AM-PM
@@ -106,19 +106,22 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
             print()
             print("self.narrowingClubsName.count > 0 \(self.narrowingClubsName.count > 0)")
             if (self.narrowingClubsName.count > 0){
+                print("")
+                print("narrowing clubs by 1 category \(self.narrowingClubsName)")
                 print("self.clubCategories.count == 1 \(self.clubCategories.count == 1)")
                 print("self.narrowingClubsName.count < self.dispCountMax + 1 \(self.narrowingClubsName.count < self.dispCountMax + 1)")
-                if self.clubCategories.count > 1{
-                    self.narrowByMultCategories()
-                }
-                else if self.clubCategories.count == 1{
-                    self.narrowByCategory()
-                }
-                else if self.narrowingClubsName.count < self.dispCountMax + 1{
+                if self.narrowingClubsName.count <= self.dispCountMax{
                     DispatchQueue.main.async {
                         self.collectionAlsoLike.reloadData()
                     }
                 }
+                else if (self.clubCategories.count > 1  && self.narrowingClubsName.count > 3){
+                    self.narrowByMultCategories()
+                }
+                else if (self.clubCategories.count == 1 && self.narrowingClubsName.count > 3){
+                    self.narrowByCommit()
+                }
+                
                 
             }
             print("???????????????????????????????????????????????????????????sim clubs list based on main category \(self.narrowingClubsName)")
@@ -168,25 +171,24 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 print()
                 print()
                 print()
-                if (tempArr.count > 0){
-                    if tempArr.count < self.dispCountMax + 1{
+                if (tempArr.count > 0  && tempArr.count <= self.dispCountMax){
+                    print("went in if")
                         self.narrowingClubsName.removeAll()
                         self.narrowingClubsName = tempArr
                         DispatchQueue.main.async {
                             self.collectionAlsoLike.reloadData()
                         }
-                    }
-                    else{
-                        self.narrowByCategory()
-                    }
+                    
+                }
+                else{
+                    print("went in else")
+                    self.narrowByCommit()
                 }
             }
         }
     }
     
-    func narrowByCategory(){
-        
-        
+    func narrowByCommit(){
         self.db.collection("clubs").whereField("commit", isEqualTo: self.simCommitment).getDocuments(){ (querySnapshot, err) in
             print("going in to comparing commitment")
             print("the club we selected's commitment level = \(self.simCommitment)")
@@ -208,18 +210,42 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
             print()
             print()
             print()
-            if (tempArr.count > 0){
-                if tempArr.count < self.dispCountMax + 1{
+            if (tempArr.count > 0 && tempArr.count < self.dispCountMax + 1){
+                print("HERE")
+                
                     self.narrowingClubsName.removeAll()
                     self.narrowingClubsName = tempArr
                     DispatchQueue.main.async {
                         self.collectionAlsoLike.reloadData()
                     }
+               
+                
+            }else if tempArr.count > 0 && tempArr.count > self.dispCountMax{
+                print("ELSEEEEE")
+                let count = tempArr.count
+                for i in (0..<(count - self.dispCountMax)){
+                    let randomInt = Int.random(in: 0..<tempArr.count)
+                    tempArr.remove(at: randomInt)
+                }
+                self.narrowingClubsName.removeAll()
+                self.narrowingClubsName = tempArr
+                print("narrow \(self.narrowingClubsName)")
+                DispatchQueue.main.async {
+                    self.collectionAlsoLike.reloadData()
+                }
+            }else if tempArr.count == 0{
+                print("ELSEEEEE")
+                let count = self.narrowingClubsName.count
+                for i in (0..<(count - self.dispCountMax)){
+                    let randomInt = Int.random(in: 0..<self.narrowingClubsName.count)
+                    self.narrowingClubsName.remove(at: randomInt)
+                }
+                print("narrow \(self.narrowingClubsName)")
+                DispatchQueue.main.async {
+                    self.collectionAlsoLike.reloadData()
                 }
             }
-            DispatchQueue.main.async {
-                self.collectionAlsoLike.reloadData()
-            }
+            
         }
         
     }
@@ -312,12 +338,6 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                         self.clubImgVw.image = imageDownloaded
                     }
                 }
-                
-//                self.clubImgVw.layer.borderWidth=1.0
-//                self.clubImgVw.layer.masksToBounds = false
-//                self.clubImgVw.layer.borderColor = UIColor.white.cgColor
-//                self.clubImgVw.layer.cornerRadius = self.clubImgVw.frame.size.height/2
-//                self.clubImgVw.clipsToBounds = true
                 
                 self.clubCategories = document.data()["categories"]! as! [String]
                 print("printing club categories")
