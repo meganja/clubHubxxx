@@ -27,6 +27,7 @@
 		CB242F972415C40400FE70E5 /* ViewControllerAddUserClubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB242F962415C40400FE70E5 /* ViewControllerAddUserClubs.swift */; };
 		CB242F9D2415C8C100FE70E5 /* CollectionViewCellYourClubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB242F9C2415C8C100FE70E5 /* CollectionViewCellYourClubs.swift */; };
 		CB2F8E66244E1E2200A51D51 /* ViewControllerStudentRoster.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2F8E65244E1E2200A51D51 /* ViewControllerStudentRoster.swift */; };
+		CB2F8E68244E2C3000A51D51 /* CollectionViewCellStudents.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2F8E67244E2C3000A51D51 /* CollectionViewCellStudents.swift */; };
 		CB48B095243BD43300F797D1 /* CollectionViewCellAlsoLike.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB48B094243BD43300F797D1 /* CollectionViewCellAlsoLike.swift */; };
 		CB5469FE24077360001DFA77 /* ViewControllerLoginDecision.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5469FD24077360001DFA77 /* ViewControllerLoginDecision.swift */; };
 		CB546A0024077851001DFA77 /* ViewControllerLoggingIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5469FF24077851001DFA77 /* ViewControllerLoggingIn.swift */; };
@@ -100,6 +101,7 @@
 		CB242F962415C40400FE70E5 /* ViewControllerAddUserClubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerAddUserClubs.swift; sourceTree = "<group>"; };
 		CB242F9C2415C8C100FE70E5 /* CollectionViewCellYourClubs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCellYourClubs.swift; sourceTree = "<group>"; };
 		CB2F8E65244E1E2200A51D51 /* ViewControllerStudentRoster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerStudentRoster.swift; sourceTree = "<group>"; };
+		CB2F8E67244E2C3000A51D51 /* CollectionViewCellStudents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellStudents.swift; sourceTree = "<group>"; };
 		CB48B094243BD43300F797D1 /* CollectionViewCellAlsoLike.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellAlsoLike.swift; sourceTree = "<group>"; };
 		CB5469FD24077360001DFA77 /* ViewControllerLoginDecision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerLoginDecision.swift; sourceTree = "<group>"; };
 		CB5469FF24077851001DFA77 /* ViewControllerLoggingIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerLoggingIn.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				CB5BD4E5240C16AA008ABA2D /* ViewControllerAddClub.swift */,
 				CB55E0E0240C96F9006C1F41 /* Main.storyboard */,
 				CB2F8E65244E1E2200A51D51 /* ViewControllerStudentRoster.swift */,
+				CB2F8E67244E2C3000A51D51 /* CollectionViewCellStudents.swift */,
 				CB48B094243BD43300F797D1 /* CollectionViewCellAlsoLike.swift */,
 				CB84B1232433F201005EEF7C /* CollectionViewCellSignUpClubs.swift */,
 				CB84B1212433EFD1005EEF7C /* ViewControllerSignUp.swift */,
@@ -551,6 +554,7 @@
 				CB242F9D2415C8C100FE70E5 /* CollectionViewCellYourClubs.swift in Sources */,
 				BBB0735D242D130000285585 /* CollectionViewCellCategories.swift in Sources */,
 				CB5D9065240314A4009184BA /* ViewController.swift in Sources */,
+				CB2F8E68244E2C3000A51D51 /* CollectionViewCellStudents.swift in Sources */,
 				CB55E0DB240C296C006C1F41 /* ViewControllerClubDescription.swift in Sources */,
 				BB456673242E90B600CB09BB /* ViewControllerClubMatchmaker.swift in Sources */,
 				CB5D9061240314A4009184BA /* AppDelegate.swift in Sources */,
