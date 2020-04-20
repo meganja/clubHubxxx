@@ -817,6 +817,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             print("1111111111111111111111111111")
             print(viewer)
             vc.senderPage = "browse"
+            vc.sponsorUID = self.uid
             if (self.statement != "Statement #!"){
                 if(self.searchBar!.text!.count > 0){
                     if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn  || AMSwitch.isOn || PMSwitch.isOn || subjectLeadership.isOn || subjectSchool.isOn || subjectIntellectual.isOn || subjectCommunity.isOn || subjectCompetitive.isOn || subjectArts.isOn){

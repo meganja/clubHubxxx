@@ -1463,7 +1463,7 @@
                                                     <outlet property="delegate" destination="fl7-by-9zP" id="X6A-5y-Wk9"/>
                                                 </connections>
                                             </collectionView>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xYW-9s-mCh">
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xYW-9s-mCh">
                                                 <rect key="frame" x="559" y="227" width="179" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="0.83137254900000002" green="0.1215686275" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1476,7 +1476,7 @@
                                                     <action selector="studentListBtn2:" destination="fl7-by-9zP" eventType="touchUpInside" id="3mS-cu-shQ"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPk-wY-K1l">
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPk-wY-K1l">
                                                 <rect key="frame" x="565" y="231.5" width="39" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1565,6 +1565,8 @@
                         <outlet property="name3" destination="Oox-dQ-di7" id="Iso-DV-ByY"/>
                         <outlet property="room" destination="NvM-dJ-O8x" id="Pin-o5-Qzo"/>
                         <outlet property="schoologyCode" destination="Awl-DC-lVN" id="hUb-VH-lYh"/>
+                        <outlet property="stuListBtn1State" destination="hPk-wY-K1l" id="EZb-J6-ejX"/>
+                        <outlet property="stuListBtn2State" destination="xYW-9s-mCh" id="TS8-Xk-LHE"/>
                         <outlet property="volunteer" destination="FKb-yk-X42" id="erl-iX-2Ha"/>
                         <outlet property="wishlistState" destination="rKz-Sa-kNQ" id="w7k-N7-aSv"/>
                         <outlet property="youMayAlsoLikeLabel" destination="pgE-Lv-yxT" id="3wz-VY-O22"/>
@@ -1762,7 +1764,7 @@
                                 <attributedString key="attributedText"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="LRh-P2-63t">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="LRh-P2-63t">
                                 <rect key="frame" x="60" y="38" width="663" height="112"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.078431372550000003" green="0.1529411765" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -1781,6 +1783,9 @@
                                 <rect key="frame" x="20" y="20" width="22" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button" image="155-1554499_kudos-back-white-icon-png"/>
+                                <connections>
+                                    <segue destination="fl7-by-9zP" kind="presentation" modalPresentationStyle="fullScreen" id="6d6-7c-I4f"/>
+                                </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="e6x-7J-APH">
                                 <rect key="frame" x="20" y="169" width="728" height="835"/>
@@ -1822,6 +1827,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="2tx-h0-Nx7"/>
                     </view>
+                    <connections>
+                        <outlet property="titleLabel" destination="LRh-P2-63t" id="QAS-Et-wRM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dgv-gD-0c1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -4323,7 +4331,7 @@
         <segue reference="xQH-vc-iVf"/>
         <segue reference="N7u-Ha-PSq"/>
         <segue reference="Wy2-JA-mnb"/>
-        <segue reference="Ubk-Fn-ElL"/>
+        <segue reference="6d6-7c-I4f"/>
         <segue reference="dSB-4A-GFN"/>
         <segue reference="GGO-DH-1TB"/>
         <segue reference="voT-Mt-29V"/>

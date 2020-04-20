@@ -72,6 +72,10 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     var simVolunteer = ""//0 = false, 1 = true
     var narrowingClubsName = [String]()
     
+    var sponsorUID = ""
+    
+    @IBOutlet weak var stuListBtn2State: UIButton!
+    @IBOutlet weak var stuListBtn1State: UIButton!
     
     
     func narrowSimClubs(){
@@ -83,6 +87,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
         print()
         print("going into you may also like function")
         print("the club you selected's categories = \(self.clubCategories)")
+        
         
         
         self.db.collection("clubs").getDocuments(){ (querySnapshot, err) in
@@ -415,6 +420,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                     if (self.sponsorsName.count == 1){
                         self.name1.text = "\(self.sponsorsName[0])"
                         self.email1.setTitle("\(self.sponsorsEmail[0])", for: .normal)
+                        
                     }
                     else if (self.sponsorsName.count == 2){
                         self.name2.text = "\(self.sponsorsName[1])"
@@ -430,6 +436,21 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                         self.email2.isHidden = false
                         self.name3.isHidden = false
                         self.email3.isHidden = false
+                    }
+                }
+                
+                if self.viewer == "sponsor"{
+                    print("here")
+                    self.db.collection("users").whereField("myClubs", arrayContains: "\(self.ClubName)").getDocuments(){ (querySnapshot, err) in
+                        print("here2")
+                        for document in querySnapshot!.documents{
+                            print("here3")
+                            if self.viewer == "sponsor" && document.documentID == self.sponsorUID{
+                                self.stuListBtn2State.isHidden = false
+                                self.stuListBtn1State.isHidden = false
+                            }
+                            
+                        }
                     }
                 }
                 print()
@@ -521,6 +542,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
         else if goToStuList{
             var vc = segue.destination as! ViewControllerStudentRoster
             vc.viewer = self.viewer
+            vc.clubName = self.ClubName
         }
         else if (segue.identifier == "descriptToNotif"){
             var vc = segue.destination as! ViewControllerNotifBoard
