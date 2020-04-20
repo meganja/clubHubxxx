@@ -543,6 +543,8 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
             var vc = segue.destination as! ViewControllerStudentRoster
             vc.viewer = self.viewer
             vc.clubName = self.ClubName
+            vc.sponsorUID = self.sponsorUID
+            vc.senderPage = self.senderPage
         }
         else if (segue.identifier == "descriptToNotif"){
             var vc = segue.destination as! ViewControllerNotifBoard

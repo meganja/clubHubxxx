@@ -12,6 +12,9 @@ import Firebase
 class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     var viewer = ""
     var clubName = ""
+    var sponsorUID = ""
+    var senderPage = ""
+    var clubUID = ""
     
     @IBOutlet weak var collectionStudents: UICollectionView!
     let db = Firestore.firestore()
@@ -32,6 +35,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
                 if document.get("accountType") != nil{
                     if String(describing: document.get("accountType")!) == "student"{
                         self.items.append(String(describing: document.get("name")!))
+                        self.crownStatus.append("0")
                     }
                 }
                 
@@ -39,6 +43,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
             DispatchQueue.main.async {
                 self.collectionStudents.reloadData()
             }
+            self.checkCrownStatus()
             
         }
         
@@ -47,15 +52,69 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
         
     }
     
+    var clubPres = [String]()
+    
+    func checkCrownStatus(){
+        var clubsRef = db.collection("clubs")
+        var sponsorsRef = db.collection("users")
+        
+        clubsRef.getDocuments(){ (querySnapshot, error) in
+            for document in querySnapshot!.documents{
+                print(String(describing: document.get("name")!))
+                print(document.get("clubPresidents") == nil)
+                if document.get("clubPresidents") != nil {
+                    print(self.clubName)
+                    print(String(describing: document.get("name")!))
+                    if self.clubName == String(describing: document.get("name")!){
+                        self.clubUID = document.documentID
+                        print("clubId \(self.clubUID)")
+                        let tempPres = document.data()["clubPresidents"]! as! [String]
+                        print("tempPres \(tempPres)")
+                        print("items \(self.items)")
+                        for i in (0..<self.items.count){
+                            print(self.items[i])
+                            print(tempPres.contains(self.items[i]))
+                            if (tempPres.contains(self.items[i])){
+                                self.crownStatus[i] = "1"
+                            }
+                        }
+                    }
+                    
+                }
+                
+            }
+            self.clubPres.removeAll()
+            DispatchQueue.main.async {
+                self.collectionStudents.reloadData()
+            }
+            
+        }
+    }
+    
+    func savePres(){
+        var clubsRef = db.collection("clubs")
+        clubPres.removeAll()
+        for i in (0..<items.count){
+            if crownStatus[i] == "1"{
+                clubPres.append(items[i])
+            }
+        }
+
+        clubsRef.document(self.clubUID).setData(["clubPresidents": self.clubPres], merge: true)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        savePres()
         var vc = segue.destination as! ViewControllerClubDescription
         vc.viewer = self.viewer
         vc.ClubName = self.clubName
-        
+        vc.sponsorUID = self.sponsorUID
+        vc.senderPage = self.senderPage
     }
     
     let reuseIdentifier = "cell" // also enter this string as the cell identifier in the storyboard
     var items = [String]()
+    var crownStatus = [String]()
     
     
     // MARK: - UICollectionViewDataSource protocol
@@ -84,6 +143,17 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
             cell.crownBtn.isHidden = false
             cell.crownBtn.tag = indexPath.item
             cell.crownBtn.addTarget(self, action: #selector(crown(_:)), for: .touchUpInside)
+            print("self.crownStatus[indexPath.item] \(self.crownStatus[indexPath.item])")
+            if (self.crownStatus[indexPath.item] == "1"){
+                print("1111111")
+                let image = UIImage(named: "crownClicked")
+                cell.crownBtn.setImage(image, for: .normal)
+            }else{
+                print("00000000")
+                let image = UIImage(named: "crownUnclicked")
+                cell.crownBtn.setImage(image, for: .normal)
+            }
+            
         }else{
             cell.studentName.text = "No Enrollment"
             cell.crownBtn.isHidden = true
@@ -94,8 +164,19 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
     
     //MARK: -Edit
     @objc func crown(_ sender: UIButton) {
-        print("EDIT CLUB HAS BEEN CALLED, ONTO SEGUE")
+        print("CROWN CLICKED")
         print("You selected cell #\(sender.tag)!")
+        print("crownStatus \(crownStatus)")
+        if (self.crownStatus[sender.tag] == "1"){
+            self.crownStatus[sender.tag] = "0"
+        }else if self.crownStatus[sender.tag] == "0"{
+           self.crownStatus[sender.tag] = "1"
+        }
+        print("crownStatus \(crownStatus)")
+        DispatchQueue.main.async {
+            print("reloading")
+            self.collectionStudents.reloadData()
+        }
     }
     
     // MARK: - UICollectionViewDelegate protocol
@@ -104,6 +185,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
         // handle tap events
         print("You selected cell #\(indexPath.item)!")
     }
+    
     
     
 }

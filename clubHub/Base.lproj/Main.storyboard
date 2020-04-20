@@ -1813,10 +1813,10 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wVd-rs-icj">
-                                                    <rect key="frame" x="656" y="8" width="64" height="54"/>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wVd-rs-icj">
+                                                    <rect key="frame" x="664" y="13" width="56" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Crown"/>
+                                                    <state key="normal" title="Crown" image="crownUnclicked"/>
                                                 </button>
                                             </subviews>
                                         </collectionViewCellContentView>
@@ -4354,6 +4354,7 @@
         <image name="browseIconClicked" width="960" height="720"/>
         <image name="browseIconNotClicked" width="960" height="720"/>
         <image name="chs-cougar-mascot" width="600" height="319"/>
+        <image name="crownUnclicked" width="960" height="720"/>
         <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
         <image name="person.2.fill" catalog="system" width="128" height="80"/>
         <image name="personIconClicked" width="960" height="720"/>
