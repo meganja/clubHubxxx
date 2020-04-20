@@ -1838,6 +1838,7 @@
                         <viewLayoutGuide key="safeArea" id="2tx-h0-Nx7"/>
                     </view>
                     <connections>
+                        <outlet property="collectionStudents" destination="e6x-7J-APH" id="Qhm-Ky-bOo"/>
                         <outlet property="titleLabel" destination="LRh-P2-63t" id="QAS-Et-wRM"/>
                     </connections>
                 </viewController>
