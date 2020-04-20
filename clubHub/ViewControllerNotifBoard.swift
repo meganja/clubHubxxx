@@ -15,22 +15,33 @@ class ViewControllerNotifBoard: UIViewController, UICollectionViewDataSource, UI
     
     @IBOutlet weak var createPostBtn: UIButton!
     
+    @IBOutlet weak var profileBtn: UIButton!
+    
     let db = Firestore.firestore()
     var messages = [String]()
     var clubNames = [String]()
-    var msgDates = [String]()
+    var msgDates = [Double]()
+    var viewer = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //after collection ref:   .order(by: "datePosted", descending: true)
-        db.collection("notifications").getDocuments(){ (querySnapshot, err) in
+        if(viewer == "student"){ //TODO--- CHANGE THIS TO && NO PERMISSIONS
+            createPostBtn.isHidden = true
+        }
+        
+        if(viewer == "admin"){
+            profileBtn.isHidden = true
+        }
+        
+        //after collection ref:
+        db.collection("notifications").order(by: "datePosted", descending: true).getDocuments(){ (querySnapshot, err) in
             for document in querySnapshot!.documents{
                 print(String(describing: document.get("message")!))
                 print(String(describing: document.get("clubName")!))
                 self.messages.append(String(describing: document.get("message")!))
                 self.clubNames.append(String(describing: document.get("clubName")!))
-                self.msgDates.append(String(describing: document.get("datePosted")!))
+                self.msgDates.append(Double(String(describing: document.get("datePosted")!))!)
             }
             DispatchQueue.main.async {
                 self.collectionViewNotifs.reloadData()
@@ -55,7 +66,15 @@ class ViewControllerNotifBoard: UIViewController, UICollectionViewDataSource, UI
         // Use the outlet in our custom class to get a reference to the UILabel in the cell
         cell.clubTitle.text = self.clubNames[indexPath.item]
         cell.clubMessage.text = self.messages[indexPath.item]
-        cell.postedDate.text = self.msgDates[indexPath.item]
+        
+        let date = Date(timeIntervalSince1970: self.msgDates[indexPath.item])
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = DateFormatter.Style.short //Set time style
+        dateFormatter.dateStyle = DateFormatter.Style.medium //Set date style
+        dateFormatter.timeZone = .current
+        let localDate = dateFormatter.string(from: date)
+        
+        cell.postedDate.text = localDate
         
         cell.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
         cell.layer.borderWidth = 1
@@ -87,21 +106,74 @@ class ViewControllerNotifBoard: UIViewController, UICollectionViewDataSource, UI
         cell.clubLogo.layer.cornerRadius = cell.clubLogo.frame.size.height/2
         cell.clubLogo.clipsToBounds = true
         
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewControllerNotifBoard.connected(_:)))
+
+        cell.clubLogo.isUserInteractionEnabled = true
+        cell.clubLogo.tag = indexPath.item
+        cell.clubLogo.addGestureRecognizer(tapGestureRecognizer)
+        
         return cell
     }
+
+    var clickedOn = 0
+    var statement = ""
+    var clubNameTemp = ""
     
-    // MARK: - UICollectionViewDelegate protocol
+    @objc func connected(_ sender: AnyObject){ //when you click on the image for a club on the left side of the notification, it takes you to the club description page
+        self.clickedOn = sender.view.tag
+        print("You selected cell #\(self.clickedOn)! in saved matches")
+        statement = "You selected cell #\(self.clickedOn)!"
+        clubNameTemp = self.clubNames[self.clickedOn]
+        if(clubNameTemp != "ClubHub Admin"){
+            performSegue(withIdentifier: "notifToDescript", sender: self)
+        }
+    }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // handle tap events
-        print("TAP EVENTTTTT")
-        print("You selected cell #\(indexPath.item)!")
-        let cell = collectionView.cellForItem(at: indexPath)
-        cell?.backgroundColor = UIColor.white
-        cell?.backgroundColor = UIColor.white // make cell more visible in our example project
-        cell?.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
-        cell?.layer.borderWidth = 1
-        
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("PREPARE FOR TAKEOFF")
+        if (segue.identifier == "notifToBrowse"){
+            var vc = segue.destination as! ViewControllerDispClubs
+            vc.viewer = viewer
+        }
+        else if (segue.identifier == "notifToProfile"){
+            var vc = segue.destination as! ViewControllerProfile
+            vc.viewer = viewer
+        }
+        else if(segue.identifier == "notifToDescript"){
+            print("IN DESCRIPT PREPARE")
+            print("Clicked on #\(self.clickedOn)!")
+            var vc = segue.destination as! ViewControllerClubDescription
+            
+            print("Statement #\(self.statement)!")
+            vc.statement = self.statement
+            print("Num #\(self.clickedOn)!")
+            vc.num = self.clickedOn
+            vc.viewer = viewer
+            vc.senderPage = "notifBoard"
+            if (self.statement != "Statement #!"){
+                vc.ClubName = self.clubNameTemp
+            }
+        }
+        else if (segue.identifier == "notifChoose"){
+            var vc = segue.destination as! ViewControllerChooseNotifClub
+            vc.viewer = viewer
+        }
+        else if (segue.identifier == "notifBoardToCreate"){
+            var vc = segue.destination as! ViewControllerCreateNotif
+            vc.viewer = viewer
+            vc.sender = "ClubHub Admin"
+        }
+    }
+    
+    @IBAction func createPost(_ sender: Any) {
+        //goes straight to posting page for admin
+        //goes to "choose" page for student or sponsor-- use segue, pass viewer in prepare!
+        if(viewer == "sponsor" || viewer == "student"){
+            performSegue(withIdentifier: "notifChoose", sender: self)
+        }
+        else if(viewer == "admin"){
+            performSegue(withIdentifier: "notifBoardToCreate", sender: self)
+        }
     }
     
 }

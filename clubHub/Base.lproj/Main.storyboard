@@ -652,7 +652,7 @@
                                     <color key="titleColor" red="0.83137254900000002" green="0.1215686275" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="ora-YV-TUq" kind="presentation" modalPresentationStyle="fullScreen" id="c8w-b8-uVU"/>
+                                    <segue destination="ora-YV-TUq" kind="presentation" identifier="browseToNotif" modalPresentationStyle="fullScreen" id="c8w-b8-uVU"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1495,7 +1495,7 @@
                                     <color key="titleColor" red="0.83137254900000002" green="0.1215686275" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="ora-YV-TUq" kind="presentation" modalPresentationStyle="fullScreen" id="Wy2-JA-mnb"/>
+                                    <segue destination="ora-YV-TUq" kind="presentation" identifier="descriptToNotif" modalPresentationStyle="fullScreen" id="Wy2-JA-mnb"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1568,7 +1568,7 @@
                                     <fragment content="Notifications">
                                         <attributes>
                                             <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <font key="NSFont" size="36" name="ArialRoundedMTBold"/>
+                                            <font key="NSFont" size="48" name="ArialRoundedMTBold"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
@@ -1595,7 +1595,7 @@
                                 <state key="normal" title="search" image="browseIconNotClicked"/>
                                 <connections>
                                     <action selector="dispClubsBtn:" destination="fl7-by-9zP" eventType="touchUpInside" id="YhZ-JY-hby"/>
-                                    <segue destination="SSq-PF-znA" kind="presentation" modalPresentationStyle="fullScreen" id="RZK-C5-UL1"/>
+                                    <segue destination="SSq-PF-znA" kind="presentation" identifier="notifToBrowse" modalPresentationStyle="fullScreen" id="RZK-C5-UL1"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BVN-gA-Lri">
@@ -1607,7 +1607,7 @@
                                 <state key="normal" title="profile" image="personIconNotClicked-2"/>
                                 <connections>
                                     <action selector="profileBtn:" destination="fl7-by-9zP" eventType="touchUpInside" id="UCo-4J-nwJ"/>
-                                    <segue destination="psG-IV-fUG" kind="presentation" modalPresentationStyle="fullScreen" id="8TU-da-ysU"/>
+                                    <segue destination="psG-IV-fUG" kind="presentation" identifier="notifToProfile" modalPresentationStyle="fullScreen" id="8TU-da-ysU"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xbs-e9-0qs">
@@ -1627,6 +1627,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" backgroundImage="square.and.pencil" catalog="system"/>
+                                <connections>
+                                    <action selector="createPost:" destination="ora-YV-TUq" eventType="touchUpInside" id="gkD-K1-G6Y"/>
+                                </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="YZJ-IC-tvz">
                                 <rect key="frame" x="0.0" y="142" width="768" height="807"/>
@@ -1659,7 +1662,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mvm-Fy-LyY">
-                                                    <rect key="frame" x="633" y="14" width="107" height="21"/>
+                                                    <rect key="frame" x="510" y="14" width="230" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
@@ -1708,11 +1711,211 @@
                     <connections>
                         <outlet property="collectionViewNotifs" destination="YZJ-IC-tvz" id="slk-Nc-jkd"/>
                         <outlet property="createPostBtn" destination="vfn-Jz-ZwN" id="Wzo-Bu-Tqp"/>
+                        <outlet property="profileBtn" destination="BVN-gA-Lri" id="GAt-MR-fYZ"/>
+                        <segue destination="fl7-by-9zP" kind="presentation" identifier="notifToDescript" modalPresentationStyle="fullScreen" id="Ubk-Fn-ElL"/>
+                        <segue destination="2yc-dG-Vf9" kind="presentation" identifier="notifChoose" modalPresentationStyle="fullScreen" id="N7u-Ha-PSq"/>
+                        <segue destination="3sk-OX-mhe" kind="presentation" identifier="notifBoardToCreate" modalPresentationStyle="fullScreen" id="xQH-vc-iVf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dEP-ug-OX4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3862.5" y="1110.9375"/>
+        </scene>
+        <!--View Controller Choose Notif Club-->
+        <scene sceneID="hHP-kN-Hk4">
+            <objects>
+                <viewController id="2yc-dG-Vf9" customClass="ViewControllerChooseNotifClub" customModule="clubHub" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XfJ-NY-qNV">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Pz3-yB-Pwt">
+                                <rect key="frame" x="20" y="151" width="728" height="779"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="8wb-SL-j1B">
+                                    <size key="itemSize" width="230" height="170"/>
+                                    <size key="estimatedItemSize" width="230" height="170"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="DWP-a0-Ta8" customClass="CollectionViewCellChooseNotifClub" customModule="clubHub" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="230" height="170"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ctr-2f-UN8">
+                                            <rect key="frame" x="0.0" y="0.0" width="230" height="170"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LuX-Xz-C6g">
+                                                    <rect key="frame" x="10" y="125" width="210" height="37"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="chs-cougar-mascot" translatesAutoresizingMaskIntoConstraints="NO" id="kcF-sx-BDh">
+                                                    <rect key="frame" x="8" y="8" width="214" height="109"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="230" height="170"/>
+                                        <connections>
+                                            <outlet property="clubLogo" destination="kcF-sx-BDh" id="XPC-c6-LNB"/>
+                                            <outlet property="clubName" destination="LuX-Xz-C6g" id="0Qb-8q-K3b"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="2yc-dG-Vf9" id="D2B-ZK-ljt"/>
+                                    <outlet property="delegate" destination="2yc-dG-Vf9" id="Bxt-cz-ezo"/>
+                                </connections>
+                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n51-BQ-mi6">
+                                <rect key="frame" x="277" y="938" width="215" height="66"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.83137254900000002" green="0.1215686275" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="doneBtn:" destination="Ntu-Pz-j5H" eventType="touchUpInside" id="L8L-2q-ScH"/>
+                                    <segue destination="3sk-OX-mhe" kind="presentation" identifier="chooseToCreate" modalPresentationStyle="fullScreen" id="qhn-Lb-nRI"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wuW-xK-t3q">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="143"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.078431372550000003" green="0.1529411765" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <edgeInsets key="layoutMargins" top="8" left="100" bottom="8" right="100"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Choose one of your club(s):">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" size="48" name="ArialRoundedMTBold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sZw-4W-HoT">
+                                <rect key="frame" x="20" y="20" width="22" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="155-1554499_kudos-back-white-icon-png"/>
+                                <connections>
+                                    <segue destination="ora-YV-TUq" kind="presentation" identifier="chooseToNotif" modalPresentationStyle="fullScreen" id="88O-jV-Jlj"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="JCN-Q8-4KP"/>
+                    </view>
+                    <connections>
+                        <outlet property="choicesCollection" destination="Pz3-yB-Pwt" id="tIg-KM-Jes"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ptF-4n-9Vh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4587.5" y="1112.6953125"/>
+        </scene>
+        <!--View Controller Create Notif-->
+        <scene sceneID="KHL-3X-xcE">
+            <objects>
+                <viewController id="3sk-OX-mhe" customClass="ViewControllerCreateNotif" customModule="clubHub" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qPX-aN-sip">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="DPo-c9-mgq">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="150"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.078431372550000003" green="0.1529411765" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Post a Notification">
+                                        <attributes>
+                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <font key="NSFont" size="48" name="ArialRoundedMTBold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sender:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VGu-0g-w1P">
+                                <rect key="frame" x="20" y="168" width="81" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Message:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fg9-x2-giR">
+                                <rect key="frame" x="20" y="220" width="102" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PlN-Lg-aro">
+                                <rect key="frame" x="279" y="938" width="215" height="66"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.83137254900000002" green="0.1215686275" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="createNotification:" destination="3sk-OX-mhe" eventType="touchUpInside" id="UyT-Tw-f5D"/>
+                                    <action selector="doneBtn:" destination="Ntu-Pz-j5H" eventType="touchUpInside" id="22d-KP-DrO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7j8-T1-wjt">
+                                <rect key="frame" x="20" y="20" width="22" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="155-1554499_kudos-back-white-icon-png"/>
+                                <connections>
+                                    <segue destination="2yc-dG-Vf9" kind="presentation" identifier="createToChoose" modalPresentationStyle="fullScreen" id="zml-gy-Xe9"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DKa-4B-wic">
+                                <rect key="frame" x="20" y="257" width="728" height="193"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TiT-8r-lRq">
+                                <rect key="frame" x="121" y="162" width="627" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kUa-59-yZB">
+                                <rect key="frame" x="461" y="421" width="287" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="qnn-JB-LP1"/>
+                    </view>
+                    <connections>
+                        <outlet property="charLimit" destination="kUa-59-yZB" id="0Ly-rV-ReM"/>
+                        <outlet property="msgTextView" destination="DKa-4B-wic" id="LSp-kq-Bom"/>
+                        <outlet property="senderLbl" destination="TiT-8r-lRq" id="shM-yD-aQe"/>
+                        <segue destination="ora-YV-TUq" kind="presentation" identifier="backToNotifBoard" modalPresentationStyle="fullScreen" id="CWK-Fn-WLg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rTB-iP-KsR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5276.5625" y="1118.5546875"/>
         </scene>
         <!--View Controller Sign Up-->
         <scene sceneID="Zxi-aH-adp">
@@ -1926,7 +2129,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Clubs Involved In:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aEy-nW-aOb">
-                                <rect key="frame" x="20" y="262" width="168" height="27"/>
+                                <rect key="frame" x="20" y="262" width="728" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <nil key="textColor"/>
@@ -1955,7 +2158,7 @@
                                 </state>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Clubs Wishlist:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gb0-XY-YqF">
-                                <rect key="frame" x="20" y="472" width="142" height="27"/>
+                                <rect key="frame" x="20" y="472" width="728" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <nil key="textColor"/>
@@ -2082,7 +2285,7 @@
                                     <color key="titleColor" red="0.83137254900000002" green="0.1215686275" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="ora-YV-TUq" kind="presentation" modalPresentationStyle="fullScreen" id="K8A-rt-clB"/>
+                                    <segue destination="ora-YV-TUq" kind="presentation" identifier="profileToNotif" modalPresentationStyle="fullScreen" id="K8A-rt-clB"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -2095,6 +2298,7 @@
                     </view>
                     <connections>
                         <outlet property="addWishlistClubsLbl" destination="fdJ-h8-F5U" id="FsE-XL-tLq"/>
+                        <outlet property="clubsTitleLbl" destination="aEy-nW-aOb" id="iSh-CI-MeW"/>
                         <outlet property="clubsWishlistLabel" destination="gb0-XY-YqF" id="nB7-29-DOk"/>
                         <outlet property="collectionClubsIn" destination="ZNc-8k-vXW" id="X3t-d0-D2A"/>
                         <outlet property="collectionSavedMatches" destination="CTa-fH-8gq" id="7FZ-Oc-ZR6"/>
@@ -2642,7 +2846,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pYB-co-PlU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2338" y="1805"/>
+            <point key="canvasLocation" x="2337.5" y="1804.6874999999998"/>
         </scene>
         <!--View Controller Matched Display-->
         <scene sceneID="4l8-yD-2C7">
@@ -4024,12 +4228,14 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="v2y-g0-gcc"/>
-        <segue reference="nUa-P3-Ifl"/>
-        <segue reference="08j-Dy-qEo"/>
-        <segue reference="Wy2-JA-mnb"/>
-        <segue reference="HBN-lN-BdC"/>
-        <segue reference="exb-Of-pYH"/>
+        <segue reference="Laq-H6-Ecp"/>
+        <segue reference="8TU-da-ysU"/>
+        <segue reference="xQH-vc-iVf"/>
+        <segue reference="N7u-Ha-PSq"/>
+        <segue reference="CWK-Fn-WLg"/>
+        <segue reference="Ubk-Fn-ElL"/>
+        <segue reference="RZK-C5-UL1"/>
         <segue reference="GGO-DH-1TB"/>
-        <segue reference="sDv-vH-fYY"/>
+        <segue reference="voT-Mt-29V"/>
     </inferredMetricsTieBreakers>
 </document>

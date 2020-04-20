@@ -18,6 +18,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
     @IBOutlet weak var collectionSavedMatches: UICollectionView!
     @IBOutlet weak var matchesLabel: UILabel!
     @IBOutlet weak var clubsWishlistLabel: UILabel!
+    @IBOutlet weak var clubsTitleLbl: UILabel!
     
     var viewer = "student"
     
@@ -45,6 +46,9 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             self.collectionSavedMatches.isHidden = true
             matchesLabel.isHidden = true
             clubsWishlistLabel.isHidden = true
+            addWishlistClubsLbl.isHidden = true
+            
+            clubsTitleLbl.text = "Sponsored Clubs:"
         }
         
             let userRef = db.collection("users").document(uid)
@@ -102,7 +106,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
         }
         else if collectionView == self.collectionWishlist{
             print("wish items count = \(wishItems.count)")
-            if self.wishItems.count == 0{
+            if self.wishItems.count == 0 && viewer == "student"{
                 addWishlistClubsLbl.isHidden = false
                 addWishlistClubsLbl.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
                 addWishlistClubsLbl.layer.borderWidth = 1
@@ -383,6 +387,10 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             if (self.statement != "Statement #!"){
                 vc.ClubName = self.enrolledItems[self.clickedOn]
             }
+        }
+        else if (segue.identifier == "profileToNotif"){
+            var vc = segue.destination as! ViewControllerNotifBoard
+            vc.viewer = viewer
         }
     }
     
