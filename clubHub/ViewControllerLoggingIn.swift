@@ -90,7 +90,7 @@ class ViewControllerLoggingIn: UIViewController {
             
         }
         else if (decision == "sponsor"){
-            print("STUDENT++++++++++++++++")
+            print("SPONSOR++++++++++++++++")
             performSegue(withIdentifier: "startBrowsing", sender: self)
             
         }
@@ -117,6 +117,9 @@ class ViewControllerLoggingIn: UIViewController {
         let user: GIDGoogleUser = GIDSignIn.sharedInstance()!.currentUser
         let fullName = user.profile.name!
         let fullEmail = user.profile.email!
+        print(fullName)
+        print(fullEmail)
+        print(uid)
         if decision == "student"{
             if ("\(fullEmail)").contains("students.d211.org"){
                 startBrowsingBtn.isEnabled = true
@@ -136,40 +139,36 @@ class ViewControllerLoggingIn: UIViewController {
                 var sponsorsRef = db.collection("users")
                 var sponsorsClubsFromUser = [String]()
                 var sponsorsClubsFromClubs = [String]()
-                print("close to first queuery")
+                print("close to first query")
                 print("full email \(fullEmail)")
                 sponsorsRef.whereField("email", isEqualTo: fullEmail).getDocuments(){ (querySnapshot, error) in
-                    print("got into first queury")
+                    print("got into first query")
                     for document in querySnapshot!.documents{
                         sponsorsClubsFromUser = document.data()["myClubs"]! as! [String]
+                        uid = document.documentID
                     }
-                }
-
-                print("sponsorsClubsFromUser\(sponsorsClubsFromUser)")
-                clubsRef.whereField("sponsorsEmail", arrayContains: fullEmail).getDocuments(){ (querySnapshot, error) in
-                    print("going in")
-                    for document in querySnapshot!.documents{
-                        let temp = "\(String(describing: document.get("name")!))"
-                        sponsorsClubsFromClubs.append(temp)
+                    
+                    print("sponsorsClubsFromUser\(sponsorsClubsFromUser)")
+                    clubsRef.whereField("sponsorsEmail", arrayContains: fullEmail).getDocuments(){ (querySnapshot, error) in
+                        print("going in")
+                        for document in querySnapshot!.documents{
+                            let temp = "\(String(describing: document.get("name")!))"
+                            sponsorsClubsFromClubs.append(temp)
+                            
+                            print("sponsorsClubsFromClubs\(sponsorsClubsFromClubs)")
+                            print("HELLO")
+                        }
                         
-                        print("sponsorsClubsFromClubs\(sponsorsClubsFromClubs)")
-
+                        
+                        sponsorsRef.document(uid).setData(["myClubs": sponsorsClubsFromClubs], merge: true)
+                        
+                        self.alertLabel.text = "\(fullName), you are ready to start browsing!"
+                        
+                        self.startBrowsingBtn.isEnabled = true
+                        
                     }
-                    
-                    
-                    
-                    print(uid)
-                    
-                    sponsorsRef.document(uid).setData(["myClubs": sponsorsClubsFromClubs], merge: true)
-
                 }
-                print("uid2 \(uid)")
                 
-                
-                
-                
-                startBrowsingBtn.isEnabled = true
-                alertLabel.text = "\(fullName), you are ready to start browsing!"
             }else{
                 alertLabel.text = "Please sign in using school email (@d211.org)!"
             }

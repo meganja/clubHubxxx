@@ -13,6 +13,9 @@
 		BB45A27F24144D7C0063AC50 /* ViewControllerAdminEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45A27E24144D7C0063AC50 /* ViewControllerAdminEdit.swift */; };
 		BB45B4102447CFAD00ED0AD1 /* ViewControllerNotifBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45B40F2447CFAD00ED0AD1 /* ViewControllerNotifBoard.swift */; };
 		BB45B4122447CFC900ED0AD1 /* CollectionViewCellNotif.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45B4112447CFC900ED0AD1 /* CollectionViewCellNotif.swift */; };
+		BB47624A244D033C002FF50E /* CollectionViewCellChooseNotifClub.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB476249244D033C002FF50E /* CollectionViewCellChooseNotifClub.swift */; };
+		BB47624C244D03AF002FF50E /* ViewControllerChooseNotifClub.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB47624B244D03AF002FF50E /* ViewControllerChooseNotifClub.swift */; };
+		BB47624E244D1990002FF50E /* ViewControllerCreateNotif.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB47624D244D1990002FF50E /* ViewControllerCreateNotif.swift */; };
 		BB4A62092415786A003A887B /* ViewControllerProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A62082415786A003A887B /* ViewControllerProfile.swift */; };
 		BB4A620B241578D5003A887B /* CollectionViewCellClubsIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A620A241578D5003A887B /* CollectionViewCellClubsIn.swift */; };
 		BB4A620D241578F4003A887B /* CollectionViewCellWishlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4A620C241578F4003A887B /* CollectionViewCellWishlist.swift */; };
@@ -83,6 +86,9 @@
 		BB45A27E24144D7C0063AC50 /* ViewControllerAdminEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerAdminEdit.swift; sourceTree = "<group>"; };
 		BB45B40F2447CFAD00ED0AD1 /* ViewControllerNotifBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerNotifBoard.swift; sourceTree = "<group>"; };
 		BB45B4112447CFC900ED0AD1 /* CollectionViewCellNotif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellNotif.swift; sourceTree = "<group>"; };
+		BB476249244D033C002FF50E /* CollectionViewCellChooseNotifClub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellChooseNotifClub.swift; sourceTree = "<group>"; };
+		BB47624B244D03AF002FF50E /* ViewControllerChooseNotifClub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewControllerChooseNotifClub.swift; path = /Users/c1840/Documents/GitHub/clubHubxxx/clubHub/ViewControllerChooseNotifClub.swift; sourceTree = "<absolute>"; };
+		BB47624D244D1990002FF50E /* ViewControllerCreateNotif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerCreateNotif.swift; sourceTree = "<group>"; };
 		BB4A62082415786A003A887B /* ViewControllerProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerProfile.swift; sourceTree = "<group>"; };
 		BB4A620A241578D5003A887B /* CollectionViewCellClubsIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellClubsIn.swift; sourceTree = "<group>"; };
 		BB4A620C241578F4003A887B /* CollectionViewCellWishlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellWishlist.swift; sourceTree = "<group>"; };
@@ -234,6 +240,9 @@
 				BB4BB61B24342142005D61CA /* ViewControllerMatchedDisplay.swift */,
 				BB45B40F2447CFAD00ED0AD1 /* ViewControllerNotifBoard.swift */,
 				BB45B4112447CFC900ED0AD1 /* CollectionViewCellNotif.swift */,
+				BB476249244D033C002FF50E /* CollectionViewCellChooseNotifClub.swift */,
+				BB47624B244D03AF002FF50E /* ViewControllerChooseNotifClub.swift */,
+				BB47624D244D1990002FF50E /* ViewControllerCreateNotif.swift */,
 			);
 			path = clubHub;
 			sourceTree = "<group>";
@@ -533,6 +542,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB47624C244D03AF002FF50E /* ViewControllerChooseNotifClub.swift in Sources */,
 				BB4A620D241578F4003A887B /* CollectionViewCellWishlist.swift in Sources */,
 				CB84B1242433F201005EEF7C /* CollectionViewCellSignUpClubs.swift in Sources */,
 				CB242F9D2415C8C100FE70E5 /* CollectionViewCellYourClubs.swift in Sources */,
@@ -549,6 +559,7 @@
 				CB242F972415C40400FE70E5 /* ViewControllerAddUserClubs.swift in Sources */,
 				CB546A02240779DD001DFA77 /* ViewControllerDispClubs.swift in Sources */,
 				BB4A620B241578D5003A887B /* CollectionViewCellClubsIn.swift in Sources */,
+				BB47624A244D033C002FF50E /* CollectionViewCellChooseNotifClub.swift in Sources */,
 				BB4BB61A24341F8E005D61CA /* CollectionViewCellMatchedClubs.swift in Sources */,
 				CB546A0024077851001DFA77 /* ViewControllerLoggingIn.swift in Sources */,
 				BB4BB61C24342142005D61CA /* ViewControllerMatchedDisplay.swift in Sources */,
@@ -557,6 +568,7 @@
 				BB45B4122447CFC900ED0AD1 /* CollectionViewCellNotif.swift in Sources */,
 				BB45B4102447CFAD00ED0AD1 /* ViewControllerNotifBoard.swift in Sources */,
 				CB84B1222433EFD1005EEF7C /* ViewControllerSignUp.swift in Sources */,
+				BB47624E244D1990002FF50E /* ViewControllerCreateNotif.swift in Sources */,
 				BB4A9853243BFB1600068B73 /* CollectionViewCellSavedMatches.swift in Sources */,
 				CBA72385242D744700EF1DFA /* CollectionViewCellEditCategory.swift in Sources */,
 			);
@@ -768,13 +780,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W8JSH57J54;
+				DEVELOPMENT_TEAM = AMU5HUBAR2;
 				INFOPLIST_FILE = clubHub/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.c1843.clubHub;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sideload.clubHub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -787,13 +799,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W8JSH57J54;
+				DEVELOPMENT_TEAM = AMU5HUBAR2;
 				INFOPLIST_FILE = clubHub/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.c1843.clubHub;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sideload.clubHub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

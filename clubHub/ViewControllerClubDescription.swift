@@ -518,6 +518,10 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
             vc.recsList = recsList
             vc.priorities = priorities
         }
+        else if (segue.identifier == "descriptToNotif"){
+            var vc = segue.destination as! ViewControllerNotifBoard
+            vc.viewer = viewer
+        }
         
     }
     
@@ -565,7 +569,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     }
     
     @IBAction func backButtonClicked(_ sender: Any) {
-        print("BACK CLICKED THIS IS THE SENDER: (SHOULD BE PROFILE OR BROWSE)-- \(senderPage)")
+        print("BACK CLICKED THIS IS THE SENDER: (SHOULD BE PROFILE, BROWSE, MATCHES, OR NOTIF)-- \(senderPage)")
         
         if clubsViewed.count > 1{
             clubsViewed.remove(at: clubsViewed.count - 1)
@@ -585,6 +589,9 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
         else if("\(senderPage)" == "matches"){
             matchesClicked = true
             performSegue(withIdentifier: "descriptToMatches", sender: self)
+        }
+        else if("\(senderPage)" == "notifBoard"){
+            performSegue(withIdentifier: "descriptToNotif", sender: self)
         }
         
     }

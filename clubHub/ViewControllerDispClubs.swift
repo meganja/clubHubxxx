@@ -105,7 +105,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                     
                     sponsorsRef.document(document.documentID).setData(["myClubs": sponsorsClubsFromClubs], merge: true)
                     self.sponsorsClubs = sponsorsClubsFromClubs
-
+                        print("Updated firebase!")
                 }
                 
 
@@ -745,6 +745,9 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             if !sponsorsClubs.contains(self.items[indexPath.row]){
                 cell.editClubBtn.isHidden = true
             }
+            else{
+                cell.editClubBtn.isHidden = false
+            }
         }
         else if (viewer != "admin"){
             cell.editClubBtn.isHidden = true
@@ -847,6 +850,10 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                     vc.ClubName = self.items[self.clickedOn]
                 }
             }
+        }
+        else if (segue.identifier == "browseToNotif"){
+            var vc = segue.destination as! ViewControllerNotifBoard
+            vc.viewer = viewer
         }
     }
     
