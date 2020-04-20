@@ -518,6 +518,10 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
             vc.recsList = recsList
             vc.priorities = priorities
         }
+        else if goToStuList{
+            var vc = segue.destination as! ViewControllerStudentRoster
+            vc.viewer = self.viewer
+        }
         else if (segue.identifier == "descriptToNotif"){
             var vc = segue.destination as! ViewControllerNotifBoard
             vc.viewer = viewer
@@ -538,7 +542,16 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     var profileClicked = false
     var browseClicked = false
     var matchesClicked = false
+    var goToStuList = false
     
+    @IBAction func studentListBtn1(_ sender: Any) {
+        goToStuList = true
+        performSegue(withIdentifier: "goToStudentList", sender: self)
+    }
+    @IBAction func studentListBtn2(_ sender: Any) {
+        goToStuList = true
+        performSegue(withIdentifier: "goToStudentList", sender: self)
+    }
     
     //MARK: -Wishlisting Clubs
     
