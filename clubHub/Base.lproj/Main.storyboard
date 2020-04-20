@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1792,7 +1792,7 @@
                                 <color key="backgroundColor" red="0.078431372550000003" green="0.1529411765" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <edgeInsets key="layoutMargins" top="8" left="100" bottom="8" right="100"/>
                                 <attributedString key="attributedText">
-                                    <fragment content="Choose one of your club(s):">
+                                    <fragment content="Choose A Club">
                                         <attributes>
                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <font key="NSFont" size="48" name="ArialRoundedMTBold"/>
@@ -1859,19 +1859,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PlN-Lg-aro">
-                                <rect key="frame" x="279" y="938" width="215" height="66"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.83137254900000002" green="0.1215686275" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
-                                <state key="normal" title="Done">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="createNotification:" destination="3sk-OX-mhe" eventType="touchUpInside" id="UyT-Tw-f5D"/>
-                                    <action selector="doneBtn:" destination="Ntu-Pz-j5H" eventType="touchUpInside" id="22d-KP-DrO"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7j8-T1-wjt">
                                 <rect key="frame" x="20" y="20" width="22" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1902,6 +1889,19 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PlN-Lg-aro">
+                                <rect key="frame" x="277" y="524" width="215" height="66"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.83137254900000002" green="0.1215686275" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="createNotification:" destination="3sk-OX-mhe" eventType="touchUpInside" id="UyT-Tw-f5D"/>
+                                    <action selector="doneBtn:" destination="Ntu-Pz-j5H" eventType="touchUpInside" id="22d-KP-DrO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="qnn-JB-LP1"/>
@@ -4210,32 +4210,32 @@
             <point key="canvasLocation" x="523" y="3154"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="155-1554499_kudos-back-white-icon-png" width="600" height="1059"/>
-        <image name="bell.fill" catalog="system" width="64" height="62"/>
-        <image name="bell_clicked" width="97" height="92"/>
-        <image name="browseIconClicked" width="960" height="720"/>
-        <image name="browseIconNotClicked" width="960" height="720"/>
-        <image name="chs-cougar-mascot" width="600" height="319"/>
-        <image name="ellipsis.circle" catalog="system" width="64" height="60"/>
-        <image name="personIconClicked" width="960" height="720"/>
-        <image name="personIconNotClicked-2" width="960" height="720"/>
-        <image name="signOut" width="512" height="512"/>
-        <image name="square.and.pencil" catalog="system" width="64" height="58"/>
-        <image name="starIconNotClicked" width="960" height="720"/>
-        <image name="trash" catalog="system" width="60" height="64"/>
-        <image name="unnamed" width="512" height="512"/>
-    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="v2y-g0-gcc"/>
         <segue reference="Laq-H6-Ecp"/>
         <segue reference="8TU-da-ysU"/>
-        <segue reference="xQH-vc-iVf"/>
-        <segue reference="N7u-Ha-PSq"/>
-        <segue reference="CWK-Fn-WLg"/>
+        <segue reference="qhn-Lb-nRI"/>
+        <segue reference="zml-gy-Xe9"/>
+        <segue reference="88O-jV-Jlj"/>
         <segue reference="Ubk-Fn-ElL"/>
-        <segue reference="RZK-C5-UL1"/>
+        <segue reference="QSC-xB-fEY"/>
         <segue reference="GGO-DH-1TB"/>
         <segue reference="voT-Mt-29V"/>
     </inferredMetricsTieBreakers>
+    <resources>
+        <image name="155-1554499_kudos-back-white-icon-png" width="600" height="1059"/>
+        <image name="bell.fill" catalog="system" width="128" height="124"/>
+        <image name="bell_clicked" width="97" height="92"/>
+        <image name="browseIconClicked" width="960" height="720"/>
+        <image name="browseIconNotClicked" width="960" height="720"/>
+        <image name="chs-cougar-mascot" width="600" height="319"/>
+        <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
+        <image name="personIconClicked" width="960" height="720"/>
+        <image name="personIconNotClicked-2" width="960" height="720"/>
+        <image name="signOut" width="512" height="512"/>
+        <image name="square.and.pencil" catalog="system" width="128" height="118"/>
+        <image name="starIconNotClicked" width="960" height="720"/>
+        <image name="trash" catalog="system" width="121" height="128"/>
+        <image name="unnamed" width="512" height="512"/>
+    </resources>
 </document>
