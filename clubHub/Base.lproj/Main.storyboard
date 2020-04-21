@@ -1210,7 +1210,6 @@
                                 <state key="normal" title="profile" image="personIconNotClicked-2"/>
                                 <connections>
                                     <action selector="profileBtn:" destination="fl7-by-9zP" eventType="touchUpInside" id="hTL-QN-M0g"/>
-                                    <segue destination="psG-IV-fUG" kind="presentation" identifier="navProfile" modalPresentationStyle="fullScreen" id="08j-Dy-qEo"/>
                                 </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E1h-Kq-htr">
@@ -1578,7 +1577,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J3b-sy-nSM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3067.96875" y="1075.48828125"/>
+            <point key="canvasLocation" x="3007" y="1174"/>
         </scene>
         <!--View Controller Notif Board-->
         <scene sceneID="4wi-Nx-TXT">
@@ -4338,11 +4337,11 @@
     <inferredMetricsTieBreakers>
         <segue reference="v2y-g0-gcc"/>
         <segue reference="Laq-H6-Ecp"/>
-        <segue reference="HXq-P6-Ccu"/>
+        <segue reference="jne-Yx-Xv9"/>
         <segue reference="xQH-vc-iVf"/>
         <segue reference="N7u-Ha-PSq"/>
         <segue reference="Wy2-JA-mnb"/>
-        <segue reference="6d6-7c-I4f"/>
+        <segue reference="KuB-2b-Pgb"/>
         <segue reference="dSB-4A-GFN"/>
         <segue reference="GGO-DH-1TB"/>
         <segue reference="voT-Mt-29V"/>

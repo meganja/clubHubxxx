@@ -818,6 +818,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         if navBarProfileClicked{
             var vc = segue.destination as! ViewControllerProfile
             vc.viewer = viewer
+            vc.cameElsewhere = true
         }
         else if(segue.identifier == "goToDescription"){
             print("IN DESCRIPT PREPARE")

@@ -133,6 +133,8 @@ class ViewControllerSignUp: UIViewController, UICollectionViewDataSource, UIColl
         
         var vc = segue.destination as! ViewControllerProfile
         vc.viewer = viewer
+        vc.cameElsewhere = true
+
         
     }
     

@@ -523,11 +523,8 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     
     //MARK: -Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if profileClicked{
-            var vc = segue.destination as! ViewControllerProfile
-            vc.viewer = self.viewer
-            
-        }else if browseClicked{
+        print("is profile clicked? \(profileClicked)")
+        if browseClicked{
             print("going back")
             print("real viewer = \(realViewer)")
             var vc = segue.destination as! ViewControllerDispClubs
@@ -549,6 +546,10 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
         else if (segue.identifier == "descriptToNotif"){
             var vc = segue.destination as! ViewControllerNotifBoard
             vc.viewer = viewer
+        }else if profileClicked{
+            var vc = segue.destination as! ViewControllerProfile
+            vc.viewer = self.viewer
+            vc.ifProfileClicked = profileClicked
         }
         
     }
@@ -561,8 +562,9 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     
     @IBAction func profileBtn(_ sender: Any) {
         profileClicked = true
-        performSegue(withIdentifier: "navProfile", sender: self)
+        performSegue(withIdentifier: "descriptToProfile", sender: self)
     }
+    
     var profileClicked = false
     var browseClicked = false
     var matchesClicked = false

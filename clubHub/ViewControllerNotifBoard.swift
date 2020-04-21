@@ -138,6 +138,8 @@ class ViewControllerNotifBoard: UIViewController, UICollectionViewDataSource, UI
         else if (segue.identifier == "notifToProfile"){
             var vc = segue.destination as! ViewControllerProfile
             vc.viewer = viewer
+            vc.cameElsewhere = true
+
         }
         else if(segue.identifier == "notifToDescript"){
             print("IN DESCRIPT PREPARE")
