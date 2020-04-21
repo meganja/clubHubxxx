@@ -93,6 +93,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
                 if(self.surveyTaken != ""){
                     self.matchesLabel.text = "Your Matches: (Survey last taken on \(self.surveyTaken))"
                 }
+                self.checkContainValidClubs()
             }
             
         }
@@ -106,7 +107,69 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
         }else if cameElsewhere == true{
             getUI()
         }
+        
+        
+        
     }
+    
+    func checkContainValidClubs(){
+        let sponsorsRef = db.collection("users")
+        if viewer == "student"{
+            let clubsRef = db.collection("clubs")
+            clubsRef.getDocuments { (querySnapshot, error) in
+                for document in querySnapshot!.documents{
+                    self.allClubs.append(String(describing: document.get("name")!))
+                }
+                var newClubsEnrolled = [String]()
+                for i in (0..<self.enrolledItems.count){
+                    if (self.allClubs.contains(self.enrolledItems[i])){
+                        newClubsEnrolled.append(self.enrolledItems[i])
+                    }
+                }
+                self.enrolledItems = newClubsEnrolled
+                DispatchQueue.main.async {
+                    self.collectionClubsIn.reloadData()
+                }
+                var newWishList = [String]()
+                for i in (0..<self.wishItems.count){
+                    if (self.allClubs.contains(self.wishItems[i])){
+                        newWishList.append(self.wishItems[i])
+                    }
+                }
+                self.wishItems = newWishList
+                DispatchQueue.main.async {
+                    self.collectionWishlist.reloadData()
+                }
+                var newReqs = [String]()
+                var newReqsPriority = [Int]()
+                for i in (0..<self.savedMatches.count){
+                    if (self.allClubs.contains(self.savedMatches[i])){
+                        newReqs.append(self.savedMatches[i])
+                        newReqsPriority.append(i)
+                    }
+                }
+                self.savedMatches = newReqs
+                for i in (0..<newReqsPriority.count){
+                    self.savedPriorities.remove(at: (newReqsPriority.count - 1 - i))
+                }
+                self.wishItems = newWishList
+                DispatchQueue.main.async {
+                    self.collectionSavedMatches.reloadData()
+                }
+                
+                print("new enrolled clubs \(newClubsEnrolled)")
+                print("new wisList \(newWishList)")
+                print("new matches \(newReqs)")
+                
+                sponsorsRef.document(uid).setData(["myClubs": self.enrolledItems, "wishlist": self.wishItems, "savedMatches":self.savedMatches, "savedPriorities": self.savedPriorities], merge: true)
+                print("Updated firebase!")
+                
+                
+            }
+        }
+    }
+    
+    var allClubs = [String]()
     
     // MARK: - UICollectionViewDataSource protocol
     
