@@ -145,12 +145,17 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
                 for i in (0..<self.savedMatches.count){
                     if (self.allClubs.contains(self.savedMatches[i])){
                         newReqs.append(self.savedMatches[i])
+                        
+                    }else{
                         newReqsPriority.append(i)
                     }
                 }
                 self.savedMatches = newReqs
+                print("LOOK HERE")
+                print(newReqsPriority)
                 for i in (0..<newReqsPriority.count){
-                    self.savedPriorities.remove(at: (newReqsPriority.count - 1 - i))
+                    print(newReqsPriority[newReqsPriority.count - i - 1])
+                    self.savedPriorities.remove(at: (newReqsPriority[newReqsPriority.count - i - 1]))
                 }
                 self.wishItems = newWishList
                 DispatchQueue.main.async {
