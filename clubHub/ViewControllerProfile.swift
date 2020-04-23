@@ -182,6 +182,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print("collection clubs in \(enrolledItems)")
         print("collectionWishlist \(wishItems)")
+        
         if collectionView == self.collectionClubsIn{
             if viewer == "student"{
                 return self.enrolledItems.count + 1
@@ -209,9 +210,12 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
     
     // make a cell for each cell index path
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
         if collectionView == self.collectionClubsIn{
             // get a reference to our storyboard cell
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! CollectionViewCellClubsIn
+            cell.clubName.text = ""
+            cell.clubLogo.image = nil
             
             cell.editClubBtn.tag = indexPath.item
             cell.editClubBtn.addTarget(self, action: #selector(editClub(_:)), for: .touchUpInside)
@@ -237,7 +241,9 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             cell.layer.borderWidth = 1
             
             if(indexPath.item == 0 && viewer == "student"){
-                cell.clubLogo.image = UIImage(named: "plus")
+                if(cell.clubLogo.image == nil || cell.clubLogo.image == UIImage(named: "chs-cougar-mascot")){
+                    cell.clubLogo.image = UIImage(named: "plus")
+                }
             }
             else{
                 self.db.collection("clubs").whereField("name", isEqualTo: cell.clubName.text ).getDocuments(){ (querySnapshot, err) in
@@ -250,11 +256,15 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
                         let imgRef = ref.child("images/\(docID).png")
                         imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
                             if let error = error {
-                                cell.clubLogo.image = UIImage(named: "chs-cougar-mascot")
+                                if(cell.clubLogo.image == nil){
+                                    cell.clubLogo.image = UIImage(named: "chs-cougar-mascot")
+                                }
                             } else {
                                 // Data for "images/island.jpg" is returned
                                 let imageDownloaded = UIImage(data: data!)
-                                cell.clubLogo.image = imageDownloaded
+                                if(cell.clubLogo.image == nil){
+                                    cell.clubLogo.image = imageDownloaded
+                                }
                             }
                         }
                     }
@@ -263,13 +273,21 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             
             return cell
         }
+            
+            
+            
+            
         else if collectionView == self.collectionWishlist{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier2, for: indexPath as IndexPath) as! CollectionViewCellWishlist 
+            cell.clubName.text = ""
+            cell.clubLogo.image = nil
             
             // Use the outlet in our custom class to get a reference to the UILabel in the cell
-            if(indexPath.item == 0){
+            if(indexPath.item == 0 && viewer == "student"){
+                if(cell.clubLogo.image == nil || cell.clubLogo.image == UIImage(named: "chs-cougar-mascot")){
+                    cell.clubLogo.image = UIImage(named: "plus")
+                }
                 cell.clubName.text = "Sign Up For a Wishlisted Club"
-                cell.clubLogo.image = UIImage(named: "plus")
             }
             else{
                 cell.clubName.text = self.wishItems[indexPath.item - 1]
@@ -284,32 +302,37 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
                         let imgRef = ref.child("images/\(docID).png")
                         imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
                             if let error = error {
-                                cell.clubLogo.image = UIImage(named: "chs-cougar-mascot")
+                                if(cell.clubLogo.image == nil){
+                                    cell.clubLogo.image = UIImage(named: "chs-cougar-mascot")
+                                }
                             } else {
                                 // Data for "images/island.jpg" is returned
                                 let imageDownloaded = UIImage(data: data!)
-                                cell.clubLogo.image = imageDownloaded
+                                if(cell.clubLogo.image == nil){
+                                    cell.clubLogo.image = imageDownloaded
+                                }
                             }
                         }
                     }
                 }
             }
+            
             cell.backgroundColor = UIColor.white // make cell more visible in our example project
             cell.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
             cell.layer.borderWidth = 1
             
             return cell
         }
+            
+            
+            
         else{ //saved matches
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier3, for: indexPath as IndexPath) as! CollectionViewCellSavedMatches
+            cell.clubName.text = ""
+            cell.clubLogo.image = nil
             
             // Use the outlet in our custom class to get a reference to the UILabel in the cell
-            if(indexPath.item == 0){
-                cell.clubName.text = "Take the Club Matchmaker Survey!"
-                cell.matchStrength.backgroundColor = UIColor.white
-                cell.clubLogo.image = UIImage(named: "plus")
-            }
-            else{
+            if(indexPath.item > 0 || viewer != "student"){
                 cell.clubName.text = self.savedMatches[indexPath.item - 1]
                 if self.savedPriorities[indexPath.item - 1] > 2{
                     cell.matchStrength.backgroundColor = UIColor.green
@@ -331,14 +354,25 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
                         let imgRef = ref.child("images/\(docID).png")
                         imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
                             if let error = error {
-                                cell.clubLogo.image = UIImage(named: "chs-cougar-mascot")
+                                if(cell.clubLogo.image == nil){
+                                    cell.clubLogo.image = UIImage(named: "chs-cougar-mascot")
+                                }
                             } else {
                                 // Data for "images/island.jpg" is returned
                                 let imageDownloaded = UIImage(data: data!)
-                                cell.clubLogo.image = imageDownloaded
+                                if(cell.clubLogo.image == nil){
+                                    cell.clubLogo.image = imageDownloaded
+                                }
                             }
                         }
                     }
+                }
+            }
+            else if(indexPath.item == 0 && viewer == "student"){
+                cell.clubName.text = "Take the Club Matchmaker Survey!"
+                cell.matchStrength.backgroundColor = UIColor.white
+                if(cell.clubLogo.image == nil || cell.clubLogo.image == UIImage(named: "chs-cougar-mascot")){
+                    cell.clubLogo.image = UIImage(named: "plus")
                 }
             }
             cell.backgroundColor = UIColor.white // make cell more visible in our example project
