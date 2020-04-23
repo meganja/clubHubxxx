@@ -159,12 +159,18 @@ class ViewControllerLoggingIn: UIViewController {
                             print("HELLO")
                         }
                         
+                        if(sponsorsClubsFromClubs.count > 0){
+                            sponsorsRef.document(uid).setData(["myClubs": sponsorsClubsFromClubs], merge: true)
+                            
+                            self.alertLabel.text = "\(fullName), you are ready to start browsing!"
+                            
+                            self.startBrowsingBtn.isEnabled = true
+                        }
+                        else{
+                            self.alertLabel.text = "Please sign in using school email (@d211.org)!"
+                        }
                         
-                        sponsorsRef.document(uid).setData(["myClubs": sponsorsClubsFromClubs], merge: true)
                         
-                        self.alertLabel.text = "\(fullName), you are ready to start browsing!"
-                        
-                        self.startBrowsingBtn.isEnabled = true
                         
                     }
                 }

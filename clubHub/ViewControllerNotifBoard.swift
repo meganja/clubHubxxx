@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
 
 class ViewControllerNotifBoard: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
@@ -22,30 +23,65 @@ class ViewControllerNotifBoard: UIViewController, UICollectionViewDataSource, UI
     var clubNames = [String]()
     var msgDates = [Double]()
     var viewer = ""
+//    var uid = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if(viewer == "student"){ //TODO--- CHANGE THIS TO && NO PERMISSIONS
-            createPostBtn.isHidden = true
+            checkPermissions()
         }
-        
-        if(viewer == "admin"){
+        else if(viewer == "admin"){
             profileBtn.isHidden = true
-        }
-        
-        //after collection ref:
-        db.collection("notifications").order(by: "datePosted", descending: true).getDocuments(){ (querySnapshot, err) in
-            for document in querySnapshot!.documents{
-                print(String(describing: document.get("message")!))
-                print(String(describing: document.get("clubName")!))
-                self.messages.append(String(describing: document.get("message")!))
-                self.clubNames.append(String(describing: document.get("clubName")!))
-                self.msgDates.append(Double(String(describing: document.get("datePosted")!))!)
+            
+            db.collection("notifications").order(by: "datePosted", descending: true).getDocuments(){ (querySnapshot, err) in
+                for document in querySnapshot!.documents{
+                    print(String(describing: document.get("message")!))
+                    print(String(describing: document.get("clubName")!))
+                    self.messages.append(String(describing: document.get("message")!))
+                    self.clubNames.append(String(describing: document.get("clubName")!))
+                    self.msgDates.append(Double(String(describing: document.get("datePosted")!))!)
+                }
+                DispatchQueue.main.async {
+                    self.collectionViewNotifs.reloadData()
+                    print("hello")
+                }
             }
-            DispatchQueue.main.async {
-                self.collectionViewNotifs.reloadData()
-                print("hello")
+        }
+        else{
+//            var clubsRef = db.collection("clubs")
+//            var sponsorsRef = db.collection("users")
+//
+//
+//            let user: GIDGoogleUser = GIDSignIn.sharedInstance()!.currentUser
+//            let fullName = user.profile.name!
+//            let fullEmail = user.profile.email!
+//
+//            var sponsorsClubsFromUser = [String]()
+//            var sponsorsClubsFromClubs = [String]()
+//            print("close to first queuery")
+//            print("full email \(fullEmail)")
+//            sponsorsRef.whereField("email", isEqualTo: fullEmail).getDocuments(){ (querySnapshot, error) in
+//                print("got into first queury")
+//                for document in querySnapshot!.documents{
+//                    sponsorsClubsFromUser = document.data()["myClubs"]! as! [String]
+//                    self.uid = document.documentID
+//                    print("uid 1: \(self.uid)")
+//                }
+//            }
+            
+            db.collection("notifications").order(by: "datePosted", descending: true).getDocuments(){ (querySnapshot, err) in
+                for document in querySnapshot!.documents{
+                    print(String(describing: document.get("message")!))
+                    print(String(describing: document.get("clubName")!))
+                    self.messages.append(String(describing: document.get("message")!))
+                    self.clubNames.append(String(describing: document.get("clubName")!))
+                    self.msgDates.append(Double(String(describing: document.get("datePosted")!))!)
+                }
+                DispatchQueue.main.async {
+                    self.collectionViewNotifs.reloadData()
+                    print("hello")
+                }
             }
         }
     }
@@ -139,7 +175,6 @@ class ViewControllerNotifBoard: UIViewController, UICollectionViewDataSource, UI
             var vc = segue.destination as! ViewControllerProfile
             vc.viewer = viewer
             vc.cameElsewhere = true
-
         }
         else if(segue.identifier == "notifToDescript"){
             print("IN DESCRIPT PREPARE")
@@ -152,6 +187,7 @@ class ViewControllerNotifBoard: UIViewController, UICollectionViewDataSource, UI
             vc.num = self.clickedOn
             vc.viewer = viewer
             vc.senderPage = "notifBoard"
+            vc.sponsorUID = uid
             if (self.statement != "Statement #!"){
                 vc.ClubName = self.clubNameTemp
             }
@@ -178,4 +214,50 @@ class ViewControllerNotifBoard: UIViewController, UICollectionViewDataSource, UI
         }
     }
     
+    func checkPermissions(){
+        var clubsRef = db.collection("clubs")
+        var usersRef = db.collection("users")
+        
+        let userRef = self.db.collection("users").document(uid)
+
+        self.createPostBtn.isHidden = true
+        
+        userRef.getDocument { (document, error) in
+            var userClubs = document?.data()!["myClubs"]! as![String]
+            print("joined clubs")
+            print(userClubs)
+            
+            let userEmail = document?.data()!["email"]! as! String
+            print("EMAIL ISSSSSS \(userEmail)")
+            
+            for i in 0..<userClubs.count{
+                clubsRef.whereField("name", isEqualTo: userClubs[i]).getDocuments(){ (querySnapshot, error) in
+                    for document in querySnapshot!.documents{
+                        let tempPres = document.data()["clubPresidents"]! as! [String]
+                        print("tempPres \(tempPres)")
+                        
+                        if(tempPres.contains(userEmail)){
+                            self.createPostBtn.isHidden = false
+                            print("YOU HAVE PERMISSION")
+                        }
+                    }
+                }
+            }
+            
+            
+            self.db.collection("notifications").order(by: "datePosted", descending: true).getDocuments(){ (querySnapshot, err) in
+                for document in querySnapshot!.documents{
+                    print(String(describing: document.get("message")!))
+                    print(String(describing: document.get("clubName")!))
+                    self.messages.append(String(describing: document.get("message")!))
+                    self.clubNames.append(String(describing: document.get("clubName")!))
+                    self.msgDates.append(Double(String(describing: document.get("datePosted")!))!)
+                }
+                DispatchQueue.main.async {
+                    self.collectionViewNotifs.reloadData()
+                    print("hello")
+                }
+            }
+        }
+    }
 }
