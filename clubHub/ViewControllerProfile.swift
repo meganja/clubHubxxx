@@ -20,7 +20,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
     @IBOutlet weak var clubsWishlistLabel: UILabel!
     @IBOutlet weak var clubsTitleLbl: UILabel!
     
-    var viewer = "student"
+    var viewer = ""
     
     let reuseIdentifier = "cell"
     let reuseIdentifier2 = "cellWish"
@@ -30,6 +30,8 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
     var savedMatches = [String]()
     var savedPriorities = [Int]()
     var surveyTaken = ""
+    var ifProfileClicked = false
+    var cameElsewhere = false
     
     let db = Firestore.firestore()
     
@@ -40,7 +42,9 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
         print("got hereee" )
         print(fullName)
         name.text = fullName ?? ""
-        
+    }
+    
+    func getUI(){
         if viewer == "sponsor"{
             self.collectionWishlist.isHidden = true
             self.collectionSavedMatches.isHidden = true
@@ -50,53 +54,134 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             
             clubsTitleLbl.text = "Sponsored Clubs:"
         }
-        
-            let userRef = db.collection("users").document(uid)
-            userRef.getDocument { (document, error) in
-                
-                
-                let tempEnrolled = document?.data()!["myClubs"]! as![Any]
-                print(tempEnrolled)
-                for i in 0..<tempEnrolled.count{
-                    self.enrolledItems.append(tempEnrolled[i] as! String)
+        print("******************************* uid\(uid)")
+        let userRef = db.collection("users").document(uid)
+        userRef.getDocument { (document, error) in
+            let tempEnrolled = document?.data()!["myClubs"]! as![Any]
+            print(tempEnrolled)
+            for i in 0..<tempEnrolled.count{
+                self.enrolledItems.append(tempEnrolled[i] as! String)
+            }
+            print("enrolledItems \(self.enrolledItems)")
+            DispatchQueue.main.async {
+                self.collectionClubsIn.reloadData()
+            }
+            print("enrolledItems \(self.enrolledItems)")
+            print("viewer status \(self.viewer)")
+            if self.viewer == "student"{
+                let tempWish = document?.data()!["wishlist"]! as![Any]
+                print(tempWish)
+                for i in 0..<tempWish.count{
+                    self.wishItems.append(tempWish[i] as! String)
                 }
-                print("viewer \(self.viewer)")
-                if self.viewer == "student"{
-                    let tempWish = document?.data()!["wishlist"]! as![Any]
-                    print(tempWish)
-                    for i in 0..<tempWish.count{
-                        self.wishItems.append(tempWish[i] as! String)
-                    }
-                    
-                    let tempMatches = document?.data()!["savedMatches"]! as![Any]
-                    let tempPriorities = document?.data()!["savedPriorities"]! as![Any]
-                    print(tempMatches)
-                    for i in 0..<tempMatches.count{
-                        self.savedMatches.append(tempMatches[i] as! String)
-                        self.savedPriorities.append(tempPriorities[i] as! Int)
-                    }
-                    
-                    self.surveyTaken = document?.data()!["surveyTaken"]! as! String
-                    if(self.surveyTaken != ""){
-                        self.matchesLabel.text = "Your Matches: (Survey last taken on \(self.surveyTaken))"
-                    }
-                }
-                
                 DispatchQueue.main.async {
                     self.collectionWishlist.reloadData()
-                    self.collectionClubsIn.reloadData()
+                }
+                
+                let tempMatches = document?.data()!["savedMatches"]! as![Any]
+                let tempPriorities = document?.data()!["savedPriorities"]! as![Any]
+                print(tempMatches)
+                for i in 0..<tempMatches.count{
+                    self.savedMatches.append(tempMatches[i] as! String)
+                    self.savedPriorities.append(tempPriorities[i] as! Int)
+                }
+                DispatchQueue.main.async {
                     self.collectionSavedMatches.reloadData()
                 }
+                
+                self.surveyTaken = document?.data()!["surveyTaken"]! as! String
+                if(self.surveyTaken != ""){
+                    self.matchesLabel.text = "Your Matches: (Survey last taken on \(self.surveyTaken))"
+                }
+                self.checkContainValidClubs()
             }
+            
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("viewDidAppear is running")
+        print("was the profile clicked \(ifProfileClicked)")
+        if ifProfileClicked == true {
+            getUI()
+        }else if cameElsewhere == true{
+            getUI()
+        }
         
         
         
     }
     
+    func checkContainValidClubs(){
+        let sponsorsRef = db.collection("users")
+        if viewer == "student"{
+            let clubsRef = db.collection("clubs")
+            clubsRef.getDocuments { (querySnapshot, error) in
+                for document in querySnapshot!.documents{
+                    self.allClubs.append(String(describing: document.get("name")!))
+                }
+                var newClubsEnrolled = [String]()
+                for i in (0..<self.enrolledItems.count){
+                    if (self.allClubs.contains(self.enrolledItems[i])){
+                        newClubsEnrolled.append(self.enrolledItems[i])
+                    }
+                }
+                self.enrolledItems = newClubsEnrolled
+                DispatchQueue.main.async {
+                    self.collectionClubsIn.reloadData()
+                }
+                var newWishList = [String]()
+                for i in (0..<self.wishItems.count){
+                    if (self.allClubs.contains(self.wishItems[i])){
+                        newWishList.append(self.wishItems[i])
+                    }
+                }
+                self.wishItems = newWishList
+                DispatchQueue.main.async {
+                    self.collectionWishlist.reloadData()
+                }
+                var newReqs = [String]()
+                var newReqsPriority = [Int]()
+                for i in (0..<self.savedMatches.count){
+                    if (self.allClubs.contains(self.savedMatches[i])){
+                        newReqs.append(self.savedMatches[i])
+                        
+                    }else{
+                        newReqsPriority.append(i)
+                    }
+                }
+                self.savedMatches = newReqs
+                print("LOOK HERE")
+                print(newReqsPriority)
+                for i in (0..<newReqsPriority.count){
+                    print(newReqsPriority[newReqsPriority.count - i - 1])
+                    self.savedPriorities.remove(at: (newReqsPriority[newReqsPriority.count - i - 1]))
+                }
+                self.wishItems = newWishList
+                DispatchQueue.main.async {
+                    self.collectionSavedMatches.reloadData()
+                }
+                
+                print("new enrolled clubs \(newClubsEnrolled)")
+                print("new wisList \(newWishList)")
+                print("new matches \(newReqs)")
+                
+                sponsorsRef.document(uid).setData(["myClubs": self.enrolledItems, "wishlist": self.wishItems, "savedMatches":self.savedMatches, "savedPriorities": self.savedPriorities], merge: true)
+                print("Updated firebase!")
+                
+                
+            }
+        }
+    }
+    
+    var allClubs = [String]()
+    
     // MARK: - UICollectionViewDataSource protocol
     
     @IBOutlet weak var addWishlistClubsLbl: UILabel!
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("collection clubs in \(enrolledItems)")
+        print("collectionWishlist \(wishItems)")
         if collectionView == self.collectionClubsIn{
             if viewer == "student"{
                 return self.enrolledItems.count + 1
@@ -282,7 +367,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
         statement = "You selected cell #\(sender.tag)!"
         performSegue(withIdentifier: "sponsorProfileToEdit", sender: self)
     }
-
+    
     
     // MARK: - UICollectionViewDelegate protocol
     var clickedOn = 0

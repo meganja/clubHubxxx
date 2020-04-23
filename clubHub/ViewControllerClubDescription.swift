@@ -72,6 +72,10 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     var simVolunteer = ""//0 = false, 1 = true
     var narrowingClubsName = [String]()
     
+    var sponsorUID = ""
+    
+    @IBOutlet weak var stuListBtn2State: UIButton!
+    @IBOutlet weak var stuListBtn1State: UIButton!
     
     
     func narrowSimClubs(){
@@ -83,6 +87,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
         print()
         print("going into you may also like function")
         print("the club you selected's categories = \(self.clubCategories)")
+        
         
         
         self.db.collection("clubs").getDocuments(){ (querySnapshot, err) in
@@ -415,6 +420,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                     if (self.sponsorsName.count == 1){
                         self.name1.text = "\(self.sponsorsName[0])"
                         self.email1.setTitle("\(self.sponsorsEmail[0])", for: .normal)
+                        
                     }
                     else if (self.sponsorsName.count == 2){
                         self.name2.text = "\(self.sponsorsName[1])"
@@ -430,6 +436,21 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                         self.email2.isHidden = false
                         self.name3.isHidden = false
                         self.email3.isHidden = false
+                    }
+                }
+                
+                if self.viewer == "sponsor"{
+                    print("here")
+                    self.db.collection("users").whereField("myClubs", arrayContains: "\(self.ClubName)").getDocuments(){ (querySnapshot, err) in
+                        print("here2")
+                        for document in querySnapshot!.documents{
+                            print("here3")
+                            if self.viewer == "sponsor" && document.documentID == self.sponsorUID{
+                                self.stuListBtn2State.isHidden = false
+                                self.stuListBtn1State.isHidden = false
+                            }
+                            
+                        }
                     }
                 }
                 print()
@@ -502,11 +523,8 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     
     //MARK: -Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if profileClicked{
-            var vc = segue.destination as! ViewControllerProfile
-            vc.viewer = self.viewer
-            
-        }else if browseClicked{
+        print("is profile clicked? \(profileClicked)")
+        if browseClicked{
             print("going back")
             print("real viewer = \(realViewer)")
             var vc = segue.destination as! ViewControllerDispClubs
@@ -518,9 +536,20 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
             vc.recsList = recsList
             vc.priorities = priorities
         }
+        else if goToStuList{
+            var vc = segue.destination as! ViewControllerStudentRoster
+            vc.viewer = self.viewer
+            vc.clubName = self.ClubName
+            vc.sponsorUID = self.sponsorUID
+            vc.senderPage = self.senderPage
+        }
         else if (segue.identifier == "descriptToNotif"){
             var vc = segue.destination as! ViewControllerNotifBoard
             vc.viewer = viewer
+        }else if profileClicked{
+            var vc = segue.destination as! ViewControllerProfile
+            vc.viewer = self.viewer
+            vc.ifProfileClicked = profileClicked
         }
         
     }
@@ -533,12 +562,22 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     
     @IBAction func profileBtn(_ sender: Any) {
         profileClicked = true
-        performSegue(withIdentifier: "navProfile", sender: self)
+        performSegue(withIdentifier: "descriptToProfile", sender: self)
     }
+    
     var profileClicked = false
     var browseClicked = false
     var matchesClicked = false
+    var goToStuList = false
     
+    @IBAction func studentListBtn1(_ sender: Any) {
+        goToStuList = true
+        performSegue(withIdentifier: "goToStudentList", sender: self)
+    }
+    @IBAction func studentListBtn2(_ sender: Any) {
+        goToStuList = true
+        performSegue(withIdentifier: "goToStudentList", sender: self)
+    }
     
     //MARK: -Wishlisting Clubs
     

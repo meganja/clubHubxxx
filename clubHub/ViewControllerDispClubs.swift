@@ -59,6 +59,11 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     
     let db = Firestore.firestore()
     var uid = ""
+    
+    
+    
+    var sponsorsClubsFromUser = [String]()
+    var sponsorsClubsFromClubs = [String]()
    
     
     override func viewDidLoad() {
@@ -72,7 +77,8 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         else{
             navBarState.isHidden = true
         }
-        
+        var clubsRef = db.collection("clubs")
+        var sponsorsRef = db.collection("users")
         
         if viewer == "sponsor"{
             let user: GIDGoogleUser = GIDSignIn.sharedInstance()!.currentUser
@@ -89,31 +95,42 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
                 print("got into first queury")
                 for document in querySnapshot!.documents{
                     sponsorsClubsFromUser = document.data()["myClubs"]! as! [String]
-                }
-            }
-
-            print("sponsorsClubsFromUser\(sponsorsClubsFromUser)")
-            clubsRef.whereField("sponsorsEmail", arrayContains: fullEmail).getDocuments(){ (querySnapshot, error) in
-                print("going in")
-                for document in querySnapshot!.documents{
-                    let temp = "\(String(describing: document.get("name")!))"
-                    sponsorsClubsFromClubs.append(temp)
                     self.uid = document.documentID
-                    
-                    print("sponsorsClubsFromClubs\(sponsorsClubsFromClubs)")
-                    print(self.uid)
-                    
-                    sponsorsRef.document(document.documentID).setData(["myClubs": sponsorsClubsFromClubs], merge: true)
-                    self.sponsorsClubs = sponsorsClubsFromClubs
-                        print("Updated firebase!")
+                    print("uid 1: \(self.uid)")
                 }
-                
-
+                self.recheckSponsor()
             }
+
+            
             
 
         }
         
+    }
+    
+    func recheckSponsor(){
+        var clubsRef = db.collection("clubs")
+        var sponsorsRef = db.collection("users")
+        let user: GIDGoogleUser = GIDSignIn.sharedInstance()!.currentUser
+        let fullName = user.profile.name!
+        let fullEmail = user.profile.email!
+        print("sponsorsClubsFromUser\(sponsorsClubsFromUser)")
+        clubsRef.whereField("sponsorsEmail", arrayContains: fullEmail).getDocuments(){ (querySnapshot, error) in
+            print("going in")
+            for document in querySnapshot!.documents{
+                let temp = "\(String(describing: document.get("name")!))"
+                self.sponsorsClubsFromClubs.append(temp)
+                
+                print("sponsorsClubsFromClubs\(self.sponsorsClubsFromClubs)")
+                print("uid 2: \(self.uid)")
+                
+                sponsorsRef.document(self.uid).setData(["myClubs": self.sponsorsClubsFromClubs], merge: true)
+                self.sponsorsClubs = self.sponsorsClubsFromClubs
+                    print("Updated firebase!")
+            }
+            
+
+        }
     }
     
     func getItems(){
@@ -801,6 +818,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         if navBarProfileClicked{
             var vc = segue.destination as! ViewControllerProfile
             vc.viewer = viewer
+            vc.cameElsewhere = true
         }
         else if(segue.identifier == "goToDescription"){
             print("IN DESCRIPT PREPARE")
@@ -817,6 +835,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             print("1111111111111111111111111111")
             print(viewer)
             vc.senderPage = "browse"
+            vc.sponsorUID = self.uid
             if (self.statement != "Statement #!"){
                 if(self.searchBar!.text!.count > 0){
                     if (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || lowCommitmentSwitch.isOn || medCommitmentSwitch.isOn || highCommitmentSwitch.isOn || volunteerSwitch.isOn  || AMSwitch.isOn || PMSwitch.isOn || subjectLeadership.isOn || subjectSchool.isOn || subjectIntellectual.isOn || subjectCommunity.isOn || subjectCompetitive.isOn || subjectArts.isOn){

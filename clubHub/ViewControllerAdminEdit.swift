@@ -269,6 +269,8 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
         if cameFrom == "profile"{
             let vc = segue.destination as! ViewControllerProfile
             vc.viewer = self.viewer
+            vc.cameElsewhere = true
+
         }else{
             var vc = segue.destination as! ViewControllerDispClubs
             vc.viewer = self.viewer

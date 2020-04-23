@@ -102,6 +102,8 @@ class ViewControllerMatchedDisplay: UIViewController, UICollectionViewDataSource
         if done{
             let vc = segue.destination as! ViewControllerProfile
             vc.viewer = "student"
+            vc.cameElsewhere = true
+
         }
         else if seeDescription{
             var vc = segue.destination as! ViewControllerClubDescription

@@ -161,6 +161,8 @@ class ViewControllerAddUserClubs: UIViewController, UICollectionViewDataSource, 
         if done{
             var vc = segue.destination as! ViewControllerProfile
             vc.viewer = viewer
+            vc.cameElsewhere = true
+
         }
     }
     
