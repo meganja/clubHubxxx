@@ -69,18 +69,18 @@ class ViewControllerCreateNotif: UIViewController, UITextViewDelegate {
         var timestamp = Double()
         timestamp = NSDate().timeIntervalSince1970
         let docRef = db.collection("users").document(uid)
-        var posterName = ""
+        var posterEmail = ""
 
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
-                posterName = String(describing: document.get("name")!)
-                print("Poster name: \(posterName)")
+                posterEmail = String(describing: document.get("email")!)
+                print("Poster email: \(posterEmail)")
                 
                 self.db.collection("notifications").addDocument(data: [
                     "clubName": self.sender,
                     "datePosted": timestamp,
                     "message": self.msgTextView.text!,
-                    "nameOfPoster": posterName
+                    "emailOfPoster": posterEmail
                 ])
                 
                 self.performSegue(withIdentifier: "backToNotifBoard", sender: self)

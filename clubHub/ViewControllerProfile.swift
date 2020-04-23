@@ -289,7 +289,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
                 }
                 cell.clubName.text = "Sign Up For a Wishlisted Club"
             }
-            else{
+            else if(viewer == "student"){
                 cell.clubName.text = self.wishItems[indexPath.item - 1]
                 
                 self.db.collection("clubs").whereField("name", isEqualTo: cell.clubName.text ).getDocuments(){ (querySnapshot, err) in
@@ -332,7 +332,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             cell.clubLogo.image = nil
             
             // Use the outlet in our custom class to get a reference to the UILabel in the cell
-            if(indexPath.item > 0 || viewer != "student"){
+            if(indexPath.item > 0 && viewer == "student"){
                 cell.clubName.text = self.savedMatches[indexPath.item - 1]
                 if self.savedPriorities[indexPath.item - 1] > 2{
                     cell.matchStrength.backgroundColor = UIColor.green
