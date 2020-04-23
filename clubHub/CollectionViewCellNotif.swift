@@ -18,4 +18,7 @@ class CollectionViewCellNotif: UICollectionViewCell {
     
     @IBOutlet weak var postedDate: UILabel!
     
+    @IBOutlet weak var posterEmail: UILabel!
+    
+    @IBOutlet weak var deleteNotif: UIButton!
 }

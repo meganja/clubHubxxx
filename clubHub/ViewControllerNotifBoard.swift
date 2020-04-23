@@ -22,6 +22,7 @@ class ViewControllerNotifBoard: UIViewController, UICollectionViewDataSource, UI
     var messages = [String]()
     var clubNames = [String]()
     var msgDates = [Double]()
+    var posters = [String]()
     var viewer = ""
 //    var uid = ""
     
@@ -41,6 +42,7 @@ class ViewControllerNotifBoard: UIViewController, UICollectionViewDataSource, UI
                     self.messages.append(String(describing: document.get("message")!))
                     self.clubNames.append(String(describing: document.get("clubName")!))
                     self.msgDates.append(Double(String(describing: document.get("datePosted")!))!)
+                    self.posters.append(String(describing: document.get("emailOfPoster")!))
                 }
                 DispatchQueue.main.async {
                     self.collectionViewNotifs.reloadData()
@@ -49,27 +51,6 @@ class ViewControllerNotifBoard: UIViewController, UICollectionViewDataSource, UI
             }
         }
         else{
-//            var clubsRef = db.collection("clubs")
-//            var sponsorsRef = db.collection("users")
-//
-//
-//            let user: GIDGoogleUser = GIDSignIn.sharedInstance()!.currentUser
-//            let fullName = user.profile.name!
-//            let fullEmail = user.profile.email!
-//
-//            var sponsorsClubsFromUser = [String]()
-//            var sponsorsClubsFromClubs = [String]()
-//            print("close to first queuery")
-//            print("full email \(fullEmail)")
-//            sponsorsRef.whereField("email", isEqualTo: fullEmail).getDocuments(){ (querySnapshot, error) in
-//                print("got into first queury")
-//                for document in querySnapshot!.documents{
-//                    sponsorsClubsFromUser = document.data()["myClubs"]! as! [String]
-//                    self.uid = document.documentID
-//                    print("uid 1: \(self.uid)")
-//                }
-//            }
-            
             db.collection("notifications").order(by: "datePosted", descending: true).getDocuments(){ (querySnapshot, err) in
                 for document in querySnapshot!.documents{
                     print(String(describing: document.get("message")!))
@@ -77,6 +58,7 @@ class ViewControllerNotifBoard: UIViewController, UICollectionViewDataSource, UI
                     self.messages.append(String(describing: document.get("message")!))
                     self.clubNames.append(String(describing: document.get("clubName")!))
                     self.msgDates.append(Double(String(describing: document.get("datePosted")!))!)
+                    self.posters.append(String(describing: document.get("emailOfPoster")!))
                 }
                 DispatchQueue.main.async {
                     self.collectionViewNotifs.reloadData()
@@ -102,6 +84,52 @@ class ViewControllerNotifBoard: UIViewController, UICollectionViewDataSource, UI
         // Use the outlet in our custom class to get a reference to the UILabel in the cell
         cell.clubTitle.text = self.clubNames[indexPath.item]
         cell.clubMessage.text = self.messages[indexPath.item]
+        cell.clubLogo.image = UIImage(named: "chs-cougar-mascot")
+        cell.deleteNotif.tag = indexPath.item
+        cell.deleteNotif.addTarget(self, action: #selector(deleteAlert(_:)), for: .touchUpInside)
+        cell.posterEmail.text = ""
+        cell.deleteNotif.isHidden = true
+        
+        
+        
+        if(viewer == "student"){
+            db.collection("users").document(uid).getDocument { (document, error) in
+                
+                let userEmail = document?.data()!["email"]! as! String
+                
+                self.db.collection("clubs").whereField("name", isEqualTo: self.clubNames[indexPath.item]).getDocuments(){ (querySnapshot, error) in
+                    for document in querySnapshot!.documents{
+                        let tempPres = document.data()["clubPresidents"]! as! [String]
+                        print("tempPres \(tempPres)")
+                        
+                        if(tempPres.contains(userEmail)){
+                            cell.deleteNotif.isHidden = false
+                            cell.posterEmail.text = self.posters[indexPath.item]
+                            print("YOU HAVE PERMISSION")
+                        }
+                    }
+                }
+            }
+        }
+        else if(viewer == "sponsor"){
+            db.collection("users").document(uid).getDocument { (document, error) in
+                let sponsoredClubs = document?.data()!["myClubs"]! as![String]
+                print("sponsored clubs \(sponsoredClubs)")
+                
+                if(sponsoredClubs.contains(self.clubNames[indexPath.item])){
+                    cell.deleteNotif.isHidden = false
+                    cell.posterEmail.text = self.posters[indexPath.item]
+                    print("YOU HAVE PERMISSION")
+                }
+                
+            }
+        }
+        else if(viewer == "admin"){
+            cell.deleteNotif.isHidden = false
+            cell.posterEmail.text = self.posters[indexPath.item]
+            print("ADNIN, YOU HAVE PERMISSION")
+        }
+        
         
         let date = Date(timeIntervalSince1970: self.msgDates[indexPath.item])
         let dateFormatter = DateFormatter()
@@ -150,7 +178,67 @@ class ViewControllerNotifBoard: UIViewController, UICollectionViewDataSource, UI
         
         return cell
     }
-
+    
+    @objc func deleteAlert(_ sender: UIButton){
+        //first, use UIAlertController to check that user really wants to delete the notif
+        
+        // Declare Alert message
+        let dialogMessage = UIAlertController(title: "Confirm", message: "Are you sure you want to delete this notification? This change cannot be undone.", preferredStyle: .alert)
+        
+        // Create OK button with action handler
+        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+            print("Ok button tapped")
+            self.deleteNotification(i: sender.tag)
+        })
+        
+        // Create Cancel button with action handlder
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+            print("Cancel button tapped")
+        }
+        
+        //Add OK and Cancel button to dialog message
+        dialogMessage.addAction(ok)
+        dialogMessage.addAction(cancel)
+        
+        // Present dialog message to user
+        self.present(dialogMessage, animated: true, completion: nil)
+    }
+    
+    
+    func deleteNotification(i: Int){
+        
+        self.db.collection("notifications").whereField("message", isEqualTo: messages[i]).getDocuments(){ (querySnapshot, err) in
+            for document in querySnapshot!.documents{
+                self.db.collection("notifications").document(document.documentID).delete() { err in
+                    if let err = err {
+                        print("Error removing document: \(err)")
+                    } else {
+                        print("Document successfully removed!")
+                    }
+                    
+                    self.messages.removeAll()
+                    self.clubNames.removeAll()
+                    self.msgDates.removeAll()
+                    self.posters.removeAll()
+                    self.db.collection("notifications").order(by: "datePosted", descending: true).getDocuments(){ (querySnapshot, err) in
+                        for document in querySnapshot!.documents{
+                            print(String(describing: document.get("message")!))
+                            print(String(describing: document.get("clubName")!))
+                            self.messages.append(String(describing: document.get("message")!))
+                            self.clubNames.append(String(describing: document.get("clubName")!))
+                            self.msgDates.append(Double(String(describing: document.get("datePosted")!))!)
+                            self.posters.append(String(describing: document.get("emailOfPoster")!))
+                        }
+                        DispatchQueue.main.async {
+                            self.collectionViewNotifs.reloadData()
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+    
     var clickedOn = 0
     var statement = ""
     var clubNameTemp = ""
@@ -214,6 +302,7 @@ class ViewControllerNotifBoard: UIViewController, UICollectionViewDataSource, UI
         }
     }
     
+    
     func checkPermissions(){
         var clubsRef = db.collection("clubs")
         var usersRef = db.collection("users")
@@ -252,6 +341,7 @@ class ViewControllerNotifBoard: UIViewController, UICollectionViewDataSource, UI
                     self.messages.append(String(describing: document.get("message")!))
                     self.clubNames.append(String(describing: document.get("clubName")!))
                     self.msgDates.append(Double(String(describing: document.get("datePosted")!))!)
+                    self.posters.append(String(describing: document.get("emailOfPoster")!))
                 }
                 DispatchQueue.main.async {
                     self.collectionViewNotifs.reloadData()
