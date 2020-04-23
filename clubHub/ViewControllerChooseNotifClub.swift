@@ -41,12 +41,45 @@ class ViewControllerChooseNotifClub: UIViewController, UICollectionViewDataSourc
                 }
             }
         }
-//        else if(viewer == "student"){ //put permissions code here! check which clubs student has posting permissions for
-//
-//        }
-       
-       
-   }
+        else if(viewer == "student"){
+            var clubsRef = db.collection("clubs")
+            var usersRef = db.collection("users")
+            
+            let userRef = self.db.collection("users").document(uid)
+
+            userRef.getDocument { (document, error) in
+                var userClubs = document?.data()!["myClubs"]! as![String]
+                print("joined clubs")
+                print(userClubs)
+                
+                let userEmail = document?.data()!["email"]! as! String
+                print("USER EMAILLLL: \(userEmail)")
+                
+                for i in 0..<userClubs.count{
+                    clubsRef.whereField("name", isEqualTo: userClubs[i]).getDocuments(){ (querySnapshot, error) in
+                        for document in querySnapshot!.documents{
+                            let tempPres = document.data()["clubPresidents"]! as! [String]
+                            print("tempPres \(tempPres)")
+                            
+                            if(tempPres.contains(userEmail)){
+                                print("HEY HERES ONEEE")
+                                self.items.append(String(describing: document.get("name")!))
+                                self.selectedItems.append("0")
+                            }
+                            
+                            DispatchQueue.main.async {
+                                self.choicesCollection.reloadData()
+                            }
+                            
+                        }
+                    }
+                }
+                
+            }
+        }
+        
+        
+    }
    
    // MARK: - UICollectionViewDataSource protocol
    

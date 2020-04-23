@@ -26,15 +26,17 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
         var clubsRef = db.collection("clubs")
-        var sponsorsRef = db.collection("users")
+        var usersRef = db.collection("users")
         titleLabel.text = ("Students in \(clubName)")
         
-        sponsorsRef.whereField("myClubs", arrayContains: self.clubName).getDocuments(){ (querySnapshot, error) in
+        usersRef.whereField("myClubs", arrayContains: self.clubName).getDocuments(){ (querySnapshot, error) in
             print("got into first queury")
             for document in querySnapshot!.documents{
                 if document.get("accountType") != nil{
                     if String(describing: document.get("accountType")!) == "student"{
                         self.items.append(String(describing: document.get("name")!))
+                        self.correspondingEmails.append(String(describing: document.get("email")!))
+                            
                         self.crownStatus.append("0")
                     }
                 }
@@ -73,8 +75,8 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
                         print("items \(self.items)")
                         for i in (0..<self.items.count){
                             print(self.items[i])
-                            print(tempPres.contains(self.items[i]))
-                            if (tempPres.contains(self.items[i])){
+                            print(tempPres.contains(self.correspondingEmails[i]))
+                            if (tempPres.contains(self.correspondingEmails[i])){
                                 self.crownStatus[i] = "1"
                             }
                         }
@@ -96,7 +98,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
         clubPres.removeAll()
         for i in (0..<items.count){
             if crownStatus[i] == "1"{
-                clubPres.append(items[i])
+                clubPres.append(correspondingEmails[i])
             }
         }
 
@@ -114,6 +116,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
     
     let reuseIdentifier = "cell" // also enter this string as the cell identifier in the storyboard
     var items = [String]()
+    var correspondingEmails = [String]()
     var crownStatus = [String]()
     
     
