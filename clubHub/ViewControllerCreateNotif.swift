@@ -66,29 +66,45 @@ class ViewControllerCreateNotif: UIViewController, UITextViewDelegate {
     }
 
     @IBAction func createNotification(_ sender: Any) { //save to firebase, then perform segue back to notif board
-        var timestamp = Double()
-        timestamp = NSDate().timeIntervalSince1970
-        let docRef = db.collection("users").document(uid)
-        var posterEmail = ""
+        if(msgTextView.textColor == UIColor.lightGray){
+            // Declare Alert message
+            let dialogMessage = UIAlertController(title: "Incomplete", message: "You cannot create a notification without text.", preferredStyle: .alert)
+            
+            // Create OK button with action handlder
+            let ok = UIAlertAction(title: "OK", style: .cancel) { (action) -> Void in
+                print("Cancel button tapped")
+            }
+            
+            //Add OK and Cancel button to dialog message
+            dialogMessage.addAction(ok)
+            
+            // Present dialog message to user
+            self.present(dialogMessage, animated: true, completion: nil)
+        }
+        else{
+            var timestamp = Double()
+            timestamp = NSDate().timeIntervalSince1970
+            let docRef = db.collection("users").document(uid)
+            var posterEmail = ""
 
-        docRef.getDocument { (document, error) in
-            if let document = document, document.exists {
-                posterEmail = String(describing: document.get("email")!)
-                print("Poster email: \(posterEmail)")
-                
-                self.db.collection("notifications").addDocument(data: [
-                    "clubName": self.sender,
-                    "datePosted": timestamp,
-                    "message": self.msgTextView.text!,
-                    "emailOfPoster": posterEmail
-                ])
-                
-                self.performSegue(withIdentifier: "backToNotifBoard", sender: self)
-            } else {
-                print("Document does not exist")
+            docRef.getDocument { (document, error) in
+                if let document = document, document.exists {
+                    posterEmail = String(describing: document.get("email")!)
+                    print("Poster email: \(posterEmail)")
+                    
+                    self.db.collection("notifications").addDocument(data: [
+                        "clubName": self.sender,
+                        "datePosted": timestamp,
+                        "message": self.msgTextView.text!,
+                        "emailOfPoster": posterEmail
+                    ])
+                    
+                    self.performSegue(withIdentifier: "backToNotifBoard", sender: self)
+                } else {
+                    print("Document does not exist")
+                }
             }
         }
-        
         
     }
 }

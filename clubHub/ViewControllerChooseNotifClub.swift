@@ -163,7 +163,31 @@ class ViewControllerChooseNotifClub: UIViewController, UICollectionViewDataSourc
    
    
    
-   
+    @IBAction func submit(_ sender: Any) {
+        var selectedOne = false
+        for i in 0..<selectedItems.count{
+            if(selectedItems[i] == "1"){
+                selectedOne = true
+                performSegue(withIdentifier: "chooseToCreate", sender: self)
+            }
+        }
+        if(!selectedOne){
+            // Declare Alert message
+            let dialogMessage = UIAlertController(title: "Incomplete", message: "You must select one club to create a notification on behalf of.", preferredStyle: .alert)
+            
+            // Create OK button with action handlder
+            let ok = UIAlertAction(title: "OK", style: .cancel) { (action) -> Void in
+                print("Cancel button tapped")
+            }
+            
+            //Add OK and Cancel button to dialog message
+            dialogMessage.addAction(ok)
+            
+            // Present dialog message to user
+            self.present(dialogMessage, animated: true, completion: nil)
+        }
+    }
+    
    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print("PREPARE FOR TAKEOFF")

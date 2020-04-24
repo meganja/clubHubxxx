@@ -1921,7 +1921,7 @@
                                 </state>
                                 <connections>
                                     <action selector="doneBtn:" destination="Ntu-Pz-j5H" eventType="touchUpInside" id="L8L-2q-ScH"/>
-                                    <segue destination="3sk-OX-mhe" kind="presentation" identifier="chooseToCreate" modalPresentationStyle="fullScreen" id="qhn-Lb-nRI"/>
+                                    <action selector="submit:" destination="2yc-dG-Vf9" eventType="touchUpInside" id="OQT-u7-FIO"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wuW-xK-t3q">
@@ -1954,6 +1954,7 @@
                     </view>
                     <connections>
                         <outlet property="choicesCollection" destination="Pz3-yB-Pwt" id="tIg-KM-Jes"/>
+                        <segue destination="3sk-OX-mhe" kind="presentation" identifier="chooseToCreate" modalPresentationStyle="fullScreen" id="L0u-S1-cN4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ptF-4n-9Vh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2971,7 +2972,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button" image="155-1554499_kudos-back-white-icon-png"/>
                                 <connections>
-                                    <segue destination="psG-IV-fUG" kind="presentation" modalPresentationStyle="fullScreen" id="RA9-pH-FwV"/>
+                                    <segue destination="psG-IV-fUG" kind="presentation" identifier="backToProfile" modalPresentationStyle="fullScreen" id="RA9-pH-FwV"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -4325,7 +4326,7 @@
                                 <state key="normal" image="155-1554499_kudos-back-white-icon-png"/>
                                 <connections>
                                     <action selector="backButtonClicked:" destination="fl7-by-9zP" eventType="touchUpInside" id="WvK-SH-Rq4"/>
-                                    <segue destination="psG-IV-fUG" kind="presentation" identifier="" modalPresentationStyle="fullScreen" id="jne-Yx-Xv9"/>
+                                    <segue destination="psG-IV-fUG" kind="presentation" identifier="surveyToProfile" modalPresentationStyle="fullScreen" id="jne-Yx-Xv9"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -4369,10 +4370,10 @@
     <inferredMetricsTieBreakers>
         <segue reference="v2y-g0-gcc"/>
         <segue reference="nUa-P3-Ifl"/>
-        <segue reference="8TU-da-ysU"/>
-        <segue reference="xQH-vc-iVf"/>
-        <segue reference="N7u-Ha-PSq"/>
-        <segue reference="c8w-b8-uVU"/>
+        <segue reference="jne-Yx-Xv9"/>
+        <segue reference="L0u-S1-cN4"/>
+        <segue reference="zml-gy-Xe9"/>
+        <segue reference="88O-jV-Jlj"/>
         <segue reference="Ubk-Fn-ElL"/>
         <segue reference="RZK-C5-UL1"/>
         <segue reference="GGO-DH-1TB"/>

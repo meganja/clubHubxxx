@@ -141,10 +141,29 @@ class ViewControllerSignUp: UIViewController, UICollectionViewDataSource, UIColl
     
     @IBAction func doneBtn(_ sender: Any) {
         
-        let userRef = db.collection("users").document(uid)
-        
-        
-        presentParentEmailAlertAction()
+        var selectedOne = false
+        for i in 0..<selectedItems.count{
+            if(selectedItems[i] == "1"){
+                selectedOne = true
+                let userRef = db.collection("users").document(uid)
+                presentParentEmailAlertAction()
+            }
+        }
+        if(!selectedOne){
+            // Declare Alert message
+            let dialogMessage = UIAlertController(title: "Incomplete", message: "You must select at least one club in order to create your request.", preferredStyle: .alert)
+            
+            // Create OK button with action handlder
+            let ok = UIAlertAction(title: "OK", style: .cancel) { (action) -> Void in
+                print("Cancel button tapped")
+            }
+            
+            //Add OK and Cancel button to dialog message
+            dialogMessage.addAction(ok)
+            
+            // Present dialog message to user
+            self.present(dialogMessage, animated: true, completion: nil)
+        }
     }
     
     
