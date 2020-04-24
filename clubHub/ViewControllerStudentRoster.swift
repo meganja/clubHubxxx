@@ -65,19 +65,22 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
             clubsRef.getDocuments(){ (querySnapshot, error) in
                 for document in querySnapshot!.documents{
                     if document.get("clubPresidents") != nil {
-                        if self.clubName == String(describing: document.get("name")!){
-                            self.clubUID = document.documentID
-                            print("clubId \(self.clubUID)")
-                            let tempPres = document.data()["clubPresidents"]! as! [String]
-                            print("tempPres \(tempPres)")
-                            print("items \(self.items)")
-                            for i in (0..<self.items.count){
-                                print(self.items[i])
-                                print(tempPres.contains(self.correspondingEmails[i]))
-                                if (tempPres.contains(self.correspondingEmails[i])){
-                                    self.crownStatus[i] = "1"
+                        if document.get("name") != nil{
+                            if self.clubName == (String(describing: document.get("name")!)){
+                                self.clubUID = document.documentID
+                                print("clubId \(self.clubUID)")
+                                let tempPres = document.data()["clubPresidents"]! as! [String]
+                                print("tempPres \(tempPres)")
+                                print("items \(self.items)")
+                                for i in (0..<self.items.count){
+                                    print(self.items[i])
+                                    print(tempPres.contains(self.correspondingEmails[i]))
+                                    if (tempPres.contains(self.correspondingEmails[i])){
+                                        self.crownStatus[i] = "1"
+                                    }
                                 }
                             }
+                            
                         }
                         
                     }else{
