@@ -11,7 +11,7 @@ import Foundation
 import Firebase
 
 
-class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate{
+class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UITextViewDelegate{
     
     @IBOutlet weak var categoriesCollection: UICollectionView!
     @IBOutlet weak var addClubImgVw: UIImageView!
@@ -37,6 +37,8 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var email2: UITextField!
     @IBOutlet weak var name3: UITextField!
     @IBOutlet weak var email3: UITextField!
+    @IBOutlet weak var maxChar: UILabel!
+    
     
     
     let reuseIdentifier = "cell"
@@ -58,7 +60,12 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
         self.meetingTimes.layer.borderColor = UIColor.lightGray.cgColor
         self.meetingTimes.layer.borderWidth = 1
         
+       generalDescription.smartInsertDeleteType = UITextSmartInsertDeleteType.no
+       generalDescription.delegate = self
        
+       generalDescription.text = "Type the club description here." //placeholder
+       generalDescription.textColor = UIColor.lightGray
+       maxChar.text = "0 of 650 max characters"
 
         
         categories = ["Music/Arts", "Competitive", "Leadership", "Other", "Cultural/Community", "STEM", "Performance", "Intellectual", "Student Government", "School Pride", "Volunteer", "Business", "FCS"]
@@ -455,5 +462,29 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
         
     }
     
+    //MARK:-Char Limit
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let newText = (generalDescription.text as NSString).replacingCharacters(in: range, with: text)
+        let numberOfChars = newText.count
+        
+        maxChar.text = "\(numberOfChars) of 650 max characters"
+        if (numberOfChars > 650){
+            maxChar.text = "TOO MUCH!  \(numberOfChars) of 650 max characters"
+        }
+        return numberOfChars <= 650
+    }
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if generalDescription.textColor == UIColor.lightGray {
+            generalDescription.text = nil
+            generalDescription.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if generalDescription.text.isEmpty {
+            generalDescription.text = "Type the club description here."
+            generalDescription.textColor = UIColor.lightGray
+        }
+    }
     
 }
