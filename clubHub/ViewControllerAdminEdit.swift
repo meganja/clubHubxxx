@@ -737,4 +737,5 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
         }
     }
     
+    
 }
