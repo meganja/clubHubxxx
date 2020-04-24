@@ -14,7 +14,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
     var clubName = ""
     var sponsorUID = ""
     var senderPage = ""
-    var clubUID = ""
+    var clubUID = "xxx"
     
     @IBOutlet weak var collectionStudents: UICollectionView!
     let db = Firestore.firestore()
@@ -25,6 +25,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("CLUB UID \(clubUID)")
         var clubsRef = db.collection("clubs")
         var usersRef = db.collection("users")
         titleLabel.text = ("Students in \(clubName)")
@@ -39,6 +40,8 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
                             
                         self.crownStatus.append("0")
                     }
+                }else{
+                    usersRef.document().setData(["clubPresidents": ["", "",""] ], merge: true)
                 }
                 
             }
@@ -94,6 +97,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
     }
     
     func savePres(){
+        print("save pres before")
         var clubsRef = db.collection("clubs")
         clubPres.removeAll()
         for i in (0..<items.count){
@@ -101,17 +105,32 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
                 clubPres.append(correspondingEmails[i])
             }
         }
-
-        clubsRef.document(self.clubUID).setData(["clubPresidents": self.clubPres], merge: true)
+        if self.clubUID == "xxx"{
+            print("club UID \(self.clubUID) ")
+            clubsRef.document(self.clubUID).setData(["clubPresidents": self.clubPres], merge: true)
+            
+        }
+        print("save pres after")
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("prepare1")
         savePres()
         var vc = segue.destination as! ViewControllerClubDescription
+        print("prepare2")
+        print(viewer)
         vc.viewer = self.viewer
+        print("prepare3")
         vc.ClubName = self.clubName
+        print("prepare4")
+        print(clubName)
         vc.sponsorUID = self.sponsorUID
+        print("prepare5")
+        print(sponsorUID)
         vc.senderPage = self.senderPage
+        print("prepare6")
+        print(senderPage)
     }
     
     let reuseIdentifier = "cell" // also enter this string as the cell identifier in the storyboard
