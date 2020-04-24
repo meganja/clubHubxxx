@@ -196,16 +196,22 @@ class ViewControllerClubMatchmaker: UIViewController {
     
     var selectedTags = [Int]()
     @IBAction func done(){
+        selectedTags.removeAll()
+        
         for i in 1...47{
             if let button = self.view.viewWithTag(i) as? UIButton{
-                if(button.alpha == 0 || button.alpha == 0.011){ //selected
+                if(button.alpha < 0.3){ //selected
                     selectedTags.append(i)
+                }
+                if(i >= 22 && i <= 26){
+                    print("BUTTON \(i) ALPHA IS \(button.alpha)")
                 }
             }
         }
-        
+        print("NUM SELECTED: \(selectedTags.count)")
+        print("TAGS SELECTED: \(selectedTags)")
         if(selectedTags.count < 12){
-            let dialogMessage = UIAlertController(title: "Incomplete", message: "You must answer all questions in order to submit the survey and recieve your matches.", preferredStyle: .alert)
+            let dialogMessage = UIAlertController(title: "Incomplete", message: "You must answer all questions in order to submit the survey and recieve your matches. (Hint: Make sure you selected two days for the availability question!)", preferredStyle: .alert)
             
             // Create OK button with action handlder
             let ok = UIAlertAction(title: "OK", style: .cancel) { (action) -> Void in
