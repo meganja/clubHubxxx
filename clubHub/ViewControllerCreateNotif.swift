@@ -86,6 +86,13 @@ class ViewControllerCreateNotif: UIViewController, UITextViewDelegate {
             timestamp = NSDate().timeIntervalSince1970
             let docRef = db.collection("users").document(uid)
             var posterEmail = ""
+            
+            
+            var aString = msgTextView.text
+            print("aString: \(aString)")
+            let message = aString!.components(separatedBy: "\n").filter { $0 != "" }
+            print("message: \(message)")
+            print(message.joined(separator: ""))
 
             docRef.getDocument { (document, error) in
                 if let document = document, document.exists {
@@ -95,7 +102,7 @@ class ViewControllerCreateNotif: UIViewController, UITextViewDelegate {
                     self.db.collection("notifications").addDocument(data: [
                         "clubName": self.sender,
                         "datePosted": timestamp,
-                        "message": self.msgTextView.text!,
+                        "message": message.joined(separator: ""),
                         "emailOfPoster": posterEmail
                     ])
                     
