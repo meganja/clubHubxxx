@@ -25,6 +25,11 @@ class ViewControllerClubMatchmaker: UIViewController {
             print("FIRST VC RECS: \(recsList)")
             print("FIRST VC PRIORITIES: \(priorities)")
         }
+        else if (segue.identifier == "surveyToProfile"){
+            var vc = segue.destination as! ViewControllerProfile
+            vc.viewer = "student"
+            vc.cameElsewhere = true
+        }
     }
     
     var daysTags = [Int]()
@@ -198,8 +203,25 @@ class ViewControllerClubMatchmaker: UIViewController {
                 }
             }
         }
-        updateRecommended(){
-            self.sortRecommended()
+        
+        if(selectedTags.count < 12){
+            let dialogMessage = UIAlertController(title: "Incomplete", message: "You must answer all questions in order to submit the survey and recieve your matches.", preferredStyle: .alert)
+            
+            // Create OK button with action handlder
+            let ok = UIAlertAction(title: "OK", style: .cancel) { (action) -> Void in
+                print("Cancel button tapped")
+            }
+            
+            //Add OK and Cancel button to dialog message
+            dialogMessage.addAction(ok)
+            
+            // Present dialog message to user
+            self.present(dialogMessage, animated: true, completion: nil)
+        }
+        else{
+            updateRecommended(){
+                self.sortRecommended()
+            }
         }
     }
     
@@ -207,6 +229,8 @@ class ViewControllerClubMatchmaker: UIViewController {
     var gradeLevel = 0
     var i = 1
     var gradeLevelsArr = [String](arrayLiteral: "Freshman","Sophomore","Junior","Senior")
+    
+    var numSelected = 0
     func updateRecommended(completion: @escaping () -> Void){ //each answer changes the user's array of recommended clubs, either by adding to it or sorting it (best fit at front of array)
         //called at end of survey, uses array of tags of buttons that are selected
         if(selectedTags.contains(44)){

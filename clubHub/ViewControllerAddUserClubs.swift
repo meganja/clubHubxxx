@@ -162,7 +162,11 @@ class ViewControllerAddUserClubs: UIViewController, UICollectionViewDataSource, 
             var vc = segue.destination as! ViewControllerProfile
             vc.viewer = viewer
             vc.cameElsewhere = true
-
+        }
+        else if (segue.identifier == "backToProfile"){
+            var vc = segue.destination as! ViewControllerProfile
+            vc.viewer = viewer
+            vc.cameElsewhere = true
         }
     }
     
