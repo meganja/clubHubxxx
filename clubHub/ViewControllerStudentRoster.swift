@@ -36,6 +36,14 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
                 for document in querySnapshot!.documents{
                     if document.get("accountType") != nil{
                         if String(describing: document.get("accountType")!) == "student"{
+                            let fullName = String(describing: document.get("name")!)
+                            let charCount = String(describing: document.get("name")!).count
+                            let spaceIndex = fullName.firstIndex(of: " ")
+                            let lastName = fullName.suffix(from: spaceIndex!)
+                            let firstName = fullName.prefix(upTo: spaceIndex!)
+                            print(lastName)
+                            print(firstName)
+                            print("\(lastName), \(firstName)")
                             self.items.append(String(describing: document.get("name")!))
                             self.correspondingEmails.append(String(describing: document.get("email")!))
                             
@@ -140,6 +148,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
         
         let reuseIdentifier = "cell" // also enter this string as the cell identifier in the storyboard
         var items = [String]()
+    var fullNames = [String]()
         var correspondingEmails = [String]()
         var crownStatus = [String]()
         
@@ -170,6 +179,9 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
                 cell.crownBtn.isHidden = false
                 cell.crownBtn.tag = indexPath.item
                 cell.crownBtn.addTarget(self, action: #selector(crown(_:)), for: .touchUpInside)
+                cell.emailBtn.isHidden = false
+                cell.emailBtn.tag = indexPath.item
+                cell.emailBtn.addTarget(self, action: #selector(emailStudent(_:)), for: .touchUpInside)
                 print("self.crownStatus[indexPath.item] \(self.crownStatus[indexPath.item])")
                 if (self.crownStatus[indexPath.item] == "1"){
                     print("1111111")
@@ -189,7 +201,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
             return cell
         }
         
-        //MARK: -Edit
+        //MARK: -Btns in cells
         @objc func crown(_ sender: UIButton) {
             print("CROWN CLICKED")
             print("You selected cell #\(sender.tag)!")
@@ -205,6 +217,13 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
                 self.collectionStudents.reloadData()
             }
         }
+    
+    @objc func emailStudent(_ sender: UIButton) {
+        print("clicked on email!!!!!")
+        print("You selected cell #\(sender.tag)!")
+        print("")
+        
+    }
         
         // MARK: - UICollectionViewDelegate protocol
         
