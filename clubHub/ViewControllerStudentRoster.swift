@@ -373,6 +373,15 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
                 dataSourceForSearchResultCrown.append(crownStatus[i])
             }
         }
+        for i in (0..<correspondingEmails.count){
+            print(correspondingEmails[i])
+            print(correspondingEmails[i].contains(searchText))
+            if correspondingEmails[i].lowercased().contains(searchText.lowercased()) && !dataSourceForSearchResultEmail.contains(correspondingEmails[i]){
+                dataSourceForSearchResult.append(items[i])
+                dataSourceForSearchResultEmail.append(correspondingEmails[i])
+                dataSourceForSearchResultCrown.append(crownStatus[i])
+            }
+        }
         
         print("data source = \(dataSourceForSearchResult)")
         print("data source email = \(dataSourceForSearchResultEmail)")
