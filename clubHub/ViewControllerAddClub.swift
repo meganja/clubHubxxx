@@ -193,6 +193,7 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
                 && checkDaySelected()
                 ){
                 if checkMainCategory() == true{
+                    
                     clubsRef.document().setData(
                         ["name":"\(nameLabel.text!)",
                             "days":days,

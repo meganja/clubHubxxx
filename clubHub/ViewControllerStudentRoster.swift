@@ -81,6 +81,10 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
                                 }
                             }
                             
+                            
+                        }
+                        else{
+                            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!document.documentID \(document.documentID)")
                         }
                         
                     }else{
