@@ -202,13 +202,12 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
             cell.crownBtn.isHidden = false
             cell.crownBtn.tag = indexPath.item
             cell.crownBtn.addTarget(self, action: #selector(crown(_:)), for: .touchUpInside)
-//            Must make sure correspondingEmail
-//            cell.emailBtn.isHidden = false
-//            cell.emailBtn.setTitle(self.correspondingEmails[indexPath.item], for: .normal)
-//            cell.emailBtn.tag = indexPath.item
-//            cell.emailBtn.addTarget(self, action: #selector(emailStudent(_:)), for: .touchUpInside)
+            cell.emailBtn.isHidden = false
+            cell.emailBtn.setTitle(self.dataSourceForSearchResultEmail[indexPath.item], for: .normal)
+            cell.emailBtn.tag = indexPath.item
+            cell.emailBtn.addTarget(self, action: #selector(emailStudent(_:)), for: .touchUpInside)
             print("self.crownStatus[indexPath.item] \(self.crownStatus[indexPath.item])")
-            if (self.crownStatus[indexPath.item] == "1"){
+            if (self.dataSourceForSearchResultCrown[indexPath.item] == "1"){
                 print("1111111")
                 let image = UIImage(named: "crownClicked")
                 cell.crownBtn.setImage(image, for: .normal)
@@ -272,7 +271,12 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
         print("clicked on email!!!!!")
         print("You selected cell #\(sender.tag)!")
         print("")
-        mailTo.append(correspondingEmails[sender.tag])
+        if self.searchBar!.text!.count > 0{
+            mailTo.append(dataSourceForSearchResultEmail[sender.tag])
+        }else{
+            mailTo.append(correspondingEmails[sender.tag])
+        }
+        
         let mailComposeViewController = configureMailController()
         if MFMailComposeViewController.canSendMail(){
             self.present(mailComposeViewController, animated: true, completion: nil)
@@ -352,20 +356,30 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
     }
     
     var dataSourceForSearchResult = [String]()
+    var dataSourceForSearchResultEmail = [String]()
+    var dataSourceForSearchResultCrown = [String]()
     func filterContentForSearchText(searchText:String){
         print("####################################################################################################")
         print("??????????????????????????????????????????????????")
+        dataSourceForSearchResult.removeAll()
+        dataSourceForSearchResultEmail.removeAll()
+        dataSourceForSearchResultCrown.removeAll()
+        for i in (0..<items.count){
+            print(items[i])
+            print(items[i].contains(searchText))
+            if items[i].lowercased().contains(searchText.lowercased()){
+                dataSourceForSearchResult.append(items[i])
+                dataSourceForSearchResultEmail.append(correspondingEmails[i])
+                dataSourceForSearchResultCrown.append(crownStatus[i])
+            }
+        }
         
-        self.dataSourceForSearchResult = self.items.filter({ (text:String) -> Bool in
-            print("in data source")
-            print(text.lowercased())
-            print(searchText.lowercased())
-            print("CONTAINS: \(text.lowercased().contains(searchText.lowercased()))")
-            print(dataSourceForSearchResult)
-            return text.lowercased().contains(searchText.lowercased())
-        })
+        print("data source = \(dataSourceForSearchResult)")
+        print("data source email = \(dataSourceForSearchResultEmail)")
         
     }
+    
+    
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         
