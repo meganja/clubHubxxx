@@ -531,11 +531,16 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
                 
                 
                 if checkMainCategory() == true{
+                    var aString = genDescriptTxtFld.text
+                    print("aString: \(aString)")
+                    let message = aString!.components(separatedBy: "\n").filter { $0 != "" }
+                    print("message: \(message)")
+                    print(message.joined(separator: ""))
                     clubsRef.document(docID).setData(
                         ["name":"\(nameTxtFld.text!)",
                             "volunteer":volunteerOppSwitch.isOn,
                             "commit":commit,
-                            "description":"\(genDescriptTxtFld.text!)",
+                            "description":message.joined(separator: ""),
                             "room":"\(roomNumTxtFld.text!)",
                             "schoology":"\(schoologyCode.text!)",
                             "time":"\(meetingTimes.text!)",

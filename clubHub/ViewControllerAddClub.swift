@@ -193,13 +193,17 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
                 && checkDaySelected()
                 ){
                 if checkMainCategory() == true{
-                    
+                    var aString = generalDescription.text
+                    print("aString: \(aString)")
+                    let message = aString!.components(separatedBy: "\n").filter { $0 != "" }
+                    print("message: \(message)")
+                    print(message.joined(separator: ""))
                     clubsRef.document().setData(
                         ["name":"\(nameLabel.text!)",
                             "days":days,
                             "volunteer":volunteerSwitch.isOn,
                             "commit":commit,
-                            "description":"\(generalDescription.text!)",
+                            "description":message.joined(separator: ""),
                             "room":"\(roomNumber.text!)",
                             "sponsorsName":sponsorsName,
                             "sponsorsEmail":sponsorsEmail,
