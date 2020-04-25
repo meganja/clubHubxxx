@@ -173,6 +173,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
     
     // tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("count \(self.searchBar!.text!.count)")
         if self.searchBar!.text!.count > 0{
             print("returning data search for search results")
             print(dataSourceForSearchResult)
@@ -182,9 +183,9 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
         }
         else if self.items.count == 0{
             return 1
+        }else{
+            return self.items.count
         }
-        return self.items.count
-        
     }
     
     // make a cell for each cell index path
@@ -193,28 +194,29 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
         // get a reference to our storyboard cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! CollectionViewCellStudents
         if self.searchBar!.text!.count > 0{
+            
             cell.backgroundColor = UIColor.white // make cell more visible in our example project
-                       cell.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
-                       cell.layer.borderWidth = 1
-                       cell.studentName.text = self.dataSourceForSearchResult[indexPath.row]
-                       cell.crownBtn.isHidden = false
-                       cell.crownBtn.tag = indexPath.item
-                       cell.crownBtn.addTarget(self, action: #selector(crown(_:)), for: .touchUpInside)
-            //Must make sure correspondingEmail
-//                       cell.emailBtn.isHidden = false
-//                       cell.emailBtn.setTitle(self.correspondingEmails[indexPath.item], for: .normal)
-//                       cell.emailBtn.tag = indexPath.item
-//                       cell.emailBtn.addTarget(self, action: #selector(emailStudent(_:)), for: .touchUpInside)
-                       print("self.crownStatus[indexPath.item] \(self.crownStatus[indexPath.item])")
-                       if (self.crownStatus[indexPath.item] == "1"){
-                           print("1111111")
-                           let image = UIImage(named: "crownClicked")
-                           cell.crownBtn.setImage(image, for: .normal)
-                       }else{
-                           print("00000000")
-                           let image = UIImage(named: "crownUnclicked")
-                           cell.crownBtn.setImage(image, for: .normal)
-                       }
+            cell.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
+            cell.layer.borderWidth = 1
+            cell.studentName.text = self.dataSourceForSearchResult[indexPath.row]
+            cell.crownBtn.isHidden = false
+            cell.crownBtn.tag = indexPath.item
+            cell.crownBtn.addTarget(self, action: #selector(crown(_:)), for: .touchUpInside)
+//            Must make sure correspondingEmail
+//            cell.emailBtn.isHidden = false
+//            cell.emailBtn.setTitle(self.correspondingEmails[indexPath.item], for: .normal)
+//            cell.emailBtn.tag = indexPath.item
+//            cell.emailBtn.addTarget(self, action: #selector(emailStudent(_:)), for: .touchUpInside)
+            print("self.crownStatus[indexPath.item] \(self.crownStatus[indexPath.item])")
+            if (self.crownStatus[indexPath.item] == "1"){
+                print("1111111")
+                let image = UIImage(named: "crownClicked")
+                cell.crownBtn.setImage(image, for: .normal)
+            }else{
+                print("00000000")
+                let image = UIImage(named: "crownUnclicked")
+                cell.crownBtn.setImage(image, for: .normal)
+            }
         }
         else if self.items.count > 0{
             cell.backgroundColor = UIColor.white // make cell more visible in our example project
@@ -336,8 +338,9 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
             // search and reload data source
             print("DETECTED DETECTED DETECTED DETECTED")
             print(searchText)
-            self.filterContentForSearchText(searchText: searchText)
             self.searchBarActive = true
+            self.filterContentForSearchText(searchText: searchText)
+            self.collectionStudents.reloadData()
         }else{
             // if text length == 0
             // we will consider the searchbar is not active
