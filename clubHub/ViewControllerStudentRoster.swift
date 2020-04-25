@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import MessageUI
 
-class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, MFMailComposeViewControllerDelegate {
+class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, MFMailComposeViewControllerDelegate, UISearchBarDelegate {
     var viewer = ""
     var clubName = ""
     var sponsorUID = ""
@@ -173,11 +173,18 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
     
     // tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if self.items.count == 0{
-            return 1
-        }else{
-            return self.items.count
+        if self.searchBar!.text!.count > 0{
+            print("returning data search for search results")
+            print(dataSourceForSearchResult)
+            self.dataSourceForSearchResult = self.dataSourceForSearchResult.sorted{$0.localizedCompare($1) == .orderedAscending}
+            //noResultsFound.text = "\(self.dataSourceForSearchResult.count) clubs found"
+            return self.dataSourceForSearchResult.count
         }
+        else if self.items.count == 0{
+            return 1
+        }
+        return self.items.count
+        
     }
     
     // make a cell for each cell index path
@@ -185,9 +192,31 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
         
         // get a reference to our storyboard cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! CollectionViewCellStudents
-        
-        if self.items.count > 0{
-            
+        if self.searchBar!.text!.count > 0{
+            cell.backgroundColor = UIColor.white // make cell more visible in our example project
+                       cell.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
+                       cell.layer.borderWidth = 1
+                       cell.studentName.text = self.dataSourceForSearchResult[indexPath.row]
+                       cell.crownBtn.isHidden = false
+                       cell.crownBtn.tag = indexPath.item
+                       cell.crownBtn.addTarget(self, action: #selector(crown(_:)), for: .touchUpInside)
+            //Must make sure correspondingEmail
+//                       cell.emailBtn.isHidden = false
+//                       cell.emailBtn.setTitle(self.correspondingEmails[indexPath.item], for: .normal)
+//                       cell.emailBtn.tag = indexPath.item
+//                       cell.emailBtn.addTarget(self, action: #selector(emailStudent(_:)), for: .touchUpInside)
+                       print("self.crownStatus[indexPath.item] \(self.crownStatus[indexPath.item])")
+                       if (self.crownStatus[indexPath.item] == "1"){
+                           print("1111111")
+                           let image = UIImage(named: "crownClicked")
+                           cell.crownBtn.setImage(image, for: .normal)
+                       }else{
+                           print("00000000")
+                           let image = UIImage(named: "crownUnclicked")
+                           cell.crownBtn.setImage(image, for: .normal)
+                       }
+        }
+        else if self.items.count > 0{
             cell.backgroundColor = UIColor.white // make cell more visible in our example project
             cell.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
             cell.layer.borderWidth = 1
@@ -302,9 +331,12 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
     var searchBar:UISearchBar?
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // user did type something, check our datasource for text that looks the same
+        print("search bar")
         if searchText.count > 0 {
             // search and reload data source
-            print()
+            print("DETECTED DETECTED DETECTED DETECTED")
+            print(searchText)
+            self.filterContentForSearchText(searchText: searchText)
             self.searchBarActive = true
         }else{
             // if text length == 0
@@ -316,6 +348,22 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
         
     }
     
+    var dataSourceForSearchResult = [String]()
+    func filterContentForSearchText(searchText:String){
+        print("####################################################################################################")
+        print("??????????????????????????????????????????????????")
+        
+        self.dataSourceForSearchResult = self.items.filter({ (text:String) -> Bool in
+            print("in data source")
+            print(text.lowercased())
+            print(searchText.lowercased())
+            print("CONTAINS: \(text.lowercased().contains(searchText.lowercased()))")
+            print(dataSourceForSearchResult)
+            return text.lowercased().contains(searchText.lowercased())
+        })
+        
+    }
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         
         self.cancelSearching()
@@ -323,6 +371,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print("search bar button clicked")
         self.searchBarActive = true
         self.view.endEditing(true)
     }
@@ -331,6 +380,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
         // we used here to set self.searchBarActive = YES
         // but we'll not do that any more... it made problems
         // it's better to set self.searchBarActive = YES when user typed something
+        print("began editing")
         self.searchBar!.setShowsCancelButton(true, animated: true)
     }
     

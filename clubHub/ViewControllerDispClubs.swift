@@ -944,7 +944,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         // user did type something, check our datasource for text that looks the same
         if searchText.count > 0 {
             // search and reload data source
-            
+            print("detected")
             self.searchBarActive    = true
             self.filterContentForSearchText(searchText: searchText)
             self.collectionViewClubs.reloadData()
