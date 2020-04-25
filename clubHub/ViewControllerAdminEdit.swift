@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
+class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UITextViewDelegate {
     
     let db = Firestore.firestore()
     var ClubName = ""
@@ -64,6 +64,11 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        genDescriptTxtFld.smartInsertDeleteType = UITextSmartInsertDeleteType.no
+        genDescriptTxtFld.delegate = self
+        
+        maxChar.text = " "
         
         titleLbl.text = "Edit \n \(ClubName)"
         
@@ -434,18 +439,20 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
     func checkSponsors() -> Bool{
         if ((!name1.text!.isEmpty && !email1.text!.isEmpty) || (!name2.text!.isEmpty && !email2.text!.isEmpty) ||
             (!name3.text!.isEmpty && !email3.text!.isEmpty)){
+            sponsorEmail.removeAll()
+            sponsorName.removeAll()
             
             if ((!name1.text!.isEmpty && !email1.text!.isEmpty)){
                 sponsorName.append("\(name1.text!)")
-                sponsorEmail.append("\(email1.text!)")
+                sponsorEmail.append("\(email1.text!)".lowercased())
             }
             if ((!name2.text!.isEmpty && !email2.text!.isEmpty)){
                 sponsorName.append("\(name2.text!)")
-                sponsorEmail.append("\(email2.text!)")
+                sponsorEmail.append("\(email2.text!)".lowercased())
             }
             if ((!name3.text!.isEmpty && !email3.text!.isEmpty)){
                 sponsorName.append("\(name3.text!)")
-                sponsorEmail.append("\(email3.text!)")
+                sponsorEmail.append("\(email3.text!)".lowercased())
             }
             print("vaalid sponsor")
             return true
@@ -524,33 +531,28 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
                 
                 
                 if checkMainCategory() == true{
+                    var aString = genDescriptTxtFld.text
+                    print("aString: \(aString)")
+                    let message = aString!.components(separatedBy: "\n").filter { $0 != "" }
+                    print("message: \(message)")
+                    print(message.joined(separator: ""))
                     clubsRef.document(docID).setData(
                         ["name":"\(nameTxtFld.text!)",
-                            "days":[],
                             "volunteer":volunteerOppSwitch.isOn,
                             "commit":commit,
-                            "description":"\(genDescriptTxtFld.text!)",
+                            "description":message.joined(separator: ""),
                             "room":"\(roomNumTxtFld.text!)",
-                            "sponsorsName":[],
-                            "sponsorsEmail":[],
                             "schoology":"\(schoologyCode.text!)",
                             "time":"\(meetingTimes.text!)",
                             "AM-PM":timeOfDay,
                             "link":"\(moreInfo.text!)"
                     ])
                     
-                    for i in (0..<sponsorName.count){
-                        clubsRef.document(docID).updateData(["sponsorsName": FieldValue.arrayUnion(["\(sponsorName[i])"])])
-                                                             
-                    }
-                    for i in (0..<sponsorEmail.count){
-                        clubsRef.document(docID).updateData(["sponsorsEmail": FieldValue.arrayUnion(["\(sponsorEmail[i])"])])
-                                                             
-                    }
-                    for i in (0..<days.count){
-                        clubsRef.document(docID).updateData(["days": FieldValue.arrayUnion(["\(days[i])"])])
-                        
-                    }
+                    print(self.sponsorName)
+                    print(self.sponsorEmail)
+                    
+                    clubsRef.document(docID).setData(["sponsorsName": self.sponsorName, "sponsorsEmail":self.sponsorEmail, "days":self.days], merge: true)
+                   
                     
                     let ref = Storage.storage().reference()
                     print("club: \(docID)")
@@ -713,5 +715,32 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
             
         }
     }
+    
+    //MARK:-Char Limit
+    @IBOutlet weak var maxChar: UILabel!
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let newText = (genDescriptTxtFld.text as NSString).replacingCharacters(in: range, with: text)
+        let numberOfChars = newText.count
+        
+        maxChar.text = "\(numberOfChars) of 650 max characters"
+        if (numberOfChars > 650){
+            maxChar.text = "TOO MUCH!  \(numberOfChars) of 650 max characters"
+        }
+        return numberOfChars <= 650
+    }
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if genDescriptTxtFld.textColor == UIColor.lightGray {
+            genDescriptTxtFld.text = nil
+            genDescriptTxtFld.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if genDescriptTxtFld.text.isEmpty {
+            genDescriptTxtFld.text = "Type the club description here."
+            genDescriptTxtFld.textColor = UIColor.lightGray
+        }
+    }
+    
     
 }
