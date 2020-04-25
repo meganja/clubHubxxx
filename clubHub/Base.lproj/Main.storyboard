@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -770,7 +770,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" indicatorStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="QjS-Y9-ZQt">
-                                                <rect key="frame" x="25" y="111" width="470" height="202"/>
+                                                <rect key="frame" x="25" y="111" width="470" height="192"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1069,6 +1069,13 @@
                                                     <segment title="Both"/>
                                                 </segments>
                                             </segmentedControl>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Max char limit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sDS-aJ-oqq">
+                                                <rect key="frame" x="25" y="311" width="470" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" systemColor="systemGray2Color" red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="jyx-4K-dql" secondAttribute="bottom" constant="29" id="4xR-ra-5wz"/>
@@ -1111,6 +1118,7 @@
                         <outlet property="email3" destination="hfc-6c-8oe" id="t3z-ht-eLk"/>
                         <outlet property="fridaySwitch" destination="XWR-0P-HJF" id="ovT-rv-PPG"/>
                         <outlet property="generalDescription" destination="QjS-Y9-ZQt" id="K0M-Vw-2cZ"/>
+                        <outlet property="maxChar" destination="sDS-aJ-oqq" id="t9G-QS-fko"/>
                         <outlet property="meetingTimes" destination="sN0-ew-bwR" id="vov-ig-T1A"/>
                         <outlet property="mondaySwitch" destination="rqE-JQ-vKQ" id="BRB-Tp-mkD"/>
                         <outlet property="moreInfo" destination="Va2-Dz-dne" id="FlW-V2-F8t"/>
@@ -1317,13 +1325,6 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I61-of-Pfs">
-                                                <rect key="frame" x="32" y="49" width="519" height="326"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JFM-mf-Go1">
                                                 <rect key="frame" x="363" y="8" width="0.0" height="0.0"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1487,6 +1488,14 @@
                                                     <action selector="studentListBtn1:" destination="fl7-by-9zP" eventType="touchUpInside" id="HaQ-bR-v4b"/>
                                                 </connections>
                                             </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I61-of-Pfs">
+                                                <rect key="frame" x="31" y="49" width="519" height="307"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <mutableString key="text">123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789123456789</mutableString>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
@@ -1577,7 +1586,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J3b-sy-nSM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3007" y="1174"/>
+            <point key="canvasLocation" x="3006.25" y="1173.92578125"/>
         </scene>
         <!--View Controller Notif Board-->
         <scene sceneID="4wi-Nx-TXT">
@@ -2585,7 +2594,7 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </switch>
                                             <textView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" indicatorStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="vg6-mw-r17">
-                                                <rect key="frame" x="25" y="111" width="465" height="202"/>
+                                                <rect key="frame" x="25" y="111" width="465" height="186"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -2824,6 +2833,13 @@
                                                 <rect key="frame" x="543" y="70" width="178" height="178"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kjJ-Kx-5MB">
+                                                <rect key="frame" x="25" y="305" width="465" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="MHT-Vg-q44" firstAttribute="top" secondItem="TO3-Ub-pDp" secondAttribute="top" constant="8" id="JXB-Xj-h62"/>
@@ -2865,6 +2881,7 @@
                         <outlet property="email3" destination="UMe-pe-jl2" id="H5t-VF-ZzW"/>
                         <outlet property="fridaySwitch" destination="Zdz-05-R7S" id="0fB-XF-x94"/>
                         <outlet property="genDescriptTxtFld" destination="vg6-mw-r17" id="fhw-bB-Rfm"/>
+                        <outlet property="maxChar" destination="kjJ-Kx-5MB" id="PAy-yO-UOA"/>
                         <outlet property="meetingTimes" destination="1cZ-d1-lYS" id="gsq-Tr-Sef"/>
                         <outlet property="mondaySwitch" destination="Eq0-sh-cV9" id="D5Z-pO-Lhx"/>
                         <outlet property="moreInfo" destination="Noc-bv-53L" id="5JD-GP-l1A"/>
@@ -4349,34 +4366,34 @@
             <point key="canvasLocation" x="523" y="3154"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="v2y-g0-gcc"/>
+        <segue reference="nUa-P3-Ifl"/>
+        <segue reference="gTa-Gl-rZM"/>
+        <segue reference="L0u-S1-cN4"/>
+        <segue reference="zml-gy-Xe9"/>
+        <segue reference="CWK-Fn-WLg"/>
+        <segue reference="Ubk-Fn-ElL"/>
+        <segue reference="ggq-gQ-nsC"/>
+        <segue reference="GGO-DH-1TB"/>
+        <segue reference="sDv-vH-fYY"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="155-1554499_kudos-back-white-icon-png" width="600" height="1059"/>
-        <image name="bell.fill" catalog="system" width="64" height="62"/>
+        <image name="bell.fill" catalog="system" width="128" height="124"/>
         <image name="bell_clicked" width="97" height="92"/>
         <image name="browseIconClicked" width="960" height="720"/>
         <image name="browseIconNotClicked" width="960" height="720"/>
         <image name="chs-cougar-mascot" width="600" height="319"/>
         <image name="crownUnclicked" width="960" height="720"/>
-        <image name="ellipsis.circle" catalog="system" width="64" height="60"/>
-        <image name="person.2.fill" catalog="system" width="64" height="40"/>
+        <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
+        <image name="person.2.fill" catalog="system" width="128" height="80"/>
         <image name="personIconClicked" width="960" height="720"/>
         <image name="personIconNotClicked-2" width="960" height="720"/>
         <image name="signOut" width="512" height="512"/>
-        <image name="square.and.pencil" catalog="system" width="64" height="58"/>
+        <image name="square.and.pencil" catalog="system" width="128" height="118"/>
         <image name="starIconNotClicked" width="960" height="720"/>
-        <image name="trash" catalog="system" width="60" height="64"/>
+        <image name="trash" catalog="system" width="121" height="128"/>
         <image name="unnamed" width="512" height="512"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="v2y-g0-gcc"/>
-        <segue reference="nUa-P3-Ifl"/>
-        <segue reference="jne-Yx-Xv9"/>
-        <segue reference="L0u-S1-cN4"/>
-        <segue reference="zml-gy-Xe9"/>
-        <segue reference="88O-jV-Jlj"/>
-        <segue reference="Ubk-Fn-ElL"/>
-        <segue reference="RZK-C5-UL1"/>
-        <segue reference="GGO-DH-1TB"/>
-        <segue reference="sDv-vH-fYY"/>
-    </inferredMetricsTieBreakers>
 </document>

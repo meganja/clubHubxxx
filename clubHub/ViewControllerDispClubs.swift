@@ -91,7 +91,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
             var sponsorsClubsFromClubs = [String]()
             print("close to first queuery")
             print("full email \(fullEmail)")
-            sponsorsRef.whereField("email", isEqualTo: fullEmail).getDocuments(){ (querySnapshot, error) in
+            sponsorsRef.whereField("email", isEqualTo: fullEmail.lowercased()).getDocuments(){ (querySnapshot, error) in
                 print("got into first queury")
                 for document in querySnapshot!.documents{
                     sponsorsClubsFromUser = document.data()["myClubs"]! as! [String]
