@@ -995,11 +995,6 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         self.searchBar!.text = ""
     }
     
-    // MARK: -prepareVC
-    func prepareUI(){
-        self.addSearchBar()
-    }
-    
     func CGRectMake(_ x: CGFloat, _ y: CGFloat, _ width: CGFloat, _ height: CGFloat) -> CGRect {
         return CGRect(x: x, y: y, width: width, height: height)
     }
@@ -1028,6 +1023,13 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         self.checkAllSwitches()
         print("after dispatch que")
     }
+    
+    // MARK: -prepareVC
+    func prepareUI(){
+        self.addSearchBar()
+    }
+    
+    
     
     //MARK: -Edit
     @objc func editClub(_ sender: UIButton) {

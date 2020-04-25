@@ -26,6 +26,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.addSearchBar()
         print("CLUB UID \(clubUID)")
         var clubsRef = db.collection("clubs")
         var usersRef = db.collection("users")
@@ -293,6 +294,86 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
+    }
+    
+    //MARK: -SearchBar
+    var searchBarActive:Bool = false
+    var searchBarBoundsY:CGFloat?
+    var searchBar:UISearchBar?
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        // user did type something, check our datasource for text that looks the same
+        if searchText.count > 0 {
+            // search and reload data source
+            print()
+            self.searchBarActive = true
+        }else{
+            // if text length == 0
+            // we will consider the searchbar is not active
+            print("cancel search bar")
+            self.searchBarActive = false
+            self.collectionStudents.reloadData()
+        }
+        
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
+        self.cancelSearching()
+        self.collectionStudents.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBarActive = true
+        self.view.endEditing(true)
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        // we used here to set self.searchBarActive = YES
+        // but we'll not do that any more... it made problems
+        // it's better to set self.searchBarActive = YES when user typed something
+        self.searchBar!.setShowsCancelButton(true, animated: true)
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        //traced to here! this works when i hit enter after typing in search bar, just need to actually have it filter now... something seems to be going wrong there.
+        
+        
+        // this method is being called when search btn in the keyboard tapped
+        // we set searchBarActive = NO
+        // but no need to reloadCollectionView
+        self.searchBarActive = false
+        self.searchBar!.setShowsCancelButton(false, animated: false)
+    }
+    func cancelSearching(){
+        
+        self.searchBarActive = false
+        self.searchBar!.resignFirstResponder()
+        self.searchBar!.text = ""
+    }
+    
+    func CGRectMake(_ x: CGFloat, _ y: CGFloat, _ width: CGFloat, _ height: CGFloat) -> CGRect {
+        return CGRect(x: x, y: y, width: width, height: height)
+    }
+    
+    let screenSize: CGRect = UIScreen.main.bounds
+    
+    func addSearchBar(){
+        print("ADDING SEARCH BAR")
+        if self.searchBar == nil{
+            
+            self.searchBar = UISearchBar(frame: CGRectMake(0, 150, 768, 44))
+            self.searchBar!.searchBarStyle       = UISearchBar.Style.minimal
+            self.searchBar!.tintColor            = UIColor.white
+            self.searchBar!.barTintColor         = UIColor.white
+            self.searchBar!.delegate             = self as? UISearchBarDelegate;
+            self.searchBar!.placeholder          = "Search here";
+            
+        }
+        
+        if !self.searchBar!.isDescendant(of: self.view){
+            self.view.addSubview(self.searchBar!)
+        }
+        
     }
     
     // MARK: - UICollectionViewDelegate protocol
