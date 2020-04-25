@@ -236,6 +236,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
     
     var mailTo = [String]()
     @objc func emailStudent(_ sender: UIButton) {
+        mailTo.removeAll()
         print("clicked on email!!!!!")
         print("You selected cell #\(sender.tag)!")
         print("")
@@ -247,9 +248,39 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
             print("could not send")
         }
         
+        
     }
     
     //MARK: -Email
+    
+    @IBAction func emailPres(_ sender: Any) {
+        mailTo.removeAll()
+        for i in (0..<crownStatus.count){
+            if crownStatus[i] == "1"{
+                mailTo.append(correspondingEmails[i])
+            }
+        }
+        let mailComposeViewController = configureMailController()
+        if MFMailComposeViewController.canSendMail(){
+            self.present(mailComposeViewController, animated: true, completion: nil)
+        }else{
+            print("could not send")
+        }
+    }
+    
+    @IBAction func emailAllMembers(_ sender: Any) {
+        mailTo.removeAll()
+        for i in (0..<correspondingEmails.count){
+            mailTo.append(correspondingEmails[i])
+        }
+        let mailComposeViewController = configureMailController()
+        if MFMailComposeViewController.canSendMail(){
+            self.present(mailComposeViewController, animated: true, completion: nil)
+        }else{
+            print("could not send")
+        }
+    }
+    
     func configureMailController() -> MFMailComposeViewController{
         let mailComposerVC = MFMailComposeViewController()
         mailComposerVC.mailComposeDelegate = self
