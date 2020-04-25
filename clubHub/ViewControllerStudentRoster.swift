@@ -8,8 +8,9 @@
 
 import UIKit
 import Firebase
+import MessageUI
 
-class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, MFMailComposeViewControllerDelegate {
     var viewer = ""
     var clubName = ""
     var sponsorUID = ""
@@ -194,6 +195,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
             cell.crownBtn.tag = indexPath.item
             cell.crownBtn.addTarget(self, action: #selector(crown(_:)), for: .touchUpInside)
             cell.emailBtn.isHidden = false
+            cell.emailBtn.setTitle(self.correspondingEmails[indexPath.item], for: .normal)
             cell.emailBtn.tag = indexPath.item
             cell.emailBtn.addTarget(self, action: #selector(emailStudent(_:)), for: .touchUpInside)
             print("self.crownStatus[indexPath.item] \(self.crownStatus[indexPath.item])")
@@ -232,11 +234,34 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
         }
     }
     
+    var mailTo = [String]()
     @objc func emailStudent(_ sender: UIButton) {
         print("clicked on email!!!!!")
         print("You selected cell #\(sender.tag)!")
         print("")
+        mailTo.append(correspondingEmails[sender.tag])
+        let mailComposeViewController = configureMailController()
+        if MFMailComposeViewController.canSendMail(){
+            self.present(mailComposeViewController, animated: true, completion: nil)
+        }else{
+            print("could not send")
+        }
         
+    }
+    
+    //MARK: -Email
+    func configureMailController() -> MFMailComposeViewController{
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self
+        mailComposerVC.setToRecipients(mailTo)
+        mailComposerVC.setSubject(clubName)
+        return mailComposerVC
+    }
+    
+    
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
     }
     
     // MARK: - UICollectionViewDelegate protocol
