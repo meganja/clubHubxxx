@@ -421,6 +421,7 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
     }
     
     func checkSwitches(){
+        days.removeAll()
         if (mondaySwitch.isOn){
             days.append("Monday")
         }
@@ -439,6 +440,8 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
     }
     
     func checkSponsors() -> Bool{
+        sponsorName.removeAll()
+        sponsorEmail.removeAll()
         if ((!name1.text!.isEmpty && !email1.text!.isEmpty) || (!name2.text!.isEmpty && !email2.text!.isEmpty) ||
             (!name3.text!.isEmpty && !email3.text!.isEmpty)){
             sponsorEmail.removeAll()
