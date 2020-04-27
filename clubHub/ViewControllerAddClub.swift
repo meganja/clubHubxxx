@@ -184,8 +184,10 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
         }
         print("noSpecialChar = \(noSpecialChar)")
         if noSpecialChar{
+            print("CHECKING -------------------------- \(!generalDescription.text.isEmpty)")
             if (!nameLabel.text!.isEmpty &&
                 !generalDescription.text.isEmpty &&
+                generalDescription.text != "Type the club description here." &&
                 !roomNumber.text!.isEmpty &&
                 !schoologyCode.text!.isEmpty &&
                 !meetingTimes.text!.isEmpty &&

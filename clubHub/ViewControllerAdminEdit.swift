@@ -70,6 +70,10 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
         
         maxChar.text = " "
         
+        
+        
+        maxChar.text = "0 of 650 max characters"
+        
         titleLbl.text = "Edit \n \(ClubName)"
         
         self.nameTxtFld.text = self.ClubName
@@ -107,13 +111,11 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
                     }
                 }
                 
-//                self.editClubImgVw.layer.borderWidth=1.0
-//                self.editClubImgVw.layer.masksToBounds = false
-//                self.editClubImgVw.layer.borderColor = UIColor.white.cgColor
-//                self.editClubImgVw.layer.cornerRadius = self.editClubImgVw.frame.size.height/2
-//                self.editClubImgVw.clipsToBounds = true
-                
                 self.genDescriptTxtFld.text = String(describing: document.get("description")!)
+                if (self.genDescriptTxtFld.text!.isEmpty){
+                    self.genDescriptTxtFld.text = "Type the club description here." //placeholder
+                    self.genDescriptTxtFld.textColor = UIColor.lightGray
+                }
                 self.meetingTimes.text = String(describing: document.get("time")!)
                 self.moreInfo.text = String(describing: document.get("link")!)
                 self.schoologyCode.text = String(describing: document.get("schoology")!)
@@ -517,6 +519,7 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
         if noSpecialChar{
             if (!nameTxtFld.text!.isEmpty &&
                 !genDescriptTxtFld.text.isEmpty &&
+                genDescriptTxtFld.text != "Type the club description here." &&
                 !roomNumTxtFld.text!.isEmpty &&
                 !schoologyCode.text!.isEmpty &&
                 !meetingTimes.text!.isEmpty &&
