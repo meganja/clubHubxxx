@@ -1908,7 +1908,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Pz3-yB-Pwt">
-                                <rect key="frame" x="20" y="151" width="728" height="779"/>
+                                <rect key="frame" x="20" y="151" width="728" height="441"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="8wb-SL-j1B">
@@ -1951,19 +1951,6 @@
                                     <outlet property="delegate" destination="2yc-dG-Vf9" id="Bxt-cz-ezo"/>
                                 </connections>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n51-BQ-mi6">
-                                <rect key="frame" x="277" y="938" width="215" height="66"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.83137254900000002" green="0.1215686275" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
-                                <state key="normal" title="Done">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="doneBtn:" destination="Ntu-Pz-j5H" eventType="touchUpInside" id="L8L-2q-ScH"/>
-                                    <action selector="submit:" destination="2yc-dG-Vf9" eventType="touchUpInside" id="OQT-u7-FIO"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wuW-xK-t3q">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="143"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1986,6 +1973,19 @@
                                 <state key="normal" image="155-1554499_kudos-back-white-icon-png"/>
                                 <connections>
                                     <segue destination="ora-YV-TUq" kind="presentation" identifier="chooseToNotif" modalPresentationStyle="fullScreen" id="88O-jV-Jlj"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n51-BQ-mi6">
+                                <rect key="frame" x="277" y="616" width="215" height="66"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.83137254900000002" green="0.1215686275" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="doneBtn:" destination="Ntu-Pz-j5H" eventType="touchUpInside" id="L8L-2q-ScH"/>
+                                    <action selector="submit:" destination="2yc-dG-Vf9" eventType="touchUpInside" id="OQT-u7-FIO"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -4403,7 +4403,7 @@
         <segue reference="Yco-nf-Dsp"/>
         <segue reference="L0u-S1-cN4"/>
         <segue reference="zml-gy-Xe9"/>
-        <segue reference="c8w-b8-uVU"/>
+        <segue reference="88O-jV-Jlj"/>
         <segue reference="HBN-lN-BdC"/>
         <segue reference="y8n-0E-zGg"/>
         <segue reference="GGO-DH-1TB"/>
