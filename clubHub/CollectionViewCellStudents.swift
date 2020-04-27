@@ -11,6 +11,8 @@ import UIKit
 class CollectionViewCellStudents: UICollectionViewCell {
     @IBOutlet weak var studentName: UILabel!
     @IBOutlet weak var crownBtn: UIButton!
+    @IBOutlet weak var emailBtn: UIButton!
+    
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
 
@@ -26,6 +28,9 @@ class CollectionViewCellStudents: UICollectionViewCell {
         // add one of these blocks for each button in our collection view cell we want to actually work
         if self.crownBtn.point(inside: convert(point, to: crownBtn), with: event) {
             return self.crownBtn
+        }
+        if self.emailBtn.point(inside: convert(point, to: emailBtn), with: event) {
+            return self.emailBtn
         }
 
         return super.hitTest(point, with: event)
