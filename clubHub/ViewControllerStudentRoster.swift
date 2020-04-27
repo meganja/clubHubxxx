@@ -15,7 +15,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
     var clubName = ""
     var sponsorUID = ""
     var senderPage = ""
-    var clubUID = "xxx"
+    var clubUID = ""
     
     @IBOutlet weak var collectionStudents: UICollectionView!
     let db = Firestore.firestore()
@@ -112,7 +112,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
                     }
                     
                 }else{
-                    clubsRef.document(document.documentID).setData([ "clubPresidents": self.clubPres], merge: true)
+                    clubsRef.document(document.documentID).setData(["clubPresidents": self.clubPres], merge: true)
                     print("wrote in firebase")
                 }
                 
@@ -134,11 +134,11 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
                 clubPres.append(correspondingEmails[i])
             }
         }
-        if self.clubUID == "xxx"{
-            print("club UID \(self.clubUID) ")
+        //if self.clubUID == "xxx"{
+            print("club UID ============================== \(self.clubUID) ")
             clubsRef.document(self.clubUID).setData(["clubPresidents": self.clubPres], merge: true)
             
-        }
+        //}
         print("save pres after")
         
     }

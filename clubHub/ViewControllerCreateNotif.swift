@@ -68,7 +68,7 @@ class ViewControllerCreateNotif: UIViewController, UITextViewDelegate {
     
     @IBAction func createNotification(_ sender: Any) { //save to firebase, then perform segue back to notif board
         print("UID ------------------ \(uid)")
-        if(msgTextView.textColor == UIColor.lightGray){
+        if(msgTextView.textColor == UIColor.lightGray || msgTextView.text!.isEmpty){
             // Declare Alert message
             let dialogMessage = UIAlertController(title: "Incomplete", message: "You cannot create a notification without text.", preferredStyle: .alert)
             
@@ -83,7 +83,7 @@ class ViewControllerCreateNotif: UIViewController, UITextViewDelegate {
             // Present dialog message to user
             self.present(dialogMessage, animated: true, completion: nil)
         }
-        else{
+        else if (!msgTextView.text!.isEmpty){
             var timestamp = Double()
             timestamp = NSDate().timeIntervalSince1970
             var aString = msgTextView.text
