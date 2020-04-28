@@ -127,7 +127,9 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             let clubsRef = db.collection("clubs")
             clubsRef.getDocuments { (querySnapshot, error) in
                 for document in querySnapshot!.documents{
-                    self.allClubs.append(String(describing: document.get("name")!))
+                    if document.get("name") != nil{
+                        self.allClubs.append(String(describing: document.get("name")!))
+                    }
                 }
                 var newClubsEnrolled = [String]()
                 for i in (0..<self.enrolledItems.count){
