@@ -90,14 +90,20 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
         
         
         
-        self.db.collection("clubs").getDocuments(){ (querySnapshot, err) in
-            print("############################################################club categories count == 1")
+        self.db.collection("clubs").getDocuments(){ (querySnapshot, error) in
             for document in querySnapshot!.documents{
-                let categories = document.data()["categories"]! as! [String]
-                let main = categories[0]
-                print("\(String(describing: document.get("name")!)) --> \(main) --> qualifies: \(String(describing: document.get("name")!) != self.ClubName && main == self.clubCategories[0])")
-                if String(describing: document.get("name")!) != self.ClubName && main == self.clubCategories[0]{
-                    self.narrowingClubsName.append(String(describing: document.get("name")!))
+                if document != nil {
+                    if (document.get("name") != nil){
+                        let categories2 = document["categories"] as? Array ?? [""]
+                        let main = categories2[0]
+                        print(document.get("name"))
+                        print(main)
+                        print(self.ClubName)
+                        print(self.clubCategories[0])
+                        if String(describing: document.get("name")!) != self.ClubName && main == self.clubCategories[0]{
+                            self.narrowingClubsName.append(String(describing: document.get("name")!))
+                        }
+                    }
                 }
             }
             print()
