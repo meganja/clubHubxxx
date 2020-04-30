@@ -35,12 +35,19 @@ class ViewControllerClubMatchmaker: UIViewController {
     var daysTags = [Int]()
     @IBAction func answerClicked(_ sender: UIButton){ //changes button display-- shows which answer has been selected, greys out other answers, etc.
         print("here! button tag is \(sender.tag)")
+        
         if sender.tag >= 1 && sender.tag <= 4{ //first question
             for i in 1...4{
                 if(i != sender.tag){
                     sender.alpha = 0
+                    if(!selectedTags.contains(sender.tag)){
+                        selectedTags.append(sender.tag)
+                    }
                     if let button = self.view.viewWithTag(i) as? UIButton{
                         button.alpha = 0.5
+                        if(selectedTags.contains(i)){
+                            selectedTags = selectedTags.filter {$0 != i}
+                        }
                     }
                 }
             }
@@ -49,8 +56,14 @@ class ViewControllerClubMatchmaker: UIViewController {
             for i in 5...13{
                 if(i != sender.tag){
                     sender.alpha = 0
+                    if(!selectedTags.contains(sender.tag)){
+                        selectedTags.append(sender.tag)
+                    }
                     if let button = self.view.viewWithTag(i) as? UIButton{
                         button.alpha = 0.5
+                        if(selectedTags.contains(i)){
+                            selectedTags = selectedTags.filter {$0 != i}
+                        }
                     }
                 }
             }
@@ -59,8 +72,14 @@ class ViewControllerClubMatchmaker: UIViewController {
             for i in 14...16{
                 if(i != sender.tag){
                     sender.alpha = 0
+                    if(!selectedTags.contains(sender.tag)){
+                        selectedTags.append(sender.tag)
+                    }
                     if let button = self.view.viewWithTag(i) as? UIButton{
                         button.alpha = 0.5
+                        if(selectedTags.contains(i)){
+                            selectedTags = selectedTags.filter {$0 != i}
+                        }
                     }
                 }
             }
@@ -69,8 +88,14 @@ class ViewControllerClubMatchmaker: UIViewController {
             for i in 17...19{
                 if(i != sender.tag){
                     sender.alpha = 0
+                    if(!selectedTags.contains(sender.tag)){
+                        selectedTags.append(sender.tag)
+                    }
                     if let button = self.view.viewWithTag(i) as? UIButton{
                         button.alpha = 0.5
+                        if(selectedTags.contains(i)){
+                            selectedTags = selectedTags.filter {$0 != i}
+                        }
                     }
                 }
             }
@@ -79,8 +104,14 @@ class ViewControllerClubMatchmaker: UIViewController {
             for i in 20...21{
                 if(i != sender.tag){
                     sender.alpha = 0
+                    if(!selectedTags.contains(sender.tag)){
+                        selectedTags.append(sender.tag)
+                    }
                     if let button = self.view.viewWithTag(i) as? UIButton{
                         button.alpha = 0.5
+                        if(selectedTags.contains(i)){
+                            selectedTags = selectedTags.filter {$0 != i}
+                        }
                     }
                 }
             }
@@ -95,18 +126,30 @@ class ViewControllerClubMatchmaker: UIViewController {
                 for i in 22...26{
                     if(i != sender.tag && daysTags.count == 1){
                         sender.alpha = 0.1
+                        if(!selectedTags.contains(sender.tag)){
+                            selectedTags.append(sender.tag)
+                        }
                         if let button = self.view.viewWithTag(i) as? UIButton{
                             button.alpha = 0.3
+                            if(selectedTags.contains(i)){
+                                selectedTags = selectedTags.filter {$0 != i}
+                            }
                         }
                     }
                     else if(i != sender.tag && i != daysTags[0] && daysTags.count == 2){
                         for j in 0..<daysTags.count{
                             if let button = self.view.viewWithTag(daysTags[j]) as? UIButton{
                                 button.alpha = 0.011
+                                if(!selectedTags.contains(daysTags[j])){
+                                    selectedTags.append(daysTags[j])
+                                }
                             }
                         }
                         if let button = self.view.viewWithTag(i) as? UIButton{
                             button.alpha = 0.5
+                            if(selectedTags.contains(i)){
+                                selectedTags = selectedTags.filter {$0 != i}
+                            }
                         }
                     }
                 }
@@ -115,18 +158,30 @@ class ViewControllerClubMatchmaker: UIViewController {
                 print("second if-- deselecting old answer after two have been selected")
                 
                 if(sender.tag == daysTags[0]){ //deselect clicked button/remove from array
+                    if(selectedTags.contains(daysTags[0])){
+                        selectedTags = selectedTags.filter {$0 != daysTags[0]}
+                    }
                     daysTags.remove(at: 0)
                 }
                 else if(sender.tag == daysTags[1]){
+                    if(selectedTags.contains(daysTags[1])){
+                        selectedTags = selectedTags.filter {$0 != daysTags[1]}
+                    }
                     daysTags.remove(at: 1)
                 }
                 for i in 22...26{
                     if let button = self.view.viewWithTag(i) as? UIButton{
                         button.alpha = 0.3
+                        if(selectedTags.contains(i)){
+                            selectedTags = selectedTags.filter {$0 != i}
+                        }
                     }
                     for k in 0..<daysTags.count{
                         if let button = self.view.viewWithTag(daysTags[k]) as? UIButton{
                             button.alpha = 0.1
+                            if(!selectedTags.contains(daysTags[k])){
+                                selectedTags.append(daysTags[k])
+                            }
                         }
                     }
                 }
@@ -134,10 +189,16 @@ class ViewControllerClubMatchmaker: UIViewController {
             }
             else if(daysTags.count == 1 && sender.tag == daysTags[0]){ //user is trying to deselect after only selecting one answer so far
                 print("third if-- deselecting old answer after only selecting one answer")
+                if(selectedTags.contains(daysTags[0])){
+                    selectedTags = selectedTags.filter {$0 != daysTags[0]}
+                }
                 daysTags.remove(at: 0)
                 for i in 22...26{
                     if let button = self.view.viewWithTag(i) as? UIButton{
                         button.alpha = 0.1
+                        if(selectedTags.contains(i)){
+                            selectedTags = selectedTags.filter {$0 != i}
+                        }
                     }
                 }
             }
@@ -146,8 +207,14 @@ class ViewControllerClubMatchmaker: UIViewController {
             for i in 27...29{
                 if(i != sender.tag){
                     sender.alpha = 0
+                    if(!selectedTags.contains(sender.tag)){
+                        selectedTags.append(sender.tag)
+                    }
                     if let button = self.view.viewWithTag(i) as? UIButton{
                         button.alpha = 0.5
+                        if(selectedTags.contains(i)){
+                            selectedTags = selectedTags.filter {$0 != i}
+                        }
                     }
                 }
             }
@@ -156,8 +223,14 @@ class ViewControllerClubMatchmaker: UIViewController {
             for i in 30...32{
                 if(i != sender.tag){
                     sender.alpha = 0
+                    if(!selectedTags.contains(sender.tag)){
+                        selectedTags.append(sender.tag)
+                    }
                     if let button = self.view.viewWithTag(i) as? UIButton{
                         button.alpha = 0.5
+                        if(selectedTags.contains(i)){
+                            selectedTags = selectedTags.filter {$0 != i}
+                        }
                     }
                 }
             }
@@ -166,8 +239,14 @@ class ViewControllerClubMatchmaker: UIViewController {
             for i in 33...36{
                 if(i != sender.tag){
                     sender.alpha = 0
+                    if(!selectedTags.contains(sender.tag)){
+                        selectedTags.append(sender.tag)
+                    }
                     if let button = self.view.viewWithTag(i) as? UIButton{
                         button.alpha = 0.5
+                        if(selectedTags.contains(i)){
+                            selectedTags = selectedTags.filter {$0 != i}
+                        }
                     }
                 }
             }
@@ -176,8 +255,14 @@ class ViewControllerClubMatchmaker: UIViewController {
             for i in 37...43{
                 if(i != sender.tag){
                     sender.alpha = 0
+                    if(!selectedTags.contains(sender.tag)){
+                        selectedTags.append(sender.tag)
+                    }
                     if let button = self.view.viewWithTag(i) as? UIButton{
                         button.alpha = 0.5
+                        if(selectedTags.contains(i)){
+                            selectedTags = selectedTags.filter {$0 != i}
+                        }
                     }
                 }
             }
@@ -186,8 +271,14 @@ class ViewControllerClubMatchmaker: UIViewController {
             for i in 44...47{
                 if(i != sender.tag){
                     sender.alpha = 0
+                    if(!selectedTags.contains(sender.tag)){
+                        selectedTags.append(sender.tag)
+                    }
                     if let button = self.view.viewWithTag(i) as? UIButton{
                         button.alpha = 0.5
+                        if(selectedTags.contains(i)){
+                            selectedTags = selectedTags.filter {$0 != i}
+                        }
                     }
                 }
             }
@@ -196,18 +287,18 @@ class ViewControllerClubMatchmaker: UIViewController {
     
     var selectedTags = [Int]()
     @IBAction func done(){
-        selectedTags.removeAll()
-        
-        for i in 1...47{
-            if let button = self.view.viewWithTag(i) as? UIButton{
-                if(button.alpha < 0.3){ //selected
-                    selectedTags.append(i)
-                }
-                if(i >= 22 && i <= 26){
-                    print("BUTTON \(i) ALPHA IS \(button.alpha)")
-                }
-            }
-        }
+        //        selectedTags.removeAll()
+        //
+        //        for i in 1...47{
+        //            if let button = self.view.viewWithTag(i) as? UIButton{
+        //                if(button.alpha < 0.3){ //selected
+        //                    selectedTags.append(i)
+        //                }
+        //                if(i >= 22 && i <= 26){
+        //                    print("BUTTON \(i) ALPHA IS \(button.alpha)")
+        //                }
+        //            }
+        //        }
         print("NUM SELECTED: \(selectedTags.count)")
         print("TAGS SELECTED: \(selectedTags)")
         if(selectedTags.count < 12){
