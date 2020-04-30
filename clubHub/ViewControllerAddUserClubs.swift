@@ -27,10 +27,12 @@ class ViewControllerAddUserClubs: UIViewController, UICollectionViewDataSource, 
         print(viewer)
         db.collection("clubs").getDocuments(){ (querySnapshot, err) in
             for document in querySnapshot!.documents{
-                let temp = "\(String(describing: document.get("name")!))"
-                print(temp)
-                self.items.append(temp)
-                self.selectedItems.append("0")
+                if document.get("name") != nil{
+                    let temp = "\(String(describing: document.get("name")!))"
+                    print(temp)
+                    self.items.append(temp)
+                    self.selectedItems.append("0")
+                }
             }
             print("selected Items1")
             print(self.selectedItems)

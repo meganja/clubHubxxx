@@ -54,6 +54,15 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             
             clubsTitleLbl.text = "Sponsored Clubs:"
         }
+        if viewer == "student"{
+            self.collectionWishlist.isHidden = false
+            self.collectionSavedMatches.isHidden = false
+            matchesLabel.isHidden = false
+            clubsWishlistLabel.isHidden = false
+            addWishlistClubsLbl.isHidden = false
+            
+        }
+        clubsTitleLbl.isHidden = false
         print("******************************* uid\(uid)")
         let userRef = db.collection("users").document(uid)
         userRef.getDocument { (document, error) in
@@ -118,7 +127,9 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
             let clubsRef = db.collection("clubs")
             clubsRef.getDocuments { (querySnapshot, error) in
                 for document in querySnapshot!.documents{
-                    self.allClubs.append(String(describing: document.get("name")!))
+                    if document.get("name") != nil{
+                        self.allClubs.append(String(describing: document.get("name")!))
+                    }
                 }
                 var newClubsEnrolled = [String]()
                 for i in (0..<self.enrolledItems.count){

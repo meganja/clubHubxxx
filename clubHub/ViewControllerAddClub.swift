@@ -168,9 +168,6 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
         let clubsRef = db.collection("clubs")
         var clubName = "\(nameLabel.text!)"
         
-        
-        
-        
         let characterset = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","0","1","2","3","4","5","6","7","8","9"]
         var noSpecialChar = false
         if !nameLabel.text!.isEmpty{
@@ -184,8 +181,10 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
         }
         print("noSpecialChar = \(noSpecialChar)")
         if noSpecialChar{
+            print("CHECKING -------------------------- \(!generalDescription.text.isEmpty)")
             if (!nameLabel.text!.isEmpty &&
                 !generalDescription.text.isEmpty &&
+                generalDescription.text != "Type the club description here." &&
                 !roomNumber.text!.isEmpty &&
                 !schoologyCode.text!.isEmpty &&
                 !meetingTimes.text!.isEmpty &&
@@ -251,14 +250,26 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
                 self.present(dialogMessage, animated: true, completion: nil)
             }
         }else{
-            let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Club Name can't begin with a space or special character", preferredStyle: .alert)
-            // Create OK button with action handler
-            let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
-                print("Ok button tapped")
-                
-            })
-            dialogMessage.addAction(ok)
-            self.present(dialogMessage, animated: true, completion: nil)
+            if nameLabel.text! == ""{
+                let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Forgot the ClubName", preferredStyle: .alert)
+                // Create OK button with action handler
+                let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+                    print("Ok button tapped")
+                    
+                })
+                dialogMessage.addAction(ok)
+                self.present(dialogMessage, animated: true, completion: nil)
+            }else{
+                let dialogMessage = UIAlertController(title: "Uh-Oh", message: "Club Name can't begin with a space or special character", preferredStyle: .alert)
+                // Create OK button with action handler
+                let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+                    print("Ok button tapped")
+                    
+                })
+                dialogMessage.addAction(ok)
+                self.present(dialogMessage, animated: true, completion: nil)
+            }
+            
         }
         
         
