@@ -24,6 +24,10 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
     
     @IBOutlet weak var titleLabel: UILabel!
     
+    /*
+     Purpose: initializer
+     Post: display students enrolled (if any)
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addSearchBar()
@@ -32,7 +36,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
         var usersRef = db.collection("users")
         titleLabel.text = ("Students in \(clubName)")
         
-        
+        //retrieves user's emails who are in the club
         usersRef.whereField("myClubs", arrayContains: self.clubName).getDocuments(){ (querySnapshot, error) in
             print("got into first queury")
             for document in querySnapshot!.documents{
@@ -48,6 +52,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
         }
     }
     
+    //retrieves users name based on if their email is in the list
     func getCorrespondingName(){
         var clubsRef = db.collection("clubs")
         var usersRef = db.collection("users")
@@ -82,6 +87,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
     
     var clubPres = [String]()
     
+    //retrieves presidents of the clubs and displays a crown next to their name
     func checkCrownStatus(){
         var clubsRef = db.collection("clubs")
         var sponsorsRef = db.collection("users")
@@ -125,6 +131,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
         }
     }
     
+    //saves the presidents of the club to firebase
     func savePres(){
         print("save pres before")
         var clubsRef = db.collection("clubs")
@@ -143,6 +150,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
         
     }
     
+    //segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print("prepare1")
         savePres()
