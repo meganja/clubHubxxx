@@ -10,6 +10,9 @@ import UIKit
 import Foundation
 import Firebase
 
+/*
+ For the admin, they can add the clubs and its data
+ */
 
 class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UITextViewDelegate{
     
@@ -42,7 +45,7 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
     
     
     let reuseIdentifier = "cell"
-    let reuseIdentifier2 = "cellSponsor"
+    let reuseIdentifier2 = "cellSponsor"                        //NOT USED?????
     
     var club = ""
     var days = [String]()
@@ -53,6 +56,10 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
     var categories = [String]()
     var selectedCategories = [String]()
     
+    /*
+     Purpose: initializer.
+     Post: will set up the GUI with constraints to the number of characters typed
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
         self.generalDescription.layer.borderColor = UIColor.lightGray.cgColor
@@ -63,7 +70,7 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
        generalDescription.smartInsertDeleteType = UITextSmartInsertDeleteType.no
        generalDescription.delegate = self
        
-       generalDescription.text = "Type the club description here." //placeholder
+       generalDescription.text = "Type the club description here."
        generalDescription.textColor = UIColor.lightGray
        maxChar.text = "0 of 650 max characters"
 
@@ -170,6 +177,7 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
         
         let characterset = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","0","1","2","3","4","5","6","7","8","9"]
         var noSpecialChar = false
+        //must check no special characters as first letter, otherwise will not order list properly
         if !nameLabel.text!.isEmpty{
             var searchTerm = clubName[clubName.startIndex]
             print("Search term = \(searchTerm)")

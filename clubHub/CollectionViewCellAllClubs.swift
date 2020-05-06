@@ -8,6 +8,9 @@
 
 import UIKit
 
+/*
+ Connects to the collection view on disp clubs.
+ */
 class CollectionViewCellAllClubs: UICollectionViewCell {
     @IBOutlet weak var clubName: UILabel!
     @IBOutlet weak var clubImage: UIImageView!
