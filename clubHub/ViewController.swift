@@ -8,6 +8,9 @@
 
 import UIKit
 
+/*
+  first page that says "start browsing"
+*/
 class ViewController: UIViewController {
 
     override func viewDidLoad() {

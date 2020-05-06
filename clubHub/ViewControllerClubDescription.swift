@@ -10,7 +10,9 @@ import UIKit
 import Firebase
 import GoogleSignIn
 import MessageUI
-
+/*
+ Will display the club description here
+*/
 class ViewControllerClubDescription: UIViewController, MFMailComposeViewControllerDelegate , UICollectionViewDataSource, UICollectionViewDelegate{
     
     @IBOutlet weak var clubImgVw: UIImageView!
@@ -20,34 +22,33 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     @IBOutlet weak var meetingDays: UILabel!
     @IBOutlet weak var volunteer: UILabel!
     @IBOutlet weak var room: UILabel!
-    
-    let reuseIdentifier = "cell" // also enter this string as the cell identifier in the storyboard
-    
-    
     @IBOutlet weak var schoologyCode: UILabel!
     @IBOutlet weak var meetingTime: UILabel!
-    
     @IBOutlet weak var moreInfo: UIButton!
-    
-    
-    var recsList: [String]!
-    var priorities: [Int]!
     @IBOutlet weak var name1: UILabel!
     @IBOutlet weak var email1: UIButton!
     @IBOutlet weak var name2: UILabel!
     @IBOutlet weak var email2: UIButton!
     @IBOutlet weak var name3: UILabel!
     @IBOutlet weak var email3: UIButton!
-    
     @IBOutlet weak var youMayAlsoLikeLabel: UILabel!
+    @IBOutlet weak var collectionAlsoLike: UICollectionView!
+    @IBOutlet weak var stuListBtn2State: UIButton!
+    @IBOutlet weak var stuListBtn1State: UIButton!
+    
+    let reuseIdentifier = "cell"                        //For collectionview "you may also like"
+    let db = Firestore.firestore()
+    
+    var recsList: [String]!                             //List of similar clubs to the one the user is viewing
+    var priorities: [Int]!
+    
     var ClubName = ""
     var meetings = ""
     var volunteerOp = ""
     var viewer = ""
     var senderPage = ""
-    let db = Firestore.firestore()
-    var rememberFilters = [String]()
-    
+
+    var rememberFilters = [String]()                    //If the user came from the dispClub page, it will remember the filters the user initially chose
     var sponsorsName = [String]()
     var sponsorsEmail = [String]()
     
@@ -57,13 +58,10 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     var num = 0
     let email = ""
     let name = ""
-    var previousClub = ""
+    var previousClub = ""                               //NOT USED?????
+    var realViewer = ""                                 //used to see who is viewing the page.  Depending on viewer, they will see different things.
     
-    @IBOutlet weak var collectionAlsoLike: UICollectionView!
-    
-    var realViewer = ""
-    
-    let dispCountMax = 5
+    let dispCountMax = 5                                //how many similar clubs want to display
     
     var clubCategories = [String]()
     var simClubTime = ""//AM-PM
@@ -74,53 +72,27 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     
     var sponsorUID = ""
     
-    @IBOutlet weak var stuListBtn2State: UIButton!
-    @IBOutlet weak var stuListBtn1State: UIButton!
-    
-    
+    //MARK: -Finds similar clubs
+    /*
+     Purpose: to find similar clubs by looking at the main category.
+     Pre: array of the club categories.
+     Post: Will either display the results (if less than dispCountMax), or if there is too much, it will narrow down the results.
+     */
     func narrowSimClubs(){
-        print()
-        print()
-        print("club name = \(self.ClubName)")
-        print("club's categories = \(self.clubCategories)")
-        print()
-        print()
-        print("going into you may also like function")
-        print("the club you selected's categories = \(self.clubCategories)")
-        
-        
-        
         self.db.collection("clubs").getDocuments(){ (querySnapshot, error) in
             for document in querySnapshot!.documents{
                 if document != nil {
                     if (document.get("name") != nil){
                         let categories2 = document["categories"] as? Array ?? [""]
                         let main = categories2[0]
-                        print(document.get("name"))
-                        print(main)
-                        print(self.ClubName)
-                        print(self.clubCategories[0])
                         if String(describing: document.get("name")!) != self.ClubName && main == self.clubCategories[0]{
                             self.narrowingClubsName.append(String(describing: document.get("name")!))
                         }
                     }
                 }
             }
-            print()
-            print()
-            print()
-            print()
-            print("narrowing clubs by 1 category \(self.narrowingClubsName)")
-            print()
-            print()
-            print()
-            print()
-            print("self.narrowingClubsName.count > 0 \(self.narrowingClubsName.count > 0)")
             if (self.narrowingClubsName.count > 0){
-                print("")
-                print("narrowing clubs by 1 category \(self.narrowingClubsName)")
-                print("self.clubCategories.count == 1 \(self.clubCategories.count == 1)")
-                print("self.narrowingClubsName.count < self.dispCountMax + 1 \(self.narrowingClubsName.count < self.dispCountMax + 1)")
+                //checking if too many similar clubs or too little
                 if self.narrowingClubsName.count <= self.dispCountMax{
                     DispatchQueue.main.async {
                         self.collectionAlsoLike.reloadData()
@@ -135,94 +107,56 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 
                 
             }
-            print("???????????????????????????????????????????????????????????sim clubs list based on main category \(self.narrowingClubsName)")
         }
-        
-        
-            
-
-        
-        
-        
     }
     
+    /*
+     Purpose: will check the clubs the computer initially found and eliminate the clubs that do not share the main category, or the first sub category listed.
+     Pre: The array that contains teh clubs that match the main category.
+     Post: either display a list of the similar clubs (if less dispCountMax), or will keep finding similar clubs
+     */
     func narrowByMultCategories(){
-        print()
-        print()
-        print()
-        print("clubcategories count \(self.clubCategories.count)")
         if (self.clubCategories.count > 1){
-            
             self.db.collection("clubs").whereField("categories", arrayContainsAny: [self.clubCategories[0], self.clubCategories[1]]).getDocuments(){ (querySnapshot, err) in
-                print("############################################################club categories count == 2")
                 var tempArr = [String]()
                 for document in querySnapshot!.documents{
                     let categories = document.data()["categories"]! as! [String]
-                    print("name: \(String(describing: document.get("name")!)) --> categories: \(categories)")
-                    
-                    
+                    //must check if already in the array that the computer narrowed down too
                         if categories.contains(self.clubCategories[0]) && categories.contains(self.clubCategories[1]) {
-                            print("name: \(String(describing: document.get("name")!)) --> categories: \(categories) --> containsBoth: true")
-                            
-                                print("\(String(describing: document.get("name")!)) --> \(categories) --> in array \(self.narrowingClubsName.contains(String(describing: document.get("name")!)))")
                                 if self.narrowingClubsName.contains(String(describing: document.get("name")!)){
                                     tempArr.append(String(describing: document.get("name")!))
                                 }
                         }
-                    
-                    
                 }
-                print()
-                print()
-                print()
-                print()
-                print("narrowing clubs arrray = \(self.narrowingClubsName)")
-                print("tempArr by 2 categories = \(tempArr)")
-                print()
-                print()
-                print()
-                print()
                 if (tempArr.count > 0  && tempArr.count <= self.dispCountMax){
-                    print("went in if")
                         self.narrowingClubsName.removeAll()
                         self.narrowingClubsName = tempArr
                         DispatchQueue.main.async {
                             self.collectionAlsoLike.reloadData()
                         }
-                    
                 }
                 else{
-                    print("went in else")
                     self.narrowByCommit()
                 }
             }
         }
     }
     
+    /*
+     Purpose: will check the clubs the computer found and eliminate the clubs that do not share the same commitment level listed.
+     Pre: The array that contains teh clubs that match the main category and first sub category.
+     Post: will display the similar clubs.
+     */
     func narrowByCommit(){
         self.db.collection("clubs").whereField("commit", isEqualTo: self.simCommitment).getDocuments(){ (querySnapshot, err) in
-            print("going in to comparing commitment")
-            print("the club we selected's commitment level = \(self.simCommitment)")
             var tempArr = [String]()
             for document in querySnapshot!.documents{
                 let commit = (String(describing: document.get("commit")!))
-                print("\(String(describing: document.get("name")!)) --> \(commit) --> in array \(self.narrowingClubsName.contains(String(describing: document.get("name")!)))")
                 if self.narrowingClubsName.contains(String(describing: document.get("name")!)){
                     tempArr.append(String(describing: document.get("name")!))
                 }
             }
-            print()
-            print()
-            print()
-            print()
-            print("narrowing clubs arrray = \(self.narrowingClubsName)")
-            print("tempArr by commitment = \(tempArr)")
-            print()
-            print()
-            print()
-            print()
             if (tempArr.count > 0 && tempArr.count < self.dispCountMax + 1){
-                print("HERE")
                 
                     self.narrowingClubsName.removeAll()
                     self.narrowingClubsName = tempArr
@@ -232,7 +166,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                
                 
             }else if tempArr.count > 0 && tempArr.count > self.dispCountMax{
-                print("ELSEEEEE")
+                //if still too much, randomly take out clubs out of the array until the there are dispMaxCount clubs displaying
                 let count = tempArr.count
                 for i in (0..<(count - self.dispCountMax)){
                     let randomInt = Int.random(in: 0..<tempArr.count)
@@ -240,18 +174,16 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 }
                 self.narrowingClubsName.removeAll()
                 self.narrowingClubsName = tempArr
-                print("narrow \(self.narrowingClubsName)")
                 DispatchQueue.main.async {
                     self.collectionAlsoLike.reloadData()
                 }
             }else if tempArr.count == 0{
-                print("ELSEEEEE")
+                //too little, keep the original array from the previous narrowed down array and eliminate until dispMaxCount clubs are displayed
                 let count = self.narrowingClubsName.count
                 for i in (0..<(count - self.dispCountMax)){
                     let randomInt = Int.random(in: 0..<self.narrowingClubsName.count)
                     self.narrowingClubsName.remove(at: randomInt)
                 }
-                print("narrow \(self.narrowingClubsName)")
                 DispatchQueue.main.async {
                     self.collectionAlsoLike.reloadData()
                 }
@@ -261,16 +193,17 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
         
     }
     
-    
-    
+    //MARK: -Retrieves all info
+    /*
+     Purpose: Sets up the page.
+     Pre: type of viewer, clubName.
+     Post: will display all the info about the club along with similar clubs.
+     */
     func loadData(){
-        print("rememberfilters \(rememberFilters)")
-        
         narrowingClubsName.removeAll()
         clubCategories.removeAll()
         simDays.removeAll()
-        print(narrowingClubsName)
-        
+        //admin and sponsor do not see the wishlist star or teh you may also like
         if viewer == "admin"{
             realViewer = "admin"
             wishlistState.isHidden = true
@@ -288,71 +221,42 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
             let userRef = db.collection("users").document(uid)
             userRef.getDocument { (document, error) in
                 let tempWish = document?.data()!["wishlist"]! as![Any]
-                print("temp wish")
-                print(tempWish)
                 var inWishlist = false
                 for i in 0..<tempWish.count{
                     if (tempWish[i] as! String == self.ClubName){
                         inWishlist = true
                     }
                 }
-                
+                //need to check the wishlist status to reflect previous actions correctly
                 if(inWishlist){
-                     print("should be clicked")
                     self.clicks = 1
                     let image = UIImage(named: "starIconClicked-2")
                     self.wishlistState.setImage(image, for: .normal)
                 }
                 else{
-                    print("should be not clicked")
                     self.clicks = 0
                     let image = UIImage(named: "starIconNotClicked")
                     self.wishlistState.setImage(image, for: .normal)
                 }
             }
         }
-        print(uid)
-        print("")
-        print()
-        print()
-        print("in new view controller")
-        print("viewer")
-        print(viewer)
-        print(self.ClubName)
-        print(self.statement)
-        print("You selected cell #\(self.num)!")
-        print("in")
         self.clubName.text = self.ClubName
-        
-        
-        
-        print("done")
-        print()
-        print()
-        print()
-        
+        //start retrieving all the info
         self.db.collection("clubs").whereField("name", isEqualTo: self.ClubName).getDocuments(){ (querySnapshot, err) in
             
             for document in querySnapshot!.documents{
-                
-                
                 let docID = document.documentID
                 let ref = Storage.storage().reference()
-                print("club: \(docID)")
                 let imgRef = ref.child("images/\(docID).png")
                 imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
                     if let error = error {
-                        print(error)
                     } else {
-                        // Data for "images/island.jpg" is returned
                         let imageDownloaded = UIImage(data: data!)
                         self.clubImgVw.image = imageDownloaded
                     }
                 }
                 
                 self.clubCategories = document.data()["categories"]! as! [String]
-                print("printing club categories")
-                print(self.clubCategories)
                 self.simClubTime = String(describing: document.get("AM-PM")!)
                 self.simCommitment = String(describing: document.get("commit")!)
                 self.simVolunteer = String(describing: document.get("volunteer")!)
@@ -379,8 +283,6 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 if document.get("days") != nil{
                     let daysInfo = document.data()["days"]! as! [String]
                     self.simDays = daysInfo
-                    print(daysInfo)
-                    print(daysInfo.count)
                     var dayString = ""
                     for i in 0..<daysInfo.count{
                         if(daysInfo.count >= 3){
@@ -445,47 +347,39 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                     }
                 }
                 
+                //if it is a sponsor, will display the list of students
                 if self.viewer == "sponsor"{
-                    print("here")
                     self.db.collection("users").whereField("myClubs", arrayContains: "\(self.ClubName)").getDocuments(){ (querySnapshot, err) in
-                        print("here2")
                         for document in querySnapshot!.documents{
-                            print("here3")
                             if self.viewer == "sponsor" && document.documentID == self.sponsorUID{
                                 self.stuListBtn2State.isHidden = false
                                 self.stuListBtn1State.isHidden = false
                             }
-                            
                         }
                     }
                 }
-                print()
-                print()
                 if self.viewer == "student"{
-                    print("Finding sim clubs....")
                     self.narrowSimClubs()
                 }
-                print()
-                print()
-                print()
             }
         }
-        print()
-        print()
         
     }
     
+    /*
+     Purpose: the initializer.
+     Pre: clubName
+     Post: loads data
+     */
+    //MARK: -Override
     override func viewDidLoad() {
         super.viewDidLoad()
         clubsViewed.append(ClubName)
         loadData()
-        
-        
     }
     
-    //MARK: -Link
+    //MARK: -Link to conant page
     @IBAction func openConantLink(_ sender: Any) {
-        print("clicked me")
         if let url = NSURL(string: conantLink){
             UIApplication.shared.openURL(url as URL)
         }
@@ -527,12 +421,9 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     }
     
     
-    //MARK: -Segue
+    //MARK: -Segues and buttons for segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("is profile clicked? \(profileClicked)")
         if browseClicked{
-            print("going back")
-            print("real viewer = \(realViewer)")
             var vc = segue.destination as! ViewControllerDispClubs
             vc.viewer = self.realViewer
             vc.filtersOnBeforeSearch = self.rememberFilters
@@ -613,9 +504,10 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
         
     }
     
+    //MARK: -Back Button
+    
+    //The back button checks what the previous page was
     @IBAction func backButtonClicked(_ sender: Any) {
-        print("BACK CLICKED THIS IS THE SENDER: (SHOULD BE PROFILE, BROWSE, MATCHES, OR NOTIF)-- \(senderPage)")
-        
         if clubsViewed.count > 1{
             clubsViewed.remove(at: clubsViewed.count - 1)
             ClubName = clubsViewed[clubsViewed.count - 1]
@@ -641,23 +533,16 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
         
     }
     
-    // MARK: - UICollectionViewDataSource protocol
+    // MARK: - UICollectionView
     
     // tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("collection  askfjdlksa fioioDF   \(self.narrowingClubsName)")
-        print(self.narrowingClubsName.count)
         return self.narrowingClubsName.count
     }
     
     // make a cell for each cell index path
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        
-        print("second func")
-        print("index path \(indexPath)")
-        print("index path row \(indexPath.row)")
-        // get a reference to our storyboard cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! CollectionViewCellAlsoLike
         
         
@@ -670,7 +555,6 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
         cell.backgroundColor = UIColor.white // make cell more visible in our example project
         cell.layer.borderColor = UIColor(red: 0.83, green: 0.12, blue: 0.2, alpha: 1.0).cgColor
         cell.layer.borderWidth = 1
-        //cell.sizeThatFits(width: 250, height: 150)
         
         
         self.db.collection("clubs").whereField("name", isEqualTo: cell.clubName.text! ).getDocuments(){ (querySnapshot, err) in
@@ -679,13 +563,11 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 
                 let docID = document.documentID
                 let ref = Storage.storage().reference()
-                print("club: \(docID)")
                 let imgRef = ref.child("images/\(docID).png")
                 imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
                     if let error = error {
                         cell.clubImage.image = UIImage(named: "chs-cougar-mascot")
                     } else {
-                        // Data for "images/island.jpg" is returned
                         let imageDownloaded = UIImage(data: data!)
                         cell.clubImage.image = imageDownloaded
                     }
@@ -696,13 +578,12 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
         return cell
     }
     
-    // MARK: - UICollectionViewDelegate protocol
+    
     var clickedOn = 0
     var clubsViewed = [String]()
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // handle tap events
+        // handle tap events in collectionview
         self.clickedOn = indexPath.item
-        print("You selected cell #\(indexPath.item)!")
         clubsViewed.append(narrowingClubsName[indexPath.item])
         ClubName = narrowingClubsName[indexPath.item]
         loadData()
