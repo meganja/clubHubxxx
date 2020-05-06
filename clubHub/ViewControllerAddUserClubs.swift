@@ -21,6 +21,7 @@ class ViewControllerAddUserClubs: UIViewController, UICollectionViewDataSource, 
     var selectedItems = [String]()
     var pdfData = Data()
     
+    //retrievesa all the clubs so the user could add the clubs they are currently involved in
     override func viewDidLoad() {
         super.viewDidLoad()
         print("HELLO")
@@ -157,7 +158,7 @@ class ViewControllerAddUserClubs: UIViewController, UICollectionViewDataSource, 
     
     
     
-    
+    // MARK: - Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print("PREPARE FOR TAKEOFF")
         if done{
@@ -171,7 +172,7 @@ class ViewControllerAddUserClubs: UIViewController, UICollectionViewDataSource, 
             vc.cameElsewhere = true
         }
     }
-    
+    // MARK: - Update clubs user is in
     var done = false
     @IBAction func doneBtn(_ sender: Any) {
         done = true
