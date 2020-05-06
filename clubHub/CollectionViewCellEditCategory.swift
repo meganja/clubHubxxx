@@ -13,6 +13,7 @@ import UIKit
  -it is the collection view with the categories
  */
 
+
 class CollectionViewCellEditCategory: UICollectionViewCell {
     
     @IBOutlet weak var categoryName: UILabel!

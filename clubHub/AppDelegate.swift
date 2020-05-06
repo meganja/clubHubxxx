@@ -82,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             }
             // User is signed in
             
-            
+            //has to create a new user into firebase or check if it is existing
             let user = Auth.auth().currentUser
             if let user = user {
                 
@@ -97,6 +97,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 print("is it normal gmail? \(tempEmail.contains("gmail.com"))")
                 
                 if tempEmail.contains("students.d211.org"){
+                    //student
                     //checks if user has already logged in or if this is the first time
                     self.db?.collection("users").getDocuments() { (querySnapshot, err) in
                         if let err = err {
@@ -129,8 +130,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                         }
                     }
                 }
-                else if tempEmail.contains("gmail.com"){
-                    //                else if tempEmail.contains("d211.org"){
+                else if tempEmail.contains("gmail.com"){//NEED TO CHANGE IT TO ACTUAL D211 EMAIL
+                    //else if tempEmail.contains("d211.org"){
                     print("sponsor going in")
                     print("uid \(uid)")
                     self.db?.collection("users").getDocuments() { (querySnapshot, err) in
