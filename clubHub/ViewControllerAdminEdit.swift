@@ -62,6 +62,7 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
     var sponsorName = [String]()
     var sponsorEmail = [String]()
     
+    //initializer
     override func viewDidLoad() {
         super.viewDidLoad()
         
