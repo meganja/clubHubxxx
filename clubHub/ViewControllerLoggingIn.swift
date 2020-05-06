@@ -4,8 +4,7 @@
 //
 //  Created by c1843 on 2/26/20.
 //  Copyright © 2020 c1843. All rights reserved.
-// test9
-// test0
+
 
 import UIKit
 import Firebase
@@ -22,6 +21,7 @@ class ViewControllerLoggingIn: UIViewController {
     @IBOutlet weak var startBrowsingBtn: UIButton!
     @IBOutlet weak var backButton: UIButton!
     
+    //display google sign in if student or sponsor
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,7 +58,7 @@ class ViewControllerLoggingIn: UIViewController {
         print(decision)
         if (decision == "admin"){
             print("in admin")
-            
+            //must check if using correct username and password
             let docRef = db.collection("users").document("admin")
             docRef.getDocument { (document, error) in
                 if let document = document, document.exists {
@@ -121,6 +121,7 @@ class ViewControllerLoggingIn: UIViewController {
         print(fullEmail)
         print(uid)
         if decision == "student"{
+            //check contains correct ending
             if ("\(fullEmail)").contains("students.d211.org"){
                 startBrowsingBtn.isEnabled = true
                 alertLabel.text = "\(fullName), you are ready to start browsing!"
@@ -131,7 +132,7 @@ class ViewControllerLoggingIn: UIViewController {
         else if (decision == "sponsor"){
             print("view controller sponsor loggin in")
             print(fullEmail)
-            
+            //check containing correct ending
             //            if ("\(fullEmail)").contains("d211.org"){
             if ("\(fullEmail)").contains("gmail.com"){
                 print("inside if statement, contains gmail.com")
