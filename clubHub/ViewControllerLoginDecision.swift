@@ -8,8 +8,12 @@
 
 import UIKit
 
+/*
+ Establishes the type of user who is going to view the app
+ */
 class ViewControllerLoginDecision: UIViewController {
 
+    
     @IBOutlet weak var student: UIButton!
     
     var type = ""
