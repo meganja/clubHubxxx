@@ -8,6 +8,7 @@
 
 import UIKit
 
+//collection view for each notification
 class CollectionViewCellNotif: UICollectionViewCell {
     
     @IBOutlet weak var clubLogo: UIImageView!
