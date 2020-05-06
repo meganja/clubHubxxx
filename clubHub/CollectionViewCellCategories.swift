@@ -8,6 +8,7 @@
 
 import UIKit
 
+//collection view to dispay the categories
 class CollectionViewCellCategories: UICollectionViewCell {
     @IBOutlet weak var categoryName: UILabel!
 }

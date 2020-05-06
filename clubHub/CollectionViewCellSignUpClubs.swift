@@ -8,6 +8,9 @@
 
 import UIKit
 
+/*
+ Collection view when you request to sign up for clubs based on wishlist
+ */
 class CollectionViewCellSignUpClubs: UICollectionViewCell {
     
     @IBOutlet weak var clubImage: UIImageView!

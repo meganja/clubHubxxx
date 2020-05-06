@@ -8,6 +8,7 @@
 
 import UIKit
 
+//collection view to display previous results from matchmaker
 class CollectionViewCellSavedMatches: UICollectionViewCell {
     
     @IBOutlet weak var clubLogo: UIImageView!

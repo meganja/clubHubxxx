@@ -8,6 +8,9 @@
 
 import UIKit
 
+/*
+ Connects to the student roster view controller
+ */
 class CollectionViewCellStudents: UICollectionViewCell {
     @IBOutlet weak var studentName: UILabel!
     @IBOutlet weak var crownBtn: UIButton!

@@ -8,6 +8,7 @@
 
 import UIKit
 
+//displays matched results from matchmaker immeadiately after taking the quiz
 class CollectionViewCellMatchedClubs: UICollectionViewCell {
     @IBOutlet weak var ClubName: UILabel!
     @IBOutlet weak var ClubLogo: UIImageView!

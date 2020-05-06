@@ -6,7 +6,9 @@
 //  Copyright © 2020 c1843. All rights reserved.
 //
 import UIKit
-
+/*
+Displays clubs currently enrolled in
+*/
 class CollectionViewCellClubsIn: UICollectionViewCell {
     @IBOutlet weak var clubName: UILabel!
     

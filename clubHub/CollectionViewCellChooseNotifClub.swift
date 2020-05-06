@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+//collection view to chose which club a user wants to notify
 class CollectionViewCellChooseNotifClub: UICollectionViewCell {
     
     @IBOutlet weak var clubName: UILabel!

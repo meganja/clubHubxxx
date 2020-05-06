@@ -7,6 +7,7 @@
 //
 import UIKit
 
+//clubs in a student's wishlist
 class CollectionViewCellWishlist: UICollectionViewCell {
     @IBOutlet weak var clubLogo: UIImageView!
     @IBOutlet weak var clubName: UILabel!
