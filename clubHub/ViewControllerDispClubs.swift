@@ -65,7 +65,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
     var sponsorsClubsFromUser = [String]()
     var sponsorsClubsFromClubs = [String]()
    
-    
+    //checks viewer
     override func viewDidLoad() {
         noResultsFound.text = ""
         super.viewDidLoad()
@@ -80,6 +80,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         var clubsRef = db.collection("clubs")
         var sponsorsRef = db.collection("users")
         
+        //if sponsor, put the edit button on the clubs they are only involved in
         if viewer == "sponsor"{
             let user: GIDGoogleUser = GIDSignIn.sharedInstance()!.currentUser
             let fullName = user.profile.name!
@@ -108,6 +109,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         
     }
     
+    //checks teh sponsors clubs based on the clubs and if they are listed as a sponsor
     func recheckSponsor(){
         var clubsRef = db.collection("clubs")
         var sponsorsRef = db.collection("users")
@@ -133,6 +135,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         }
     }
     
+    //retrieves all clubs and displays them in alphabetical order
     func getItems(){
         print("in get items")
         items.removeAll()
@@ -703,7 +706,7 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         }
     }
     
-    // MARK: - UICollectionViewDataSource protocol
+    // MARK: - UICollectionView
     
     // tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -799,7 +802,6 @@ class ViewControllerDispClubs: UIViewController, UICollectionViewDataSource, UIC
         return cell
     }
     
-    // MARK: - UICollectionViewDelegate protocol
     var clickedOn = 0
     var statement = ""
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
