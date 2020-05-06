@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 import MessageUI
-
+//request to sign up for a club by emailing parent instructions to sign up through inifinite campus
 class ViewControllerSignUp: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, MFMailComposeViewControllerDelegate  {
     
     var viewer = ""
@@ -20,7 +20,7 @@ class ViewControllerSignUp: UIViewController, UICollectionViewDataSource, UIColl
     var items = [String]()
     var selectedItems = [String]()
     var pdfData = Data()
-    //who is viewing
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,7 +55,7 @@ class ViewControllerSignUp: UIViewController, UICollectionViewDataSource, UIColl
         
     }
     
-    // MARK: - UICollectionViewDataSource protocol
+    // MARK: - UICollectionView
     
     // tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -102,7 +102,6 @@ class ViewControllerSignUp: UIViewController, UICollectionViewDataSource, UIColl
         return cell
     }
     
-    // MARK: - UICollectionViewDelegate protocol
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // handle tap events
@@ -127,7 +126,7 @@ class ViewControllerSignUp: UIViewController, UICollectionViewDataSource, UIColl
     
     
     
-    
+    // MARK: - Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print("PREPARE FOR TAKEOFF")
         
@@ -138,7 +137,7 @@ class ViewControllerSignUp: UIViewController, UICollectionViewDataSource, UIColl
         
     }
     
-    
+    //after selecting the clubs and hitting done, the user's email will open
     @IBAction func doneBtn(_ sender: Any) {
         
         var selectedOne = false
