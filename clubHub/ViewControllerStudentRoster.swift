@@ -51,7 +51,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
     func getCorrespondingName(){
         var clubsRef = db.collection("clubs")
         var usersRef = db.collection("users")
-        usersRef.getDocuments(){ (querySnapshot, error) in
+        usersRef.whereField("accountType", isEqualTo: "student").getDocuments(){ (querySnapshot, error) in
             for document in querySnapshot!.documents{
                 if document.get("accountType") != nil{
                     if String(describing: document.get("accountType")!) == "student"{
@@ -76,8 +76,34 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
                 self.collectionStudents.reloadData()
             }
             self.checkCrownStatus()
-            
         }
+//        usersRef.getDocuments(){ (querySnapshot, error) in
+//            for document in querySnapshot!.documents{
+//                if document.get("accountType") != nil{
+//                    if String(describing: document.get("accountType")!) == "student"{
+//                        if self.correspondingEmails.contains(String(describing: document.get("email")!)){
+//                            let fullName = String(describing: document.get("name")!)
+//                            let charCount = String(describing: document.get("name")!).count
+//                            let spaceIndex = fullName.firstIndex(of: " ")
+//                            let lastName = fullName.suffix(from: spaceIndex!)
+//                            let firstName = fullName.prefix(upTo: spaceIndex!)
+//                            print(lastName)
+//                            print(firstName)
+//                            print("\(lastName), \(firstName)")
+//                            let dispName = "\(lastName), \(firstName)"
+//                            self.fullNames.append(String(describing: document.get("name")!))
+//                            self.items.append(dispName)
+//                        }
+//                    }
+//                }
+//
+//            }
+//            DispatchQueue.main.async {
+//                self.collectionStudents.reloadData()
+//            }
+//            self.checkCrownStatus()
+//
+//        }
     }
     
     var clubPres = [String]()
@@ -85,8 +111,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
     func checkCrownStatus(){
         var clubsRef = db.collection("clubs")
         var sponsorsRef = db.collection("users")
-        
-        clubsRef.getDocuments(){ (querySnapshot, error) in
+        clubsRef.whereField("name", isEqualTo: self.clubName).getDocuments(){ (querySnapshot, error) in
             for document in querySnapshot!.documents{
                 if document.get("clubPresidents") != nil {
                     if document.get("name") != nil{
@@ -105,10 +130,6 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
                             }
                         }
                         
-                        
-                    }
-                    else{
-                        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!document.documentID \(document.documentID)")
                     }
                     
                 }else{
@@ -117,12 +138,47 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
                 }
                 
             }
-            self.clubPres.removeAll()
             DispatchQueue.main.async {
                 self.collectionStudents.reloadData()
             }
-            
         }
+//        clubsRef.getDocuments(){ (querySnapshot, error) in
+//            for document in querySnapshot!.documents{
+//                if document.get("clubPresidents") != nil {
+//                    if document.get("name") != nil{
+//                        if self.clubName == (String(describing: document.get("name")!)){
+//                            self.clubUID = document.documentID
+//                            print("clubId \(self.clubUID)")
+//                            let tempPres = document.data()["clubPresidents"]! as! [String]
+//                            print("tempPres \(tempPres)")
+//                            print("items \(self.items)")
+//                            for i in (0..<self.items.count){
+//                                print(self.items[i])
+//                                print(tempPres.contains(self.correspondingEmails[i]))
+//                                if (tempPres.contains(self.correspondingEmails[i])){
+//                                    self.crownStatus[i] = "1"
+//                                }
+//                            }
+//                        }
+//
+//
+//                    }
+//                    else{
+//                        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!document.documentID \(document.documentID)")
+//                    }
+//
+//                }else{
+//                    clubsRef.document(document.documentID).setData(["clubPresidents": self.clubPres], merge: true)
+//                    print("wrote in firebase")
+//                }
+//
+//            }
+//            self.clubPres.removeAll()
+//            DispatchQueue.main.async {
+//                self.collectionStudents.reloadData()
+//            }
+//
+//        }
     }
     
     func savePres(){
@@ -134,11 +190,13 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
                 clubPres.append(correspondingEmails[i])
             }
         }
-        //if self.clubUID == "xxx"{
+        print("club UID ============================== \(self.clubUID) ")
+        print(self.clubUID != nil)
+        if self.clubUID != nil{
             print("club UID ============================== \(self.clubUID) ")
             clubsRef.document(self.clubUID).setData(["clubPresidents": self.clubPres], merge: true)
             
-        //}
+        }
         print("save pres after")
         
     }
