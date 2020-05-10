@@ -273,7 +273,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
         clubCategories.removeAll()
         simDays.removeAll()
         print(narrowingClubsName)
-        
+        print("VIEWER IN CLUB DESCRIPT \(viewer)")
         if viewer == "admin"{
             realViewer = "admin"
             wishlistState.isHidden = true
@@ -285,6 +285,8 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 wishlistState.isHidden = true
                 collectionAlsoLike.isHidden = true
             youMayAlsoLikeLabel.isHidden = true
+            self.stuListBtn2State.isHidden = false
+            self.stuListBtn1State.isHidden = false
             }
         else if viewer == "student"{
             realViewer = "student"
@@ -314,6 +316,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 }
             }
         }
+        print("Real VIEWER IN CLUB DESCRIPT \(realViewer)")
         print(uid)
         print("")
         print()
