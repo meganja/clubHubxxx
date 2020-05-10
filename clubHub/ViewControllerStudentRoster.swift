@@ -243,6 +243,7 @@ class ViewControllerStudentRoster: UIViewController, UICollectionViewDataSource,
         }else{
             cell.studentName.text = "No Enrollment"
             cell.crownBtn.isHidden = true
+            cell.emailBtn.isHidden = true
         }
         
         return cell

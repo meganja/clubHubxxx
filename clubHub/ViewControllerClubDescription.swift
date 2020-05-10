@@ -246,10 +246,13 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 }
             }else if tempArr.count == 0{
                 print("ELSEEEEE")
-                let count = self.narrowingClubsName.count
-                for i in (0..<(count - self.dispCountMax)){
-                    let randomInt = Int.random(in: 0..<self.narrowingClubsName.count)
-                    self.narrowingClubsName.remove(at: randomInt)
+                let count2 = self.narrowingClubsName.count
+                print(count2)
+                if count2 > self.dispCountMax{
+                    for i in (0..<(count2 - self.dispCountMax)){
+                        let randomInt = Int.random(in: 0..<self.narrowingClubsName.count)
+                        self.narrowingClubsName.remove(at: randomInt)
+                    }
                 }
                 print("narrow \(self.narrowingClubsName)")
                 DispatchQueue.main.async {
