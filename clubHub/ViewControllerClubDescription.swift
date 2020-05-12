@@ -269,6 +269,8 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
     func loadData(){
         print("rememberfilters \(rememberFilters)")
         
+        clubImgVw.image = UIImage(named: "chs-cougar-mascot")
+        
         narrowingClubsName.removeAll()
         clubCategories.removeAll()
         simDays.removeAll()
