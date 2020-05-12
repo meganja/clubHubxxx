@@ -222,11 +222,13 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
     // make a cell for each cell index path
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
+        
+        
         if collectionView == self.collectionClubsIn{
             // get a reference to our storyboard cell
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! CollectionViewCellClubsIn
             cell.clubName.text = ""
-            cell.clubLogo.image = nil
+            cell.clubLogo.image = UIImage(named: "chs-cougar-mascot")
             
             cell.editClubBtn.tag = indexPath.item
             cell.editClubBtn.addTarget(self, action: #selector(editClub(_:)), for: .touchUpInside)
@@ -291,7 +293,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
         else if collectionView == self.collectionWishlist{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier2, for: indexPath as IndexPath) as! CollectionViewCellWishlist 
             cell.clubName.text = ""
-            cell.clubLogo.image = nil
+            cell.clubLogo.image = UIImage(named: "chs-cougar-mascot")
             
             // Use the outlet in our custom class to get a reference to the UILabel in the cell
             if(indexPath.item == 0 && viewer == "student"){
@@ -340,7 +342,7 @@ class ViewControllerProfile: UIViewController, UICollectionViewDataSource, UICol
         else{ //saved matches
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier3, for: indexPath as IndexPath) as! CollectionViewCellSavedMatches
             cell.clubName.text = ""
-            cell.clubLogo.image = nil
+            cell.clubLogo.image = UIImage(named: "chs-cougar-mascot")
             
             // Use the outlet in our custom class to get a reference to the UILabel in the cell
             if(indexPath.item > 0 && viewer == "student"){
