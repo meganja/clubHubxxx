@@ -246,10 +246,13 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 }
             }else if tempArr.count == 0{
                 print("ELSEEEEE")
-                let count = self.narrowingClubsName.count
-                for i in (0..<(count - self.dispCountMax)){
-                    let randomInt = Int.random(in: 0..<self.narrowingClubsName.count)
-                    self.narrowingClubsName.remove(at: randomInt)
+                let count2 = self.narrowingClubsName.count
+                print(count2)
+                if count2 > self.dispCountMax{
+                    for i in (0..<(count2 - self.dispCountMax)){
+                        let randomInt = Int.random(in: 0..<self.narrowingClubsName.count)
+                        self.narrowingClubsName.remove(at: randomInt)
+                    }
                 }
                 print("narrow \(self.narrowingClubsName)")
                 DispatchQueue.main.async {
@@ -270,7 +273,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
         clubCategories.removeAll()
         simDays.removeAll()
         print(narrowingClubsName)
-        
+        print("VIEWER IN CLUB DESCRIPT \(viewer)")
         if viewer == "admin"{
             realViewer = "admin"
             wishlistState.isHidden = true
@@ -282,6 +285,8 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 wishlistState.isHidden = true
                 collectionAlsoLike.isHidden = true
             youMayAlsoLikeLabel.isHidden = true
+            self.stuListBtn2State.isHidden = false
+            self.stuListBtn1State.isHidden = false
             }
         else if viewer == "student"{
             realViewer = "student"
@@ -311,6 +316,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 }
             }
         }
+        print("Real VIEWER IN CLUB DESCRIPT \(realViewer)")
         print(uid)
         print("")
         print()
