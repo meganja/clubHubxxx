@@ -55,6 +55,7 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.addClubImgVw.image = UIImage(named: "chs-cougar-mascot")
         self.generalDescription.layer.borderColor = UIColor.lightGray.cgColor
         self.generalDescription.layer.borderWidth = 1
         self.meetingTimes.layer.borderColor = UIColor.lightGray.cgColor
@@ -280,19 +281,26 @@ class ViewControllerAddClub: UIViewController, UIImagePickerControllerDelegate, 
                 
                 let docID = document.documentID
                 
-                let ref = Storage.storage().reference()
-                print("club: \(docID)")
-                let imgRef = ref.child("images/\(docID).png")
-                if let uploadData = self.addClubImgVw.image?.pngData(){
-                    imgRef.putData(uploadData, metadata: nil) { (metadata, error) in
-                        
-                        if error != nil{
-                            print(error)
+                if(self.addClubImgVw.image == UIImage(named: "chs-cougar-mascot")){
+                    print("JUST COUGARRRRRRRRRRRR")
+                }
+                else{
+                    let ref = Storage.storage().reference()
+                    print("club: \(docID)")
+                    let imgRef = ref.child("images/\(docID).png")
+                    if let uploadData = self.addClubImgVw.image?.pngData(){
+                        imgRef.putData(uploadData, metadata: nil) { (metadata, error) in
+                            
+                            if error != nil{
+                                print(error)
+                            }
+                            print("UPLOADED IMAGE!")
+                            
                         }
-                        print("UPLOADED IMAGE!")
-                        
                     }
                 }
+                
+                
                 
                 //first, put category with identifier "2" first in array
                 var selectedOnes = [String]()

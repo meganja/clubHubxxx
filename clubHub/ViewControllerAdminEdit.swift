@@ -65,6 +65,8 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        editClubImgVw.image = UIImage(named: "chs-cougar-mascot")
+        
         genDescriptTxtFld.smartInsertDeleteType = UITextSmartInsertDeleteType.no
         genDescriptTxtFld.delegate = self
         
@@ -559,26 +561,39 @@ class ViewControllerAdminEdit: UIViewController, UIImagePickerControllerDelegate
                     
                     clubsRef.document(docID).setData(["sponsorsName": self.sponsorName, "sponsorsEmail":self.sponsorEmail, "days":self.days], merge: true)
                    
-                    
-                    let ref = Storage.storage().reference()
-                    print("club: \(docID)")
-                    let imgRef = ref.child("images/\(docID).png")
-                    if let uploadData = self.editClubImgVw.image?.pngData(){
-                        imgRef.putData(uploadData, metadata: nil) { (metadata, error) in
+                    if(self.editClubImgVw.image == UIImage(named: "chs-cougar-mascot")){
+                        print("JUST COUGARRRRRRRRRRRR")
+                        if self.cameFrom == "profile"{
+                             self.performSegue(withIdentifier: "editToSponsorProfile", sender: "done")
                             
-                            if error != nil{
-                                print(error)
-                            }
-                            if self.cameFrom == "profile"{
-                                 self.performSegue(withIdentifier: "editToSponsorProfile", sender: "done")
+                        }else{
+                            
+                            self.performSegue(withIdentifier: "backToBrowsing", sender: "done")
+                            
+                        }
+                    }
+                    else{
+                        let ref = Storage.storage().reference()
+                        print("club: \(docID)")
+                        let imgRef = ref.child("images/\(docID).png")
+                        if let uploadData = self.editClubImgVw.image?.pngData(){
+                            imgRef.putData(uploadData, metadata: nil) { (metadata, error) in
                                 
-                            }else{
-                                
-                                self.performSegue(withIdentifier: "backToBrowsing", sender: "done")
-                                
+                                if error != nil{
+                                    print(error)
+                                }
+                                if self.cameFrom == "profile"{
+                                     self.performSegue(withIdentifier: "editToSponsorProfile", sender: "done")
+                                    
+                                }else{
+                                    
+                                    self.performSegue(withIdentifier: "backToBrowsing", sender: "done")
+                                    
+                                }
                             }
                         }
                     }
+                    
                     
                     //first, put category with identifier "2" first in array
                     var selectedOnes = [String]()

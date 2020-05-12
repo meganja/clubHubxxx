@@ -349,6 +349,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 imgRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
                     if let error = error {
                         print(error)
+                        self.clubImgVw.image = UIImage(named: "chs-cougar-mascot")
                     } else {
                         // Data for "images/island.jpg" is returned
                         let imageDownloaded = UIImage(data: data!)
