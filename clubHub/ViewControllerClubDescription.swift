@@ -332,7 +332,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
         print("in")
         self.clubName.text = self.ClubName
         
-        
+        self.clubImgVw.image = UIImage(named: "chs-cougar-mascot")
         
         print("done")
         print()
@@ -384,6 +384,12 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
                 self.moreInfo.setTitle(String(describing: document.get("link")!), for: .normal)
                 self.conantLink = String(describing: document.get("link")!)
                 
+                self.name1.text = " "
+                self.email1.setTitle(" ", for: .normal)
+                self.name2.text = " "
+                self.email2.setTitle(" ", for: .normal)
+                self.name3.text = " "
+                self.email3.setTitle(" ", for: .normal)
                 
                 if document.get("days") != nil{
                     let daysInfo = document.data()["days"]! as! [String]
