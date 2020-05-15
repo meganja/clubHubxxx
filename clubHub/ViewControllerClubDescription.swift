@@ -330,7 +330,7 @@ class ViewControllerClubDescription: UIViewController, MFMailComposeViewControll
         print("in")
         self.clubName.text = self.ClubName
         
-        
+        self.clubImgVw.image = UIImage(named: "chs-cougar-mascot")
         
         print("done")
         print()
